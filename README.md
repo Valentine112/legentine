@@ -1,2 +1,2 @@
-# legentine
+# Legentine
 A reflection site
