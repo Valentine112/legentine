@@ -2,6 +2,13 @@
     <?php include "../config/config.html"; ?>
     <link rel="stylesheet" href="../config/config.css">
     <style>
+        .sidebar{
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
         .sidebar-1{
             position: absolute;
             top: 0;
@@ -12,9 +19,14 @@
         }
         .sidebar-list{
             width: 80%;
+            height: 100vh;
+            overflow-y: auto;
             margin-left: auto;
             padding-left: 10px;
             background-color: #fff;
+        }
+        .sidebar-list-1{
+            margin-bottom: 40%;
         }
         .sidebar .sidebar-items{
             font-family: var(--font-family);
