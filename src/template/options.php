@@ -10,27 +10,33 @@
             right: 0;
             background-color: rgba(0, 0, 0, 0.3);
             z-index: 2;
-            font-family: 'Roboto', sans-serif;
+            font-family: "Roboto", sans-serif;
         }
         .options-1{
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
+            background-color: rgba(0, 0, 0, 0.1);
             -webkit-backdrop-filter: blur(50px);
             backdrop-filter: blur(50px);
             border-top-left-radius: 30px;
             border-top-right-radius: 30px;
-            padding: 20px 20px 20px 20px;
+            padding: 40px 20px 30px 20px;
         }
         .options .post-info{
-            font-size: 17px;
+            font-size: 20px;
             font-weight: 500;
+            color: #fff;
             padding-bottom: 20px;
-            border-bottom: 1px solid #f5f5f5;
+            border-bottom: 1px solid #a1a1a1;
             display: flex;
             justify-content: left;
             align-items: center;
+            font-family: 'Montserrat';
+        }
+        .options .post-info div span:last-child{
+            font-size: 15px;
         }
         .options .post-info > div:first-child{
             flex-grow: 1;
@@ -50,18 +56,22 @@
             width: 20px;
         }
         .options .options-edit > div{
-            padding: 3px 0 3px 0;
+            padding: 5px 0 5px 0;
             display: flex;
             justify-content: left;
             align-items: center;
             color: #fff;
             font-weight: 600;
+            font-size: 17px;
         }
         .options .options-edit > div a{
+            height: fit-content;
             display: flex;
-            width: 95%;
+            width: 100%;
             text-decoration: none;
+            font-size: 17px;
             color: #fff;
+            padding: 14px 0 14px 0;
         }
         .options .options-edit > div > div:first-child{
             width: 15%;
@@ -79,16 +89,15 @@
         }
     </style>
 </head>
-<div>
-    <img src="../icon/color-icon/home.svg" alt="">
-</div>
-<div class="config">
+<div class="config option" id="small-options">
     <div class="options small">
         <div class="options-1">
             <div class="options-2">
                 <header class="post-info">
                     <div>
-                        <img src="../images/image.jpg" alt="">
+                        <a href="">
+                            <img src="../images/image.jpg" alt="">
+                        </a>
                     </div>
                     <div>
                         <span>Love thy</span>
@@ -117,7 +126,7 @@
                         </div>
                     </div>
 
-                    <div>
+                    <div id="post-properties">
                         <div>
                             <img src="../icon/option-icon/property.svg" alt="">
                         </div>

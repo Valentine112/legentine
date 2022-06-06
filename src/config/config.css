@@ -1,3 +1,7 @@
+:root{
+    --font-family: "SourceSansPro", sans-serif;
+    --theme: #ff465b;
+}
 .config .large{
     display: none;
 }
@@ -5,12 +9,50 @@
     display: none;
 }
 
-.config-icon-1{
+.config .config-icon-1{
     height: 25px;
     width: 25px;
     margin: auto;
     vertical-align: middle;
 }
+
+.config .config-icon-2{
+    height: 20px;
+    width: 20px;
+    margin: auto;
+    vertical-align: middle;
+}
+
+/* drop down items */
+
+.config .dropdown-item{
+    display: none;
+}
+.config .dropdown-icon{
+    height: 8px!important;
+    width: 8px!important;
+    vertical-align: middle!important;
+    transition: transform 0.3s linear;
+}
+
+/* Drop down items ends */
+
+/* Dropdown Animations Starts */
+
+.config .dropdown-host:hover > div > .dropdown-item{
+    display: block;
+}
+.config .dropdown-host:focus > div > .dropdown-item{
+    display: block;
+}
+.config .dropdown-host:hover > div > span .dropdown-icon{
+    transform: rotateZ(180deg);
+}
+.config .dropdown-host:focus > div > span .dropdown-icon{
+    transform: rotateZ(180deg);
+}
+
+/* Dropdown Animation Ends */
 
 @media screen and (max-width:767px) {
     .config .small{
@@ -19,7 +61,7 @@
 }
 
 @media screen and (min-width: 600px) and (max-width: 767px) {
-    .config-icon-1{
+    .config .config-icon-1{
         height: 28px;
         width: 28px;
     }
