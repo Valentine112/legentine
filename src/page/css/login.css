@@ -1,0 +1,129 @@
+.login-2{
+    margin-top: 100px;
+}
+.login-2 > div:first-child h2{
+    font-size: 38px;
+    font-family: "Fredericka", sans-serif;
+    color: var(--theme-color);
+
+    text-align: center;
+}
+.login-2 .form-holder{
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+.login-2 .form-holder .form{
+    width: 90%;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+.form-holder input[class="form"]{
+    border: 0;
+    border-radius: 0;
+    border-bottom: 2px solid #f1f1f1;
+    font-family: var(--theme-font);
+    outline: 0;
+    margin: 10px 0 10px 0;
+    padding: 12px 3px 12px 3px;
+}
+.form-holder button{
+    margin-top: 18px;
+    padding: 14px 3px 14px 3px;
+    border: 0;
+    border-radius: 0;
+    background-color: var(--theme-color);
+    color: #fff;
+    font-family: var(--theme-font);
+}
+
+/* Remember me */
+
+.form-save{
+    width: 90%;
+    margin: auto;
+    margin-top: 28px;
+}
+.form-save .label-check{
+    position: relative;
+}
+.form-save .switch{
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    width: 35px;
+    height: 10px;
+    border: 3px solid transparent;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-radius: 30px;
+    background-color: silver;
+}
+.form-save .slider{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 13px;
+    width: 13px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 50px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.form-save #save-details-id{
+    display: none;
+}
+.form-save #save-details-id:checked + .switch{
+    background-color: dodgerblue;
+    border: 3px solid lightskyblue;
+    border-top: 4px solid lightskyblue;
+    border-bottom: 4px solid lightskyblue;
+}
+.form-save #save-details-id:checked + .switch .slider{
+    transform: translateX(20px);
+}
+.form-save .save-notice{
+    font-size: 15px;
+    color:#000;
+    font-family: var(--theme-font);
+}
+
+/* Remember me ends */
+
+/* Links */
+
+.form-link{
+    width: 90%;
+    margin: auto;
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.form-link > div a{
+    color: dodgerblue;
+    text-decoration: none;
+    font-family: var(--theme-font);
+}
+
+/* Links end */
+
+/* Explore */
+
+.explore{
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+}
+.explore button{
+    width: 100%;
+    padding: 14px 3px 14px 3px;
+    border: 0;
+    border-radius: 0;
+    background-color: #f5f5f5;
+    color: var(--theme-color);
+    font-family: var(--theme-font);
+    font-size: 16px;
+}

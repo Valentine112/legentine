@@ -1,6 +1,6 @@
 :root{
-    --font-family: "SourceSansPro", sans-serif;
-    --theme: #ff465b;
+    --theme-font: "SourceSansPro", sans-serif;
+    --theme-color: #ff465b;
 }
 .config .large{
     display: none;

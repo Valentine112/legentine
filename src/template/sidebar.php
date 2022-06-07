@@ -36,7 +36,7 @@
             margin-bottom: 40%;
         }
         .sidebar .sidebar-items{
-            font-family: var(--font-family);
+            font-family: var(--theme-font);
         }
         .sidebar .sidebar-items header{
             color: grey;
