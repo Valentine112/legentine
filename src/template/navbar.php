@@ -31,7 +31,7 @@
         .navbar .large a, .navbar .large span{
             text-decoration: none;
             color: #1e1f22;
-            font-family: var(--font-family);
+            font-family: var(--theme-font);
             transition: font-size 0.3s linear;
         }
         .navbar .large  div div a span:hover, .navbar .large  div div > span:hover{
@@ -90,7 +90,7 @@
                 background-color: #f5f5f5;
                 border: 2px solid #f1f1f1;
                 border-radius: 0px;
-                font-family: var(--font-family);
+                font-family: var(--theme-font);
             }
             .navbar .large .section-2 input[type="search"]:focus{
                 outline: 2px solid #f1f1f1;
@@ -120,7 +120,7 @@
             .large #more #more-drop header{
                 padding: 0 0 5px 0;
                 color: grey;
-                font-family: var(--font-family);
+                font-family: var(--theme-font);
             }
             .large #more #more-drop hr{
                 width: 100%;
@@ -137,7 +137,7 @@
                 list-style: none;
                 text-align: left;
                 padding: 7px 0 7px 0;
-                font-family: var(--font-family);
+                font-family: var(--theme-font);
                 font-size: 14px;
                 font-weight: 400;
                 cursor: pointer;

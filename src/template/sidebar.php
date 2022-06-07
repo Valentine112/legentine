@@ -33,7 +33,7 @@
             transition: right 0.3s ease-in-out;
         }
         .sidebar .sidebar-items{
-            font-family: var(--font-family);
+            font-family: var(--theme-font);
         }
         .sidebar .sidebar-items header{
             color: grey;
