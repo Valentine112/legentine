@@ -32,6 +32,9 @@
             overflow-y: auto;
             transition: right 0.3s ease-in-out;
         }
+        .sidebar-list-1{
+            margin-bottom: 40%;
+        }
         .sidebar .sidebar-items{
             font-family: var(--theme-font);
         }

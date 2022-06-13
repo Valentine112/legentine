@@ -1,0 +1,69 @@
+.login-2{
+    margin-top: 30px!important;
+}
+.login-2 > div:first-child{
+    width: 90%;
+    margin: auto;
+}
+.login-2 > div:first-child h2{
+    font-family: 'montserrat', sans-serif;
+    text-align: left;
+}
+.login-2 .form-holder{
+    text-align: left;
+    width: 90%;
+}
+.login-2 .form-holder .form{
+    width: 85%;
+    padding-left: 10px;
+}
+.form-holder form .password-div{
+    border-bottom: 2px solid #f1f1f1;
+    width: 85%;
+    margin: 10px 0 10px 0;
+    text-align: left;
+}
+.form-holder form .password-div .form{
+    width: 85%;
+    margin: 0;
+    border: 0;
+    padding-left: 10px;
+}
+.form-holder form .password-div span{
+    font-family: var(--theme-font);
+}
+.form-holder form > div:last-child{
+    margin-top: 30px;
+    text-align: center!important;
+}
+.form-holder button{
+    width: 50%!important;
+    padding: 10px 3px 10px 3px;
+    border-radius: 5px;
+    margin: auto;
+}
+
+.form-link{
+    display: block;
+    text-align: center;
+}
+.form-link > div a{
+    display: block;
+    width: 50%;
+    margin: auto;
+    background-color: snow;
+    color: var(--theme-color)!important;
+    padding: 10px 3px 10px 3px;
+    border-radius: 5px;
+    border: 1px solid var(--theme-color);
+}
+
+.terms{
+    width: 90%;
+    margin: auto;
+    margin-top: 50px;
+    text-align: center;
+    font-family: var(--theme-font);
+    font-weight: lighter;
+    font-size: 14px;
+}
