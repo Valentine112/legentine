@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="config signup">
-    <div class="login-1">
+        <div class="login-1">
             <div class="login-2">
                 <div>
                     <h2>Register</h2>

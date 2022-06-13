@@ -9,47 +9,38 @@
     font-family: 'montserrat', sans-serif;
     text-align: left;
 }
+.login-2 .form-holder{
+    text-align: left;
+    width: 90%;
+}
+.login-2 .form-holder .form{
+    width: 85%;
+    padding-left: 10px;
+}
 .form-holder form .password-div{
     border-bottom: 2px solid #f1f1f1;
-    width: 90%;
-    margin: auto;
-    margin: 10px auto 10px auto;
+    width: 85%;
+    margin: 10px 0 10px 0;
     text-align: left;
 }
 .form-holder form .password-div .form{
     width: 85%;
     margin: 0;
     border: 0;
+    padding-left: 10px;
 }
 .form-holder form .password-div span{
     font-family: var(--theme-font);
+}
+.form-holder form > div:last-child{
+    margin-top: 30px;
+    text-align: center!important;
 }
 .form-holder button{
     width: 50%!important;
     padding: 10px 3px 10px 3px;
     border-radius: 5px;
-}
-
-.divider{
-    width: 90%;
     margin: auto;
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-.divider div span{
-    font-family: var(--theme-font);
-}
-.divider > div:first-child{
-    flex-grow: 1;
-    background-color: #f1f1f1;
-    height: 1px;
-}
-.divider > div:last-child{
-    flex-grow: 1;
-    background-color: #f1f1f1;
-    height: 1px;
 }
 
 .form-link{

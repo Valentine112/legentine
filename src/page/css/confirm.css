@@ -1,0 +1,27 @@
+.confirm form .form-div{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.confirm .form-div input[type="number"]{
+    text-align: center;
+    font-family: var(--theme-font);
+    font-size: 30px!important;
+}
+.confirm form .btn{
+    margin-top: 20px;
+    cursor: pointer;
+}
+.confirm form button{
+    cursor: pointer;
+}
+.confirm form .resend-btn button{
+    background-color: dodgerblue!important;
+}
+.config .divider{
+    justify-content: center!important;
+}
+.config .divider > div{
+    flex-grow: 0;
+    width: 20%;
+}   
