@@ -6,21 +6,22 @@
     <link rel="stylesheet" href="css/password.css">
 </head>
 <body>
-    <div class="config passowrd">
+    <div class="config password">
         <div class="forgot-1">
-            <div class="forgot-2">
+            <div class="forgot-2 password-2">
                 <div>
                     <h2>Change Password</h2>
                 </div>
                 <div>
                     <div>
-                        <div>
+                        <div class="form-div">
                             <div>
                                 <input 
                                     type="text" 
                                     class="form" 
                                     placeholder="Old password" aria-placeholder="old password"
                                 />
+                                <span>show</span>
                             </div>
                             <div>
                                 <input 
@@ -28,12 +29,13 @@
                                     class="form" 
                                     placeholder="New password" aria-placeholder="New password"
                                 />
+                                <span>show</span>
                             </div>
                         </div>
-                        
-                        <div>
+
+                        <div class="button-div">
                             <button>
-                                <span>Recover</span>
+                                <span>Change</span>
                             </button>
                         </div>
                     </div>

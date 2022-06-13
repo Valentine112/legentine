@@ -82,6 +82,10 @@
                                 </button>
                             </div>
 
+                            <div class="info-div">
+                                <span>Code would expire in 5 minutes time</span>
+                            </div>
+
                             <div class="divider">
                                 <div></div>
                                 &ensp;
