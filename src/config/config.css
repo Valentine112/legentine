@@ -2,6 +2,9 @@
     --theme-font: "SourceSansPro", sans-serif;
     --theme-color: #ff465b;
 }
+body{
+    margin: 0;
+}
 .config .large{
     display: none;
 }

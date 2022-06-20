@@ -2,25 +2,92 @@
     <?php include "../config/config.html"; ?>
     <link rel="stylesheet" href="../config/config.css">
     <link rel="stylesheet" href="css/post.css">
+    <?php include "../template/options.php"; ?>
+    <?php include "properties.php"; ?>
 </head>
-<div class="container">
-    <div class="container-assist">
-        <div class="post-controller">
-            <div class="post-body">
-                <div class="post-assist">
-                    <div class="post-sub">
-                        <div class="dropdown-segment">
+<div class="config container box">
+    <div class="container-assist box">
+        <div class="post-controller box">
+            <?php $i = 0; while($i < 5): $i++; ?>
+            <div class="post-body box">
+                <div class="post-assist box">
+                    <div class="post-sub box">
+                        <div class="dropdown-segment box">
                             <div>
-                                <div class="more-icon">
+                                <div class="more-icon sm-md">
                                     <img src="../icon/post-icon/more.svg" alt="">
                                 </div>
-                                <div>
+                                <div class="large">
+                                    <div class="options" id="large-options">
+                                        <div>
+                                            <div class="person-options">
+                                                <div class="author personnal-options">
+                                                    <div class="edit-options">
+                                                        <a href="">
+                                                            <div>
+                                                                <img src="../icon/option-icon/edit.svg" alt="">
+                                                            </div>
+                                                            <div>
+                                                                <span>Edit</span>
+                                                            </div>
+                                                        </a>
+                                                    </div>
 
+                                                    <div class="edit-options">
+                                                        <div>
+                                                            <img src="../icon/option-icon/block-comment.svg" alt="">
+                                                        </div>
+                                                        <div>
+                                                            <span>Block Comments</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="edit-options">
+                                                        <div>
+                                                            <img src="../icon/option-icon/delete.svg" alt="">
+                                                        </div>
+                                                        <div>
+                                                            <span>Delete</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="viewer personnal-options">
+                                                    <div class="edit-options">
+                                                        <div>
+                                                            <img src="../icon/option-icon/save.svg" alt="">
+                                                        </div>
+                                                        <div>
+                                                            <span>Save</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="edit-options">
+                                                        <div>
+                                                            <img src="../icon/option-icon/unlist.svg" alt="">
+                                                        </div>
+                                                        <div>
+                                                            <span>Unlist user</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div id="post-properties" class="edit-options">
+                                                <div>
+                                                    <img src="../icon/option-icon/property.svg" alt="">
+                                                </div>
+                                                <div>
+                                                    <span>Properties</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="content-segment">
+                        <div class="content-segment box">
                             <div class="picture-segment">
                                 <div>
                                     <a href="">
@@ -37,7 +104,7 @@
                                                 <span>
                                                     <span class="title search-key">Mine baby</span>
                                                     By 
-                                                    <span class="name search-key">Alessan...</span>
+                                                    <span class="name">Alessandra money</span>
                                                 </span>
                                             </div>
                                             <div class="brief-segment">
@@ -89,6 +156,7 @@
                     </div>
                 </div>
             </div>
+            <?php endwhile; ?>
         </div>
     </div>
 </div>
