@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="../config/config.css">
     <link rel="stylesheet" href="css/post.css">
     <?php include "../template/options.php"; ?>
-    <?php include "properties.php"; ?>
+    <?php include "feature-box.php"; ?>
 </head>
 <div class="config container box">
     <div class="container-assist box">

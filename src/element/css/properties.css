@@ -1,15 +1,5 @@
 .properties{
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.3);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    z-index: 2;
-    font-family: 'Manrope';
-    display: ;
+    display: none;
 }
 .properties .properties-1{
     position: absolute;
@@ -58,6 +48,7 @@
 }
 .properties .info-segment div > div:last-child{
     flex-grow: 9;
+    font-size: 16px;
 }
 .properties .done-segment{
     margin-top: 10px;
