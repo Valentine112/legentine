@@ -1,7 +1,5 @@
 <head>
-    <?php include "../config/config.html"; ?>
-    <link rel="stylesheet" href="../config/config.css">
-    <link rel="stylesheet" href="css/properties.css">
+    <link rel="stylesheet" href="src/element/css/properties.css">
 </head>
 <div class="properties fixed config-background-blur">
     <div class="properties-1 absolute">

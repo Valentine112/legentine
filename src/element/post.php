@@ -1,11 +1,7 @@
 <head>
-    <?php include "../config/config.html"; ?>
-    <link rel="stylesheet" href="../config/config.css">
-    <link rel="stylesheet" href="css/post.css">
-    <?php include "../template/options.php"; ?>
-    <?php include "feature-box.php"; ?>
+    <link rel="stylesheet" href="src/element/css/post.css">
 </head>
-<div class="config container box">
+<div class="config box">
     <div class="container-assist box">
         <div class="post-controller box">
             <?php $i = 0; while($i < 5): $i++; ?>
@@ -15,7 +11,7 @@
                         <div class="dropdown-segment box">
                             <div>
                                 <div class="more-icon sm-md">
-                                    <img src="../icon/post-icon/more.svg" alt="">
+                                    <img src="src/icon/post-icon/more.svg" alt="">
                                 </div>
                                 <div class="large">
                                     <div class="options" id="large-options">
@@ -25,7 +21,7 @@
                                                     <div class="edit-options">
                                                         <a href="">
                                                             <div>
-                                                                <img src="../icon/option-icon/edit.svg" alt="">
+                                                                <img src="src/icon/option-icon/edit.svg" alt="">
                                                             </div>
                                                             <div>
                                                                 <span>Edit</span>
@@ -35,7 +31,7 @@
 
                                                     <div class="edit-options">
                                                         <div>
-                                                            <img src="../icon/option-icon/block-comment.svg" alt="">
+                                                            <img src="src/icon/option-icon/block-comment.svg" alt="">
                                                         </div>
                                                         <div>
                                                             <span>Block Comments</span>
@@ -44,7 +40,7 @@
 
                                                     <div class="edit-options">
                                                         <div>
-                                                            <img src="../icon/option-icon/delete.svg" alt="">
+                                                            <img src="src/icon/option-icon/delete.svg" alt="">
                                                         </div>
                                                         <div>
                                                             <span>Delete</span>
@@ -55,7 +51,7 @@
                                                 <div class="viewer personnal-options">
                                                     <div class="edit-options">
                                                         <div>
-                                                            <img src="../icon/option-icon/save.svg" alt="">
+                                                            <img src="src/icon/option-icon/save.svg" alt="">
                                                         </div>
                                                         <div>
                                                             <span>Save</span>
@@ -64,7 +60,7 @@
 
                                                     <div class="edit-options">
                                                         <div>
-                                                            <img src="../icon/option-icon/unlist.svg" alt="">
+                                                            <img src="src/icon/option-icon/unlist.svg" alt="">
                                                         </div>
                                                         <div>
                                                             <span>Unlist user</span>
@@ -75,7 +71,7 @@
 
                                             <div id="post-properties" class="edit-options">
                                                 <div>
-                                                    <img src="../icon/option-icon/property.svg" alt="">
+                                                    <img src="src/icon/option-icon/property.svg" alt="">
                                                 </div>
                                                 <div>
                                                     <span>Properties</span>
@@ -91,7 +87,7 @@
                             <div class="picture-segment">
                                 <div>
                                     <a href="">
-                                        <img src="../images/image.jpg" alt="">
+                                        <img src="src/images/image.jpg" alt="">
                                     </a>
                                 </div>
                             </div>
@@ -127,7 +123,7 @@
 
                                     <div class="reaction-segment">
                                         <div>
-                                            <img src="../icon/post-icon/unstar.svg" alt="">
+                                            <img src="src/icon/post-icon/unstar.svg" alt="">
                                         </div>
                                         <div>
                                             <span>1</span>
@@ -137,15 +133,15 @@
                                     <div class="other-segment">
 
                                         <div>
-                                            <img src="../icon/post-icon/read.svg" alt=""> - 
+                                            <img src="src/icon/post-icon/read.svg" alt=""> - 
                                             <span>50</span>
                                         </div>
                                         <div>
-                                            <img src="../icon/post-icon/comment.svg" alt=""> - 
+                                            <img src="src/icon/post-icon/comment.svg" alt=""> - 
                                             <span>15</span>
                                         </div>
                                         <div>
-                                            <img src="../icon/post-icon/feature.svg" alt=""> - 
+                                            <img src="src/icon/post-icon/feature.svg" alt=""> - 
                                             <span>1</span>
                                         </div>
 

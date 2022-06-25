@@ -1,6 +1,18 @@
 .box{
     width: 100%;
 }
+
+/* Responsiveness */
+
+.large{
+    display: none;
+}
+.small{
+    display: none;
+}
+
+/* Responsiveness ends */
+
 .post-controller{
     display: flex;
     justify-content: flex-start;
@@ -42,6 +54,7 @@
     margin: auto;
     font-size: 14px;
     color: #5e5e5e;
+    display: none;
 }
 #large-options > div{
     background-color: rgba(255, 255, 255, 0.3);
@@ -236,6 +249,14 @@
     }
 }
 @media screen and (min-width: 768px) {
+    /* Responsiveness */
+
+    .large{
+        display: block;
+    }
+
+    /* Responsiveness ends */
+    
     .post-body{
         width: 45%;
         margin-left: 2.3%;

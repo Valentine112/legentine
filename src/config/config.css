@@ -17,12 +17,6 @@ body{
     z-index: 2;
     font-family: var(--theme-font);
 }
-.config .large{
-    display: none;
-}
-.config .small{
-    display: none;
-}
 
 .config .config-icon-1{
     height: 25px;
@@ -117,21 +111,9 @@ body{
     }
 }
 
-@media screen and (max-width:767px) {
-    .config .small{
-        display: block;
-    }
-}
-
 @media screen and (min-width: 600px) and (max-width: 767px) {
     .config .config-icon-1{
         height: 28px;
         width: 28px;
-    }
-}
-
-@media screen and (min-width: 768px) {
-    .config .large{
-        display: block;
     }
 }
