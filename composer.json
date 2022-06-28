@@ -7,6 +7,11 @@
     "autoload": {
         "psr-4": {
             "Project\\Legentine\\": "src/",
+            "Router\\": "router/",
+            "Config\\": "config/",
+            "Service\\": "service/",
+            "Model\\": "model/",
+            "Controller\\": "controller/"
         }
     },
     "authors": [

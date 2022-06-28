@@ -5,6 +5,10 @@
 body{
     margin: 0;
 }
+.content{
+    margin-top: 2%;
+    margin-bottom: 8%;
+}
 .config-background-blur{
     position: fixed;
     top: 0;
@@ -115,5 +119,11 @@ body{
     .config .config-icon-1{
         height: 28px;
         width: 28px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .content{
+        margin-top: 8%;
     }
 }

@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head> 
-    <?php include "../config/config.html"; ?>
-    <link rel="stylesheet" href="../config/config.css">
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/signup.css">
+    <link rel="stylesheet" href="src/page/css/login.css">
+    <link rel="stylesheet" href="src/page/css/signup.css">
 </head>
 <body>
     <div class="config signup">
@@ -81,7 +79,7 @@
 
                 <div class="form-link">
                     <div>
-                        <a href="">Login</a>
+                        <a href="login">Login</a>
                     </div>
                 </div>
 

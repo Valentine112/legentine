@@ -4,7 +4,6 @@
 <div class="config box">
     <div class="container-assist box">
         <div class="post-controller box">
-            <?php $i = 0; while($i < 5): $i++; ?>
             <div class="post-body box">
                 <div class="post-assist box">
                     <div class="post-sub box">
@@ -122,9 +121,18 @@
                                     </div>
 
                                     <div class="reaction-segment">
-                                        <div>
-                                            <img src="src/icon/post-icon/unstar.svg" alt="">
+                                        <div class="reaction-cover">
+                                            <div class="reaction star">
+                                                <img src="src/icon/post-icon/star.svg" alt="">
+                                                <img src="src/icon/post-icon/unstar.svg" alt="">
+                                            </div>
+
+                                            <div class="reaction unstar">
+                                                <img src="src/icon/post-icon/unstar.svg" alt="">
+                                                <img src="src/icon/post-icon/star.svg" alt="">
+                                            </div>
                                         </div>
+
                                         <div>
                                             <span>1</span>
                                         </div>
@@ -152,7 +160,6 @@
                     </div>
                 </div>
             </div>
-            <?php endwhile; ?>
         </div>
     </div>
 </div>

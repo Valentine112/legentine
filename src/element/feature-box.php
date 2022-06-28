@@ -1,6 +1,4 @@
 <head>
-    <?php include "../config/config.html"; ?>
-    <link rel="stylesheet" href="../config/config.css">
     <link rel="stylesheet" href="css/feature-box.css">
 </head>
 <div class="feature-box fixed config-background-blur">

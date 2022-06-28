@@ -1,20 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <?php include "src/config/config.html"; ?>
-    <?php include "src/template/navbar.php"; ?>
-    <link rel="stylesheet" href="src/config/config.css">
-    <style>
-        .container{
-            margin: 8% 0 8% 0;
-        }
-        .contents{
-            margin-top: 2%;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <?php require "src/page/ranks.php"; ?>
-    </div>
-</body>
+<?php
+    require "config/config.php";
+
+    use Router\Router;
+    use Config\Database;
+
+    (new Router(new Database))
+
+    // Pages accessible without session
+    ->get('/', function() {
+        require "src/page/landing.php";
+    })
+    
+    ->get('/login', function() {
+        require "src/page/login.php";
+    })
+
+    ->get('/signup', function() {
+        require "src/page/signup.php";
+    })
+
+    ->get('/forgot', function() {
+        require "src/page/forgot.php";
+    })
+
+    ->get('/confirm', function() {
+        require "src/page/confirm.php";
+    })
+
+    ->get('/help', function() {
+        require "src/page/help.php";
+    })
+
+
+    // Pages only accessible when a session is active
+
+    ->get('/post', function() {
+        require "src/element/post.php";
+    })
+    ->listen();
+
+    require "src/config/config.html";
+?>

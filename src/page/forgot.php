@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head> 
-    <?php include "../config/config.html"; ?>
-    <link rel="stylesheet" href="../config/config.css">
-    <link rel="stylesheet" href="css/forgot.css">
-    <link rel="stylesheet" href="css/confirm.css">
+    <link rel="stylesheet" href="src/page/css/forgot.css">
+    <link rel="stylesheet" href="src/page/css/confirm.css">
 </head>
 <body>
     <div class="config forgot">
