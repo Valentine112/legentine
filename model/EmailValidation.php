@@ -36,7 +36,9 @@
                 if(is_int($file->writeFile($data))):
                     $this->status = 1;
                     $this->message = "void";
-                    $this->content = "Success";
+                    $this->content = [
+                        'key' => $token
+                    ];
 
                 else:
                     $this->status = 0;

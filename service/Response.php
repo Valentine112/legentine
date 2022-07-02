@@ -11,7 +11,6 @@
         public function deliver() : array {
             return [
                 "status" => $this->status,
-                "type" => $this->type,
                 "message" => $this->message,
                 "content" => $this->content,
                 "time" => time()

@@ -40,4 +40,5 @@
     ->listen();
 
     require "src/config/config.html";
+
 ?>

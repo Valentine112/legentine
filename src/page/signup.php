@@ -13,13 +13,13 @@
                 </div>
 
                 <div class="form-holder">
-                    <form action="" onclick="event.preventDefault(); this.stopImmediatePropagation()">
+                    <form action="" onclick="event.preventDefault(); event.stopImmediatePropagation">
 
                         <div>
                             <input 
                                 type="text" 
                                 class="form" 
-                                id="user" 
+                                id="name" 
                                 placeholder="fullname" aria-placeholder="fullname" autocomplete="off"
                                 autofocus
                             />
@@ -58,9 +58,8 @@
                         </div>
 
                         <div>
-                            <button class="form">
+                            <button class="form" id="signup-btn">
                                 <span class="btn-text">Sign Up</span>
-                                <div class="btn-loader">
                             </button>
                         </div>
 
@@ -94,4 +93,5 @@
         </div>
     </div>
 </body>
+<script src="src/js/page/signup.js"></script>
 </html>
