@@ -11,7 +11,8 @@
             "Config\\": "config/",
             "Service\\": "service/",
             "Model\\": "model/",
-            "Controller\\": "controller/"
+            "Controller\\": "controller/",
+            "QUERY\\": "sql/"
         }
     },
     "authors": [

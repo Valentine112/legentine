@@ -22,7 +22,11 @@
                                 id="name" 
                                 placeholder="fullname" aria-placeholder="fullname" autocomplete="off"
                                 autofocus
+                                value="Valentine Ngene"
                             />
+                            <div class="error-message">
+                                <span></span>
+                            </div>
                         </div>
 
                         <div>
@@ -32,7 +36,11 @@
                                 id="username" 
                                 placeholder="username" aria-placeholder="username" autocomplete="off"
                                 autofocus
+                                value="Himself"
                             />
+                            <div class="error-message">
+                                <span></span>
+                            </div>
                         </div>
 
                         <div>
@@ -42,7 +50,11 @@
                                 id="email" 
                                 placeholder="email" aria-placeholder="email" autocomplete="off"
                                 autofocus
+                                value="valenny112@gmail.com"
                             />
+                            <div class="error-message">
+                                <span></span>
+                            </div>
                         </div>
 
                         <div class="password-div">
@@ -53,8 +65,12 @@
                                 placeholder="password" 
                                 aria-placeholder="password" 
                                 autocomplete="off"
+                                value="Anthonyval1"
                             />
                             <span>show</span>
+                            <div class="error-message">
+                                <span></span>
+                            </div>
                         </div>
 
                         <div>

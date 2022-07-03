@@ -1,6 +1,9 @@
 <?php
     namespace Service;
 
+    header('Access-Control-Allow-Headers: Content-Type');
+    header('Content-Type: application/json');
+
     class Response {
 
         public $status;
@@ -17,9 +20,9 @@
             ];
         }
 
-        public static function sendJSON(array|string $data) : array|string {
+        public function sendJSON() : array|string {
 
-            return json_encode($data);
+            return json_encode($this->deliver());
         }
     }
 ?>

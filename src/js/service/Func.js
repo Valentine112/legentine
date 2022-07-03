@@ -28,7 +28,7 @@ class Func {
             body: data
         })
         
-        return req.text()
+        return req.json()
     }
 
     

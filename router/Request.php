@@ -7,9 +7,6 @@
 
     namespace Router;
 
-    header('Access-Control-Allow-Headers: Content-Type');
-    header('Content-Type: application/json');
-
     use Service\Response;
     use Service\Func;
     use mysqli;
@@ -63,7 +60,7 @@
 
                 endif;
                                     
-                // Stroign the allowed actions that a user can perform
+                // Storing the allowed actions that a user can perform
                 $this->save_route('post', $action, $callback);
 
             else:
@@ -100,7 +97,7 @@
 
             $requestedAction = $this->actions[$req][$data['action']] ?? null;
 
-            if(is_callable($requestedAction)):
+            if(is_callable($requestedAction) && is_string($requestedAction)):
                 call_user_func($requestedAction);
 
                 return;
@@ -108,8 +105,9 @@
 
             if(is_iterable($requestedAction)):
                 [$class, $method] = $requestedAction;
-
                 (new $class(self::$db))->$method($this->data);
+
+                return;
                 
             endif;
 

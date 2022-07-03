@@ -2,9 +2,10 @@
     namespace Controller;
 
     use mysqli;
-    use Model\Signup as Register;
+    use Model\Signup as ModelSignup;
+    use Service\Response;
 
-    class Signup {
+    class Signup extends Response {
 
         private static $db;
 
@@ -12,10 +13,10 @@
             self::$db  = $db;
         }
 
-        public static function process(array $data) {
-            $signup = new Register([]);
-            
-            print_r($data);
+        public function main(array $data) {
+            $signup = new ModelSignup(self::$db, $data);
+
+            print_r($this->sendJSON($signup->main()));
         }
 
     }

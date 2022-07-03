@@ -17,8 +17,7 @@
 
     $theFunc = "test";
 
-    $request->is_post('signup', [Signup::class, 'process']);
-    $request->is_post('login', $theFunc);
+    $request->is_post('signup', [Signup::class, 'main']);
 
 
     $request->listen();

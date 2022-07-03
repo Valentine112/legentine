@@ -21,7 +21,7 @@ window.addEventListener("load", function () {
         password_check = form.validate(password.value, 'password')
         // Validate end //
 
-        switch (true) {
+        switch (false) {
             case name_check:
                 name.focus()
                 break
@@ -41,15 +41,19 @@ window.addEventListener("load", function () {
             default:
                 var data = {
                     action: "signup",
-                    text: "We shall reign <script>_{}%$",
-                    chat: "We shall reign <script>_{}%$"
+                    fullname: name.value,
+                    username: username.value,
+                    email: email.value,
+                    password: password.value
                 }
+
                 data = JSON.stringify(data)
 
-                var url = 'request.php'
-                var req = new Func().request(url, data, 'json')
+                new Func().request('request.php', data, 'json')
+                .then(data => {
+                    console.log(data)
+                })
 
-                console.log(req)
                 break;
         }
 
