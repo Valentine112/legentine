@@ -17,6 +17,11 @@
     width: 85%;
     padding-left: 10px;
 }
+.form-holder .server-error, .form-holder .error-message{
+    color: var(--theme-color);
+    font-family: var(--theme-font);
+    font-size: 14px;
+}
 .form-holder form .password-div{
     border-bottom: 2px solid #f1f1f1;
     width: 85%;
@@ -31,6 +36,7 @@
 }
 .form-holder form .password-div span{
     font-family: var(--theme-font);
+    cursor: pointer;
 }
 .form-holder form > div:last-child{
     margin-top: 30px;

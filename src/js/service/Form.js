@@ -1,5 +1,7 @@
 class Form {
-
+    constructor() {
+        return this
+    }
     validate(data, type) {
 
         var result = false,
@@ -60,7 +62,7 @@ class Form {
                     result = true
                 }
                 break;
-        
+
             default:
                 result = false
                 break;

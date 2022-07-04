@@ -13,6 +13,9 @@
                 </div>
 
                 <div class="form-holder">
+                    <div class="server-error">
+                        <span></span>
+                    </div>
                     <form action="" onclick="event.preventDefault(); event.stopImmediatePropagation">
 
                         <div>
@@ -57,21 +60,24 @@
                             </div>
                         </div>
 
-                        <div class="password-div">
-                            <input
-                                type="password"
-                                class="form" 
-                                id="password" 
-                                placeholder="password" 
-                                aria-placeholder="password" 
-                                autocomplete="off"
-                                value="Anthonyval1"
-                            />
-                            <span>show</span>
+                        <div>
+                            <div class="password-div">
+                                <input
+                                    type="password"
+                                    class="form" 
+                                    id="password" 
+                                    placeholder="password" 
+                                    aria-placeholder="password" 
+                                    autocomplete="off"
+                                    value="Anthonyval1"
+                                />
+                                <span onclick="togglePassword(this)">show</span>
+                            </div>
                             <div class="error-message">
                                 <span></span>
                             </div>
                         </div>
+
 
                         <div>
                             <button class="form" id="signup-btn">

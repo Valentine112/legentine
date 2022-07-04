@@ -4,6 +4,10 @@
     use Router\Router;
     use Config\Database;
 
+    // Calling it this way because it's the whole class being return, instead of having to store the whole class as a variable and using it to access the methods
+
+    // Note in the get/post methods also, the main class is also being returned
+
     (new Router(new Database))
 
     // Pages accessible without session

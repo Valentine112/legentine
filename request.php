@@ -11,14 +11,10 @@
     $db = new Database;
     $request = new Request($db);
 
-    function test() {
-        echo "What are we doing here";
-    }
-
-    $theFunc = "test";
-
-    $request->is_post('signup', [Signup::class, 'main']);
-
+    $request->is_post(
+        'signup', 
+        [Signup::class, 'main']
+    );
 
     $request->listen();
 

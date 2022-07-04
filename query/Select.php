@@ -1,11 +1,11 @@
 <?php
-    namespace QUERY;
+    namespace Query;
 
     use Service\Response;
 
     class Select extends Response {
 
-        public $type;
+        public $types;
         public $value = [];
         public $more = "";
         public $more1;
@@ -33,11 +33,12 @@
                         array_push($this->value, stripslashes(trim($more_value)));
                     }
                 }
-                $this->type = join($this->prepared);
+                $this->types = join($this->prepared);
             }
         }
 
         public function action(string $select_what, string $where) : ?array {
+            $this->type = "Select/action";
             $this->process();
             
             $more_split = explode(',', $this->more);
@@ -45,7 +46,7 @@
             $value = [];
             $confirm = $this->connect->prepare("SELECT $select_what FROM $where $more_");
             if(count($more_split) > 1) {
-                $confirm->bind_param($this->type, ...$this->value);
+                $confirm->bind_param($this->types, ...$this->value);
             }
 
             $response = $confirm->execute();
@@ -56,11 +57,11 @@
             $this->result = [$value, count($value)];
             $confirm->close();
 
-            if($response):
+            if(!$response):
                 $this->status = 0;
                 $this->message = "void";
                 $this->content = "Failed to fetch content";
-
+                
                 return $this->deliver();
                 
             endif;
@@ -75,7 +76,7 @@
         public function reset() {
             $this->value = [];
             $this->prepared = [];
-            $this->type = "";
+            $this->types = "";
             $this->more = "";
             $this->more1 = "";
         }

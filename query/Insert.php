@@ -1,6 +1,6 @@
 <?php
 
-    namespace QUERY;
+    namespace Query;
 
     class Insert extends Select {
 

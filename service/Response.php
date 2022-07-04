@@ -13,6 +13,7 @@
 
         public function deliver() : array {
             return [
+                "type" => $this->type,
                 "status" => $this->status,
                 "message" => $this->message,
                 "content" => $this->content,
@@ -20,9 +21,12 @@
             ];
         }
 
-        public function sendJSON() : array|string {
-
-            return json_encode($this->deliver());
+        public function sendJSON(array|string $data) : string {
+            /**
+             * Method to send data as JSON format
+             * --- Adding along the right headers
+             */
+            return json_encode($data);
         }
     }
 ?>

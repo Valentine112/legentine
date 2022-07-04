@@ -1,5 +1,9 @@
 class Func {
 
+    constructor() {
+        return this
+    }
+
     stripSpace(data) {
         let a = data.replace(/^\s*/, "").replace(/\s*/, "");
         return a;
@@ -31,5 +35,15 @@ class Func {
         return req.json()
     }
 
-    
+    togglePassword(action, form) {
+        var elemType = form.getAttribute("type")
+        if(elemType == "password") {
+            form.type = "text"
+            action.innerText = "hide"
+        }
+        else if(elemType == "text") {
+            form.type = "password"
+            action.innerText = "show"
+        }
+    }
 }

@@ -29,7 +29,7 @@
         }
 
         public static function tokenGenerator() : string {
-            return uniqid("").time();
+            return bin2hex(random_bytes(10)).time();
         }
     
         public static function deviceInfo() : array {
@@ -63,7 +63,7 @@
             return [
                 'id' => 'legendstime1@gmail.com',
                 'pass' => 'Anthonyval',
-                'name' => 'Ahid'
+                'name' => 'Legentine'
             ];
 
         }

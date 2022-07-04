@@ -23,7 +23,7 @@
             $id = $this->config['id'];
             $pass = $this->config['pass'];
             //Server settings
-            $this->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+            $this->SMTPDebug = SMTP::DEBUG_OFF;                      // Enable verbose debug output
             $this->isSMTP();                                            // Send using SMTP
             $this->CharSet = "utf-8";
             $this->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through

@@ -12,7 +12,7 @@
             "Service\\": "service/",
             "Model\\": "model/",
             "Controller\\": "controller/",
-            "QUERY\\": "sql/"
+            "Query\\": "query/"
         }
     },
     "authors": [
