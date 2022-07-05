@@ -82,7 +82,7 @@ window.addEventListener("load", function () {
                     var response = val
                     if(response.status === 1) {
                         localStorage.setItem('LT-token', response.content['key'])
-                        //window.location = "confirm"
+                        window.location = "confirm"
 
                     }else if(response.status === 0 && response.message === "fill"){
                         document.querySelector(".server-error").innerText = response.content

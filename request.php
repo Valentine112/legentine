@@ -7,6 +7,7 @@
         Signup,
         Login
     };
+    use Service\Response;
 
     $db = new Database;
     $request = new Request($db);
@@ -16,7 +17,7 @@
         [Signup::class, 'main']
     );
 
-    $request->listen();
+    print_r(Response::sendJSON($request->listen()));
 
 
 ?>

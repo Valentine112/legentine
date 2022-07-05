@@ -105,9 +105,7 @@
 
             if(is_iterable($requestedAction)):
                 [$class, $method] = $requestedAction;
-                (new $class(self::$db))->$method($this->data);
-
-                return;
+                return (new $class(self::$db))->$method($this->data);
                 
             endif;
 

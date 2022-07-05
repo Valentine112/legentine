@@ -13,10 +13,10 @@
             self::$db  = $db;
         }
 
-        public function main(array $data) {
+        public function main(array $data) : array {
             $signup = new ModelSignup(self::$db, $data);
 
-            print_r($this->sendJSON($signup->main()));
+            return $signup->main();
         }
 
     }

@@ -21,7 +21,7 @@
             ];
         }
 
-        public function sendJSON(array|string $data) : string {
+        public static function sendJSON(array|string $data) : string {
             /**
              * Method to send data as JSON format
              * --- Adding along the right headers
