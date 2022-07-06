@@ -7,7 +7,7 @@ window.addEventListener("load", function () {
     var signup_btn = document.getElementById("signup-btn"),
     error_message = document.querySelectorAll(".error-message"),
 
-
+    // Saving the error message in variables
     fullname_error = "Fullname should only have letters and space",
     username_error = "Username only accepts letters,numbers and underscore",
     email_error = "Email address should be in format john****@****.com",
@@ -62,12 +62,18 @@ window.addEventListener("load", function () {
                 break
 
             default:
+                /**
+                 * Default to show that all the conditions have been met
+                 * Default signifies true
+                 */
+
                 // Disable button to prevent user from sending multiple request
                 this.setAttribute("disabled", "disabled")
                 this.style.opacity = "0.2"
 
                 var data = {
-                    action: "signup",
+                    part: 'signup',
+                    action: "verify",
                     fullname: name.value,
                     username: username.value,
                     email: email.value,
@@ -78,7 +84,7 @@ window.addEventListener("load", function () {
 
                 new Func().request('request.php', data, 'json')
                 .then(val => {
-                    console.log(val)
+
                     var response = val
                     if(response.status === 1) {
                         localStorage.setItem('LT-token', response.content['key'])
@@ -97,12 +103,6 @@ window.addEventListener("load", function () {
 
                 break;
         }
-
-
-        // Disable button to prevent user from sending multiple request
-        //this.setAttribute("disabled", "disabled")
-        //this.style.opacity = "0.2"
-        // Disable end //
 
     }, true)
 })

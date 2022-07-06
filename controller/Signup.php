@@ -14,9 +14,35 @@
         }
 
         public function main(array $data) : array {
+            (array) $result = [];
+
             $signup = new ModelSignup(self::$db, $data);
 
-            return $signup->main();
+            switch ($data['action']):
+                case 'verify':
+                    $result = $signup->verify();
+                    break;
+                
+                case 'confirm':
+                    $result = $signup->confirm();
+                    break;
+
+                case 'resend':
+                    $result = $signup->resend();
+                    break;
+
+                default:
+                    $this->type = "Controller/Signup/main";
+                    $this->status = 0;
+                    $this->message = "void";
+                    $this->content = "Invalid action provided";
+
+                    $result = $this->deliver();
+                    break;
+            endswitch;
+
+            return $result;
+
         }
 
     }

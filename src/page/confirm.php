@@ -15,7 +15,7 @@
                         <p>Put in the code that was sent to your email address.</p>
                     </div>
                     <div>
-                        <form action="">
+                        <form action="" onclick="event.preventDefault(); event.stopImmediatePropagation">
                             <div class="form-div">
                                 <div>
                                     <input 
@@ -106,4 +106,5 @@
         </div>
     </div>
 </body>
+<script src="src/js/page/confirm.js"></script>
 </html>

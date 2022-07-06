@@ -7,6 +7,8 @@
 
         public function __construct(string $path) {
             $this->path = $path;
+
+            return;
         }
 
         public function fetchFile() : string|false {
@@ -26,10 +28,8 @@
         }
 
         public function writeFile(string|array $data) : int|false {
-            $content = json_decode($this->file, true);
-            array_push($content, $data);
             
-            return file_put_contents($this->path, json_encode($content));
+            return file_put_contents($this->path, $data);
         }
 
         public function deleteKey(string $key) : int|false {

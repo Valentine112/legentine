@@ -95,7 +95,7 @@
 
             $data = $this->data;
 
-            $requestedAction = $this->actions[$req][$data['action']] ?? null;
+            $requestedAction = $this->actions[$req][$data['part']] ?? null;
 
             if(is_callable($requestedAction) && is_string($requestedAction)):
                 call_user_func($requestedAction);
@@ -111,7 +111,7 @@
 
             $this->status = 0;
             $this->message = "void";
-            $this->content = "Invalid action provided";
+            $this->content = "Invalid part provided";
 
             return $this->deliver();
         }

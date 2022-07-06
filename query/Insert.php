@@ -2,35 +2,37 @@
 
     namespace Query;
 
-    class Insert extends Select {
+    use Service\Response;
+
+    class Insert extends Response {
 
         static $ques = [];
         static $insert_item = "";
 
-        public function __construct(object $conn, string $where, array $items, string $more) {
+        public function __construct(object $conn, string $where, array $subject, string $more) {
             $this->connect = $conn;
             $this->where = $where;
-            $this->items = $items;
+            $this->subject = $subject;
             $this->more = $more;
 
-            $this->items_len = count($items);
+            $this->subject_len = count($subject);
         }
 
         public function create_ques() {
-            for($a = 0; $a < $this->items_len; $a++):
+            for($a = 0; $a < $this->subject_len; $a++):
                 $sum = $a + 1;
-                if($sum < $this->items_len):
+                if($sum < $this->subject_len):
                     array_push(self::$ques, "?,");
-                elseif($sum === $this->items_len):
+                elseif($sum === $this->subject_len):
                     array_push(self::$ques, "?");
                 endif;
             endfor;
         }
 
-        public function push(array $values, string $type) : bool {
+        public function push(array $values, string $type) : array|bool {
             $this->create_ques();
             
-            $item = implode(",", $this->items);
+            $item = implode(",", $this->subject);
             $prepared = join(self::$ques);
 
             self::$insert_item = $this->connect->prepare("INSERT INTO $this->where ($item) VALUES ($prepared) $this->more");
@@ -38,14 +40,19 @@
             if(self::$insert_item->execute()){
                 return true;
             }else{
-                return false;
+                $this->status = 0;
+                $this->message = "void";
+                $this->content = "Failed to insert data";
+
             }
             self::$insert_item->close();
+
+            return $this->deliver();
         }
 
         public function reset() {
             self::$ques = [];
-            //$this->items = [];
+            //$this->subject = [];
         }
     }
 
