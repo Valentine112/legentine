@@ -14,6 +14,9 @@
                     <div>
                         <p>Put in the code that was sent to your email address.</p>
                     </div>
+                    <div class="server-error">
+                        <span></span>
+                    </div>
                     <div>
                         <form action="" onclick="event.preventDefault(); event.stopImmediatePropagation">
                             <div class="form-div">

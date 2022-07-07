@@ -90,11 +90,8 @@ window.addEventListener("load", function () {
                         localStorage.setItem('LT-token', response.content['key'])
                         window.location = "confirm"
 
-                    }else if(response.status === 0 && response.message === "fill"){
-                        document.querySelector(".server-error").innerText = response.content
-                    }else{
-                        document.querySelector(".server-error").innerText = "Something went wrong. . ."
                     }
+                    new Func().processResponse(response, "error", "error")
 
                     // Enable button after a response has being received
                     this.removeAttribute("disabled")

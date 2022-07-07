@@ -46,4 +46,20 @@ class Func {
             action.innerText = "show"
         }
     }
+
+    processResponse(data, type, type1) {
+        if(data.status === 0 && data.message === "Fill"){
+            // Message from server if it's filled
+            this.showServerMessage(data.content, type)
+        }else{
+            // Message from server if it's void
+            this.showServerMessage("Something went wrong. . .", type1)
+        }
+    }
+
+    showServerMessage(data, type) {
+        var server_box = document.querySelector(".server-error span")
+        server_box.classList = type
+        server_box.innerText = data
+    }
 }

@@ -132,7 +132,7 @@
                 if(is_bool($action) && $action):
                     $this->status = 1;
                     $this->message = "void";
-                    $this->content = "Successfully registered user";
+                    $this->content = $this->content['username'];
 
                 else:
                     return $action;

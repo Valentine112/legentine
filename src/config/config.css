@@ -93,6 +93,26 @@ body{
 
 /* Divider ends */
 
+/* Error message */
+
+.server-error, .error-message{
+    color: var(--theme-color);
+    font-family: var(--theme-font);
+    font-size: 14px;
+}
+
+.server-error .error{
+    color: var(--theme-color);
+}
+.server-error .success{
+    color: limegreen;
+}
+.server-error .warning{
+    color: orange;
+}
+
+/* Error message ends */
+
 /* loader */
 
 .config-loader{
@@ -125,5 +145,8 @@ body{
 @media screen and (min-width: 768px) {
     .content{
         margin-top: 8%;
+    }
+    .server-error, .error-message{
+        font-size: 15px;
     }
 }

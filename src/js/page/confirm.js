@@ -43,7 +43,15 @@ window.addEventListener("load", function() {
 
             new Func().request("request.php", JSON.stringify(data), 'json')
             .then(val => {
-                console.log(val)
+                var response = val
+                if(response.status === 1) {
+                    localStorage.removeItem("LT-token")
+                    localStorage.setItem("Lt-username", response.content['username'])
+                    
+                    window.location = "welcome"
+
+                }
+                new Func().processResponse(response, "error", "error")
             })
         }
 

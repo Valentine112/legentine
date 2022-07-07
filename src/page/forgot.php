@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
+<head>
     <link rel="stylesheet" href="src/page/css/forgot.css">
     <link rel="stylesheet" href="src/page/css/confirm.css">
 </head>

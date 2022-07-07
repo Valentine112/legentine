@@ -31,6 +31,10 @@
         require "src/page/confirm.php";
     })
 
+    ->get('/welcome', function() {
+        require "src/page/welcome.php";
+    })
+
     ->get('/help', function() {
         require "src/page/help.php";
     })
