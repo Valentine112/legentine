@@ -25,7 +25,7 @@
                                 id="name" 
                                 placeholder="fullname" aria-placeholder="fullname" autocomplete="off"
                                 autofocus
-                                value="Valentine Ngene"
+                                value="Peter Ngene"
                             />
                             <div class="error-message">
                                 <span></span>
@@ -39,7 +39,7 @@
                                 id="username" 
                                 placeholder="username" aria-placeholder="username" autocomplete="off"
                                 autofocus
-                                value="Himself"
+                                value="Santino"
                             />
                             <div class="error-message">
                                 <span></span>
@@ -53,7 +53,7 @@
                                 id="email" 
                                 placeholder="email" aria-placeholder="email" autocomplete="off"
                                 autofocus
-                                value="valenny112@gmail.com"
+                                value="valenny113@gmail.com"
                             />
                             <div class="error-message">
                                 <span></span>

@@ -67,9 +67,8 @@ window.addEventListener("load", function () {
                  * Default signifies true
                  */
 
-                // Disable button to prevent user from sending multiple request
-                this.setAttribute("disabled", "disabled")
-                this.style.opacity = "0.2"
+                // Configure button to prevent multiple request
+                new Func().buttonConfig(this, "before")
 
                 var data = {
                     part: 'signup',
@@ -83,7 +82,9 @@ window.addEventListener("load", function () {
                 data = JSON.stringify(data)
 
                 new Func().request('request.php', data, 'json')
-                .then(val => {
+                .then(val => {           
+                    // Configure button to prevent multiple request
+                    new Func().buttonConfig(this, "after")
 
                     var response = val
                     if(response.status === 1) {
@@ -92,10 +93,6 @@ window.addEventListener("load", function () {
 
                     }
                     new Func().processResponse(response, "error", "error")
-
-                    // Enable button after a response has being received
-                    this.removeAttribute("disabled")
-                    this.style.opacity = "1"
                 })
 
                 break;

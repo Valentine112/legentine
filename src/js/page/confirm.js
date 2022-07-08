@@ -33,6 +33,9 @@ window.addEventListener("load", function() {
         // Check if it exist and verify users input
         var token = localStorage.getItem('LT-token')
         if(valid) {
+            // Configure button to prevent multiple request
+            new Func().buttonConfig(this, "before")
+
             data = data.join("")
             data = {
                 part: 'signup',
@@ -43,12 +46,18 @@ window.addEventListener("load", function() {
 
             new Func().request("request.php", JSON.stringify(data), 'json')
             .then(val => {
+                console.log(val)
+                // Configure button to prevent multiple request
+                new Func().buttonConfig(this, "after")
+
                 var response = val
                 if(response.status === 1) {
                     localStorage.removeItem("LT-token")
-                    localStorage.setItem("Lt-username", response.content['username'])
                     
-                    window.location = "welcome"
+                    // Set the username in localstorage for the welcome page
+                    localStorage.setItem("Lt-username", response.content)
+                    
+                    //window.location = "welcome"
 
                 }
                 new Func().processResponse(response, "error", "error")
@@ -67,6 +76,8 @@ window.addEventListener("load", function() {
          * As he/she didn't pass through the signup page or didn't signup properly
          * So, if it doesn't correspond, redirect or specify that something went wrong and redirect
          */
+        // Configure button to prevent multiple request
+        new Func().buttonConfig(this, "before")
 
         var token = localStorage.getItem('LT-token')
         data = {
@@ -77,7 +88,8 @@ window.addEventListener("load", function() {
 
         new Func().request("request.php", JSON.stringify(data), 'json')
         .then(val => {
-            console.log(val)
+            // Configure button to prevent multiple request
+            new Func().buttonConfig(this, "after")
         })
     })
 

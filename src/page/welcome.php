@@ -3,7 +3,7 @@
 <head>
     <style>
         .welcome{
-            font-size: 35px;
+            font-size: 30px;
             font-family: 'montserrat', sans-serif;
             color: var(--theme-color);
         }
@@ -16,7 +16,9 @@
             height: fit-content;
             width: fit-content;
             margin: auto;
+            text-align: center;
         }
+
 
         @media screen and (min-width: 600px) {
             .welcome{
@@ -38,13 +40,39 @@
 <body>
     <div class="welcome">
         <div>
-            <div>
-            Welcome Himself
+            <div id="welcome-box">
+
             </div>
         </div>
     </div>
 </body>
 <script>
-    
+    window.addEventListener("load", () => {
+        // Get usernam from localstorage
+        var name = localStorage.getItem("LT-username") ?? ""
+        var welcome = `Welcome ${name}`
+
+        var box = document.getElementById("welcome-box")
+
+        // Split through the text to access each character
+        welcome = welcome.split("")
+
+        welcome.forEach((elem, ind) => {
+            // Multiplied their index by 0500 millsec and used the result for the timeout
+            // i.e 1 * 0500 = 0500, 2 * 0500 = 1
+            // So the first displays after 0500 secs and the second 1 second and so on
+            setTimeout(() => {
+                var element = document.createElement("span")
+                element.innerText = elem
+                box.insertAdjacentElement("beforeend", element)
+
+                if(ind + 1 >= welcome.length){
+                    // Remove the name from localstorage and redirect to login page
+                    localStorage.removeItem("LT-username")
+                    window.location = "login"
+                }
+            }, ind * 0500)
+        })
+    })
 </script>
 </html>

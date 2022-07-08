@@ -44,10 +44,11 @@
                 $this->message = "void";
                 $this->content = "Failed to insert data";
 
-            }
-            self::$insert_item->close();
+                return $this->deliver();
 
-            return $this->deliver();
+            }
+            
+            self::$insert_item->close();
         }
 
         public function reset() {

@@ -51,7 +51,7 @@ class Func {
         if(data.status === 0 && data.message === "Fill"){
             // Message from server if it's filled
             this.showServerMessage(data.content, type)
-        }else{
+        }else if(data.status != 1) {
             // Message from server if it's void
             this.showServerMessage("Something went wrong. . .", type1)
         }
@@ -61,5 +61,17 @@ class Func {
         var server_box = document.querySelector(".server-error span")
         server_box.classList = type
         server_box.innerText = data
+    }
+
+    buttonConfig(elem, time) {
+        if(time === "before") {
+            elem.setAttribute("disabled", "disabled")
+            elem.style.opacity = "0.2"
+        }
+
+        if(time === "after") {
+            elem.removeAttribute("disabled")
+            elem.style.opacity = "1"
+        }
     }
 }
