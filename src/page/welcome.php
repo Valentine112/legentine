@@ -48,8 +48,10 @@
 </body>
 <script>
     window.addEventListener("load", () => {
-        // Get usernam from localstorage
-        var name = localStorage.getItem("LT-username") ?? ""
+        // Get username from localstorage
+        var name = localStorage.getItem("LT-username") 
+        name = name != null ? name : ""
+
         var welcome = `Welcome ${name}`
 
         var box = document.getElementById("welcome-box")
@@ -69,7 +71,7 @@
                 if(ind + 1 >= welcome.length){
                     // Remove the name from localstorage and redirect to login page
                     localStorage.removeItem("LT-username")
-                    window.location = "login"
+                    //window.location = "login"
                 }
             }, ind * 0500)
         })

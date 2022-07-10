@@ -108,48 +108,21 @@
             // First evaluation means that the id does not exist and user can login without auth
 
             if($value[1] < 1):
-                // Process by adding a new device and token
-                $subject = [
-                    "user",
-                    "token",
-                    "device",
-                    "ip",
-                    "time"
-                ];
+                // Proceed to add new device and login
+                return $this->addNewDevice($user);
 
-                $item = [
-                    $user,
-                    $token,
-                    $this->device,
-                    $this->ip,
-                    time()
-                ];
-
-                $inserting = new Insert(self::$db, "logins", $subject, "");
-                $action = $inserting->push($item, 'isssi');
-                if(is_bool($action) && $action):
-                    $this->status = 1;
-                    $this->message = "double";
-                    $this->content = "Success";
-
-                    $this->save_cookie($token);
-
-                    return $this->deliver();
-                else:
-                    return $action;
-
-                endif;
             else:
                 $data = $value[0];
                 $check = Func::searchObject($data, $this->device, 'device');
 
                 if(in_array(1, $check)):
+
                     // Process by updating the token for the device
                     $updating = new Update(self::$db, "SET token = ? WHERE user = ?# $token# $user");
                     $action = $updating->mutate('si', 'logins');
                     if(is_bool($action) && $action):
                         $this->status = 1;
-                        $this->message = "double";
+                        $this->message = "double/success";
                         $this->content = "Success";
 
                         $this->save_cookie($token);
@@ -162,6 +135,7 @@
                 else:
                     // Authenticate
                     $val = [
+                        "email" => $email,
                         "user" => $user,
                         "device" => $this->device,
                         "ip" => $this->ip,
@@ -177,8 +151,7 @@
                         // Create a double message type, where there can be status as 1 from 2 different results
                         // The content would be what defines how the message would be handled
 
-                        $auth['message'] = "double";
-                        $auth['content'] = "Auth";
+                        $auth['message'] = "double/Auth";
 
                         return $auth;
                     else:
@@ -189,6 +162,41 @@
 
             endif;
 
+        }
+
+        public function addNewDevice($user) {
+            $token = Func::tokenGenerator();
+            // Process by adding a new device and token
+            $subject = [
+                "user",
+                "token",
+                "device",
+                "ip",
+                "time"
+            ];
+
+            $item = [
+                $user,
+                $token,
+                $this->device,
+                $this->ip,
+                time()
+            ];
+
+            $inserting = new Insert(self::$db, "logins", $subject, "");
+            $action = $inserting->push($item, 'isssi');
+            if(is_bool($action) && $action):
+                $this->status = 1;
+                $this->message = "double/success";
+                $this->content = "Success";
+
+                $this->save_cookie($token);
+
+                return $this->deliver();
+            else:
+                return $action;
+
+            endif;
         }
 
         public function save_cookie(string $token) {

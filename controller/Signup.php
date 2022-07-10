@@ -16,7 +16,7 @@
         public function main(array $data) : array {
             (array) $result = [];
 
-            $signup = new ModelSignup(self::$db, $data);
+            $signup = new ModelSignup(self::$db, $data, REGFILE);
 
             switch ($data['action']):
                 case 'verify':
@@ -28,7 +28,7 @@
                     break;
 
                 case 'resend':
-                    $result = $signup->resend();
+                    $result = $signup->resend(REGFILE);
                     break;
 
                 default:

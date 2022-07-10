@@ -91,6 +91,8 @@ window.addEventListener("load", function () {
                     var response = val
                     if(response.status === 1) {
                         localStorage.setItem('LT-token', response.content['key'])
+                        localStorage.setItem("LT-from", "signup")
+                        
                         window.location = "confirm"
 
                     }

@@ -16,7 +16,7 @@ window.addEventListener("load", () => {
         }
         else{
             // Configure button to prevent multiple request
-            //new Func().buttonConfig(this, "before")
+            new Func().buttonConfig(this, "before")
 
             data = {
                 part: 'login',
@@ -34,13 +34,17 @@ window.addEventListener("load", () => {
                 // Configure button to prevent multiple request
                 new Func().buttonConfig(this, "after")
 
-                if(val.status === 1 && val.message == "double"){
-                    if(val.content == "Success") {
+                var message = val.message.split("/")
+                if(val.status === 1 && message[0] == "double"){
+                    if(message[1] == "uccess") {
                         // Take user to dashboard
 
-                    }else if(val.content == "Auth") {
+                    }else if(message[1] == "Auth") {
                         // Redirect to confirm page
-                        
+                        localStorage.setItem("LT-token", val.content['key'])
+                        localStorage.setItem("LT-from", "login")
+
+                        window.location = "confirm"
                     }
                 }
 

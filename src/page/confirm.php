@@ -10,7 +10,7 @@
                 <div>
                     <h2>Confirm Email</h2>
                 </div>
-                <div>
+                <div class="second-section">
                     <div>
                         <p>Put in the code that was sent to your email address.</p>
                     </div>
@@ -18,7 +18,7 @@
                         <span></span>
                     </div>
                     <div>
-                        <form action="" onclick="event.preventDefault(); event.stopImmediatePropagation">
+                        <form action="" onclick="event.preventDefault(); event.stopImmediatePropagation" class="form-holder">
                             <div class="form-div">
                                 <div>
                                     <input 
@@ -77,7 +77,7 @@
                                 </div>
                             </div>
 
-                            <div class="btn confirm-btn">
+                            <div class="btn confirm-btn recover-box">
                                 <button>
                                     <span>Confirm</span>
                                 </button>
@@ -97,7 +97,7 @@
                                 <div></div>
                             </div>
 
-                            <div class="btn resend-btn">
+                            <div class="btn resend-btn recover-box">
                                 <button>
                                     <span>Resend</span>
                                 </button>

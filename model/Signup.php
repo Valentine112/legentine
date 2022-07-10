@@ -17,13 +17,13 @@
     class Signup extends Response {
         private static $db;
 
-        public function __construct(mysqli $db, array $data) {
+        public function __construct(mysqli $db, array $data, $path) {
 
             $this->data = $data['val'];
             self::$db = $db;
 
             $this->selecting = new Select(self::$db);
-            $this->file = new FileHandling(REGFILE);
+            $this->file = new FileHandling($path);
 
             return $this;
         }
@@ -162,7 +162,7 @@
             return $this->deliver();
         }
 
-        public function resend() : array {
+        public function resend(string $path) : array {
             // Fetch the data from the session.json file
             $fetch = json_decode($this->file->fetchFile(), true);
 
@@ -172,9 +172,10 @@
 
                 $email = $info['content']['email'];
                 if(!empty($email)):
-                    $validate = new EmailValidation(REGFILE, $email, null, $this->data);
+                    $validate = new EmailValidation($path, $email, null, $this->data);
 
-                    return $validate->main($this->data['token']);
+                    $email_body = "<h1> Hello there </h1>";
+                    return $validate->main($this->data['token'], $email_body);
 
                 else:
                     $this->status = 0;
@@ -204,6 +205,7 @@
             // Check if the token from the client exist in that data fetched
             if(isset($fetch[$data['token']])):
 
+                // Content from file
                 $info = $fetch[$data['token']];
 
                 // Check the time time is greater than 5 minutes
@@ -222,6 +224,8 @@
                 else:
                     $this->status = 1;
                     $this->message = "void";
+
+                    // The content from the json file is saved here
                     $this->content = $info['content'];
 
                     unset($fetch[$this->data['token']]);

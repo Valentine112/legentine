@@ -3,7 +3,10 @@
     namespace Controller;
 
     use mysqli;
-    use Model\Login as ModelLogin;
+    use Model\{
+        Login as ModelLogin,
+        Signup as ModelSignup
+    };
     use Service\Response;
 
     class Login extends Response {
@@ -18,13 +21,26 @@
             (array) $result = [];
 
             $login = new ModelLogin(self::$db, $data);
+            $signup = new ModelSignup(self::$db, $data, LOGINFILE);
 
             switch ($data['action']):
                 
                 case 'login':
                     $result = $login->verify();
                     break;
-                
+
+                case 'confirm':
+                    $result = $signup->check_code($data['val']);
+                    break;
+
+                case 'resend':
+                    $result = $signup->resend(LOGINFILE);
+                    break;
+
+                case 'addDevice':
+                    $result = $login->addNewDevice($data['val']['user']);
+                    break;
+
                 default:
                     $this->type = "Controller/Signup/main";
                     $this->status = 0;

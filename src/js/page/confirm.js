@@ -32,20 +32,34 @@ window.addEventListener("load", function() {
         // Get the token from localstorage and send back to the server
         // Check if it exist and verify users input
         var token = localStorage.getItem('LT-token')
+        var from_page = localStorage.getItem('LT-from')
         if(valid) {
             // Configure button to prevent multiple request
             new Func().buttonConfig(this, "before")
 
             data = data.join("")
+
             data = {
-                part: 'signup',
                 action: "confirm",
-                code: data,
-                token: token != null ? token : ""
+                val: {
+                    code: data,
+                    token: token != null ? token : ""
+                }
             }
+
+            // Sending data depending on the page the user is coming from
+            if(from_page == "signup") {
+                data.part = "signup"
+            }
+
+            if(from_page == "login") {
+                data.part = "login"
+            }
+
 
             new Func().request("request.php", JSON.stringify(data), 'json')
             .then(val => {
+
                 // Configure button to prevent multiple request
                 new Func().buttonConfig(this, "after")
 
@@ -54,11 +68,36 @@ window.addEventListener("load", function() {
                     localStorage.removeItem("LT-token")
                     
                     // Set the username in localstorage for the welcome page
-                    localStorage.setItem("Lt-username", response.content)
+                    localStorage.setItem("LT-username", response.content)
                     
-                    window.location = "welcome"
+                    // Check where the user is coming from and give the appropriate response
+
+                    if(from_page == "signup"){
+                        window.location = "welcome"
+
+                    }else if(from_page == "login"){
+                        // Add the new device
+                        var data = {
+                            part: "login",
+                            action: "addDevice",
+                            val: val.content
+                        }
+
+                        new Func().request("request.php", JSON.stringify(data), 'json')
+                        .then(val1 => {
+                            if(val1.status === 1) {
+                                // redirect to login
+
+                            }
+                            
+                            new Func().processResponse(response, "error", "error")
+                        })
+
+                    }
 
                 }
+
+                document.querySelector(".form-holder").reset()
                 new Func().processResponse(response, "error", "error")
             })
         }
@@ -68,6 +107,8 @@ window.addEventListener("load", function() {
     // Resend action
     var resend = document.querySelector(".resend-btn button")
     resend.addEventListener("click", function() {
+        var from_page = localStorage.getItem('LT-from')
+
         /**
          * Only the token would be sent to the server along with the action
          * If the token does not correspond or exist as a key in the session.json file
@@ -80,15 +121,27 @@ window.addEventListener("load", function() {
 
         var token = localStorage.getItem('LT-token')
         data = {
-            part: 'signup',
             action: "resend",
-            token: token != null ? token : ""
+            val: {
+                token: token != null ? token : ""
+            }
+        }
+
+        if(from_page == "signup") {
+            data.part = "signup"
+        }
+
+        if(from_page == "login") {
+            data.part = "login"
         }
 
         new Func().request("request.php", JSON.stringify(data), 'json')
         .then(val => {
             // Configure button to prevent multiple request
             new Func().buttonConfig(this, "after")
+
+            new Func().processResponse(val, "error", "error")
+
         })
     })
 
