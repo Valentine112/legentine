@@ -73,10 +73,12 @@ window.addEventListener("load", function () {
                 var data = {
                     part: 'signup',
                     action: "verify",
-                    fullname: name.value,
-                    username: username.value,
-                    email: email.value,
-                    password: password.value
+                    val: {
+                        fullname: name.value,
+                        username: username.value,
+                        email: email.value,
+                        password: password.value 
+                    }
                 }
 
                 data = JSON.stringify(data)

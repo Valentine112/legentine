@@ -19,11 +19,11 @@
 
         public function __construct(mysqli $db, array $data) {
 
-            $this->data = $data;
+            $this->data = $data['val'];
             self::$db = $db;
 
             $this->selecting = new Select(self::$db);
-            $this->file = new FileHandling("log/session.json");
+            $this->file = new FileHandling(REGFILE);
 
             return $this;
         }
@@ -31,9 +31,10 @@
         public function verify() : array|bool {
             $process = $this->process();
             if($process['status'] === 1):
-                $validate = new EmailValidation($this->data['email'], null, $this->data);
+                $validate = new EmailValidation(REGFILE, $this->data['email'], null, $this->data);
 
-                return $validate->main(null);
+                $email_body = "<h1> Hello there </h1>";
+                return $validate->main(null, $email_body);
             else:
                 return $process;
 
@@ -72,7 +73,18 @@
                 $this->content = "Password should contain both letters and numbers and should be greater than 7";
 
             else:
+                $username = $this->data['username'];
                 $email = $this->data['email'];
+
+                $this->selecting->more_details("WHERE username = ?, $username");
+                $action = $this->selecting->action("username", "user");
+                $this->selecting->reset();
+
+                $username_exist = $this->selecting->pull();
+
+                if($action != null) {
+                    return $action;
+                }
 
                 $this->selecting->more_details("WHERE email = ?, $email");
                 $action = $this->selecting->action("email", "user");
@@ -82,8 +94,14 @@
                     return $action;
                 }
 
-                $value = $this->selecting->pull();
-                if($value[1] > 0):
+                $email_exist = $this->selecting->pull();
+
+                if($username_exist[1] > 0):
+                    $this->status = 0;
+                    $this->message = "Fill";
+                    $this->content = "Username already exist";
+
+                elseif($email_exist[1] > 0):
                     $this->status = 0;
                     $this->message = "Fill";
                     $this->content = "Email already exist";
@@ -154,7 +172,7 @@
 
                 $email = $info['content']['email'];
                 if(!empty($email)):
-                    $validate = new EmailValidation($email, null, $this->data);
+                    $validate = new EmailValidation(REGFILE, $email, null, $this->data);
 
                     return $validate->main($this->data['token']);
 

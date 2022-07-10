@@ -67,6 +67,19 @@
             ];
 
         }
+
+        public static function searchObject(array $data, string $needle, string $key) : array {
+            $exist = [];
+            foreach($data as $val):
+                if($val[$key] === $needle):
+                    array_push($exist, 1);
+                else:
+                    array_push($exist, 0);
+                endif;
+            endforeach;
+
+            return $exist;
+        }
     }
 
 ?>

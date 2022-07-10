@@ -11,8 +11,8 @@
 
     class EmailValidation extends Response {
 
-        public function __construct(string $email, ?string $name, array $more) {
-            $this->path = "log/session.json";
+        public function __construct(string $path, string $email, ?string $name, array $more) {
+            $this->path = $path;
 
             $this->email = Func::cleanData($email, 'string');
             $name == null ? $this->name = "" : $this->name = Func::cleanData($name, 'string');
@@ -21,7 +21,7 @@
 
         }
 
-        public function main(?string $action) : array {
+        public function main(?string $action, string $email_body) : array {
             $this->type = "EmailValidation/main";
 
             $code = (int) random_int(10000, 99999);
@@ -43,7 +43,7 @@
 
                 // Sent an email address with the security code along
                 $mailing = new Mailing($this->email, $this->name, $code, $config);
-                $mailing->set_params("<h1>Hello there </h1>", "Confirm email Address");
+                $mailing->set_params($email_body, "Confirm email Address");
 
                 // Changed the condition to force so i could test for other parts
                 // Would need to turn the condition to true for the correct working

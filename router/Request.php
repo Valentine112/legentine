@@ -42,8 +42,15 @@
                     if(is_array($value)):
                         foreach($value as $key => $val):
 
-                            // Collect and clean the data gotten from the client
-                            $value[$key] = Func::cleanData($val, 'string');
+                            // Check is value is array
+                            if(is_array($val)):
+                                foreach($val as $key1 => $val1):
+                                    $val[$key1] = Func::cleanData($val1, 'string');
+                                endforeach;
+                            else:
+                                // Collect and clean the data gotten from the client
+                                $value[$key] = Func::cleanData($val, 'string');
+                            endif;
                         endforeach;
                     endif;
 

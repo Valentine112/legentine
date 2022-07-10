@@ -46,7 +46,6 @@ window.addEventListener("load", function() {
 
             new Func().request("request.php", JSON.stringify(data), 'json')
             .then(val => {
-                console.log(val)
                 // Configure button to prevent multiple request
                 new Func().buttonConfig(this, "after")
 
@@ -57,7 +56,7 @@ window.addEventListener("load", function() {
                     // Set the username in localstorage for the welcome page
                     localStorage.setItem("Lt-username", response.content)
                     
-                    //window.location = "welcome"
+                    window.location = "welcome"
 
                 }
                 new Func().processResponse(response, "error", "error")

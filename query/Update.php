@@ -2,7 +2,9 @@
 
     namespace Query;
 
-    class Update{
+    use Service\Response;
+
+    class Update extends Response{
 
         public $value = [];
         public $more1 = "";
@@ -39,8 +41,13 @@
             if($update->execute()){
                 return true;
             }else{
-                return false;
+                $this->status = 0;
+                $this->message = "void";
+                $this->content = "Failed to update data";
+
+                return $this->deliver();
             }
+            
             $update->close();
         }
 

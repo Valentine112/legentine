@@ -11,7 +11,7 @@
                 <div>
                     <h2>Forgot Password</h2>
                 </div>
-                <div>
+                <div class="second-section">
                     <div>
                         <p>Put in your email address or username associated with your account.</p>
                     </div>
@@ -23,15 +23,31 @@
                                 placeholder="email or username" aria-placeholder="email or username"
                             />
                         </div>
-                        <div>
-                            <button>
+
+                        <div class="recover-box">
+                            <button id="recover-btn">
                                 <span>Recover</span>
                             </button>
                         </div>
+
+                        <div class="others">
+                            <div>
+                                <a href="login">
+                                    <span>Login</span>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="signup">
+                                    <span>Signup</span>
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
+<script src="src/js/page/forgot.js"></script>
 </html>

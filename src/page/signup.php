@@ -25,7 +25,6 @@
                                 id="name" 
                                 placeholder="fullname" aria-placeholder="fullname" autocomplete="off"
                                 autofocus
-                                value="Peter Ngene"
                             />
                             <div class="error-message">
                                 <span></span>
@@ -39,7 +38,6 @@
                                 id="username" 
                                 placeholder="username" aria-placeholder="username" autocomplete="off"
                                 autofocus
-                                value="Santino"
                             />
                             <div class="error-message">
                                 <span></span>
@@ -53,7 +51,6 @@
                                 id="email" 
                                 placeholder="email" aria-placeholder="email" autocomplete="off"
                                 autofocus
-                                value="valenny113@gmail.com"
                             />
                             <div class="error-message">
                                 <span></span>
@@ -69,7 +66,6 @@
                                     placeholder="password" 
                                     aria-placeholder="password" 
                                     autocomplete="off"
-                                    value="Anthonyval1"
                                 />
                                 <span onclick="togglePassword(this)">show</span>
                             </div>

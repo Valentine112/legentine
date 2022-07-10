@@ -14,9 +14,11 @@
     font-size: 22px;
     color: var(--theme-color);
 }
-.forgot-2 > div > div:first-child{
+
+.forgot-2 .second-section{
     font-family: var(--theme-font);
 }
+
 .forgot-2 > div > div:last-child{
     margin-top: 20px;
 }
@@ -25,23 +27,39 @@
     border-bottom: 2px solid #f1f1f1;
     border-radius: 0;
     width: 90%;
-    font-family: var(--theme-font);
     font-size: 16px;
     outline: none;
     padding: 3px;
+    font-family: var(--theme-font);
 }
-.forgot-2 > div > div:last-child > div:last-child{
+.forgot-2 .recover-box{
     margin-top: 20px;
 }
-.forgot-2 > div > div:last-child button{
+.forgot-2 .recover-box button{
     background-color: var(--theme-color);
-    font-family: var(--theme-font);
+
     font-size: 16px;
     color: #fff;
     width: 40%;
     padding: 8px 10px 8px 10px;
     border: 0;
     border-radius: 5px;
+}
+
+.forgot-2 .others{
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    margin-top: 40px;
+}
+.forgot-2 .others a{
+    color: #ff465b;
+    display: block;
+    padding: 10px 50px 10px 50px;
+    background-color: #f1f1f1;
+    border-radius: 10px;
 }
 
 @media  screen and (min-width: 768px) {

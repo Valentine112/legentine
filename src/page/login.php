@@ -12,8 +12,10 @@
                 </div>
 
                 <div class="form-holder">
-                    <form action="" onclick="event.preventDefault(); this.stopImmediatePropagation()">
-
+                    <div class="server-error">
+                        <span></span>
+                    </div>
+                    <form action="" onclick="event.preventDefault(); event.stopImmediatePropagation()">
                         <div>
                             <input 
                                 type="text" 
@@ -21,6 +23,7 @@
                                 id="user" 
                                 placeholder="email or username" aria-placeholder="email or username" autocomplete="off"
                                 autofocus
+                                value="Himself"
                             />
                         </div>
 
@@ -32,13 +35,13 @@
                                 placeholder="password" 
                                 aria-placeholder="password" 
                                 autocomplete="off"
+                                value="Anthonyval1"
                             />
                         </div>
 
                         <div>
-                            <button class="form">
+                            <button class="form" id="login-btn">
                                 <span class="btn-text">Login</span>
-                                <div class="btn-loader">
                             </button>
                         </div>
 
@@ -73,4 +76,5 @@
         </div>
     </div>
 </body>
+<script src="src/js/page/login.js"></script>
 </html>

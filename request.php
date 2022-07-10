@@ -17,6 +17,11 @@
         [Signup::class, 'main']
     );
 
+    $request->is_post(
+        'login',
+        [Login::class, 'main']
+    );
+
     print_r(Response::sendJSON($request->listen()));
 
 
