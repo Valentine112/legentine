@@ -38,6 +38,7 @@ window.addEventListener("load", () => {
                 if(val.status === 1 && message[0] == "double"){
                     if(message[1] == "success") {
                         // Take user to dashboard
+                        window.location = "user/home"
 
                     }else if(message[1] == "Auth") {
                         // Redirect to confirm page

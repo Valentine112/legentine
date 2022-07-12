@@ -98,7 +98,7 @@ window.addEventListener("load", function() {
                                 new Func().clear_localstorage()
 
                                 // redirect to dashboard
-
+                                window.location = "user/home"
                             }
                             new Func().processResponse(response, "error", "error")
                         })

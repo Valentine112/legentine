@@ -44,10 +44,10 @@
     })
 
 
-    // Pages only accessible when a session is active
+    // Pages accessible after the landing, this are the content pages
 
-    ->get('/post', function() {
-        require "src/element/post.php";
+    ->get('/user/home', function() {
+        require "src/page/user/home.php";
     })
 
     ->listen();
