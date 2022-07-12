@@ -30,11 +30,19 @@
                     break;
 
                 case 'confirm':
-                    $result = $signup->check_code($data['val']);
+                    $result = $signup->check_code($data['val'], null);
                     break;
 
                 case 'resend':
                     $result = $signup->resend(LOGINFILE);
+                    break;
+                
+                case 'forgot':
+                    $result = $login->forgot();
+                    break;
+
+                case 'forgot-checkCode':
+                    $result = $signup->check_code($data['val'], "!reset");
                     break;
 
                 case 'addDevice':

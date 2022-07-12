@@ -36,7 +36,7 @@ window.addEventListener("load", () => {
 
                 var message = val.message.split("/")
                 if(val.status === 1 && message[0] == "double"){
-                    if(message[1] == "uccess") {
+                    if(message[1] == "success") {
                         // Take user to dashboard
 
                     }else if(message[1] == "Auth") {

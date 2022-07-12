@@ -9,10 +9,10 @@
     };
 
     use Query\{
-    Insert,
-    Select,
-    Update
-};
+        Insert,
+        Select,
+        Update
+    };
 
     /**
      * Check if user exist and crosscheck the password to verify the user
@@ -209,6 +209,48 @@
             endif;
 
             setcookie("token", $token, $exp, "/", "", FALSE, TRUE);
+        }
+
+        public function forgot() : array {
+            // Fetch the email address and the user id from either the username or the email
+            // Pass the email and userid as part of the data that would need to be stored in a file
+            $user_form = $this->data['user'];
+
+            // Check if the user exist
+            $this->selecting->more_details("WHERE email = ? OR username = ?, $user_form, $user_form");
+            $action = $this->selecting->action("user, email", "user");
+            $this->selecting->reset();
+
+            if($action != null) {
+                return $action;
+            }
+
+            $value = $this->selecting->pull();
+            
+            if($value[1] > 0):
+
+                $user = $value[0][0]['user'];
+                $email = $value[0][0]['email'];
+
+                $data = [
+                    "user" => $user,
+                    "email" => $email
+                ];
+
+                $email_body = "<h1> Hello there </h1>";
+
+                $auth = new EmailValidation(LOGINFILE, $email, null, $data);
+                $auth = $auth->main(null, $email_body);
+
+                return $auth;
+            else:
+                $this->status = 0;
+                $this->message = "fill";
+                $this->content = "There is no user associated with the information provided";
+
+            endif;
+
+            return $this->deliver();
         }
     }
 ?>

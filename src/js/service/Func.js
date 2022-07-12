@@ -48,6 +48,10 @@ class Func {
     }
 
     processResponse(data, type, type1) {
+        if(data.status === 1){
+            this.showServerMessage("", "success")
+        }
+
         if(data.status === 0 && data.message === "Fill"){
             // Message from server if it's filled
             this.showServerMessage(data.content, type)
@@ -73,5 +77,11 @@ class Func {
             elem.removeAttribute("disabled")
             elem.style.opacity = "1"
         }
+    }
+
+    clear_localstorage() {
+        localStorage.removeItem("LT-username")
+        localStorage.removeItem("LT-from")
+        localStorage.removeItem("LT-token")
     }
 }

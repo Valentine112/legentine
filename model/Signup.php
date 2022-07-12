@@ -194,7 +194,7 @@
             return $this->deliver();
         }
 
-        public function check_code(array $data) : array {
+        public function check_code(array $data, ?string $reset) : array {
             $this->type = "Controller/Signup/check_code";
 
             $expiring = 5 * 60;
@@ -228,9 +228,10 @@
                     // The content from the json file is saved here
                     $this->content = $info['content'];
 
-                    unset($fetch[$this->data['token']]);
-                    $this->file->writeFile(json_encode($fetch));
-
+                    if(is_null($reset)):
+                        unset($fetch[$this->data['token']]);
+                        $this->file->writeFile(json_encode($fetch));
+                    endif;
                 endif;
             else:
                 $this->status = 0;

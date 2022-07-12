@@ -35,6 +35,10 @@
         require "src/page/welcome.php";
     })
 
+    ->get('/password', function() {
+        require "src/page/password.php";
+    })
+
     ->get('/help', function() {
         require "src/page/help.php";
     })
@@ -45,6 +49,7 @@
     ->get('/post', function() {
         require "src/element/post.php";
     })
+
     ->listen();
 
     require "src/config/config.html";

@@ -15,7 +15,7 @@
 
     // Deployment, the above *Testing would be commented out
 
-    // Clean the session.json file if a data has lasted for more than 24 hours
+    // Clean the log/json files if a data has lasted for more than 24 hours
     function cleanFile($path, int $duration) {
         $files = json_decode(file_get_contents($path), true);
         // Check if file is not empty

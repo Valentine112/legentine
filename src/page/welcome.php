@@ -70,7 +70,7 @@
 
                 if(ind + 1 >= welcome.length){
                     // Remove the name from localstorage and redirect to login page
-                    localStorage.removeItem("LT-username")
+                    new Func().clear_localstorage()
                     //window.location = "login"
                 }
             }, ind * 0500)

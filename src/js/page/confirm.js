@@ -56,6 +56,11 @@ window.addEventListener("load", function() {
                 data.part = "login"
             }
 
+            if(from_page == "forgot") {
+                data.action = "forgot-checkCode"
+                data.part = "login"
+            }
+
 
             new Func().request("request.php", JSON.stringify(data), 'json')
             .then(val => {
@@ -65,7 +70,6 @@ window.addEventListener("load", function() {
 
                 var response = val
                 if(response.status === 1) {
-                    localStorage.removeItem("LT-token")
                     
                     // Set the username in localstorage for the welcome page
                     localStorage.setItem("LT-username", response.content)
@@ -75,7 +79,11 @@ window.addEventListener("load", function() {
                     if(from_page == "signup"){
                         window.location = "welcome"
 
+                        localStorage.removeItem("LT-token")
+
                     }else if(from_page == "login"){
+                        localStorage.removeItem("LT-token")
+                        
                         // Add the new device
                         var data = {
                             part: "login",
@@ -86,13 +94,19 @@ window.addEventListener("load", function() {
                         new Func().request("request.php", JSON.stringify(data), 'json')
                         .then(val1 => {
                             if(val1.status === 1) {
-                                // redirect to login
+                                // Clear the localstorage
+                                new Func().clear_localstorage()
+
+                                // redirect to dashboard
 
                             }
-                            
                             new Func().processResponse(response, "error", "error")
                         })
 
+                    }
+                    else if(from_page == "forgot"){
+                        // Redirect to change password page
+                        window.location = "password"
                     }
 
                 }
@@ -127,11 +141,16 @@ window.addEventListener("load", function() {
             }
         }
 
+        // Set the part for the request file depending on the users destination
         if(from_page == "signup") {
             data.part = "signup"
         }
 
         if(from_page == "login") {
+            data.part = "login"
+        }
+
+        if(from_page == "forgot") {
             data.part = "login"
         }
 
