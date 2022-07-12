@@ -23,7 +23,6 @@
                                 id="user" 
                                 placeholder="email or username" aria-placeholder="email or username" autocomplete="off"
                                 autofocus
-                                value="Himself"
                             />
                         </div>
 
@@ -35,7 +34,6 @@
                                 placeholder="password" 
                                 aria-placeholder="password" 
                                 autocomplete="off"
-                                value="Anthonyval1"
                             />
                         </div>
 

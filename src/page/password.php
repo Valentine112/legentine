@@ -12,19 +12,26 @@
                 </div>
                 <div>
                     <div>
+                    <div class="server-error">
+                        <span></span>
+                    </div>
                         <div class="form-div">
                             <div>
                                 <input 
-                                    type="text" 
+                                    type="password" 
                                     class="form" 
+                                    id="password"
                                     placeholder="New password" aria-placeholder="New password"
                                 />
-                                <span>show</span>
+                                <span onclick="togglePassword(this)">show</span>
                             </div>
+                        </div>
+                        <div class="error-message">
+                            <span></span>
                         </div>
 
                         <div class="button-div recover-box">
-                            <button>
+                            <button id="change-btn">
                                 <span>Change</span>
                             </button>
                         </div>
@@ -34,4 +41,5 @@
         </div>
     </div>
 </body>
+<script src="src/js/page/password.js"></script>
 </html>

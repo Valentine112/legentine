@@ -52,7 +52,7 @@ class Func {
             this.showServerMessage("", "success")
         }
 
-        if(data.status === 0 && data.message === "Fill"){
+        if(data.status === 0 && data.message == "fill"){
             // Message from server if it's filled
             this.showServerMessage(data.content, type)
         }else if(data.status != 1) {

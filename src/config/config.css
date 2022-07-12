@@ -98,7 +98,7 @@ body{
 .server-error, .error-message{
     color: var(--theme-color);
     font-family: var(--theme-font);
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .server-error .error{

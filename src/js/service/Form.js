@@ -1,7 +1,15 @@
+// Saving the error message in variables
+const fullname_error = "Fullname should only have letters and space",
+username_error = "Username only accepts letters,numbers and underscore",
+email_error = "Email address should be in format john****@****.com",
+password_error = "Password should contain both letters and numbers and should be greater than 7"
+
 class Form {
+
     constructor() {
         return this
     }
+
     validate(data, type) {
 
         var result = false,

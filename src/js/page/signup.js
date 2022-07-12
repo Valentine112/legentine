@@ -5,13 +5,7 @@ window.addEventListener("load", function () {
     * Check and validate users input
     */
     var signup_btn = document.getElementById("signup-btn"),
-    error_message = document.querySelectorAll(".error-message"),
-
-    // Saving the error message in variables
-    fullname_error = "Fullname should only have letters and space",
-    username_error = "Username only accepts letters,numbers and underscore",
-    email_error = "Email address should be in format john****@****.com",
-    password_error = "Password should contain both letters and numbers and should be greater than 7"
+    error_message = document.querySelectorAll(".error-message")
 
 
     // Submitting the form, after all has been filled

@@ -15,7 +15,7 @@
 
     // Deployment, the above *Testing would be commented out
 
-    // Clean the log/json files if a data has lasted for more than 24 hours
+    // Clean the log/json files if a data has lasted for more than 12 hours
     function cleanFile($path, int $duration) {
         $files = json_decode(file_get_contents($path), true);
         // Check if file is not empty
@@ -32,7 +32,7 @@
         endif;
     }
 
-    $twentyfourHrs = (60 * 60) * 24;
+    $twentyfourHrs = (60 * 60) * 12;
     cleanFile(REGFILE, $twentyfourHrs);
     cleanFile(FORGOTFILE, $twentyfourHrs);
 

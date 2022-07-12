@@ -45,6 +45,10 @@
                     $result = $signup->check_code($data['val'], "!reset");
                     break;
 
+                case 'new-password':
+                    $result = $login->update_password();
+                    break;
+
                 case 'addDevice':
                     $result = $login->addNewDevice($data['val']['user']);
                     break;

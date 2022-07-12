@@ -5,8 +5,9 @@
     use Service\{
         Response,
         Func,
-        EmailValidation
-    };
+        EmailValidation,
+    FileHandling
+};
 
     use Query\{
         Insert,
@@ -248,6 +249,52 @@
                 $this->message = "fill";
                 $this->content = "There is no user associated with the information provided";
 
+            endif;
+
+            return $this->deliver();
+        }
+
+        public function update_password() : array {
+            // Check if the password meets the standard
+            if(strlen(trim($this->data['password'])) < 7 || !preg_match("/[0-9]/", $this->data['password'])):
+                $this->status = 0;
+                $this->message = "Fill";
+                $this->content = "Password should contain both letters and numbers and should be greater than 7";
+
+            else:
+                // Hash the password
+                $password = password_hash($this->data['password'], PASSWORD_DEFAULT);
+
+                $file = new FileHandling(LOGINFILE);
+                $data = json_decode($file->fetchFile(), true);
+
+                // Check if the key exist
+                if(!empty($data[$this->data['token']])):
+
+                    $user_data = $data[$this->data['token']];
+                    $user = $user_data['content']['user'];
+
+                    // Update the user password
+                    $updating = new Update(self::$db, "SET password = ? WHERE user = ?# $password# $user");
+                    $action = $updating->mutate('si', 'user');
+
+                    if(is_bool($action) && $action):
+                        $this->status = 1;
+                        $this->message = "double/success";
+                        $this->content = "Success";
+
+                        // Delete the key from the file
+                        $file->deleteKey($this->data['token']);
+                    else:
+                        return $action;
+                    endif;
+
+                else:
+                    $this->status = 0;
+                    $this->message = "void";
+                    $this->content = "token not found in file";
+
+                endif;
             endif;
 
             return $this->deliver();
