@@ -222,7 +222,7 @@
             <div class="section-1">
                 <div>
                     <a href="home" class="nav-links home">
-                        <span class="active">Home</span>
+                        <span>Home</span>
                     </a>
                 </div>
 
@@ -339,20 +339,21 @@
     </nav>
 
     <script>
-        window.addEventListener("load", function() {
+        // Placed inside a windows loaded function to get all the necessary links
+        // Mostly the js files
+
+        window.addEventListener("load", () => {
             // Get the current path
             var path = new Func().getPath()['main_path']
             // Set the active link
             var last_path = path.split("/")[2]
 
-            console.log(last_path)
 
             // Check if the path matches any link
             if(document.querySelectorAll(`.${last_path}`) != null){
                 var linked_path = document.querySelectorAll(`.${last_path}`)
 
                 linked_path.forEach(elem => {
-                    console.log(elem)
                     // Check if its a small device
                     if(elem.querySelectorAll("img")[0] != null){
 
@@ -365,11 +366,15 @@
 
                     //Check if its a large device
                     if(elem.querySelector("span") != null){
-                        document.querySelector(".large-navbar").querySelector(".active").classList.remove("active")
+                        var large_navbar = document.querySelector(".large-navbar")
+                        if(large_navbar.querySelector(".active") != null){
+
+                            large_navbar.querySelector(".active").classList.remove("active")
+                        }
 
                         elem.querySelector("span").classList.add("active")
                     }
                 }) 
             }
-        })
+        }, true)
     </script>
