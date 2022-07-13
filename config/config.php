@@ -36,6 +36,15 @@
     cleanFile(REGFILE, $twentyfourHrs);
     cleanFile(FORGOTFILE, $twentyfourHrs);
 
-    
     // So the file doesn't get too overloaded
+
+    // Checking if the explore is active
+    $explore = false;
+    if(isset($_SESSION['explore'])):
+        $explore = true;
+    else:
+        $explore = false;
+    endif;
+
+
 ?>

@@ -119,7 +119,7 @@
         }
 
         public function confirm() : array {
-            $this->check_code($this->data);
+            $this->check_code($this->data, null);
 
             if($this->status === 1):
                 $this->type = "Model/Signup/save_user";

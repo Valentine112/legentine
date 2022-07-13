@@ -78,7 +78,7 @@ window.addEventListener("load", function () {
                 data = JSON.stringify(data)
 
                 new Func().request('request.php', data, 'json')
-                .then(val => {           
+                .then(val => {       
                     // Configure button to prevent multiple request
                     new Func().buttonConfig(this, "after")
 
@@ -90,6 +90,7 @@ window.addEventListener("load", function () {
                         window.location = "confirm"
 
                     }
+                    
                     new Func().processResponse(response, "error", "error")
                 })
 

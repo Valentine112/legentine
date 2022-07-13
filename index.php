@@ -50,8 +50,28 @@
         require "src/page/user/home.php";
     })
 
+    ->get('/user/rank', function() {
+        require "src/page/user/rank.php";
+    })
+
     ->listen();
 
-    require "src/config/config.html";
+    // Routing ends
+    
+    
+    $path = $_SERVER['REQUEST_URI'];
+    $slash_count = substr_count($path, '/');
+
+    require "src/config/header.php";
+
+    // Add the meta tags
+    echo head($slash_count);
+
+    // Show the navbar if person is in user page
+    $get_path = explode("/", $path);
+    if($get_path[1] === "user"):
+        include "src/template/navbar.php";
+        
+    endif;
 
 ?>

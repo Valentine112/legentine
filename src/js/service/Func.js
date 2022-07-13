@@ -48,6 +48,7 @@ class Func {
     }
 
     processResponse(data, type, type1) {
+        data.message = data.message.toLowerCase()
         if(data.status === 1){
             this.showServerMessage("", "success")
         }
@@ -83,5 +84,19 @@ class Func {
         localStorage.removeItem("LT-username")
         localStorage.removeItem("LT-from")
         localStorage.removeItem("LT-token")
+    }
+
+    getPath() {
+        var full_path = window.location.href;
+        var page_path = full_path.slice(40, full_path.length)
+
+        return {
+            "full_path": full_path,
+            "main_path": page_path
+        }
+    }
+
+    post() {
+        
     }
 }

@@ -37,6 +37,9 @@
         .navbar .large-navbar  div div a span:hover, .navbar .large-navbar  div div > span:hover{
             font-size: 19px;
         }
+
+        /* Setting the active for large screen links */
+
         .navbar .large-navbar .active{
             background-color: #fc8290;
             padding: 2px 20px 2px 20px;
@@ -44,8 +47,16 @@
             color: #fff!important;
         }
 
-        @media screen and (min-width: 600px) and (max-width: 767px) {
+        /* Setting active links ends */
 
+        @media screen and (max-width: 767px) {
+            .nav-links .active{
+                display: block;
+            }
+
+            .navbar .non-active{
+                display: none;
+            }
         }
 
         @media screen and (min-width: 768px) {
@@ -171,65 +182,65 @@
 
         <div class="small small-navbar">
             <div>
-                <a href="">
-                    <img src="src/icon/header/plain-icon/home.svg" alt="home" class="config-icon-1 ori-icon">
+                <a href="home" class="nav-links home">
+                    <img src="../src/icon/header/plain-icon/home.svg" alt="home" class="config-icon-1 ori-icon">
 
-                    <img src="src/icon/header/color-icon/home.svg" alt="home" class="config-icon-1 alt-icon">
+                    <img src="../src/icon/header/color-icon/home.svg" alt="home" class="config-icon-1 alt-icon">
                 </a>
             </div>
 
             <div>
-                <a href="">
-                    <img src="src/icon/header/plain-icon/note.svg" alt="home" class="config-icon-1 ori-icon">
+                <a href="session" class="nav-links session">
+                    <img src="../src/icon/header/plain-icon/note.svg" alt="session" class="config-icon-1 ori-icon">
 
-                    <img src="src/icon/header/color-icon/note.svg" alt="home" class="config-icon-1 alt-icon">
-                </a>
-            </div>
-                
-            <div>
-                <a href="">
-                    <img src="src/icon/header/plain-icon/star.svg" alt="home" class="config-icon-1 ori-icon">
-
-                    <img src="src/icon/header/color-icon/star.svg" alt="home" class="config-icon-1 alt-icon">
+                    <img src="../src/icon/header/color-icon/note.svg" alt="session" class="config-icon-1 alt-icon">
                 </a>
             </div>
                 
             <div>
-                <img src="src/icon/header/plain-icon/search.svg" alt="home" class="config-icon-1 ori-icon">
+                <a href="rank" class="nav-links rank">
+                    <img src="../src/icon/header/plain-icon/star.svg" alt="tops" class="config-icon-1 ori-icon">
 
-                <img src="src/icon/header/color-icon/search.svg" alt="home" class="config-icon-1 alt-icon">
+                    <img src="../src/icon/header/color-icon/star.svg" alt="tops" class="config-icon-1 alt-icon">
+                </a>
+            </div>
+                
+            <div>
+                <img src="../src/icon/header/plain-icon/search.svg" alt="search" class="config-icon-1 ori-icon">
+
+                <img src="../src/icon/header/color-icon/search.svg" alt="search" class="config-icon-1 alt-icon">
             </div>
 
             <div>
-                <img src="src/icon/header/plain-icon/list.svg" alt="home" class="config-icon-1 ori-icon">
+                <img src="../src/icon/header/plain-icon/list.svg" alt="menu" class="config-icon-1 ori-icon">
 
-                <img src="src/icon/header/color-icon/list.svg" alt="home" class="config-icon-1 alt-icon">
+                <img src="../src/icon/header/color-icon/list.svg" alt="menu" class="config-icon-1 alt-icon">
             </div>
         </div>
 
         <div class="large large-navbar">
             <div class="section-1">
                 <div>
-                    <a href="">
-                        <span>Home</span>
+                    <a href="home" class="nav-links home">
+                        <span class="active">Home</span>
                     </a>
                 </div>
 
                 <div>
-                    <a href="">
+                    <a href="" class="nav-links session">
                         <span>Session</span>
                     </a>
                 </div>
 
                 <div>
-                    <a href="">
-                        <span class="active">Top</span>
+                    <a href="rank" class="nav-links rank">
+                        <span>Top</span>
                     </a>
                 </div>
 
                 <div id="more" class="dropdown-host" tabindex="0">
                     <div>
-                        <span>More <img src="src/icon/header/drop-down.svg" alt="more" class="dropdown-icon"></span>
+                        <span>More <img src="../src/icon/header/drop-down.svg" alt="more" class="dropdown-icon"></span>
     
                         <div id="more-drop" class="dropdown-item">
                             <div>
@@ -258,7 +269,7 @@
                                         <li><a href="">Notification</a></li>
                                         <li class="dropdown-host" tabindex="0">
                                             <div>
-                                                <span>Feature <img src="src/icon/header/drop-down.svg" alt="more" class="dropdown-icon"></span>
+                                                <span>Feature <img src="../src/icon/header/drop-down.svg" alt="more" class="dropdown-icon"></span>
     
                                                 <ul id="drop" class="dropdown-item">
                                                     <li><a href="">Request</a></li>
@@ -288,7 +299,7 @@
                                         <li><a href="">Feedback</a></li>
                                         <li class="dropdown-host" tabindex="0">
                                             <div>
-                                                <span>More <img src="src/icon/header/drop-down.svg" alt="more" class="dropdown-icon"></span>
+                                                <span>More <img src="../src/icon/header/drop-down.svg" alt="more" class="dropdown-icon"></span>
                                                 
                                                 <ul id="drop" class="dropdown-item">
                                                     <li><a href="">Disclaimer</a></li>
@@ -317,7 +328,7 @@
                 </div>
 
                 <div>
-                    <a href="">
+                    <a href="" class="nav-links profile">
                         <span>Profile</span>
                     </a>
                 </div>
@@ -326,3 +337,39 @@
         </div>
 
     </nav>
+
+    <script>
+        window.addEventListener("load", function() {
+            // Get the current path
+            var path = new Func().getPath()['main_path']
+            // Set the active link
+            var last_path = path.split("/")[2]
+
+            console.log(last_path)
+
+            // Check if the path matches any link
+            if(document.querySelectorAll(`.${last_path}`) != null){
+                var linked_path = document.querySelectorAll(`.${last_path}`)
+
+                linked_path.forEach(elem => {
+                    console.log(elem)
+                    // Check if its a small device
+                    if(elem.querySelectorAll("img")[0] != null){
+
+                        // Hide the default icon
+                        elem.querySelector(".ori-icon").classList.add("non-active")
+
+                        // Show the hidden icon
+                        elem.querySelector(".alt-icon").classList.add("active")
+                    }
+
+                    //Check if its a large device
+                    if(elem.querySelector("span") != null){
+                        document.querySelector(".large-navbar").querySelector(".active").classList.remove("active")
+
+                        elem.querySelector("span").classList.add("active")
+                    }
+                }) 
+            }
+        })
+    </script>

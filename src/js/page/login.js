@@ -30,7 +30,7 @@ window.addEventListener("load", () => {
 
             new Func().request("request.php", JSON.stringify(data), "json")
             .then(val => {
-                console.log(val)
+                
                 // Configure button to prevent multiple request
                 new Func().buttonConfig(this, "after")
 

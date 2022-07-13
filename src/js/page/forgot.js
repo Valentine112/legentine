@@ -22,8 +22,8 @@ window.addEventListener("load", function () {
 
             func.request("request.php", JSON.stringify(data), "json")
             .then(val => {
-                console.log(val)
-
+                // Enable button
+                func.buttonConfig(this, "after")
                 if(val.status === 1){
                     // Redirect to confirm page
                     // Set where the user is coming from

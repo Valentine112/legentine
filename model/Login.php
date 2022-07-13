@@ -47,7 +47,7 @@
 
             // Check if the user exist
             $this->selecting->more_details("WHERE email = ? OR username = ?, $user, $user");
-            $action = $this->selecting->action("email, user, password", "user");
+            $action = $this->selecting->action("email, id, password", "user");
             $this->selecting->reset();
 
             if($action != null) {
@@ -63,7 +63,7 @@
 
             else:
                 $user_email = $value[0][0]['email'];
-                $user_id = $value[0][0]['user'];
+                $user_id = $value[0][0]['id'];
                 $user_password = $value[0][0]['password'];
                 if(password_verify($password, $user_password)):
                     // Now check for device change
@@ -116,19 +116,27 @@
                 $data = $value[0];
                 $check = Func::searchObject($data, $this->device, 'device');
 
+                // Check if the device has already logged in before and just update the token
                 if(in_array(1, $check)):
 
                     // Process by updating the token for the device
                     $updating = new Update(self::$db, "SET token = ? WHERE user = ?# $token# $user");
                     $action = $updating->mutate('si', 'logins');
                     if(is_bool($action) && $action):
-                        $this->status = 1;
-                        $this->message = "double/success";
-                        $this->content = "Success";
+                        // Update current login and times login
+                        $track = $this->track_login($user);
+                        if($track['status'] === 1):
+                            // Save token in cookie
+                            $this->save_cookie($token);
 
-                        $this->save_cookie($token);
+                            // Commit all the changes;
+                            self::$db->autocommit(true);
 
-                        return $this->deliver();
+                            return $this->deliver();
+
+                        else:
+                            return $track;
+                        endif;
                     else:
                         return $action;
                     endif;
@@ -184,14 +192,24 @@
                 time()
             ];
 
+            self::$db->autocommit(false);
+
             $inserting = new Insert(self::$db, "logins", $subject, "");
             $action = $inserting->push($item, 'isssi');
             if(is_bool($action) && $action):
-                $this->status = 1;
-                $this->message = "double/success";
-                $this->content = "Success";
+                // Update current login and times login
+                $track = $this->track_login($user);
+                if($track['status'] === 1):
+                    // Save token in cookie
+                    $this->save_cookie($token);
 
-                $this->save_cookie($token);
+                    // Commit all the changes;
+                    self::$db->autocommit(true);
+
+                else:
+                    return $track;
+
+                endif;
 
                 return $this->deliver();
             else:
@@ -199,6 +217,25 @@
 
             endif;
         }
+
+        public function track_login(int $user) : array {
+            $date = Func::dateFormat();
+            (int) $one = 1;
+            // Update times current login and times logged in
+            $updating = new Update(self::$db, "SET currentLogin = ?, timesLogged = timesLogged + ? WHERE id = ?# $date# $one# $user");
+            $action = $updating->mutate('sii', 'user');
+            if(is_bool($action) && $action):
+                $this->status = 1;
+                $this->message = "double/success";
+                $this->content = "Success";
+
+            else:
+                return $action;
+
+            endif;
+
+            return $this->deliver();
+        } 
 
         public function save_cookie(string $token) {
 
@@ -219,7 +256,7 @@
 
             // Check if the user exist
             $this->selecting->more_details("WHERE email = ? OR username = ?, $user_form, $user_form");
-            $action = $this->selecting->action("user, email", "user");
+            $action = $this->selecting->action("id, email", "user");
             $this->selecting->reset();
 
             if($action != null) {
@@ -230,7 +267,7 @@
             
             if($value[1] > 0):
 
-                $user = $value[0][0]['user'];
+                $user = $value[0][0]['id'];
                 $email = $value[0][0]['email'];
 
                 $data = [
@@ -275,7 +312,7 @@
                     $user = $user_data['content']['user'];
 
                     // Update the user password
-                    $updating = new Update(self::$db, "SET password = ? WHERE user = ?# $password# $user");
+                    $updating = new Update(self::$db, "SET password = ? WHERE id = ?# $password# $user");
                     $action = $updating->mutate('si', 'user');
 
                     if(is_bool($action) && $action):

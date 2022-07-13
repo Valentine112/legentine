@@ -15,6 +15,9 @@
                     <div>
                         <p>Put in your email address or username associated with your account.</p>
                     </div>
+                    <div class="server-error">
+                        <span></span>
+                    </div>
                     <div>
                         <div>
                             <input 

@@ -106,7 +106,7 @@
 .post-sub .content-segment .picture-segment{
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: top;
 }
 .post-sub .content-segment .picture-segment img{
     height: 50px;
@@ -157,6 +157,24 @@
     font-weight: 700;
     margin: auto;
 }
+
+/* Category color */
+
+.post-sub .content-segment .category-segment .song{
+    background-color: rgb(114, 66, 114);
+}
+.post-sub .content-segment .category-segment .rap{
+    background-color: rgb(59, 58, 58);
+}
+.post-sub .content-segment .category-segment .comedy{
+    background-color: orange;
+}
+.post-sub .content-segment .category-segment .poem{
+    background-color: rgb(149, 209, 157);;
+}
+
+/* Category color ends */
+
 .post-sub .content-segment .divider-segment hr{
     width: 100%;
     border: 1px solid #f1f1f1;
