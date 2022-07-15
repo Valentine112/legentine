@@ -150,3 +150,5 @@ body{
         font-size: 15px;
     }
 }
+
+/* Quick notice sidebar has the second highest z-index of 3 */

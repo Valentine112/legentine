@@ -229,13 +229,22 @@
                 $this->message = "double/success";
                 $this->content = "Success";
 
+                // unset the explore session
+                if(isset($_SESSION['explore'])):
+                    unset($_SESSION['explore']);
+                endif;
+                
             else:
                 return $action;
 
             endif;
 
             return $this->deliver();
-        } 
+        }
+
+        public function explore() {
+            
+        }
 
         public function save_cookie(string $token) {
 

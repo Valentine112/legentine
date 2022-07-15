@@ -38,12 +38,21 @@
 
     // So the file doesn't get too overloaded
 
-    // Checking if the explore is active
-    $explore = false;
+    // Check what session type is active
+    $session_type = null;
+
+    // If user is exploring
     if(isset($_SESSION['explore'])):
-        $explore = true;
+        $session_type = "explore";
+
+    // If user logged in
+    elseif(!empty($_COOKIE['sess_token'])):
+        $session_type = "logged";
+
+    // If user isn't performing any
     else:
-        $explore = false;
+        $session_type = null;
+
     endif;
 
 

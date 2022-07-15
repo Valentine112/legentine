@@ -51,7 +51,7 @@
 
         @media screen and (max-width: 767px) {
             .nav-links .active{
-                display: block;
+                display: block!important;
             }
 
             .navbar .non-active{
@@ -227,13 +227,13 @@
                 </div>
 
                 <div>
-                    <a href="" class="nav-links session">
+                    <a href="session" class="nav-links session">
                         <span>Session</span>
                     </a>
                 </div>
 
                 <div>
-                    <a href="rank" class="nav-links rank">
+                    <a href="rank" data-href="rank" class="nav-links rank">
                         <span>Top</span>
                     </a>
                 </div>

@@ -1,0 +1,133 @@
+/* Removed the navbar from this page */
+.navbar{
+    display: none!important;
+}
+
+body{
+    background-color: #f5f5f5;
+}
+.session .container{
+    width: 95%;
+    margin: auto;
+    font-family: var(--theme-font);
+}
+.session .header{
+    color: var(--theme-color);
+    font-family: '';
+    text-align: center;
+}
+.session .form-box > div{
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.session .form-box .form{
+    outline: none;
+}
+.session .form-box .title{
+    border: 0;
+    border-bottom: 2px solid rgb(229, 226, 226);
+    width: 95%;
+    background-color: transparent;
+    font-size: 20px;
+    text-align: center;
+    font-family: var(--theme-font);
+    color: #000;
+    font-weight: 400!important;
+    padding: 10px;
+    border-radius: 0;
+}
+.session .form-box .content{
+    width: 95%;
+    height: 80vh;
+    padding: 15px;
+    font-size: 18px;
+    font-family: var(--theme-font);
+    text-align: center;
+    font-weight: 400;
+    color: rgb(102, 95, 95);
+    border: 0;
+    border-left: 2px solid #f1f1f1;
+    border-right: 2px solid #f1f1f1;
+    line-height: 20px;
+    margin: 10px 0 10px 0;
+}
+
+.session .form::placeholder{
+    color: rgb(188, 183, 183);
+    font-weight: lighter;
+}
+
+.session-extras > div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.session-privacy .check{
+    display: none;
+}
+.session-privacy label{
+    display: block;
+    width: 50px;
+    padding: 5px;
+    background-color: #fff;
+    border-left: 20px solid dodgerblue;
+    cursor: pointer;
+}
+
+.session-category select{
+    border: 0;
+    display: block;
+    width: 150px;
+    padding: 8px;
+    border: 2px solid lightgrey;
+    border-radius: 5px;
+    font-family: var(--theme-font);
+    outline: none;
+    cursor: pointer;
+}
+
+.session-extras .session-button button{
+    border: 0;
+    display: block;
+    background-color: var(--theme-color);
+    font-family: var(--theme-font);
+    color: #fff;
+    font-weight: 600;
+    width: 100px;
+    padding: 8px 0 8px 0;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.session-notice{
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    color: orange;
+}
+.session-notice > div{
+    margin: auto;
+}
+@media screen and (max-width: 767px) {
+    .session-category select{
+        width: 100px;
+    }
+}
+@media screen and (min-width: 768px) {
+    .session .form-box .title{
+        width: 70%;
+    }
+}
+@media screen and (min-width: 992px) {
+    .session .container{
+        width: 65%;
+    }
+    .session .form-box .title{
+        width: 60%;
+    }
+}

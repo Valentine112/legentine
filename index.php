@@ -54,6 +54,10 @@
         require "src/page/user/rank.php";
     })
 
+    ->get('/user/session', function() {
+        require "src/page/user/session.php";
+    })
+
     ->listen();
 
     // Routing ends
@@ -71,7 +75,7 @@
     $get_path = explode("/", $path);
     if($get_path[1] === "user"):
         include "src/template/navbar.php";
-        
+        include "src/template/quick-notice.php";
     endif;
 
 ?>

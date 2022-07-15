@@ -3,22 +3,45 @@
 
     use mysqli;
     use Query\Select;
-    use Service\Response;
+    use Service\{
+        Response,
+        Func
+    };
 
     class User extends Response{
 
         private static $db;
 
-        public function __construct(mysqli $db, array $data) {
+        public function __construct(mysqli $db, array $data, int $user) {
             self::$db = $db;
 
             $this->data = $data;
             $this->selecting = new Select(self::$db);
+            $this->user = $user;
+        }
+
+        public static function fetchId(array $data) : array {
+            $token = Func::cleanData($data['token'], 'string');
+            $table = Func::cleanData($data['table'], 'string');
+
+            $selecting = new Select(self::$db);
+
+            $selecting->more_details("WHERE token = ? LIMIT 1, $token");
+            $action = $selecting->action("id", $table);
+
+            if($action != null) return $action;
+
+            return $selecting->pull();
         }
 
         public function create_post() : array {
 
-            
+            $subject = [
+                'id',
+                'token',
+                'user',
+                ...array_keys($this->data['val']),
+            ];
 
             return $this->deliver();
         }
