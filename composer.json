@@ -12,7 +12,8 @@
             "Service\\": "service/",
             "Model\\": "model/",
             "Controller\\": "controller/",
-            "Query\\": "query/"
+            "Query\\": "query/",
+            "Src\\Config\\": "src/config/"
         }
     },
     "authors": [

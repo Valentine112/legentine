@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="../src/page/css/user/rank.css">
+    <?php 
+        use Src\Config\Head;
+        Head::tags(); 
+    ?>
     <title>Rank</title>
 </head>
 <body>

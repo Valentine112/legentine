@@ -7,6 +7,8 @@
             right: 0;
             width: 95%;
             margin: auto;
+            display: none;
+            transition: opacity 3s ease-out;
         }
         .quick-notice > div{
             box-shadow: 3px 3px 20px 2px #f1f1f1;
@@ -28,6 +30,9 @@
             align-items: center;
         }
         .quick-notice .notice-cover > div:first-child img{
+            display: none;
+        }
+        .quick-notice .notice-cover > div:first-child img{
             height: 20px;
             width: 20px;
         }
@@ -36,10 +41,16 @@
             font-size: 15px;
             color: silver;
         }
+        .quick-notice .success{
+            color: rgba(0, 128, 0, 0.235);
+        }
         .quick-notice .warning{
             color: orange;
         }
-        
+        .quick-notice .error{
+            color: var(--theme-color);
+        }
+
         @media screen and (min-width: 768px) {
             .quick-notice{
                 width: 50%;
@@ -51,6 +62,7 @@
             }
             .quick-notice > div{
                 box-shadow: 3px 3px 20px 2px rgb(232, 231, 231);
+                width: 60%;
             }
         }
     </style>
@@ -60,18 +72,32 @@
         <div class="notice-cover">
 
             <div>
-                <img src="../src/icon/sidebar-icon/about.svg" alt="">
+                <img src="../src/icon/notice/success.svg" class="success" alt="">
+                <img src="../src/icon/notice/warning.svg" class="warning" alt="">
+                <img src="../src/icon/notice/error.svg" class="error" alt="">
             </div>
-    
             <div>
                 <div class="notice-header">
                     <span>Notice</span>
                 </div>
-                <div class="notice-message warning">
-                    <span>Title and contents needed</span>
+                <div class="notice-message">
+                    <span></span>
                 </div>
             </div>
 
         </div>
     </div>
 </div>
+
+<script>
+    function hide_noticeModal(elem) {
+        setTimeout(() => {
+            elem.style.display = "none"
+        }, 3000)
+    }
+
+    function remove_class(notice_message) {
+        notice_message.classList.remove("warning", "success", "error")
+    }
+    
+</script>

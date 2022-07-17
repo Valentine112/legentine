@@ -89,6 +89,9 @@
                 $this->status = 1;
                 $this->message = "void";
                 $this->content = $this->data;
+
+                // Storing the allowed actions that a user can perform
+                //$this->save_route('post', $action, $callback);
             else:
                 return false;
             endif;

@@ -35,13 +35,20 @@
         }
 
         public function create_post() : array {
-
             $subject = [
-                'id',
                 'token',
                 'user',
-                ...array_keys($this->data['val']),
+                ...array_keys($this->data['val'])
             ];
+
+            $items = [
+                Func::tokenGenerator(),
+                $this->user,
+                ...array_value($this->data['val'])
+
+            ];
+
+            print_r($items);
 
             return $this->deliver();
         }

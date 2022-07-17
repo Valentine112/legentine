@@ -38,6 +38,7 @@
 
     // So the file doesn't get too overloaded
 
+
     // Check what session type is active
     $session_type = null;
 
@@ -45,13 +46,19 @@
     if(isset($_SESSION['explore'])):
         $session_type = "explore";
 
-    // If user logged in
-    elseif(!empty($_COOKIE['sess_token'])):
-        $session_type = "logged";
-
     // If user isn't performing any
     else:
         $session_type = null;
+
+    endif;
+
+    $path = $_SERVER['REQUEST_URI'];
+
+    // Show the navbar if person is in user page
+    $get_path = explode("/", $path);
+    if($get_path[1] === "user"):
+        include "src/template/navbar.php";
+        include "src/template/quick-notice.php";
 
     endif;
 

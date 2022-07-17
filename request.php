@@ -8,6 +8,9 @@
         Login
     };
     use Service\Response;
+    use Config\Authenticate;
+
+    define("USER", Authenticate::check_user());
 
     $db = new Database;
     $request = new Request($db);
@@ -22,6 +25,11 @@
         [Login::class, 'main']
     );
 
+    $request->is_post(
+        'user',
+        [User::class, 'main']
+    );
+    
     print_r(Response::sendJSON($request->listen()));
 
 

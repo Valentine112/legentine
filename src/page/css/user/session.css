@@ -39,7 +39,7 @@ body{
     padding: 10px;
     border-radius: 0;
 }
-.session .form-box .content{
+.session .form-box .form-content{
     width: 95%;
     height: 80vh;
     padding: 15px;
@@ -51,7 +51,7 @@ body{
     border: 0;
     border-left: 2px solid #f1f1f1;
     border-right: 2px solid #f1f1f1;
-    line-height: 20px;
+    line-height: 35px;
     margin: 10px 0 10px 0;
 }
 
