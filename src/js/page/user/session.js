@@ -55,7 +55,7 @@ window.addEventListener("load", function() {
         }else{
 
             // Configure button to prevent multiple request
-            func.buttonConfig(this, "before")
+            //func.buttonConfig(this, "before")
 
             var data = {
                 part: "user",
@@ -68,13 +68,14 @@ window.addEventListener("load", function() {
                 }
             }
 
-            func.request("request.php", JSON.stringify(data), 'json')
+            func.request("../request.php", JSON.stringify(data), 'json')
             .then(val => {
                 console.log(val)
                 // Configure button to prevent multiple request
                 new Func().buttonConfig(this, "after")
 
-                new Func().processResponse(val, "error", "error")
+                func.notice_box(val)
+                //new Func().processResponse(val, "error", "error")
 
             })
         }

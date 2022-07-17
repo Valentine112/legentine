@@ -2,6 +2,7 @@
     namespace Model;
 
     use mysqli;
+    use Query\Insert;
     use Query\Select;
     use Service\{
         Response,
@@ -12,7 +13,7 @@
 
         private static $db;
 
-        public function __construct(mysqli $db, array $data, int $user) {
+        public function __construct(mysqli $db, array $data, int|string $user) {
             self::$db = $db;
 
             $this->data = $data;
@@ -44,11 +45,25 @@
             $items = [
                 Func::tokenGenerator(),
                 $this->user,
-                ...array_value($this->data['val'])
+                ...array_values($this->data['val'])
 
             ];
 
-            print_r($items);
+            if(!empty($this->data['val']['title']) && !empty($this->data['val']['content'])):
+                $inserting = new Insert(self::$db, "post", $subject, "");
+                $action = $inserting->push($items, 'sisssi');
+                if(is_bool($action) && $action):
+                    $this->status = 1;
+                    $this->message = "void";
+                    $this->content = "Success";
+
+                else:
+                    return $action;
+
+                endif;
+            else:
+
+            endif;
 
             return $this->deliver();
         }

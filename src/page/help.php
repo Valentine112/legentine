@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include "../config/config.html"; ?>
-    <link rel="stylesheet" href="../config/config.css">
+    <?php 
+        use Src\Config\Head; 
+        Head::tags(); 
+    ?>
     <link rel="stylesheet" href="css/help.css">
     <title>Help</title>
 </head>

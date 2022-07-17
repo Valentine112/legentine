@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <?php 
+        use Src\Config\Head;
+        Head::tags(); 
+    ?>
     <title>Session</title>
     <link rel="stylesheet" href="../src/page/css/user/session.css">
 </head>
 <body>
+    <?php
+        // Include the notice box here
+        include "src/template/quick-notice.php";
+    ?>
+    
     <div class="session">
         <div class="container">
             <div>

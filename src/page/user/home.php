@@ -9,10 +9,16 @@
 </head>
 <body>
     <div class="content">
-        <div class="category-section">
+        <div class="category-section other-templates">
             <?php
-                // Include the category section
-                include "src/template/category.php";
+                // Include the navbar here
+                include "src/template/navbar.php";
+
+                // Include the category section here
+                include "src/template/category.php"; 
+
+                // Include the notice box here
+                include "src/template/quick-notice.php";
             ?>
         </div>
 

@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head> 
+    <?php 
+        use Src\Config\Head; 
+        Head::tags(); 
+    ?>
     <link rel="stylesheet" href="src/page/css/login.css">
     <link rel="stylesheet" href="src/page/css/signup.css">
 </head>

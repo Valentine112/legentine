@@ -5,12 +5,10 @@
     use Router\Request;
     use Controller\{
         Signup,
-        Login
+        Login,
+        User
     };
     use Service\Response;
-    use Config\Authenticate;
-
-    define("USER", Authenticate::check_user());
 
     $db = new Database;
     $request = new Request($db);

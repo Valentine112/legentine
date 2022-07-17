@@ -4,6 +4,7 @@
     use mysqli;
     use Service\Response;
     use Model\User as ModelUser;
+    use Config\Authenticate;
 
     class User extends Response {
 
@@ -14,24 +15,34 @@
         }
 
         public function main(array $data) : array {
+            define("USER", Authenticate::check_user());
+
             (array) $result = [];
 
-            print_r(USER);
+            $modelUser = new ModelUser(self::$db, $data, USER['content']);
 
-            if(is_int(USER)):
-                $modelUser = new ModelUser(self::$db, $data, USER);
-
-                switch ($data['action']):
-                    case 'create_post':
+            switch ($data['action']):
+                case 'create_post':
+                    if(USER['type'] === 2):
                         $result = $modelUser->create_post();
-                        break;
-                    
-                    default:
 
-                        break;
+                    else:
+                        $this->type = "warning";
+                        $this->status = 0;
+                        $this->message = "fill";
+                        $this->content = USER['content'];
 
-                endswitch;
-            endif;
+                        $result = $this->deliver();
+
+                    endif;
+
+                    break;
+                
+                default:
+
+                    break;
+
+            endswitch;
 
             return $result;
         }

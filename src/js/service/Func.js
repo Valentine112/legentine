@@ -96,6 +96,26 @@ class Func {
         }
     }
 
+    notice_box(data) {
+        var type
+        data.message = data.message.toLowerCase()
+        var notice_modal = document.querySelector(".quick-notice")
+
+        if(data.status === 0 && data.message == "fill"){
+            if(data.type != null) type = data.type
+            // Show the notice
+            notice_modal.querySelector("." + type + "").style.display = "block"
+            var error_text = notice_modal.querySelector(".error-text") 
+
+            remove_class(error_text)
+
+            error_text.classList.add(type)
+            error_text.innerHTML = data.content
+
+            notice_modal.style.display = "block"
+        }
+    }
+
     post() {
         
     }

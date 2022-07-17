@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <?php 
+        use Src\Config\Head; 
+        Head::tags(); 
+    ?>
     <style>
         .welcome{
             font-size: 30px;

@@ -52,15 +52,5 @@
 
     endif;
 
-    $path = $_SERVER['REQUEST_URI'];
-
-    // Show the navbar if person is in user page
-    $get_path = explode("/", $path);
-    if($get_path[1] === "user"):
-        include "src/template/navbar.php";
-        include "src/template/quick-notice.php";
-
-    endif;
-
 
 ?>

@@ -8,7 +8,10 @@
     class Authenticate{
 
         public static function check_user() {
-            $user = "";
+            $result = [
+                "type" => "",
+                "content" => ""
+            ];
 
             if(!empty($_COOKIE['token'])):
                 $sessionToken = $_COOKIE['token'];
@@ -23,22 +26,37 @@
 
                 $value = $selecting->pull();
                 if($value[1] > 0):
-                    $user = $value[0][0]['id'];
+                    $result = [
+                        "type" => 2,
+                        "content" => $value[0][0]['id']
+                    ];
 
-                    return $user;
                 else:
-                    return false;
+                    $result = [
+                        "type" => 0,
+                        "content" => "You need to <a href='../login'>Login</a>"
+                    ];
 
                 endif;
             else:
                 // If user is exploring
                 if(isset($_SESSION['explore'])):
-                    $user = "explore";
+                    $result = [
+                        "type" => 1,
+                        "content" => "Exploring"
+                    ];
+
                 else:
-                    return false;
+                    $result = [
+                        "type" => 0,
+                        "content" => "You need to <a href='../login'>Login</a> to perform this action"
+                    ];
+
                 endif;
 
             endif;
+
+            return $result;
         }
     }
 

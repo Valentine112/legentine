@@ -36,8 +36,8 @@ class Form {
                 break;
             
             case 'email':
-                var first_letter = data.substring(0, 1),
-                last_letter = data.substring((data.length - 1), data.length)
+                var first_letter = data.substring(0, 1)
+                //last_letter = data.substring((data.length - 1), data.length)
 
                 // check for the length i.e a@.c
                 // From this logic length should be at least 4
