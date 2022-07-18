@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
     <title>Home</title>
+    <script src="../src/js/view/PostHTML.js"></script>
     <?php 
         use Src\Config\Head; 
         Head::tags(); 
     ?>
+    <link rel="stylesheet" href="../src/element/css/post.css">
 </head>
 <body>
     <div class="content">
@@ -27,4 +29,5 @@
         </div>
     </div>
 </body>
+<script src="../src/js/page/user/home.js"></script>
 </html>

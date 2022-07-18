@@ -18,6 +18,7 @@
                 <link rel="stylesheet" href="'.$struct.'src/font/fonts.css">
                 <script async src="'.$struct.'src/js/service/Func.js"></script>
                 <script async src="'.$struct.'src/js/service/Form.js"></script>
+                <script async src="'.$struct.'src/js/service/Post.js"></script>
             </head>';
         }
     }

@@ -122,10 +122,7 @@ class Router
         }
 
         // Display 404 page
-        /*View::sendJson([
-            'message' => 'unknown endpoint',
-            // 'routes' => $this->routes,
-        ]);*/
+        
     }
 
     private static function removeTrailingSlash(String $string): String

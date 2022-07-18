@@ -1,16 +1,23 @@
-class Post {
+class PostHTML {
 
-    constructor() {
-        
+    constructor(data) {
+        this.data = data
     }
 
     main() {
+        var data = this.data
+
         var element = `<div class="config box">
             <div class="container-assist box">
                 <div class="post-controller box">
                     <div class="post-body box">
                         <div class="post-assist box">
                             <div class="post-sub box">
+                                `
+                                +
+                                // Hide this part if not logged in
+                                `
+
                                 <div class="dropdown-segment box">
                                     <div>
                                         <div class="more-icon sm-md">
@@ -21,9 +28,10 @@ class Post {
                                                 <div>
                                                     <div class="person-options">
                                                     `
-                                                        //Options for the user
-
+                                                    +
+                                                    // Options for the users
                                                     `
+
                                                     </div>
         
                                                     <div id="post-properties" class="edit-options">
@@ -57,25 +65,28 @@ class Post {
                                                         <span>
                                                             <span class="title search-key">
                                                             `
-                                                                // Title goes here
-
+                                                            +
+                                                            // Title goes here
                                                             `
+                                                            
                                                             </span>
                                                             By 
                                                             <span class="name">
                                                             `
+                                                            +
                                                             // Username goes here
-
                                                             `
+
                                                             </span>
                                                         </span>
                                                     </div>
                                                     <div class="brief-segment">
                                                         <span>
-                                                            `
-                                                            // Brief content goes here
+                                                        `
+                                                        +
+                                                        // Brief content goes here
+                                                        `
 
-                                                            `
                                                         </span>
                                                     </div>
                                                 </a>
@@ -84,10 +95,11 @@ class Post {
                                             <div class="category-segment">
                                                 <div>
                                                     <span>
-                                                        `
-                                                        // Category goes here
+                                                    `
+                                                    +
+                                                    // Category goes here
+                                                    `
 
-                                                        `
                                                     </span>
                                                 </div>
                                             </div>
@@ -98,15 +110,16 @@ class Post {
         
                                             <div class="reaction-segment">
                                                 <div class="reaction-cover">
-                                                    `
+                                                    ` +
                                                     // The reaction indicatior goes here
-
+ 
                                                     `
                                                 </div>
 
                                                 <div class="reaction-count">
                                                     <span>
                                                         `
+                                                        +
                                                         // Reaction count goes here
 
                                                         `
@@ -120,6 +133,7 @@ class Post {
                                                     <img src="src/icon/post-icon/read.svg" alt=""> - 
                                                     <span>
                                                         `
+                                                        +
                                                         // Read count goes here
 
                                                         `
@@ -129,6 +143,7 @@ class Post {
                                                     <img src="src/icon/post-icon/comment.svg" alt=""> - 
                                                     <span>
                                                         `
+                                                        +
                                                         //Comment count goes here
 
                                                         `
@@ -138,6 +153,7 @@ class Post {
                                                     <img src="src/icon/post-icon/feature.svg" alt=""> - 
                                                     <span>
                                                         `
+                                                        +
                                                         // Feature count goes here
 
                                                         `
@@ -221,7 +237,7 @@ class Post {
             </div>
         </div>`
 
-        var private = `<div class="author personnal-options">
+        var privatePost = `<div class="author personnal-options">
             <div class="edit-options">
                 <a href="">
                     <div>

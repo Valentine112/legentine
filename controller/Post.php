@@ -3,10 +3,10 @@
 
     use mysqli;
     use Service\Response;
-    use Model\User as ModelUser;
+    use Model\Post as ModelPost;
     use Config\Authenticate;
 
-    class User extends Response {
+    class Post extends Response {
 
         private static $db;
 
@@ -19,12 +19,12 @@
 
             (array) $result = [];
 
-            $modelUser = new ModelUser(self::$db, $data, USER['content']);
+            $modelPost = new ModelPost(self::$db, $data, USER['content']);
 
             switch ($data['action']):
                 case 'create_post':
                     if(USER['type'] === 2):
-                        $result = $modelUser->create_post();
+                        $result = $modelPost->create_post();
 
                     else:
                         $this->type = "warning";
@@ -38,6 +38,11 @@
 
                     break;
                 
+                case 'fetch_post':
+                    $result = $modelPost->fetch_post(USER);
+
+                    break;
+
                 default:
 
                     break;
