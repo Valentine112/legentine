@@ -6,6 +6,10 @@ class Post {
         return this
     }
 
+    toggle_options(self){
+        console.log(self)
+    }
+
     fetch_post(from, filter) {
         var result = ""
 
@@ -24,9 +28,12 @@ class Post {
             // Configure button to prevent multiple request
 
             if(val.status === 1){
-                var post = new PostHTML(val)
+                var content = val.content
+                content.forEach(elem => {
+                    var post = new PostHTML(elem, from, "../")
 
-                document.querySelector(".article-content").insertAdjacentHTML("beforeend", post.main())
+                    document.querySelector(".article-content").insertAdjacentHTML("beforeend", post.main())
+                })
             }
 
             //this.func.notice_box(val)

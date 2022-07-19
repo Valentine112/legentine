@@ -18,7 +18,7 @@
 
                 $selecting = new Select(new Database);
                 $selecting->more_details("WHERE token = ?, $sessionToken");
-                $action = $selecting->action("id", "logins");
+                $action = $selecting->action("user", "logins");
 
                 if($action != null):
                     return $action;
@@ -28,7 +28,7 @@
                 if($value[1] > 0):
                     $result = [
                         "type" => 2,
-                        "content" => $value[0][0]['id']
+                        "content" => $value[0][0]['user']
                     ];
 
                 else:

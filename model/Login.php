@@ -120,8 +120,8 @@
                 if(in_array(1, $check)):
 
                     // Process by updating the token for the device
-                    $updating = new Update(self::$db, "SET token = ? WHERE user = ?# $token# $user");
-                    $action = $updating->mutate('si', 'logins');
+                    $updating = new Update(self::$db, "SET token = ? WHERE user = ? AND device = ?# $token# $user# $this->device");
+                    $action = $updating->mutate('sis', 'logins');
                     if(is_bool($action) && $action):
                         // Update current login and times login
                         $track = $this->track_login($user);

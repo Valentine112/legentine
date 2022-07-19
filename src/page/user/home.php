@@ -24,10 +24,11 @@
             ?>
         </div>
 
-        <div class="article-content">
+        <div class="article-content post-controller box">
             
         </div>
     </div>
 </body>
 <script src="../src/js/page/user/home.js"></script>
+<script src="../scr/js/general/post.js"></script>
 </html>

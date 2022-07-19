@@ -28,6 +28,7 @@
         @media screen and (max-width: 599px) {
             .category > div{
                 width: 20%;
+                padding: 6px 0 6px 0;
             }
         }
 

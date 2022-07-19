@@ -73,7 +73,7 @@
             $from = $this->data['val']['from'];
             $filter = $this->data['val']['filter'];
 
-            $post = "";
+            $result = "";
             $order = "";
 
             // Determine the order based on the page the request was sent from
@@ -122,11 +122,21 @@
 
                     $post = $this->selecting->pull();
 
-                    $post = self::remove_blocked($blocked_users, $post[0], "user", $user);
+                    $result = $this->config_data($blocked_users, $post[0], "user", $user);
 
                 endif;
 
             else:
+                $result = [];
+
+                $box = [
+                    "post" => [],
+                    "other" => [],
+                    "self" => [
+                        "user" => 0
+                    ],
+                    "more" => []
+                ];
 
                 // If user is not logged in
                 $this->selecting->more_details("WHERE privacy = ? $order, $zero");
@@ -137,32 +147,92 @@
                     return $action;
                 endif;
 
-                $post = [
-                    "data" => $this->selecting->pull()[0],
-                    "self" => 0
-                ];
+                $value = $this->selecting->pull()[0];
+                foreach($value as $val):
+                    $box = [
+                        "post" => $val,
+                        "other" => [],
+                        "self" => [
+                            "user" => 0
+                        ]
+                    ];
+
+                    array_push($result, $box);
+
+                endforeach;
 
             endif;
 
             $this->type = "success";
             $this->status = 1;
             $this->message = "void";
-            $this->content = $post;
+            $this->content = $result;
 
             return $this->deliver();
         }
 
-        public static function remove_blocked(array|string $blocked, array $items, string $key, ?int $more) : array {
+        public function config_data(array|string $blocked, array $items, string $key, ?int $user) : array {
 
-            $result = [
-                "data" => [],
-                "self" => $more
+            // Fetch the necessary about post owner
+            // Since i would be looping through the post here
+            // Then i would fetch the post owner details here
+
+            $result = [];
+
+            $box = [
+                "post" => [],
+                "other" => [],
+                "self" => [
+                    "user" => $user
+                ],
+                "more" => []
             ];
 
             foreach ($items as $item):
                 if(!in_array($item[$key], $blocked)):
+                    
+                    // Fetch post owner details
 
-                    array_push($result["data"], $item);
+                    $other = $item['user'];
+                    $post = $item['id'];
+
+                    $this->selecting->more_details("WHERE id = ? LIMIT 1, $other");
+                    $action = $this->selecting->action("fullname, username, photo, rating", "user");
+                    $this->selecting->reset();
+
+                    if($action != null):
+                        return $action;
+                    endif;
+
+                    //print_r($this->selecting->pull());
+
+                    $other_user = $this->selecting->pull()[0][0];
+
+                    // Check if post has been liked by user
+                    $this->selecting->more_details("WHERE post = ? AND other = ?, $post, $user");
+                    $action = $this->selecting->action("other", "star");
+                    $this->selecting->reset();
+
+                    if($action != null):
+                        return $action;
+
+                    endif;
+
+                    if($this->selecting->pull()[1] > 0):
+                        $box['more']['starred'] = true;
+
+                    else:
+                        $box['more']['starred'] = false;
+
+                    endif;
+
+                    // Save the post owner also
+                    $box["other"] = $other_user;
+
+                    // Save the post
+                    $box["post"] = $item;
+
+                    array_push($result, $box);
                 endif;
             endforeach;
 

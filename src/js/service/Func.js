@@ -116,7 +116,22 @@ class Func {
         }
     }
 
-    post() {
-        
+    approximate_count(data) {
+        var result = "";
+        if(data < 1000){
+            result = data;
+        }
+        else if(data >= 1000 && data < 1000000){
+            result = (data/1000).toFixed(1) + "K"
+        }
+        else if(data >= 1000000 && data < 1000000000){
+            result = (data/1000000).toFixed(1) + "M";
+        }else if(data >= 1000000000 && data < 1000000000000){
+            result = Math.floor(data/1000000000).toFixed(1) + "B";
+        }else{
+            result = "over T";
+        }
+
+        return result;
     }
 }
