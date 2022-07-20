@@ -134,4 +134,30 @@ class Func {
 
         return result;
     }
+
+    intersect_show_image(data_attr, assignTo, thres, elem) {
+        if('IntersectionObserver' in window) {
+            let observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) =>{
+                    if(entry.isIntersecting){
+                        var res = entry.target.getAttribute(data_attr)
+                        entry.target.setAttribute(assignTo, res);
+                        observer.unobserve(entry.target);
+                    }
+                })
+            }, {rootMargin:"0px 0px 0px 0px", threshold:thres});
+
+            if(document.querySelector(elem) != null){
+                document.querySelectorAll(elem).forEach(img => {
+                    observer.observe(img)
+                })
+            }
+
+        }else{
+            document.querySelectorAll(elem).forEach((img) => {
+                img.src = img.getAttribute(data_attr)
+            })
+        }
+    }
+
 }

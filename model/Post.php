@@ -218,6 +218,7 @@
 
                     endif;
 
+                    // validating if the user has liked by checking if the like does exist
                     if($this->selecting->pull()[1] > 0):
                         $box['more']['starred'] = true;
 
@@ -225,6 +226,9 @@
                         $box['more']['starred'] = false;
 
                     endif;
+
+                    // Check if its the same person
+                    $box['more']['owner'] = $user === $other ? true : false;
 
                     // Save the post owner also
                     $box["other"] = $other_user;

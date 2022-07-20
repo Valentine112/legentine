@@ -34,6 +34,7 @@
 }
 .post-sub .dropdown-segment .more-icon{
     padding: 10px;
+    padding-bottom: 15px;
 }
 .post-sub .dropdown-segment .more-icon img{
     height: 20px;
@@ -115,7 +116,7 @@
 }
 
 .post-sub .content-segment .info-body{
-    margin-top: 20px;
+    margin-top: 30px;
 }
 .post-sub .content-segment .article-link{
     text-decoration: none;

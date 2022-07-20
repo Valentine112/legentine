@@ -1,6 +1,4 @@
 <head>
-    <?php include "../config/config.html"; ?>
-    <link rel="stylesheet" href="../config/config.css">
     <style>
         .options{
             display: none;

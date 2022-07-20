@@ -36,4 +36,5 @@
         </div>
     </div>
 </body>
+<script src="../src/js/general/general.js"></script>
 </html>

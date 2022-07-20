@@ -25,10 +25,11 @@
         </div>
 
         <div class="article-content post-controller box">
-            
+            <div class="content-loader"></div>
         </div>
     </div>
 </body>
+<script src="../src/js/view/Options.js"></script>
 <script src="../src/js/page/user/home.js"></script>
-<script src="../scr/js/general/post.js"></script>
+<script src="../src/js/general/general.js"></script>
 </html>

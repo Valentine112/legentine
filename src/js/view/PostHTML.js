@@ -5,8 +5,6 @@ class PostHTML {
         this.from = from
         this.path = path
 
-        console.log(data)
-
         this.post = data['post']
         this.self = data['self']
         this.other = data['other']
@@ -18,7 +16,14 @@ class PostHTML {
         var photo = this.other['photo']
 
         var element = `
-            <div class="post-body box">
+            <div class="post-body box lazy-load-element" 
+            data-token="${this.post['token']}"
+            data-user="${this.post['user']}"
+            data-title="${this.post['title']}"
+            data-username="${this.other['username']}"
+            data-owner="${this.more['owner']}"
+            data-word-count="${this.post['content'].split(" ").length}"
+            >
                 <div class="post-assist box">
                     <div class="post-sub box">
                         `
@@ -30,7 +35,7 @@ class PostHTML {
                             <div class="picture-segment">
                                 <div>
                                     <a href="">
-                                        <img src=" ${this.path + photo} " alt="">
+                                        <img src=" " alt="" class="lazy-load-image" data-image="${this.path + photo}">
                                     </a>
                                 </div>
                             </div>
@@ -164,8 +169,9 @@ class PostHTML {
             return `
                 <div class="dropdown-segment box">
                     <div>
-                        <div class="more-icon sm-md" onclick="toggle_options(this)">
-                            <img src="${this.path}src/icon/post-icon/more.svg" alt="">
+                        <div class="more-icon sm-md" data-action="toggle_options">
+                            <img src="${this.path}src/icon/post-icon/more.svg" alt="" data-action="toggle_options">
+                            
                         </div>
                         <div class="large">
                             <div class="options" id="large-options">
@@ -281,11 +287,10 @@ class PostHTML {
         </div>`
 
         // Return any of this if page is from home/rank/profile
-        // Else return nothing
         if(this.from === "home" || this.from === "rank"){
 
             // Check if post belongs to viewer
-            if(this.self['user'] == this.post['user']) {
+            if(this.more['owner']) {
                 return personnal
 
             }else{
@@ -312,8 +317,8 @@ class PostHTML {
     brief_content() {
         var brief = this.post['content']
 
-        if(new Func().stripSpace(this.post['content']).length > 200) {
-            brief = this.post['content'].substr(0, 150) + "..."
+        if(new Func().stripSpace(brief).length > 200) {
+            brief = brief.substr(0, 150) + "..."
         }
 
         return brief
