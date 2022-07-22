@@ -1,10 +1,15 @@
 function config_edit_post(title, content, privacy) {
+    // Set the title
     document.getElementById("title").value = title
+    // Set the content
     document.getElementById("form-content").innerHTML = content
 
+    // Set the content for when i want to use this page to edit the private post
     if(privacy == 1) {
         document.querySelector(".session-privacy").remove()
     }
+
+    // Set the options
 }
 
 window.addEventListener("load", function() {
@@ -19,7 +24,7 @@ window.addEventListener("load", function() {
     var param = func.getPath()
     
     if(param['parameter'] != {}){
-        if(param['parameter']['token'] != null){
+        if(param['parameter']['token'] != null) {
             // Fetch post content
 
             var data = {
