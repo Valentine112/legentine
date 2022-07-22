@@ -294,17 +294,17 @@
                                     <header>Support</header>
                                     <hr>
                                     <ul>
-                                        <li><a href="">Help</a></li>
-                                        <li><a href="">About us</a></li>
-                                        <li><a href="">Feedback</a></li>
+                                        <li><a href="../help">Help</a></li>
+                                        <li><a href="../about">About us</a></li>
+                                        <li><a href="feedback">Feedback</a></li>
                                         <li class="dropdown-host" tabindex="0">
                                             <div>
                                                 <span>More <img src="../src/icon/header/drop-down.svg" alt="more" class="dropdown-icon"></span>
                                                 
                                                 <ul id="drop" class="dropdown-item">
-                                                    <li><a href="">Disclaimer</a></li>
-                                                    <li><a href="">Privacy</a></li>
-                                                    <li><a href="">Our terms</a></li>
+                                                    <li><a href="../disclaimer">Disclaimer</a></li>
+                                                    <li><a href="../privacy">Privacy</a></li>
+                                                    <li><a href="../terms">Our terms</a></li>
                                                 </ul>
                                             </div>
                                         </li>

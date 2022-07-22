@@ -58,6 +58,10 @@
         require "src/page/user/session.php";
     })
 
+    ->get('/user/feedback', function() {
+        require "src/page/user/feedback.php";
+    })
+
     ->listen();
 
     // Routing ends

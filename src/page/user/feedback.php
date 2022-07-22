@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php 
+        use Src\Config\Head; 
+        Head::tags(); 
+    ?>
     <style>
         body{
             margin: 0;
@@ -93,13 +97,9 @@
             outline: none;
             font-size: small;
             width: 100px;
-            padding-top: 3px;
-            padding-bottom: 3px;
+            padding-top: 4px;
+            padding-bottom: 4px;
             transition: background-color 0.3s ease-out, color 0.3s ease-out;
-        }
-        button:focus{
-            background-color: #fff;
-            color: #000;
         }
     </style>
     <title>Feedback</title>

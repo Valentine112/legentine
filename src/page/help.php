@@ -5,12 +5,12 @@
         use Src\Config\Head; 
         Head::tags(); 
     ?>
-    <link rel="stylesheet" href="css/help.css">
+    <link rel="stylesheet" href="src/page/css/help.css">
     <title>Help</title>
 </head>
 <body>
     <div class="drawer" onclick="open_side(this)">
-        <img src="../icon/header/plain-icon/list.svg" alt="" id="side-drawer">
+        <img src="src/icon/header/plain-icon/list.svg" alt="" id="side-drawer">
     </div>
     <div class="side-bar">
         <div class="sidebar-cover" onclick="close_side(this)"></div>
@@ -21,11 +21,11 @@
                 </li>
                 <li>
                     <span class="father">
-                        <span style="border: 0;" class="parent">Picture &emsp14; <img src="../icon/header/drop-down.svg" alt=""></span>
+                        <span style="border: 0;" class="parent">Picture &emsp14; <img src="src/icon/header/drop-down.svg" alt=""></span>
                         <ul class="first-child father">
                             <li><a style="font-size: 15px;" href="#profile-picture">Profile Picture</a></li>
                             <li style="font-size: 15px;" class="grand-child">
-                                Post Picture &emsp14; <img src="../icon/header/drop-down.svg" alt="">
+                                Post Picture &emsp14; <img src="src/icon/header/drop-down.svg" alt="">
                             </li>
                             <ul class="great-grand-child">
                                 <li><a style="font-size: 15px;" href="#picture-single">Single</a></li>
@@ -119,7 +119,7 @@
                                         While on a <b>Large Device</b>, click on account or just hover over it with your mouse.<br><br>
 
                                         Then click on feature from the menu and a dropdown would be displayed, to prevent the feature notifications from disturbing you, click on <b>Quiet</b>, while to receive them, click on <b>Allow</b>.<br>
-                                        <i>Default is Allowed</i> 
+                                        <i>Default is Allow</i> 
                                     </li>
                                 </ul>
                             </li>
