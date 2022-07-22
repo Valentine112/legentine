@@ -21,8 +21,10 @@ class PostHTML {
             data-user="${this.post['user']}"
             data-title="${this.post['title']}"
             data-username="${this.other['username']}"
+            data-photo="${photo}"
             data-owner="${this.more['owner']}"
             data-word-count="${this.post['content'].split(" ").length}"
+            data-comments-state="${this.post['comments_blocked']}"
             >
                 <div class="post-assist box">
                     <div class="post-sub box">
@@ -169,8 +171,8 @@ class PostHTML {
             return `
                 <div class="dropdown-segment box">
                     <div>
-                        <div class="more-icon sm-md" data-action="toggle_options">
-                            <img src="${this.path}src/icon/post-icon/more.svg" alt="" data-action="toggle_options">
+                        <div class="more-icon sm-md action" data-action="toggle_options">
+                            <img src="${this.path}src/icon/post-icon/more.svg" alt="">
                             
                         </div>
                         <div class="large">
@@ -185,7 +187,7 @@ class PostHTML {
 
                                     </div>
 
-                                    <div id="post-properties" class="edit-options">
+                                    <div id="post-properties" class="edit-options action" data-action="properties">
                                         <div>
                                             <img src="${this.path}src/icon/option-icon/property.svg" alt="">
                                         </div>
@@ -203,8 +205,8 @@ class PostHTML {
 
     options() {
         var personnal = `<div class="author personnal-options">
-            <div class="edit-options">
-                <a href="">
+            <div class="edit-options action">
+                <a href="session?token=${this.post['token']}">
                     <div>
                         <img src="${this.path}src/icon/option-icon/edit.svg" alt="">
                     </div>
@@ -214,16 +216,15 @@ class PostHTML {
                 </a>
             </div>
 
-            <div class="edit-options">
-                <div>
-                    <img src="${this.path}src/icon/option-icon/block-comment.svg" alt="">
-                </div>
-                <div>
-                    <span>Block Comments</span>
-                </div>
+            <div class="edit-options action" data-action="toggle_comment">
+                `
+                +
+                // Check if comment is blocked or not
+                `
+                ${this.comment_state()}
             </div>
-
-            <div class="edit-options">
+            
+            <div class="edit-options action" data-action="delete_post">
                 <div>
                     <img src="${this.path}src/icon/option-icon/delete.svg" alt="">
                 </div>
@@ -234,7 +235,7 @@ class PostHTML {
         </div>`
 
         var viewer = `<div class="viewer personnal-options">
-            <div class="edit-options">
+            <div class="edit-options action" data-action="save_post">
                 <div>
                     <img src="${this.path}src/icon/option-icon/save.svg" alt="">
                 </div>
@@ -243,7 +244,7 @@ class PostHTML {
                 </div>
             </div>
 
-            <div class="edit-options">
+            <div class="edit-options action" data-action="unlist_user">
                 <div>
                     <img src="${this.path}src/icon/option-icon/unlist.svg" alt="">
                 </div>
@@ -253,8 +254,8 @@ class PostHTML {
             </div>
         </div>`
 
-        var save = `<div class="viewer personnal-options">
-            <div class="edit-options">
+        var save = `<div class="viewer personnal-options" data-action="remove_saved_post">
+            <div class="edit-options action">
                 <div>
                     <img src="src/icon/option-icon/remove.svg" alt="">
                 </div>
@@ -265,8 +266,8 @@ class PostHTML {
         </div>`
 
         var privatePost = `<div class="author personnal-options">
-            <div class="edit-options">
-                <a href="">
+            <div class="edit-options action">
+                <a href="session?token=${this.post['token']}">
                     <div>
                         <img src="${this.path}src/icon/option-icon/edit.svg" alt="">
                     </div>
@@ -276,7 +277,7 @@ class PostHTML {
                 </a>
             </div>
 
-            <div class="edit-options">
+            <div class="edit-options action" data-action="delete_post">
                 <div>
                     <img src="${this.path}src/icon/option-icon/delete.svg" alt="">
                 </div>
@@ -301,16 +302,39 @@ class PostHTML {
         // Return any of this if page is from save/privatePost
         // Else return nothing
 
-        else if(this.from === "save"){
+        else if(this.from === "saved"){
             return save
 
         }
-        else if(this.from === "privatePost"){
+        else if(this.from === "private"){
             return privatePost
 
         }else{
             return ""
         }
+
+    }
+
+    comment_state() {
+        var text
+        var state
+
+        if(this.post['comments_blocked'] === 1){
+            text = "Allow"
+            state = 2
+        }else{
+            text = "Block"
+            state = 1
+        }
+
+        return `
+            <div>
+                <img src="${this.path}src/icon/option-icon/${text}-comment.svg" alt="">
+            </div>
+            <div>
+                <span data-state="${state}">${text} Comments</span>
+            </div>
+        `
 
     }
 

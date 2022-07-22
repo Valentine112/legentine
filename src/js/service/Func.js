@@ -9,6 +9,13 @@ class Func {
         return a;
     }
 
+    newlineBr(data) {
+        var reg = new RegExp('\r\n|\n|\r', 'gim');
+        data = data.replace(reg, "<br />");
+
+        return data
+    }
+
     async request(url, data, headerType) {
         var header = {
             'json': 'application/json',
@@ -88,11 +95,40 @@ class Func {
 
     getPath() {
         var full_path = window.location.href;
-        var page_path = full_path.slice(40, full_path.length)
+
+        var last_slash = full_path.lastIndexOf("/")
+        var params = full_path.lastIndexOf("?")
+
+        var page_path
+        var parameter = {}
+
+        // Check if parameters are not attached to the url
+        // The plus 1 added is to remove the slash behind it
+        if(params == -1){
+            page_path = full_path.slice(last_slash + 1, full_path.length)
+        }else{
+            page_path = full_path.slice(last_slash + 1, params)
+
+            /**
+             * To get the parameters and create a key-value object from them
+             * I got the value that existed after the question mark in the url
+             * Then split it by the ampersnad operator first
+             * Looped through each of the resulting value next
+             * split the value by the equal to and made the 0 index as the key and the 1 as the value
+             */
+            var param = full_path.slice(params + 1, full_path.length)
+            param = param.split("&")
+
+            param.map(val => {
+                var a = val.split("=")
+                parameter[a[0]] = a[1]
+            })
+        }
 
         return {
             "full_path": full_path,
-            "main_path": page_path
+            "main_path": page_path,
+            "parameter": parameter
         }
     }
 
@@ -100,17 +136,23 @@ class Func {
         var type
         data.message = data.message.toLowerCase()
         var notice_modal = document.querySelector(".quick-notice")
+        var error_text = notice_modal.querySelector(".error-text") 
 
-        if(data.status === 0 && data.message == "fill"){
+        if(data.status === 0){
             if(data.type != null) type = data.type
+
+            if(data.message == "fill"){
+                error_text.innerHTML = data.content
+            }
+            if(data.message == "void"){
+                error_text.innerHTML = "Something went wrong. . ."
+            }
             // Show the notice
             notice_modal.querySelector("." + type + "").style.display = "block"
-            var error_text = notice_modal.querySelector(".error-text") 
 
             remove_class(error_text)
 
             error_text.classList.add(type)
-            error_text.innerHTML = data.content
 
             notice_modal.style.display = "block"
         }

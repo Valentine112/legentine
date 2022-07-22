@@ -1,12 +1,16 @@
 class Options {
 
     constructor(data, from, path) {
+        this.data = data
+        this.from = from
+        this.path = path
+
         return this
     }
 
     main() {
         var element = `
-            <div class="config option">
+            <div class="config option small-option">
                 <div class="small">
                     <div class="options" id="small-options">
                         <div class="options-1">
@@ -14,13 +18,13 @@ class Options {
                                 <header class="post-info">
                                     <div>
                                         <a href="">
-                                            <img src="../images/image.jpg" alt="">
+                                            <img src="${this.path + this.data['photo']}" alt="">
                                         </a>
                                     </div>
                                     <div>
-                                        <span>Love thy</span>
+                                        <span>${this.data['title']}</span>
                                         <br>
-                                        <span>Himself</span>
+                                        <span>${this.data['username']}</span>
                                     </div>
                                 </header>
                                 <div class="options-edit">
@@ -29,12 +33,12 @@ class Options {
                                         +
                                         // Display option based on author
                                         `
-                                        
+                                        ${this.authorOptions()}
                                     </div>
             
-                                    <div id="post-properties" class="edit-options">
+                                    <div id="post-properties" class="edit-options action" data-action="properties">
                                         <div>
-                                            <img src="../icon/option-icon/property.svg" alt="">
+                                            <img src="${this.path}src/icon/option-icon/property.svg" alt="">
                                         </div>
                                         <div>
                                             <span>Properties</span>
@@ -44,7 +48,7 @@ class Options {
                                 </div>
                                 
                                 <div class="close-segment">
-                                    <div>
+                                    <div onclick='this.closest(".small-option").remove()'>
                                         <span>Close</span>
                                     </div>
                                 </div>
@@ -61,10 +65,10 @@ class Options {
     authorOptions() {
         var personnal = `
             <div class="author personnal-options">
-                <div class="edit-options">
-                    <a href="">
+                <div class="edit-options action">
+                    <a href="session?token=${this.data['token']}">
                         <div>
-                            <img src="../icon/option-icon/edit.svg" alt="">
+                            <img src="${this.path}src/icon/option-icon/edit.svg" alt="">
                         </div>
                         <div>
                             <span>Edit</span>
@@ -72,18 +76,17 @@ class Options {
                     </a>
                 </div>
 
-                <div class="edit-options">
-                    <div>
-                        <img src="../icon/option-icon/block-comment.svg" alt="">
-                    </div>
-                    <div>
-                        <span>Block Comments</span>
-                    </div>
+                <div class="edit-options action" data-action="toggle_comment">
+                    `
+                    +
+                    // Comment state
+                    `
+                    ${this.comment_state()}
                 </div>
 
-                <div class="edit-options">
+                <div class="edit-options action" data-action="delete_post">
                     <div>
-                        <img src="../icon/option-icon/delete.svg" alt="">
+                        <img src="${this.path}src/icon/option-icon/delete.svg" alt="">
                     </div>
                     <div>
                         <span>Delete</span>
@@ -94,16 +97,16 @@ class Options {
 
         var viewer = `
             <div class="viewer personnal-options">
-                <div class="edit-options">
+                <div class="edit-options action" data-action="save_post">
                     <div>
-                        <img src="../icon/option-icon/save.svg" alt="">
+                        <img src="${this.path}src/icon/option-icon/save.svg" alt="">
                     </div>
                     <div>
                         <span>Save</span>
                     </div>
                 </div>
 
-                <div class="edit-options">
+                <div class="edit-options action" data-action="unlist_user">
                     <div>
                         <img src="${this.path}src/icon/option-icon/unlist.svg" alt="">
                     </div>
@@ -116,9 +119,9 @@ class Options {
 
         var save = `
             <div class="viewer personnal-options">
-                <div class="edit-options">
+                <div class="edit-options action" data-action="remove_saved_post">
                     <div>
-                        <img src="src/icon/option-icon/remove.svg" alt="">
+                        <img src="${this.path}src/icon/option-icon/remove.svg" alt="">
                     </div>
                     <div>
                         <span>Remove</span>
@@ -129,8 +132,8 @@ class Options {
 
         var privatePost = `
             <div class="author personnal-options">
-                <div class="edit-options">
-                    <a href="">
+                <div class="edit-options action">
+                    <a href="session?token=${this.data['token']}">
                         <div>
                             <img src="${this.path}src/icon/option-icon/edit.svg" alt="">
                         </div>
@@ -140,7 +143,7 @@ class Options {
                     </a>
                 </div>
 
-                <div class="edit-options">
+                <div class="edit-options action" data-action="delete_post">
                     <div>
                         <img src="${this.path}src/icon/option-icon/delete.svg" alt="">
                     </div>
@@ -154,14 +157,55 @@ class Options {
         // Return any of this if page is from home/rank/profile
         if(this.from === "home" || this.from === "rank"){
 
+            // this.data['owner'] is not a boolean, rather a string
+            // It converted to a string when i added it to the html body
+            // Thats why the comparison was made this way
+            // If it was checked like a regular boolean, it would always return true
             // Check if post belongs to viewer
-            if(this.self['user'] == this.post['user']) {
+
+            if(this.data['owner'] === "true") {
                 return personnal
 
-            }else{
+            }else if(this.data['owner'] === "false") {
                 return viewer
             }
         }
+
+        // Return any of this if page is from save/privatePost
+        // Else return nothing
+
+        else if(this.from === "save"){
+            return save
+
+        }
+        else if(this.from === "privatePost"){
+            return privatePost
+
+        }else{
+            return ""
+        }
+    }
+
+    comment_state() {
+        var text
+        var state
+        if(this.data['comment_state'] === "1"){
+            text = "Allow"
+            state = 2
+        }else{
+            text = "Block"
+            state = 1
+        }
+
+        return `
+            <div>
+                <img src="${this.path}src/icon/option-icon/${text}-comment.svg" alt="">
+            </div>
+            <div>
+                <span data-state="${state}">${text} Comments</span>
+            </div>
+        `
+
     }
 
 }

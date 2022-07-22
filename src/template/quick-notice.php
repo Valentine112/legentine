@@ -50,13 +50,13 @@
             color: silver;
         }
         .quick-notice .success{
-            color: rgba(0, 128, 0, 0.235);
+            color: #25AE88;
         }
         .quick-notice .warning{
-            color: orange;
+            color: #FFA500;
         }
         .quick-notice .error{
-            color: var(--theme-color);
+            color: #D75A4A;
         }
 
         @media screen and (min-width: 768px) {

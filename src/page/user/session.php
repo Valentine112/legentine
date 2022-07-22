@@ -9,13 +9,12 @@
     <link rel="stylesheet" href="../src/page/css/user/session.css">
 </head>
 <body>
-    <?php
-        // Include the notice box here
-        include "src/template/quick-notice.php";
-    ?>
     
-    <div class="session">
-        <div class="container">
+    <div class="session config">
+        <div class="container article-content">
+            <div class="content-loader">
+                <div></div>
+            </div>
             <div>
                 <div class="header">
                     <h1>Session</h1>
@@ -24,22 +23,24 @@
                 <div class="form-box">
 
                     <div>
-                        <input type="text"
-                        placeholder="title. . ."
-                        aria-placeholder="title"
-                        class="form title"
-                        id="title" 
-                        autofocus
-                        value="Love"
+                        <input 
+                            type="text"
+                            placeholder="title. . ."
+                            aria-placeholder="title"
+                            class="form title"
+                            id="title" 
+                            autofocus
                         >
                     </div>
                     <div>
                         <textarea
-                        placeholder="Express yourself" aria-placeholder="contents here" class="form form-content" id="form-content" autocomplete="off" spellcheck="true">I saw the best minds of my generation destroyed by madness, starving hysterical naked,
-            dragging themselves through the negro streets at dawn looking for an angry fix,
-            angelheaded hipsters burning for the ancient heavenly connection to the starry dynamo in the machinery of night,
-            who poverty and tatters and hollow-eyed and high sat up smoking in the supernatural darkness of cold-water flats floating across the tops of cities contemplating jazz,
-            who bared their brains to Heaven under the El and saw Mohammedan angels staggering on tenement roofs illuminated ...</textarea>
+                            placeholder="Express yourself"
+                            aria-placeholder="contents here"
+                            class="form form-content" 
+                            id="form-content" 
+                            autocomplete="off" 
+                            spellcheck="true"
+                        ></textarea>
                     </div>
 
                 </div>
@@ -78,7 +79,14 @@
             </div>
         </div>
     </div>
-    <?php include "src/template/other-category.php"; ?>
+    <?php
+
+        // Include the notice box here
+        include "src/template/quick-notice.php";
+
+        // Other category pop up
+        include "src/template/other-category.php";
+    ?>
 </body>
 <script src="../src/js/page/user/session.js"></script>
 </html>

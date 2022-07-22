@@ -39,6 +39,12 @@ class Post {
     }
 
     toggle_options(elem) {
+        var large_screen = document.querySelector(".large")
+        var small_screen = document.querySelector(".small")
+
+        var large_display = getComputedStyle(large_screen).getPropertyValue("display")
+        var small_display = getComputedStyle(small_screen).getPropertyValue("display")
+
         // Check if the options exist
         if(document.querySelector(".options") != null){
 
@@ -53,20 +59,62 @@ class Post {
             var parent = elem.closest(".post-body")
             var main_option = parent.querySelector(".options")
 
-            function check_visibility() {
+            // Display the right option for large screen
+            if(small_display === "none" && large_display === "flex") {
                 if(getComputedStyle(main_option).getPropertyValue("display") === "none") {
                     main_option.style.display = "block"
                 }else{
                     main_option.style.display = "none"
                 }
+
+            }else if(large_display === "none" && small_display === "flex") {
+                // Setting the data to pass to the option class
+                // This would be used to configure how it would display
+                // And how its actions would be processed
+
+                var data = {
+                    token: parent.getAttribute("data-token"),
+                    owner: parent.getAttribute("data-owner"),
+                    title: parent.getAttribute("data-title"),
+                    username: parent.getAttribute("data-username"),
+                    photo: parent.getAttribute("data-photo"),
+                    comment_state: parent.getAttribute("data-comments-state")
+                }
+
+                var small_option = document.querySelector(".small-option")
+
+                if(document.querySelector(".small-option") == null){
+                    var path = new Func().getPath()['main_path']
+
+                    // For small screen options
+                    parent.insertAdjacentHTML("afterbegin", new Options(data, path, "../").main())
+
+                    document.querySelector(".small-option .options").style.display = "block"
+                }else{
+                    small_option.remove()
+                }
             }
-            if(main_option != null) {
-                check_visibility()
-            }else{
-                // For small screen options
-                document.querySelector(".article-content").insertAdjacentHTML("beforebegin", new Options().main())
-            }
-            //if(elem.closest())
         }
     }
+
+    toggle_comment(elem) {
+        var parent = elem.closest(".post-body")
+        var token = parent.getAttribute("data-token")
+        var comment_state = parent.getAttribute("data-comments-state")
+
+        var data = {
+            part: "post",
+            action: 'toggle_comment',
+            val: {
+                token: token,
+                comment_state: comment_state
+            }
+        }
+
+        func.request("../request.php", JSON.stringify(data), 'json')
+        .then(val => {
+            console.log(val)
+        })
+    }
+
 }

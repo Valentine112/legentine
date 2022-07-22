@@ -1,8 +1,62 @@
+function config_edit_post(title, content, privacy) {
+    document.getElementById("title").value = title
+    document.getElementById("form-content").innerHTML = content
+
+    if(privacy == 1) {
+        document.querySelector(".session-privacy").remove()
+    }
+}
+
 window.addEventListener("load", function() {
+    var func = new Func()
     // Modal to show the user any notice
     var notice_modal = document.querySelector(".quick-notice")
-
     var done = document.querySelector(".session-button button")
+
+    // Check there is a parameter in the link
+    // If there is, this would mean that the user wants to update a post
+
+    var param = func.getPath()
+    
+    if(param['parameter'] != {}){
+        if(param['parameter']['token'] != null){
+            // Fetch post content
+
+            var data = {
+                part: "post",
+                action: "fetch_post",
+                val: {
+                    from: param['main_path'],
+                    filter: param['parameter'],
+                }
+            }
+
+            // Fetch the post frist before editing
+            func.request("../request.php", JSON.stringify(data), 'json')
+            .then(async function(val) {
+                console.log(val)
+
+                if(val.status === 1){
+                    var post = val.content[0]['post'],
+                    title = post['title'],
+                    content = post['content'],
+                    category = post['category'],
+                    privacy = post['privacy']
+                    
+                    var promise = new Promise(res => {
+                        res(
+                            config_edit_post(title, content, privacy)
+                        )
+                    })
+                    await promise
+                    document.querySelector(".content-loader").style.display = "none"
+                }
+
+                func.notice_box(val)
+            })
+        }
+    }
+
     // When button is clicked, process and send the form
     done.addEventListener("click", async function() {
         var title = document.getElementById("title")

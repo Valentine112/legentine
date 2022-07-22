@@ -86,9 +86,10 @@
             // Verify that user is logged in
             if($session['type'] === 2):
                 $user = $session['content'];
+                $blocked_users = [];
 
                 // Check where the request is coming from and process
-                if($from === "home"):
+                if($from === "home" || $from == "rank" || $from == "saved"):
                     /**
                      * For homepage
                      * Every blocked user wouldn't be displayed
@@ -106,25 +107,31 @@
 
                     $blocked_users = $this->selecting->pull();
 
-                    // Check if there is a filter attached
+                endif;
+
+                // Check if there is a filter attached
+                if($from != "session"):
                     if($filter === ""):
                         $this->selecting->more_details("WHERE privacy = ? $order, $zero");
                     else:
                         $this->selecting->more_details("WHERE privacy = ? AND category = ? $order, $zero, $filter");
                     endif;
+                else:
+                    $token = $filter['token'];
 
-                    $action = $this->selecting->action("*", "post");
-                    $this->selecting->reset();
-
-                    if($action != null):
-                        return $action;
-                    endif;
-
-                    $post = $this->selecting->pull();
-
-                    $result = $this->config_data($blocked_users, $post[0], "user", $user);
-
+                    $this->selecting->more_details("WHERE token = ?, $token");
                 endif;
+
+                $action = $this->selecting->action("*", "post");
+                $this->selecting->reset();
+
+                if($action != null):
+                    return $action;
+                endif;
+
+                $post = $this->selecting->pull();
+
+                $result = $this->config_data($blocked_users, $post[0], "user", $user);
 
             else:
                 $result = [];
@@ -241,6 +248,12 @@
             endforeach;
 
             return $result;
+        }
+
+        public function toggle_comment($session) : array {
+            print_r($session);
+            
+            return $this->deliver();
         }
     }
 

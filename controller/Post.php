@@ -43,6 +43,11 @@
 
                     break;
 
+                case 'toggle_comment':
+                    $result = $modelPost->toggle_comment(USER);
+
+                    break;
+
                 default:
 
                     break;

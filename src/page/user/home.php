@@ -8,9 +8,10 @@
         Head::tags(); 
     ?>
     <link rel="stylesheet" href="../src/element/css/post.css">
+    <link rel="stylesheet" href="../src/element/css/options.css">
 </head>
 <body>
-    <div class="content">
+    <div class="content config">
         <div class="category-section other-templates">
             <?php
                 // Include the navbar here
@@ -25,7 +26,9 @@
         </div>
 
         <div class="article-content post-controller box">
-            <div class="content-loader"></div>
+            <div class="content-loader">
+                <div></div>
+            </div>
         </div>
     </div>
 </body>

@@ -344,10 +344,7 @@
 
         window.addEventListener("load", () => {
             // Get the current path
-            var path = new Func().getPath()['main_path']
-            // Set the active link
-            var last_path = path.split("/")[2]
-
+            var last_path = new Func().getPath()['main_path']
 
             // Check if the path matches any link
             if(document.querySelectorAll(`.${last_path}`) != null){
