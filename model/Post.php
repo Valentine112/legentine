@@ -2,8 +2,11 @@
     namespace Model;
 
     use mysqli;
-    use Query\Insert;
-    use Query\Select;
+    use Query\{
+        Insert,
+        Select,
+        Update
+    };
     use Service\{
         Response,
         Func
@@ -36,6 +39,8 @@
         }
 
         public function create_post() : array {
+            unset($this->data['val']['token']);
+
             $subject = [
                 'token',
                 'user',
@@ -62,6 +67,56 @@
 
                 endif;
             else:
+
+            endif;
+
+            return $this->deliver();
+        }
+
+        public function update_post() : array {
+            $user = $this->user;
+
+            $token = $this->data['val']['token'];
+
+            $content = $this->data['val']['content'];
+            $title = $this->data['val']['title'];
+            $category = $this->data['val']['category'];
+            $privacy = $this->data['val']['privacy'];
+
+            // Check if the post is valid and user is the owner of the post
+            $this->selecting->more_details("WHERE token = ? AND user = ?, $token, $user");
+            $action = $this->selecting->action("privacy", "post");
+            if($action != null):
+                return $action;
+            endif;
+
+            // If there is a value, then user owns the post
+            // Else, it's not his
+            if($this->selecting->pull()[1] > 0):
+
+                $post_privacy = $this->selecting->pull()[0][0]['privacy'];
+
+                // Checking if the post privacy is 1 and proceed not to change it if it is
+                if($post_privacy === 1):
+                    $privacy = 1;
+                endif;
+
+                $updating = new Update(self::$db, "SET content = ?, title = ?, category = ?, privacy = ? WHERE token = ? AND user = ?# $content# $title# $category# $privacy# $token# $user");
+                $action = $updating->mutate('sssisi', 'post');
+                if($action):
+                    $this->type = "success";
+                    $this->status = 1;
+                    $this->message = "void";
+
+                else:
+
+                    return $action;
+                endif;
+            else:
+                $this->type = "error";
+                $this->status = 0;
+                $this->message = "void";
+                $this->content = "Post does not belong to user";
 
             endif;
 
@@ -178,6 +233,50 @@
             return $this->deliver();
         }
 
+        public function toggle_comment() : array {
+
+            $token = $this->data['val']['token'];
+
+            // Check if the post is valid and user is the owner of the post
+            $this->selecting->more_details("WHERE token = ? AND user = ?, $token, $this->user");
+            $action = $this->selecting->action("comments_blocked", "post");
+            if($action != null):
+                return $action;
+            endif;
+
+            $value = $this->selecting->pull();
+            // If there is a value, then the user is the owner of the post
+            if($value[1] > 0):
+                if($value[0][0]['comments_blocked'] === 0):
+                    $new_value = 1;
+                else:
+                    $new_value = 0;
+                endif;
+
+                $updating = new Update(self::$db, "SET comments_blocked = ? WHERE token = ?# $new_value# $token");
+                $action = $updating->mutate('is', 'post');
+
+                if($action):
+                    $this->type = "success";
+                    $this->status = 1;
+                    $this->message = "void";
+                    $this->content = $new_value;
+
+                else:
+
+                    return $action;
+                endif;
+            else:
+                $this->type = "error";
+                $this->status = 0;
+                $this->message = "void";
+                $this->content = "Post does not belong to user";
+
+            endif;
+            
+            return $this->deliver();
+        }
+
         public function config_data(array|string $blocked, array $items, string $key, ?int $user) : array {
 
             // Fetch the necessary about post owner
@@ -249,12 +348,7 @@
 
             return $result;
         }
-
-        public function toggle_comment($session) : array {
-            print_r($session);
-            
-            return $this->deliver();
-        }
     }
+    
 
 ?>

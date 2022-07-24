@@ -9,6 +9,15 @@ class Func {
         return a;
     }
 
+    isEmpty(data) {
+        let result
+        if(typeof data === 'object'){
+            result = Object.keys(data).length === 0
+        }
+
+        return result
+    }
+
     newlineBr(data) {
         var reg = new RegExp('\r\n|\n|\r', 'gim');
         data = data.replace(reg, "<br />");

@@ -33,6 +33,16 @@ window.addEventListener("click", function(e) {
         }
     }
 
+    // Hide the large option if anywhere other than the toggle option is clicked
+
+    if(action != "toggle_options"){
+        var active_option = this.document.querySelector("[data-status=option-active]")
+        if(active_option != null) {
+            active_option.style.display = "none"
+            active_option.removeAttribute("data-status")
+        }
+    }
+
     var post = new Post()
 
     switch (action) {

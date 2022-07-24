@@ -38,7 +38,6 @@
         }
 
         public function action(string $select_what, string $where) : ?array {
-            $this->type = "Select/action";
             $this->process();
             
             $more_split = explode(',', $this->more);
@@ -58,6 +57,7 @@
             $confirm->close();
 
             if(!$response):
+                $this->type = "error";
                 $this->status = 0;
                 $this->message = "void";
                 $this->content = "Failed to fetch content";

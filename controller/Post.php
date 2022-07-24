@@ -37,6 +37,23 @@
                     endif;
 
                     break;
+
+                case 'update_post':
+                    // Check if user is logged in
+                    if(USER['type'] === 2):
+                        $result = $modelPost->update_post();
+
+                    else:
+                        $this->type = "warning";
+                        $this->status = 0;
+                        $this->message = "fill";
+                        $this->content = USER['content'];
+
+                        $result = $this->deliver();
+
+                    endif;
+
+                    break;
                 
                 case 'fetch_post':
                     $result = $modelPost->fetch_post(USER);
@@ -44,7 +61,7 @@
                     break;
 
                 case 'toggle_comment':
-                    $result = $modelPost->toggle_comment(USER);
+                    $result = $modelPost->toggle_comment();
 
                     break;
 

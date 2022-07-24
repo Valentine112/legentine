@@ -191,10 +191,10 @@ class Options {
         var state
         if(this.data['comment_state'] === "1"){
             text = "Allow"
-            state = 2
+            state = 1
         }else{
             text = "Block"
-            state = 1
+            state = 0
         }
 
         return `

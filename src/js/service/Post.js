@@ -31,7 +31,7 @@ class Post {
                 })
             }
 
-            //this.func.notice_box(val)
+            this.func.notice_box(val)
         })
 
         return result
@@ -48,23 +48,26 @@ class Post {
         // Check if the options exist
         if(document.querySelector(".options") != null){
 
-            // hide all options first
-            var options = document.querySelectorAll(".options")
-            options.forEach(opt => {
-                opt.style.display = "none"
-            })
-
             // Display the wanted option by getting its direct parent and transversing back to it
 
             var parent = elem.closest(".post-body")
-            var main_option = parent.querySelector(".options")
+            var large_option = parent.querySelector(".large-option")
 
             // Display the right option for large screen
             if(small_display === "none" && large_display === "flex") {
-                if(getComputedStyle(main_option).getPropertyValue("display") === "none") {
-                    main_option.style.display = "block"
+                if(getComputedStyle(large_option).getPropertyValue("display") === "none") {
+
+                    // hide all options first
+                    var options = document.querySelectorAll(".options")
+                    options.forEach(opt => {
+                        opt.style.display = "none"
+                    })
+
+                    large_option.style.display = "block"
+                    large_option.setAttribute("data-status", "option-active")
                 }else{
-                    main_option.style.display = "none"
+                    large_option.style.display = "none"
+                    large_option.removeAttribute("data-status")
                 }
 
             }else if(large_display === "none" && small_display === "flex") {
@@ -111,9 +114,35 @@ class Post {
             }
         }
 
-        func.request("../request.php", JSON.stringify(data), 'json')
+
+        this.func.request("../request.php", JSON.stringify(data), 'json')
         .then(val => {
             console.log(val)
+            if(val.status === 1){
+                var edit_options = elem.closest(".edit-options"),
+
+                // Get the two elements that needs modifying
+                img = edit_options.querySelector("img"),
+                span = edit_options.querySelector("span")
+
+                var src, state, text
+
+                if(val.content === 0){
+                    src = "../src/icon/option-icon/block-comment.svg"
+                    state = 0
+                    text = "Block Comments"
+
+                }else{
+                    src = "../src/icon/option-icon/allow-comment.svg"
+                    state = 1
+                    text = "Allow Comments"
+                }
+
+                img.setAttribute("src", src)
+                span.setAttribute("data-state", state)
+                span.innerText = text
+
+            }
         })
     }
 

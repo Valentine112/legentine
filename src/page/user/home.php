@@ -17,11 +17,17 @@
                 // Include the navbar here
                 include "src/template/navbar.php";
 
+                // Include sidebar here
+                include "src/template/sidebar.php";
+
                 // Include the category section here
                 include "src/template/category.php"; 
 
                 // Include the notice box here
                 include "src/template/quick-notice.php";
+
+                // Include the delete notice here
+                include "src/template/delete-notice.php";
             ?>
         </div>
 

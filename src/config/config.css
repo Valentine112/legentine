@@ -206,4 +206,5 @@ body{
     }
 }
 
-/* Quick notice sidebar has the second highest z-index of 3 */
+/* Delete notice has the highest z-index of 4 */
+/* Quick notice sidebar has the third highest z-index of 3 */

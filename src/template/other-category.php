@@ -68,7 +68,7 @@
 <script>
     function option() {
         return `
-            <option value="" id="other-value"></option>
+            <option value="" id="other-value" selected></option>
         `
     }
     

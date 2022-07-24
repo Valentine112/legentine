@@ -1,6 +1,4 @@
 <head>
-    <?php include "../config/config.html"; ?>
-    <link rel="stylesheet" href="../config/config.css">
     <style>
         .sidebar{
             position: fixed;
@@ -8,6 +6,7 @@
             bottom: 0;
             left: 0;
             right: 0;
+            z-index: 3;
         }
         .sidebar-closure{
             position: absolute;
@@ -33,7 +32,7 @@
             transition: right 0.3s ease-in-out;
         }
         .sidebar-list-1{
-            margin-bottom: 40%;
+            margin-bottom: 10%;
         }
         .sidebar .sidebar-items{
             font-family: var(--theme-font);
@@ -97,7 +96,7 @@
 
                                 <li>
                                     <a href="">
-                                        <img src="../icon/sidebar-icon/chat.svg" alt="">
+                                        <img src="../src/icon/sidebar-icon/chat.svg" alt="">
                                         &emsp;
                                         <span>Chat</span>
                                     </a>
@@ -105,7 +104,7 @@
 
                                 <li>
                                     <a href="">
-                                        <img src="../icon/sidebar-icon/lock.svg" alt="">
+                                        <img src="../src/icon/sidebar-icon/lock.svg" alt="">
                                         &emsp;
                                         <span>Private</span>
                                     </a>
@@ -120,7 +119,7 @@
                             <ul>
                                 <li>
                                     <a href="">
-                                        <img src="../icon/sidebar-icon/save.svg" alt="">
+                                        <img src="../src/icon/sidebar-icon/save.svg" alt="">
                                         &emsp;
                                         <span>Saved</span>
                                     </a>
@@ -128,7 +127,7 @@
 
                                 <li>
                                     <a href="">
-                                        <img src="../icon/sidebar-icon/pin.svg" alt="">
+                                        <img src="../src/icon/sidebar-icon/pin.svg" alt="">
                                         &emsp;
                                         <span>Pin</span>
                                     </a>
@@ -143,7 +142,7 @@
                             <ul>
                                 <li>
                                     <a href="">
-                                        <img src="../icon/sidebar-icon/notification.svg" alt="">
+                                        <img src="../src/icon/sidebar-icon/notification.svg" alt="">
                                         &emsp;
                                         <span>Notification</span>
                                     </a>
@@ -152,11 +151,11 @@
 
                                 <li class="dropdown-host" tabindex="0">
                                     <div>   
-                                        <img src="../icon/sidebar-icon/feature.svg" alt="">
+                                        <img src="../src/icon/sidebar-icon/feature.svg" alt="">
                                         &emsp;
                                         <span>
                                             Feature
-                                            <img src="../icon/header/drop-down.svg" alt="more" class="dropdown-icon">
+                                            <img src="../src/icon/header/drop-down.svg" alt="more" class="dropdown-icon">
                                         </span>
 
                                         <ul class="dropdown-item">
@@ -184,7 +183,7 @@
                             <ul>
                                 <li>
                                     <a href="">
-                                        <img src="../icon/sidebar-icon/lock.svg" alt="">
+                                        <img src="../src/icon/sidebar-icon/lock.svg" alt="">
                                         &emsp;
                                         Password
                                     </a>
@@ -192,7 +191,7 @@
 
                                 <li>
                                     <a href="">
-                                        <img src="../icon/sidebar-icon/unlist.svg" alt="">
+                                        <img src="../src/icon/sidebar-icon/unlist.svg" alt="">
                                         &emsp;
                                         Unlist
                                     </a>
@@ -207,7 +206,7 @@
                             <ul>
                                 <li>
                                     <a href="">
-                                        <img src="../icon/sidebar-icon/help.svg" alt="">
+                                        <img src="../src/icon/sidebar-icon/help.svg" alt="">
                                         &emsp;
                                         Help
                                     </a>
@@ -215,7 +214,7 @@
 
                                 <li>
                                     <a href="">
-                                        <img src="../icon/sidebar-icon/about.svg" alt="">
+                                        <img src="../src/icon/sidebar-icon/about.svg" alt="">
                                         &emsp;
                                         About us
                                     </a>
@@ -223,7 +222,7 @@
                                 
                                 <li>
                                     <a href="">
-                                        <img src="../icon/sidebar-icon/feedback.svg" alt="">
+                                        <img src="../src/icon/sidebar-icon/feedback.svg" alt="">
                                         &emsp;
                                         Feedback
                                     </a>
@@ -231,7 +230,7 @@
 
                                 <li>
                                     <a href="">
-                                        <img src="../icon/sidebar-icon/more.svg" alt="">
+                                        <img src="../src/icon/sidebar-icon/more.svg" alt="">
                                         &emsp;
                                         More
                                     </a>
@@ -246,7 +245,7 @@
                             <ul>
                                 <li>
                                     <a href="">
-                                        <img src="../icon/sidebar-icon/logout.svg" alt="">
+                                        <img src="../src/icon/sidebar-icon/logout.svg" alt="">
 
                                         <span>Log out</span>
                                     </a>

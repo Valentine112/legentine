@@ -40,6 +40,7 @@
             if(self::$insert_item->execute()){
                 return true;
             }else{
+                $this->type = "error";
                 $this->status = 0;
                 $this->message = "void";
                 $this->content = "Failed to insert data";

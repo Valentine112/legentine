@@ -79,6 +79,7 @@
     justify-content: left;
     align-items: center;
     width: 100%;
+    cursor: pointer;
 }
 #large-options .personnal-options a{
     display: flex;
@@ -162,6 +163,12 @@
 
 /* Category color */
 
+/* Other category */
+.post-sub .content-segment .category-segment > div{
+    background-color: #ff465b;
+}
+/* ther category ends */
+
 .post-sub .content-segment .category-segment .song{
     background-color: rgb(114, 66, 114);
 }
@@ -177,6 +184,7 @@
 .post-sub .content-segment .category-segment .story{
     background-color: rgb(9, 115, 221);
 }
+
 
 /* Category color ends */
 

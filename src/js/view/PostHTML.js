@@ -176,7 +176,7 @@ class PostHTML {
                             
                         </div>
                         <div class="large">
-                            <div class="options" id="large-options">
+                            <div class="options large-option" id="large-options">
                                 <div>
                                     <div class="person-options">
                                     `
@@ -321,10 +321,10 @@ class PostHTML {
 
         if(this.post['comments_blocked'] === 1){
             text = "Allow"
-            state = 2
+            state = 1
         }else{
             text = "Block"
-            state = 1
+            state = 0
         }
 
         return `
