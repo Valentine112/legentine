@@ -117,13 +117,14 @@ class Post {
 
         this.func.request("../request.php", JSON.stringify(data), 'json')
         .then(val => {
-            console.log(val)
+
             if(val.status === 1){
-                var edit_options = elem.closest(".edit-options"),
+                var edit_options = elem
 
                 // Get the two elements that needs modifying
-                img = edit_options.querySelector("img"),
+                var img = edit_options.querySelector("img"),
                 span = edit_options.querySelector("span")
+
 
                 var src, state, text
 
@@ -142,8 +143,31 @@ class Post {
                 span.setAttribute("data-state", state)
                 span.innerText = text
 
+                // Set the comments-state for the parent post
+                // This would help when check options for a post
+                // And also for properties
+
+                parent.setAttribute("data-comments-state", state)
+
             }
         })
+    }
+
+    delete_post(elem) {
+        // First hide the post
+        // Display delete notice and start the animation
+        // Then set a timeout for 5 seconds
+        // If delete notice is clicked within that time, cancel the timeout
+        // Proceed to send the resources for deleting
+
+        var parent = elem.closest(".post-body")
+
+        var delete_notice = document.querySelector(".delete-notice")
+
+        // Display delete notice
+        delete_notice.style.display = "block"
+        // Start animation
+        delete_notice.querySelector(".delete-animation").style.width = "0%"
     }
 
 }

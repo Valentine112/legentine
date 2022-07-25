@@ -192,8 +192,6 @@
             <div>
                 <a href="session" class="nav-links session">
                     <img src="../src/icon/header/plain-icon/note.svg" alt="session" class="config-icon-1 ori-icon">
-
-                    <img src="../src/icon/header/color-icon/note.svg" alt="session" class="config-icon-1 alt-icon">
                 </a>
             </div>
                 
@@ -212,9 +210,7 @@
             </div>
 
             <div>
-                <img src="../src/icon/header/plain-icon/list.svg" alt="menu" class="config-icon-1 ori-icon">
-
-                <img src="../src/icon/header/color-icon/list.svg" alt="menu" class="config-icon-1 alt-icon">
+                <img src="../src/icon/header/plain-icon/list.svg" alt="menu" class="config-icon-1 ori-icon" data-action="show_sidebar">
             </div>
         </div>
 

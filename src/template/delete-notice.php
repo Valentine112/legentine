@@ -82,8 +82,5 @@
 </div>
 
 <script>
-    window.addEventListener("click", function() {
-        var delete_animation = document.querySelector(".delete-animation")
-        delete_animation.style.width = "0%"
-    })
+
 </script>

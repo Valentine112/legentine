@@ -18,8 +18,9 @@ window.addEventListener("load", function() {
 })
 
 // Click events for elements would be activated here
-window.addEventListener("click", function(e) {
+window.addEventListener("click", async function(e) {
     var elem = e.target
+    var parent = elem
 
     var action = ""
 
@@ -29,12 +30,14 @@ window.addEventListener("click", function(e) {
     }else{
         // Check if the parent has the class as action which signifies there is a data-toggle
         if(elem.closest(".action") != null) {
-            action = elem.closest(".action").getAttribute("data-action")
+            elem = elem.closest(".action")
+            action = elem.getAttribute("data-action")
+            parent = elem.closest(".action")
         }
     }
 
-    // Hide the large option if anywhere other than the toggle option is clicked
 
+    // Hide the large option if anywhere other than the toggle option is clicked
     if(action != "toggle_options"){
         var active_option = this.document.querySelector("[data-status=option-active]")
         if(active_option != null) {
@@ -46,6 +49,40 @@ window.addEventListener("click", function(e) {
     var post = new Post()
 
     switch (action) {
+        case "feature-dropdown":
+            // Doing this because the focus on css, when trying to toggle the feature items doesn't work properyly
+
+            var feature_item = document.querySelector(".feature-dropdown-item")
+            if(feature_item != null) {
+                var feature_display = this.getComputedStyle(feature_item).getPropertyValue("display")
+
+                if(feature_display === "block"){
+                    feature_item.style.display = "none"
+
+                    parent.querySelector(".dropdown-icon").style.transform = "rotateZ(0deg)"
+                }else{
+                    feature_item.style.display = "block"
+
+                    parent.querySelector(".dropdown-icon").style.transform = "rotateZ(180deg)"
+                }
+            }
+
+            break
+
+        case "show_sidebar":
+            var promise = new Promise(res => {
+                res(
+                    document.querySelector(".sidebar").style.display = "block"
+                )
+            })
+            await promise
+            setTimeout(() => {
+                document.querySelector(".sidebar-list").style.right = "0%"
+                document.querySelector(".sidebar-closure").style.backgroundColor = "rgba(0, 0, 0, 0.3)"
+            }, 0200)
+
+            break
+
         case "toggle_options":
             post.toggle_options(elem)
 
@@ -55,8 +92,18 @@ window.addEventListener("click", function(e) {
             post.toggle_comment(elem)
 
             break
+
+        case "delete_post":
+            post.delete_post(elem)
+
+            break
+
         default:
             break;
+    }
+
+    if(elem.classList.contains("edit-options")){
+        if(elem.closest(".small-option") != null) elem.closest(".small-option").remove()
     }
 
 })

@@ -7,6 +7,7 @@
             left: 0;
             right: 0;
             z-index: 3;
+            display: none;
         }
         .sidebar-closure{
             position: absolute;
@@ -15,12 +16,12 @@
             left: 0;
             right: 0;
             z-index: 1;
-            background-color: rgba(0, 0, 0, 0.3);
+            background-color: transparent;
             transition: background-color 0.3s ease-in-out;
         }
         .sidebar-list{
             position: absolute;
-            right: 0;
+            right: -81%;
             top:0;
             bottom: 0;
             width: 80%;
@@ -81,176 +82,178 @@
 </head>
 <div>
     <div class="config" id="small-sidebar">
-        <div class="sidebar small">
-            <div class="sidebar-closure" onclick="close_sidebar(this)"></div>
-            <div class="sidebar-list">
-                <div class="sidebar-list-1">
-                    <header>
+        <div class="small">
+            <div class="sidebar">
+                <div class="sidebar-closure" onclick="close_sidebar(this)"></div>
+                <div class="sidebar-list">
+                    <div class="sidebar-list-1">
+                        <header>
 
-                    </header>
-                    <div class="sidebar-items">
+                        </header>
+                        <div class="sidebar-items">
 
-                        <div>
-                            <header>General</header>
-                            <ul>
+                            <div>
+                                <header>General</header>
+                                <ul>
 
-                                <li>
-                                    <a href="">
-                                        <img src="../src/icon/sidebar-icon/chat.svg" alt="">
-                                        &emsp;
-                                        <span>Chat</span>
-                                    </a>
-                                </li>
+                                    <li>
+                                        <a href="">
+                                            <img src="../src/icon/sidebar-icon/chat.svg" alt="">
+                                            &emsp;
+                                            <span>Chat</span>
+                                        </a>
+                                    </li>
 
-                                <li>
-                                    <a href="">
-                                        <img src="../src/icon/sidebar-icon/lock.svg" alt="">
-                                        &emsp;
-                                        <span>Private</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                                    <li>
+                                        <a href="">
+                                            <img src="../src/icon/sidebar-icon/lock.svg" alt="">
+                                            &emsp;
+                                            <span>Private</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
 
-                        <hr>
+                            <hr>
 
-                        <div>
-                            <header>Activities</header>
-                            <ul>
-                                <li>
-                                    <a href="">
-                                        <img src="../src/icon/sidebar-icon/save.svg" alt="">
-                                        &emsp;
-                                        <span>Saved</span>
-                                    </a>
-                                </li>
+                            <div>
+                                <header>Activities</header>
+                                <ul>
+                                    <li>
+                                        <a href="">
+                                            <img src="../src/icon/sidebar-icon/save.svg" alt="">
+                                            &emsp;
+                                            <span>Saved</span>
+                                        </a>
+                                    </li>
 
-                                <li>
-                                    <a href="">
-                                        <img src="../src/icon/sidebar-icon/pin.svg" alt="">
-                                        &emsp;
-                                        <span>Pin</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                                    <li>
+                                        <a href="">
+                                            <img src="../src/icon/sidebar-icon/pin.svg" alt="">
+                                            &emsp;
+                                            <span>Pin</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
 
-                        <hr>
+                            <hr>
 
-                        <div>
-                            <header>Notification</header>
-                            <ul>
-                                <li>
-                                    <a href="">
-                                        <img src="../src/icon/sidebar-icon/notification.svg" alt="">
-                                        &emsp;
-                                        <span>Notification</span>
-                                    </a>
+                            <div>
+                                <header>Notification</header>
+                                <ul>
+                                    <li>
+                                        <a href="">
+                                            <img src="../src/icon/sidebar-icon/notification.svg" alt="">
+                                            &emsp;
+                                            <span>Notification</span>
+                                        </a>
 
-                                </li>
+                                    </li>
 
-                                <li class="dropdown-host" tabindex="0">
-                                    <div>   
-                                        <img src="../src/icon/sidebar-icon/feature.svg" alt="">
-                                        &emsp;
-                                        <span>
-                                            Feature
-                                            <img src="../src/icon/header/drop-down.svg" alt="more" class="dropdown-icon">
-                                        </span>
+                                    <li class="faeture-dropdown action" tabindex="0" data-action="feature-dropdown">
+                                        <div>   
+                                            <img src="../src/icon/sidebar-icon/feature.svg" alt="">
+                                            &emsp;
+                                            <span>
+                                                Feature
+                                                <img src="../src/icon/header/drop-down.svg" alt="more" class="dropdown-icon">
+                                            </span>
 
-                                        <ul class="dropdown-item">
-                                            <li>
-                                                <a href="">Request</a>
-                                            </li>
-                                            <li>
-                                                <a href="">History</a>
-                                            </li>
-                                            <li>
-                                                <div>
-                                                    <span>Quiet</span>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div> 
-                                </li>
-                            </ul>
-                        </div>
+                                            <ul id="drop" class="dropdown-item feature-dropdown-item">
+                                                <li>
+                                                    <a href="">Request</a>
+                                                </li>
+                                                <li>
+                                                    <a href="">History</a>
+                                                </li>
+                                                <li>
+                                                    <div>
+                                                        <span>Quiet</span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div> 
+                                    </li>
+                                </ul>
+                            </div>
 
-                        <hr>
+                            <hr>
 
-                        <div>
-                            <header>Configure</header>
-                            <ul>
-                                <li>
-                                    <a href="">
-                                        <img src="../src/icon/sidebar-icon/lock.svg" alt="">
-                                        &emsp;
-                                        Password
-                                    </a>
-                                </li>
+                            <div>
+                                <header>Configure</header>
+                                <ul>
+                                    <li>
+                                        <a href="">
+                                            <img src="../src/icon/sidebar-icon/lock.svg" alt="">
+                                            &emsp;
+                                            Password
+                                        </a>
+                                    </li>
 
-                                <li>
-                                    <a href="">
-                                        <img src="../src/icon/sidebar-icon/unlist.svg" alt="">
-                                        &emsp;
-                                        Unlist
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                                    <li>
+                                        <a href="">
+                                            <img src="../src/icon/sidebar-icon/unlist.svg" alt="">
+                                            &emsp;
+                                            Unlist
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
 
-                        <hr>
-                        
-                        <div>
-                            <header>Support</header>
-                            <ul>
-                                <li>
-                                    <a href="">
-                                        <img src="../src/icon/sidebar-icon/help.svg" alt="">
-                                        &emsp;
-                                        Help
-                                    </a>
-                                </li>
+                            <hr>
+                            
+                            <div>
+                                <header>Support</header>
+                                <ul>
+                                    <li>
+                                        <a href="">
+                                            <img src="../src/icon/sidebar-icon/help.svg" alt="">
+                                            &emsp;
+                                            Help
+                                        </a>
+                                    </li>
 
-                                <li>
-                                    <a href="">
-                                        <img src="../src/icon/sidebar-icon/about.svg" alt="">
-                                        &emsp;
-                                        About us
-                                    </a>
-                                </li>
-                                
-                                <li>
-                                    <a href="">
-                                        <img src="../src/icon/sidebar-icon/feedback.svg" alt="">
-                                        &emsp;
-                                        Feedback
-                                    </a>
-                                </li>
+                                    <li>
+                                        <a href="">
+                                            <img src="../src/icon/sidebar-icon/about.svg" alt="">
+                                            &emsp;
+                                            About us
+                                        </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="">
+                                            <img src="../src/icon/sidebar-icon/feedback.svg" alt="">
+                                            &emsp;
+                                            Feedback
+                                        </a>
+                                    </li>
 
-                                <li>
-                                    <a href="">
-                                        <img src="../src/icon/sidebar-icon/more.svg" alt="">
-                                        &emsp;
-                                        More
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                                    <li>
+                                        <a href="">
+                                            <img src="../src/icon/sidebar-icon/more.svg" alt="">
+                                            &emsp;
+                                            More
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
 
-                        <hr>
+                            <hr>
 
-                        <div>
-                            <header>Account</header>
-                            <ul>
-                                <li>
-                                    <a href="">
-                                        <img src="../src/icon/sidebar-icon/logout.svg" alt="">
+                            <div>
+                                <header>Account</header>
+                                <ul>
+                                    <li>
+                                        <a href="">
+                                            <img src="../src/icon/sidebar-icon/logout.svg" alt="">
 
-                                        <span>Log out</span>
-                                    </a>
-                                </li>
-                            </ul>
+                                            <span>Log out</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
