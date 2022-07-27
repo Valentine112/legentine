@@ -211,4 +211,19 @@ class Func {
         }
     }
 
+    detectTransitionEnd(elem){
+        var transitionEvents = ['transitionend', 'OTransitionEnd', 'webkitTransitionEnd'];
+
+        transitionEvents.forEach(trans => {
+            elem.addEventListener(trans, function() {
+                return true
+            })
+        })
+    }
+
+    removeInitials(data) {
+        data = data.replace("LT-", "")
+        return data
+    }
+
 }

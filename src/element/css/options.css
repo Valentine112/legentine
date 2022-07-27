@@ -11,7 +11,7 @@
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     z-index: 2;
-    font-family: "NotoSansJP", sans-serif;
+    font-family: 'Arial', sans-serif;
     color: #000;
 }
 #small-options .options-1{

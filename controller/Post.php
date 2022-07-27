@@ -65,6 +65,11 @@
 
                     break;
 
+                case 'delete_post':
+                    $result = $modelPost->delete_post();
+
+                    break;
+
                 default:
 
                     break;

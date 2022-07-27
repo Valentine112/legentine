@@ -120,31 +120,32 @@
     margin-top: 30px;
 }
 .post-sub .content-segment .article-link{
-    text-decoration: none;
-    color: rgb(157, 155, 155);
-}
-.post-sub .content-segment .article-link{
     text-align: center;
+    text-decoration: none;
+    color: #000;
 }
 .post-sub .content-segment .article-link:hover{
     text-shadow: 2px 3px 4px #e5e5e5;
 }
 .post-sub .content-segment .title-segment{
     font-family: 'montserrat', sans-serif;
-    color: #fa6273;;
+    color: #000;
     width: 90%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     margin: auto;
+    font-weight: 600;
 }
 .post-sub .content-segment .title-segment span{
     font-size: 20px;
+    font-weight: 400;
 }
 .post-sub .content-segment .brief-segment{
     margin-top: 5px;
     width: 90%;
     margin: auto;
+    font-weight: 400;
 }
 .post-sub .content-segment .category-segment{
     margin-top: 10px;
@@ -286,6 +287,7 @@
         margin-right: auto;
         margin-left: 5px;
         line-height: 25px;
+        font-weight: 400;
     }
     .post-sub .content-segment .category-segment > div{
         font-size: 14px;

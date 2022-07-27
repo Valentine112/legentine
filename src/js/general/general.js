@@ -49,21 +49,21 @@ window.addEventListener("click", async function(e) {
     var post = new Post()
 
     switch (action) {
-        case "feature-dropdown":
+        case "sub-dropdown":
             // Doing this because the focus on css, when trying to toggle the feature items doesn't work properyly
 
-            var feature_item = document.querySelector(".feature-dropdown-item")
-            if(feature_item != null) {
-                var feature_display = this.getComputedStyle(feature_item).getPropertyValue("display")
+            var sub_item = elem.querySelector(".feature-dropdown-item")
+            if(sub_item != null) {
+                var feature_display = this.getComputedStyle(sub_item).getPropertyValue("display")
 
                 if(feature_display === "block"){
-                    feature_item.style.display = "none"
+                    sub_item.style.display = "none"
 
-                    parent.querySelector(".dropdown-icon").style.transform = "rotateZ(0deg)"
+                    elem.querySelector(".dropdown-icon").style.transform = "rotateZ(0deg)"
                 }else{
-                    feature_item.style.display = "block"
+                    sub_item.style.display = "block"
 
-                    parent.querySelector(".dropdown-icon").style.transform = "rotateZ(180deg)"
+                    elem.querySelector(".dropdown-icon").style.transform = "rotateZ(180deg)"
                 }
             }
 
@@ -94,9 +94,17 @@ window.addEventListener("click", async function(e) {
             break
 
         case "delete_post":
-            post.delete_post(elem)
+            var post_body = elem.closest(".post-body"),
+            token = post_body.getAttribute("data-token")
+
+            post.delete_post(elem, token)
 
             break
+
+        case "properties":
+            post.properties(elem)
+
+            break;
 
         default:
             break;

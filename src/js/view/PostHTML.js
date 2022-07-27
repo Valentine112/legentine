@@ -17,7 +17,9 @@ class PostHTML {
 
         var element = `
             <div class="post-body box lazy-load-element" 
-            data-token="${this.post['token']}"
+            data-token="LT-${this.post['token']}"
+            data-name="${this.other['fullname']}"
+            data-rating="${this.other['rating']}"
             data-user="${this.post['user']}"
             data-title="${this.post['title']}"
             data-username="${this.other['username']}"
@@ -25,6 +27,7 @@ class PostHTML {
             data-owner="${this.more['owner']}"
             data-word-count="${this.post['content'].split(" ").length}"
             data-comments-state="${this.post['comments_blocked']}"
+            data-data="${this.post['date']}"
             >
                 <div class="post-assist box">
                     <div class="post-sub box">

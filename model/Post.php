@@ -3,7 +3,8 @@
 
     use mysqli;
     use Query\{
-        Insert,
+    Delete,
+    Insert,
         Select,
         Update
     };
@@ -253,7 +254,7 @@
                     $new_value = 0;
                 endif;
 
-                $updating = new Update(self::$db, "SET comments_blocked = ? WHERE token = ?# $new_value# $token");
+                $updating = new Update(self::$db, "SET comments_blocked = ? WHERE token = ? AND user = ?# $new_value# $token# $this->user");
                 $action = $updating->mutate('is', 'post');
 
                 if($action):
@@ -266,6 +267,70 @@
 
                     return $action;
                 endif;
+            else:
+                $this->type = "error";
+                $this->status = 0;
+                $this->message = "void";
+                $this->content = "Post does not belong to user";
+
+            endif;
+            
+            return $this->deliver();
+        }
+
+        public function delete_post() : array {
+
+            // To delete post
+            // We have to delete the comments, mentions, notifications and every other thing related to it
+
+            $token = $this->data['val']['token'];
+
+            // Check if the post is valid and user is the owner of the post
+            $this->selecting->more_details("WHERE token = ? AND user = ?, $token, $this->user");
+            $action = $this->selecting->action("id", "post");
+            $this->selecting->reset();
+
+            if($action != null):
+                return $action;
+            endif;
+
+            $value = $this->selecting->pull();
+
+            self::$db->autocommit(false);
+
+            // If there is a value, then the user is the owner of the post
+            if($value[1] > 0):
+                $post = $value[0][0]['id'];
+
+                // Delete post first
+                $deleting = new Delete(self::$db, "WHERE id = ? AND user = ?, $post, $this->user");
+                $action = $deleting->proceed("post");
+                if($action):
+                    $deleting->end();
+
+                    // Delete comments related to the post
+                    $deleting = new Delete(self::$db, "WHERE post = ?, $post");
+                    $action = $deleting->proceed("comments");
+                    if($action):
+                        self::$db->autocommit(true);
+
+                        // If everything i set, commit to true and send a positive response
+                        $this->type = "success";
+                        $this->status = 1;
+                        $this->message = "void";
+                        $this->content = "Post deleted";
+
+                    else:
+                        return $action;
+
+                    endif;
+
+                else:
+                    return $action;
+
+                endif;
+
+
             else:
                 $this->type = "error";
                 $this->status = 0;
@@ -348,6 +413,7 @@
 
             return $result;
         }
+
     }
     
 

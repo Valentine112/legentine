@@ -28,6 +28,7 @@
             padding-right: 25px;
             margin: auto;
             background-color: #fff;
+            border-radius: 5px;
         }
         .quick-notice .notice-cover > div:first-child{
             width: fit-content;

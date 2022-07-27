@@ -74,9 +74,11 @@ class Post {
                 // Setting the data to pass to the option class
                 // This would be used to configure how it would display
                 // And how its actions would be processed
+                var token = parent.getAttribute("data-token")
+                token = new Func().removeInitials(token)
 
                 var data = {
-                    token: parent.getAttribute("data-token"),
+                    token: token,
                     owner: parent.getAttribute("data-owner"),
                     title: parent.getAttribute("data-title"),
                     username: parent.getAttribute("data-username"),
@@ -103,6 +105,8 @@ class Post {
     toggle_comment(elem) {
         var parent = elem.closest(".post-body")
         var token = parent.getAttribute("data-token")
+        token = new Func().removeInitials(token)
+
         var comment_state = parent.getAttribute("data-comments-state")
 
         var data = {
@@ -153,7 +157,7 @@ class Post {
         })
     }
 
-    delete_post(elem) {
+    async delete_post(elem, token) {
         // First hide the post
         // Display delete notice and start the animation
         // Then set a timeout for 5 seconds
@@ -161,13 +165,24 @@ class Post {
         // Proceed to send the resources for deleting
 
         var parent = elem.closest(".post-body")
-
         var delete_notice = document.querySelector(".delete-notice")
 
-        // Display delete notice
-        delete_notice.style.display = "block"
-        // Start animation
-        delete_notice.querySelector(".delete-animation").style.width = "0%"
+        var promise = new Promise(res => {
+            res(
+                delete_notice.setAttribute("data-post-token", token),
+                call_animation(parent)
+            )
+        })
+        await promise
+
+    }
+
+    properties(elem) {
+        var parent = elem.closest(".post-body")
+        var data = {
+            "name": 
+        }
+        document.querySelector(".article-content").insertAdjacentHTML("beforeend", properties(data))
     }
 
 }

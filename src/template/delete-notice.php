@@ -23,14 +23,20 @@
             background-color: #444;
             border-radius: 5px;
             z-index: -1;
+        }
+        .delete-animation.animate{
             transition: width 5s linear;
             -o-transition: width 5s linear;
+            -webkit-transition: width 5s linear;
+            -moz-transition: width 5s linear;
+            width: 0%!important;
         }
+
         .delete-notice .delete-cover{
             padding: 10px;
             border-radius: 5px;
             text-align: center;
-            border: 1px solid #444;
+            border: 1px solid #f1f1f1;
         }
 
         .delete-notice > div div{
@@ -45,13 +51,14 @@
             width: 75%;
         }
         .delete-notice .delete-cover span{
-            color: #f1f1f1;
+            color: #fff;
             mix-blend-mode: difference;
         }
         .delete-notice img{
             height: 20px;
             width: 20px;
             margin: auto;
+            mix-blend-mode: difference;
         }
         @media screen and (min-width: 768px) {
             .delete-notice{
@@ -67,7 +74,7 @@
         }
     </style>
 </head>
-<div class="delete-notice">
+<div class="delete-notice" onclick="stop_animation('restore')">
     <div class="delete-animation"></div>
     <div class="delete-cover">
         <div>
@@ -82,5 +89,80 @@
 </div>
 
 <script>
+    var delete_notice = document.querySelector(".delete-notice")
 
+    function call_animation(element) {
+        element.style.display = "none"
+
+        // Setting the data process to 1, meaning the process is still on
+        delete_notice.setAttribute("data-process", 1)
+
+        var delete_animation = document.querySelector(".delete-animation")
+
+        // Display delete notice
+        delete_notice.style.display = "block"
+
+        setTimeout(() => {
+            // Start animation
+            delete_animation.classList.add("animate")
+        }, 0050)
+
+        var transitionEvents = ['transitionend', 'OTransitionEnd', 'webkitTransitionEnd'];
+
+        // Checking if the transition has ended
+        transitionEvents.forEach(trans => {
+            delete_animation.addEventListener(trans, function() {
+                var data_process = delete_notice.getAttribute("data-process")
+
+                // If the data_process is 1, proceed with it
+                if(data_process == 1) {
+                    var token = delete_notice.getAttribute("data-post-token")
+                    token = new Func().removeInitials(token)
+
+                    // Send the data to the server for processing
+                    var data = {
+                        part: "post",
+                        action: "delete_post",
+                        val: {
+                            token: token
+                        }
+                    }
+
+                    // reset the animation after all the data has been gotten
+                    stop_animation("")
+
+                    new Func().request("../request.php", JSON.stringify(data), 'json')
+
+                }
+                
+            })
+        })
+
+    }
+
+    function stop_animation(type) {
+        var token = delete_notice.getAttribute("data-post-token")
+        var delete_animation = document.querySelector(".delete-animation")
+
+        if(type === "restore"){
+            // Display the post back
+            document.querySelector("[data-token=" + token + "]").style.display = "block"
+        }
+
+        // Setting the data process to 0, meaning the process has cancelled
+        delete_notice.setAttribute("data-process", 0)
+
+        // Remove the data token
+        delete_notice.removeAttribute("data-post-token")
+
+        // Get the width
+        var delete_width = getComputedStyle(delete_animation).getPropertyValue("width")
+
+        // Start animation
+        delete_animation.classList.remove("animate")
+        delete_animation.style.width = "100%"
+
+        // Hide the delete box
+        delete_notice.style.display = "none"
+    }
 </script>

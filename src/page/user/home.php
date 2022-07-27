@@ -3,12 +3,14 @@
 <head>
     <title>Home</title>
     <script src="../src/js/view/PostHTML.js"></script>
+    <script src="../src/js/view/Properties.js"></script>
     <?php 
         use Src\Config\Head; 
         Head::tags(); 
     ?>
     <link rel="stylesheet" href="../src/element/css/post.css">
     <link rel="stylesheet" href="../src/element/css/options.css">
+    <link rel="stylesheet" href="../src/element/css/properties.css">
 </head>
 <body>
     <div class="content config">

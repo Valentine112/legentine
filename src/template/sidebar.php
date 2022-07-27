@@ -24,7 +24,7 @@
             right: -81%;
             top:0;
             bottom: 0;
-            width: 80%;
+            width: 75%;
             z-index: 2;
             margin-left: auto;
             padding-left: 10px;
@@ -36,16 +36,22 @@
             margin-bottom: 10%;
         }
         .sidebar .sidebar-items{
-            font-family: var(--theme-font);
+            font-family: 'Arial', sans-serif;
+            padding: 10px;
         }
         .sidebar .sidebar-items header{
+            font-size: 15px;
             color: grey;
             font-weight: 600;
         }
         .sidebar .sidebar-items hr{
             width: 100%;
             border: 1px solid #f1f1f1;
-            height: 2px;
+            height: 1px;
+        }
+        .sidebar .sidebar-items .first-list{
+            padding-inline-start: 30px;
+            margin-block-start: 16px;
         }
         .sidebar .sidebar-items ul li{
             list-style: none;
@@ -53,10 +59,17 @@
         }
         .sidebar .sidebar-items ul li a{
             text-decoration: none;
-            color: #000;
+            color: #444;
+            font-size: 14px;
+            font-weight: 500;
             display: block;
             width: 100%;
             padding: 12px 0 12px 0;
+        }
+        .sidebar .sidebar-items ul li span{
+            color: #444;
+            font-size: 14px;
+            font-weight: 500;
         }
         .sidebar .sidebar-items ul li div{
             width: 100%;
@@ -94,7 +107,7 @@
 
                             <div>
                                 <header>General</header>
-                                <ul>
+                                <ul class="first-list">
 
                                     <li>
                                         <a href="">
@@ -118,7 +131,7 @@
 
                             <div>
                                 <header>Activities</header>
-                                <ul>
+                                <ul class="first-list">
                                     <li>
                                         <a href="">
                                             <img src="../src/icon/sidebar-icon/save.svg" alt="">
@@ -141,7 +154,7 @@
 
                             <div>
                                 <header>Notification</header>
-                                <ul>
+                                <ul class="first-list">
                                     <li>
                                         <a href="">
                                             <img src="../src/icon/sidebar-icon/notification.svg" alt="">
@@ -151,7 +164,7 @@
 
                                     </li>
 
-                                    <li class="faeture-dropdown action" tabindex="0" data-action="feature-dropdown">
+                                    <li class="faeture-dropdown action" tabindex="0" data-action="sub-dropdown">
                                         <div>   
                                             <img src="../src/icon/sidebar-icon/feature.svg" alt="">
                                             &emsp;
@@ -182,7 +195,7 @@
 
                             <div>
                                 <header>Configure</header>
-                                <ul>
+                                <ul class="first-list">
                                     <li>
                                         <a href="">
                                             <img src="../src/icon/sidebar-icon/lock.svg" alt="">
@@ -205,9 +218,9 @@
                             
                             <div>
                                 <header>Support</header>
-                                <ul>
+                                <ul class="first-list">
                                     <li>
-                                        <a href="">
+                                        <a href="../help">
                                             <img src="../src/icon/sidebar-icon/help.svg" alt="">
                                             &emsp;
                                             Help
@@ -215,7 +228,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="">
+                                        <a href="../about">
                                             <img src="../src/icon/sidebar-icon/about.svg" alt="">
                                             &emsp;
                                             About us
@@ -223,19 +236,34 @@
                                     </li>
                                     
                                     <li>
-                                        <a href="">
+                                        <a href="feedback">
                                             <img src="../src/icon/sidebar-icon/feedback.svg" alt="">
                                             &emsp;
                                             Feedback
                                         </a>
                                     </li>
 
-                                    <li>
-                                        <a href="">
+                                    <li class="faeture-dropdown action" tabindex="0" data-action="sub-dropdown">
+                                        <div>   
                                             <img src="../src/icon/sidebar-icon/more.svg" alt="">
                                             &emsp;
-                                            More
-                                        </a>
+                                            <span>
+                                                More
+                                                <img src="../src/icon/header/drop-down.svg" alt="more" class="dropdown-icon">
+                                            </span>
+
+                                            <ul id="drop" class="dropdown-item feature-dropdown-item">
+                                                <li>
+                                                    <a href="../disclaimer">Disclaimer</a>
+                                                </li>
+                                                <li>
+                                                    <a href="../privacy">Privacy</a>
+                                                </li>
+                                                <li>
+                                                    <a href="../terms">Our terms</a>
+                                                </li>
+                                            </ul>
+                                        </div> 
                                     </li>
                                 </ul>
                             </div>
@@ -244,7 +272,7 @@
 
                             <div>
                                 <header>Account</header>
-                                <ul>
+                                <ul class="first-list">
                                     <li>
                                         <a href="">
                                             <img src="../src/icon/sidebar-icon/logout.svg" alt="">

@@ -2,7 +2,9 @@
 
     namespace Query;
 
-    class Delete {
+    use Service\Response;
+
+    class Delete extends Response {
 
         public $type;
         public $value = [];
@@ -31,7 +33,7 @@
             }
         }
 
-        public function proceed(string $where) : bool {
+        public function proceed(string $where) : bool|array {
             $this->process();
 
             $more_ = $this->more1;
@@ -40,7 +42,19 @@
             if(count($more_split) > 1){
                 $deleting->bind_param($this->type, ...$this->value);
             }
-            return $deleting->execute();
+            if($deleting->execute()):
+                return true;
+
+            else:
+                $this->type = "error";
+                $this->status = 0;
+                $this->message = "void";
+                $this->content = "Failed to insert data";
+
+                return $this->deliver();
+
+            endif;
+            
             $deleting->close();
         }
 

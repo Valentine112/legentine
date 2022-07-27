@@ -1,6 +1,4 @@
-<head>
-    <link rel="stylesheet" href="src/element/css/properties.css">
-</head>
+
 <div class="properties fixed config-background-blur">
     <div class="properties-1 absolute">
         <div class="properties-adjust">
