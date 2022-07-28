@@ -9,6 +9,7 @@
             margin: auto;
             display: none;
             transition: opacity 3s ease-out;
+            z-index: 2;
         }
         .quick-notice > div{
             border-radius: 5px;
@@ -101,7 +102,11 @@
         }, 3000)
     }
 
-    function remove_class(notice_message) {
+    function remove_previous(notice_message) {
+        document.querySelectorAll(".notice-cover img").forEach(elem => {
+            elem.style.display = "none"
+        })
+
         notice_message.classList.remove("warning", "success", "error")
     }
     

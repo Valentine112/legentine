@@ -132,7 +132,9 @@
                     stop_animation("")
 
                     new Func().request("../request.php", JSON.stringify(data), 'json')
-
+                    .then(val => {
+                        this.func.notice_box(val)
+                    })
                 }
                 
             })

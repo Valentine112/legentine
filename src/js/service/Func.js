@@ -156,15 +156,38 @@ class Func {
             if(data.message == "void"){
                 error_text.innerHTML = "Something went wrong. . ."
             }
+
+            remove_previous(error_text)
+
+
             // Show the notice
             notice_modal.querySelector("." + type + "").style.display = "block"
-
-            remove_class(error_text)
-
             error_text.classList.add(type)
 
             notice_modal.style.display = "block"
         }
+
+        if(data.status === 1) {
+            if(data.type != null) type = data.type
+
+            if(data.message == "fill"){
+                error_text.innerHTML = data.content
+
+                remove_previous(error_text)
+
+                // Show the notice
+                notice_modal.querySelector("." + type + "").style.display = "block"
+                error_text.classList.add(type)
+
+                notice_modal.style.display = "block"
+            }
+        }
+
+        setTimeout(() => {
+            remove_previous(error_text)
+            
+            notice_modal.style.display = "none"
+        }, 3000)
     }
 
     approximate_count(data) {

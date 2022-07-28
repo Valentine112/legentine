@@ -38,6 +38,7 @@
                 <div></div>
             </div>
         </div>
+        
     </div>
 </body>
 <script src="../src/js/view/Options.js"></script>

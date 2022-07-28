@@ -81,6 +81,23 @@
 
                     endif;
 
+                    // Check if user has saved post
+                    $this->selecting->more_details("WHERE post = ? AND user = ?, $post, $user");
+                    $action = $this->selecting->action("id", "saved");
+                    $this->selecting->reset();
+    
+                    if($action != null):
+                        return $action;
+                    endif;
+    
+                    if($this->selecting->pull()[1] > 0):
+                        $box['more']['saved-state'] = 1;
+                    else:
+                        $box['more']['saved-state'] = 0;
+                    endif;
+
+                    // END //
+
                     // Check if its the same person
                     $box['more']['owner'] = $user === $other ? true : false;
 
@@ -97,6 +114,20 @@
             return $result;
         }
 
+        public function check_ownership(string $token, string $item) : array {
+
+            // Check if the post is valid and user is the owner of the post
+            $this->selecting->more_details("WHERE token = ? AND user = ?, $token, $this->user");
+            $action = $this->selecting->action($item, "post");
+            $this->selecting->reset();
+
+            if($action != null):
+                return $action;
+            endif;
+
+            return $this->selecting->pull();
+        }
+
         public static function fetchId(array $data) : array {
             $token = Func::cleanData($data['token'], 'string');
             $table = Func::cleanData($data['table'], 'string');
@@ -105,6 +136,7 @@
 
             $selecting->more_details("WHERE token = ? LIMIT 1, $token");
             $action = $selecting->action("id", $table);
+            $selecting->reset();
 
             if($action != null) return $action;
 
@@ -159,18 +191,13 @@
             $category = $this->data['val']['category'];
             $privacy = $this->data['val']['privacy'];
 
-            // Check if the post is valid and user is the owner of the post
-            $this->selecting->more_details("WHERE token = ? AND user = ?, $token, $user");
-            $action = $this->selecting->action("privacy", "post");
-            if($action != null):
-                return $action;
-            endif;
 
             // If there is a value, then user owns the post
             // Else, it's not his
-            if($this->selecting->pull()[1] > 0):
+            $ownership = $this->check_ownership($token, "privacy");
 
-                $post_privacy = $this->selecting->pull()[0][0]['privacy'];
+            if($ownership[1] > 0):
+                $post_privacy = $ownership[0][0]['privacy'];
 
                 // Checking if the post privacy is 1 and proceed not to change it if it is
                 if($post_privacy === 1):
@@ -314,13 +341,9 @@
             $token = $this->data['val']['token'];
 
             // Check if the post is valid and user is the owner of the post
-            $this->selecting->more_details("WHERE token = ? AND user = ?, $token, $this->user");
-            $action = $this->selecting->action("comments_blocked", "post");
-            if($action != null):
-                return $action;
-            endif;
+            $ownership = $this->check_ownership($token, "comments_blocked");
 
-            $value = $this->selecting->pull();
+            $value = $ownership;
             // If there is a value, then the user is the owner of the post
             if($value[1] > 0):
                 if($value[0][0]['comments_blocked'] === 0):
@@ -361,15 +384,9 @@
             $token = $this->data['val']['token'];
 
             // Check if the post is valid and user is the owner of the post
-            $this->selecting->more_details("WHERE token = ? AND user = ?, $token, $this->user");
-            $action = $this->selecting->action("id", "post");
-            $this->selecting->reset();
+            $ownership = $this->check_ownership($token, "id");
 
-            if($action != null):
-                return $action;
-            endif;
-
-            $value = $this->selecting->pull();
+            $value = $ownership;
 
             self::$db->autocommit(false);
 
@@ -418,7 +435,92 @@
         }
 
         public function save_post() : array {
-            //
+            // Check if post belongs to user
+            // If it doesn't, proceed to save the post
+
+            $token = $this->data['val']['token'];
+
+            // Check if post belongs to user and if it actually exists
+            
+            $ownership = $this->check_ownership($token, "id");
+
+            // If the post exist, then the post belongs to the user
+            // And he cannot save that
+            if($ownership[1] < 1):
+                // Fetch post id
+                $data = [
+                    'token' => $token,
+                    'table' => "post"
+                ];
+
+                // Get post id
+                $post = $this->fetchId($data)[0][0]['id'];
+
+                // Check if post has already been saved
+                $this->selecting->more_details("WHERE post = ? AND user = ?, $post, $this->user");
+                $action = $this->selecting->action("id", "saved");
+                $this->selecting->reset();
+
+                if($action != null):
+                    return $action;
+                endif;
+
+                // Post has been saved before so proceed to remove
+                if($this->selecting->pull()[1] > 0):
+                    $saved = $this->selecting->pull()[0][0]['id'];
+
+                    $deleting = new Delete(self::$db, "WHERE id = ?, $saved");
+                    $action = $deleting->proceed("saved");
+
+                    if($action):
+                        $this->type = "success";
+                        $this->status = 1;
+                        $this->message = "fill";
+                        $this->content = "Post Unsaved";
+
+                    else:
+                        return $action;
+                    endif;
+                else:
+                    // Since post has not been saved
+                    // And this action was activated, proceed to save post
+                    $subject = [
+                        "token", 
+                        "post",
+                        "user",
+                        "date",
+                        "time"
+                    ];
+
+                    $items = [
+                        Func::tokenGenerator(),
+                        $post,
+                        $this->user,
+                        Func::dateFormat(),
+                        time()
+                    ];
+
+                    $inserting = new Insert(self::$db, "saved", $subject, "");
+                    $action = $inserting->push($items, 'siisi');
+                    if($action):
+                        $this->type = "success";
+                        $this->status = 1;
+                        $this->message = "fill";
+                        $this->content = "Post Saved";
+                    
+                    else:
+                        return $action;
+
+                    endif;
+                endif;
+
+            else:
+                $this->type = "error";
+                $this->status = 0;
+                $this->message = "void";
+                $this->content = "Post belongs to user";
+
+            endif;
 
             return $this->deliver();
         }

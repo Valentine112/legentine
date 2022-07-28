@@ -83,7 +83,8 @@ class Post {
                     title: parent.getAttribute("data-title"),
                     username: parent.getAttribute("data-username"),
                     photo: parent.getAttribute("data-photo"),
-                    comment_state: parent.getAttribute("data-comments-state")
+                    comment_state: parent.getAttribute("data-comments-state"),
+                    saved_state: parent.getAttribute("data-saved-state")
                 }
 
                 var small_option = document.querySelector(".small-option")
@@ -154,17 +155,21 @@ class Post {
                 parent.setAttribute("data-comments-state", state)
 
             }
+
+            this.func.notice_box(val)
         })
     }
 
-    async delete_post(elem, token) {
+    async delete_post(elem) {
         // First hide the post
         // Display delete notice and start the animation
         // Then set a timeout for 5 seconds
         // If delete notice is clicked within that time, cancel the timeout
         // Proceed to send the resources for deleting
 
-        var parent = elem.closest(".post-body")
+        var parent = elem.closest(".post-body"),
+        token = parent.getAttribute("data-token")
+
         var delete_notice = document.querySelector(".delete-notice")
 
         var promise = new Promise(res => {
@@ -192,6 +197,39 @@ class Post {
         }
 
         document.querySelector(".article-content").insertAdjacentHTML("beforeend", Properties(data))
+    }
+
+    save_post(elem) {
+        var post_body = elem.closest(".post-body"),
+        token = new Func().removeInitials(post_body.getAttribute("data-token"))
+
+        var data = {
+            part: "post",
+            action: 'save_post',
+            val: {
+                token: token,
+
+            }
+        }
+
+        this.func.request("../request.php", JSON.stringify(data), 'json')
+        .then(val => {
+            if(val.status === 1){
+                var span = elem.querySelector("span")
+
+                console.log(elem)
+
+                if(val.content == "Post Saved"){
+                    post_body.setAttribute("data-saved-state", 1)
+                    span.innerText = "Unsave"
+
+                }else if(val.content == "Post Unsaved"){
+                    post_body.setAttribute("data-saved-state", 0)
+                    span.innerText = "Save"
+                }
+            }
+            this.func.notice_box(val)
+        })
     }
 
 }

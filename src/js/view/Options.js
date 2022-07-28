@@ -102,7 +102,7 @@ class Options {
                         <img src="${this.path}src/icon/option-icon/save.svg" alt="">
                     </div>
                     <div>
-                        <span>Save</span>
+                        <span>${this.data['saved_state'] == 1 ? "Unsave" : "Save"}</span>
                     </div>
                 </div>
 

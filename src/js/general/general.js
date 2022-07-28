@@ -94,15 +94,17 @@ window.addEventListener("click", async function(e) {
             break
 
         case "delete_post":
-            var post_body = elem.closest(".post-body"),
-            token = post_body.getAttribute("data-token")
-
-            post.delete_post(elem, token)
+            post.delete_post(elem)
 
             break
 
         case "properties":
             post.properties(elem)
+
+            break;
+
+        case "save_post":
+            post.save_post(elem)
 
             break;
 

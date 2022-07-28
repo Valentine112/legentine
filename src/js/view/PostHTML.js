@@ -30,6 +30,7 @@ class PostHTML {
             data-date="${this.post['date']}"
             data-stars="${this.post['stars']}"
             data-category="${this.post['category']}"
+            data-saved-state="${this.more['saved-state']}"
             >
                 <div class="post-assist box">
                     <div class="post-sub box">
