@@ -1,4 +1,4 @@
-function properties(data) {
+function Properties(data) {
     var name = data['name'],
     username = data['username'],
     rating = data['rating'],
@@ -6,8 +6,11 @@ function properties(data) {
     category = data['category'],
     word_count = data['word-count'],
     stars = data['stars'],
-    comment_state = data['comments_blocked'],
+    comment_state = data['comments_state'],
     date = data['date']
+
+    // Modify the comment state to a readable format
+    comment_state == 0 ? comment_state = "No" : comment_state = "Yes"
 
 
     var element = `
@@ -113,13 +116,13 @@ function properties(data) {
                                     <span>Date:</span>
                                 </div>
                                 <div>
-                                    <span class="field">${date}</span>
+                                    <span class="field">${new Func().dateFormatting(date)}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="done-segment">
-                        <div>
+                        <div onclick="this.closest('.properties').remove()">
                             <span>Done</span>
                         </div>
                     </div>

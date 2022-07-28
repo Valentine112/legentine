@@ -180,9 +180,18 @@ class Post {
     properties(elem) {
         var parent = elem.closest(".post-body")
         var data = {
-            "name": 
+            "name": parent.getAttribute("data-name"),
+            "username": parent.getAttribute("data-username"),
+            "rating": parent.getAttribute("data-rating"),
+            "title": parent.getAttribute("data-title"),
+            "category": parent.getAttribute("data-category"),
+            "word-count": parent.getAttribute("data-word-count"),
+            "stars": parent.getAttribute("data-stars"),
+            "comments_state": parent.getAttribute("data-comments-state"),
+            "date": parent.getAttribute("data-date")
         }
-        document.querySelector(".article-content").insertAdjacentHTML("beforeend", properties(data))
+
+        document.querySelector(".article-content").insertAdjacentHTML("beforeend", Properties(data))
     }
 
 }

@@ -226,4 +226,16 @@ class Func {
         return data
     }
 
+    dateFormatting(data) {
+        var options = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        }
+
+        return new Date(data).toLocaleDateString('en-us', options)
+
+    }
+
 }

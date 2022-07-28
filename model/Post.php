@@ -25,6 +25,78 @@
             $this->user = $user;
         }
 
+        public function config_data(array|string $blocked, array $items, string $key, ?int $user) : array {
+
+            // Fetch the necessary about post owner
+            // Since i would be looping through the post here
+            // Then i would fetch the post owner details here
+
+            $result = [];
+
+            $box = [
+                "post" => [],
+                "other" => [],
+                "self" => [
+                    "user" => $user
+                ],
+                "more" => []
+            ];
+
+            foreach ($items as $item):
+                if(!in_array($item[$key], $blocked)):
+                    
+                    // Fetch post owner details
+
+                    $other = $item['user'];
+                    $post = $item['id'];
+
+                    $this->selecting->more_details("WHERE id = ? LIMIT 1, $other");
+                    $action = $this->selecting->action("fullname, username, photo, rating", "user");
+                    $this->selecting->reset();
+
+                    if($action != null):
+                        return $action;
+                    endif;
+
+                    //print_r($this->selecting->pull());
+
+                    $other_user = $this->selecting->pull()[0][0];
+
+                    // Check if post has been liked by user
+                    $this->selecting->more_details("WHERE post = ? AND other = ?, $post, $user");
+                    $action = $this->selecting->action("other", "star");
+                    $this->selecting->reset();
+
+                    if($action != null):
+                        return $action;
+
+                    endif;
+
+                    // validating if the user has liked by checking if the like does exist
+                    if($this->selecting->pull()[1] > 0):
+                        $box['more']['starred'] = true;
+
+                    else:
+                        $box['more']['starred'] = false;
+
+                    endif;
+
+                    // Check if its the same person
+                    $box['more']['owner'] = $user === $other ? true : false;
+
+                    // Save the post owner also
+                    $box["other"] = $other_user;
+
+                    // Save the post
+                    $box["post"] = $item;
+
+                    array_push($result, $box);
+                endif;
+            endforeach;
+
+            return $result;
+        }
+
         public static function fetchId(array $data) : array {
             $token = Func::cleanData($data['token'], 'string');
             $table = Func::cleanData($data['table'], 'string');
@@ -45,14 +117,17 @@
             $subject = [
                 'token',
                 'user',
-                ...array_keys($this->data['val'])
+                ...array_keys($this->data['val']),
+                'date',
+                'time'
             ];
 
             $items = [
                 Func::tokenGenerator(),
                 $this->user,
-                ...array_values($this->data['val'])
-
+                ...array_values($this->data['val']),
+                Func::dateFormat(),
+                time()
             ];
 
             if(!empty($this->data['val']['title']) && !empty($this->data['val']['content'])):
@@ -255,7 +330,7 @@
                 endif;
 
                 $updating = new Update(self::$db, "SET comments_blocked = ? WHERE token = ? AND user = ?# $new_value# $token# $this->user");
-                $action = $updating->mutate('is', 'post');
+                $action = $updating->mutate('isi', 'post');
 
                 if($action):
                     $this->type = "success";
@@ -342,76 +417,10 @@
             return $this->deliver();
         }
 
-        public function config_data(array|string $blocked, array $items, string $key, ?int $user) : array {
+        public function save_post() : array {
+            //
 
-            // Fetch the necessary about post owner
-            // Since i would be looping through the post here
-            // Then i would fetch the post owner details here
-
-            $result = [];
-
-            $box = [
-                "post" => [],
-                "other" => [],
-                "self" => [
-                    "user" => $user
-                ],
-                "more" => []
-            ];
-
-            foreach ($items as $item):
-                if(!in_array($item[$key], $blocked)):
-                    
-                    // Fetch post owner details
-
-                    $other = $item['user'];
-                    $post = $item['id'];
-
-                    $this->selecting->more_details("WHERE id = ? LIMIT 1, $other");
-                    $action = $this->selecting->action("fullname, username, photo, rating", "user");
-                    $this->selecting->reset();
-
-                    if($action != null):
-                        return $action;
-                    endif;
-
-                    //print_r($this->selecting->pull());
-
-                    $other_user = $this->selecting->pull()[0][0];
-
-                    // Check if post has been liked by user
-                    $this->selecting->more_details("WHERE post = ? AND other = ?, $post, $user");
-                    $action = $this->selecting->action("other", "star");
-                    $this->selecting->reset();
-
-                    if($action != null):
-                        return $action;
-
-                    endif;
-
-                    // validating if the user has liked by checking if the like does exist
-                    if($this->selecting->pull()[1] > 0):
-                        $box['more']['starred'] = true;
-
-                    else:
-                        $box['more']['starred'] = false;
-
-                    endif;
-
-                    // Check if its the same person
-                    $box['more']['owner'] = $user === $other ? true : false;
-
-                    // Save the post owner also
-                    $box["other"] = $other_user;
-
-                    // Save the post
-                    $box["post"] = $item;
-
-                    array_push($result, $box);
-                endif;
-            endforeach;
-
-            return $result;
+            return $this->deliver();
         }
 
     }

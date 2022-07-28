@@ -44,7 +44,7 @@
         }
 
         public static function dateFormat() : string {
-            return Date('Y-m-d h:i:sa');
+            return Date('m/d/Y');
         }
         public static function dateParts(string $date) : array {
             $year = substr($date, 0, 4);

@@ -21,7 +21,7 @@
             cursor: pointer;
         }
         .category .active{
-            background-color: var(--theme-color);
+            background-color: #fc8290;
             color: #fff;
         }
 

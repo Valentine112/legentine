@@ -21,53 +21,10 @@
 
             $modelPost = new ModelPost(self::$db, $data, USER['content']);
 
+            // Activites performed even when user isn't logged in
             switch ($data['action']):
-                case 'create_post':
-                    if(USER['type'] === 2):
-                        $result = $modelPost->create_post();
-
-                    else:
-                        $this->type = "warning";
-                        $this->status = 0;
-                        $this->message = "fill";
-                        $this->content = USER['content'];
-
-                        $result = $this->deliver();
-
-                    endif;
-
-                    break;
-
-                case 'update_post':
-                    // Check if user is logged in
-                    if(USER['type'] === 2):
-                        $result = $modelPost->update_post();
-
-                    else:
-                        $this->type = "warning";
-                        $this->status = 0;
-                        $this->message = "fill";
-                        $this->content = USER['content'];
-
-                        $result = $this->deliver();
-
-                    endif;
-
-                    break;
-                
                 case 'fetch_post':
                     $result = $modelPost->fetch_post(USER);
-
-                    break;
-
-                case 'toggle_comment':
-                    $result = $modelPost->toggle_comment();
-
-                    break;
-
-                case 'delete_post':
-                    $result = $modelPost->delete_post();
-
                     break;
 
                 default:
@@ -75,6 +32,47 @@
                     break;
 
             endswitch;
+
+            // Logged in activities
+            // Check if user is logged in
+            if(USER['type'] === 2):
+            
+                switch ($data['action']):
+                    
+                    case 'create_post':
+                        $result = $modelPost->create_post();
+                        break;
+                    
+                    case 'update_post':
+                        $result = $modelPost->update_post();
+                        break;
+                    
+                    case 'toggle_comment':
+                        $result = $modelPost->toggle_comment();
+                        break;
+    
+                    case 'delete_post':
+                        $result = $modelPost->delete_post();
+                        break;
+    
+                    case 'save_post':
+                        $result = $modelPost->save_post();
+
+                        break;
+                    default:
+                        break;
+
+                endswitch;
+
+            else:
+                $this->type = "warning";
+                $this->status = 0;
+                $this->message = "fill";
+                $this->content = USER['content'];
+
+                $result = $this->deliver();
+
+            endif;
 
             return $result;
         }

@@ -27,7 +27,9 @@ class PostHTML {
             data-owner="${this.more['owner']}"
             data-word-count="${this.post['content'].split(" ").length}"
             data-comments-state="${this.post['comments_blocked']}"
-            data-data="${this.post['date']}"
+            data-date="${this.post['date']}"
+            data-stars="${this.post['stars']}"
+            data-category="${this.post['category']}"
             >
                 <div class="post-assist box">
                     <div class="post-sub box">

@@ -35,7 +35,6 @@ window.addEventListener("load", function() {
     // If there is, this would mean that the user wants to update a post
 
     var param = func.getPath()
-    console.log(param['parameter'])
     
     if(!func.isEmpty(param['parameter'])) {
         if(param['parameter']['token'] != null) {
@@ -180,7 +179,6 @@ async function post_action(type, post_privacy, token) {
 
         func.request("../request.php", JSON.stringify(data), 'json')
         .then(val => {
-            console.log(val)
             // Configure button to prevent multiple request
             func.buttonConfig(done, "after")
 
