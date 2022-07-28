@@ -6,8 +6,8 @@
         Response,
         Func,
         EmailValidation,
-    FileHandling
-};
+        FileHandling
+    };
 
     use Query\{
         Insert,
@@ -242,8 +242,7 @@
             return $this->deliver();
         }
 
-        public function explore() {
-            
+        public function explore() {     
         }
 
         public function save_cookie(string $token) {
