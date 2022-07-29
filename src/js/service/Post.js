@@ -238,16 +238,30 @@ class Post {
 
         var data = {
             part: "post",
-            action: 'save_post',
+            action: 'react',
             val: {
                 token: token,
-
             }
         }
 
         this.func.request("../request.php", JSON.stringify(data), 'json')
         .then(val => {
             console.log(val)
+
+            if(val.status === 1){
+                var box = elem.closest(".reaction-box")
+                if(val.message['type'] === "Star") {
+                    box.querySelector("unstar").style.display = "block"
+                    box.querySelector("star").style.display = "block"
+                }else{
+                    if(val.message['type'] === "Unstar") {
+                        box.querySelector("star").style.display = "block"
+                        box.querySelector("unstar").style.display = "block"
+                    }
+                }
+
+                // Show the total number of likes here
+            }
         })
     }
 

@@ -59,6 +59,10 @@
                         $result = $modelPost->save_post();
 
                         break;
+                    case 'react':
+                        $result = $modelPost->react();
+
+                        break;
                     default:
                         break;
 

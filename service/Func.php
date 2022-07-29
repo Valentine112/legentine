@@ -7,7 +7,7 @@
             
             switch ($type) {
                 case 'string':
-                    $data = $data;//htmlspecialchars(trim(stripcslashes($data)));
+                    $data = htmlspecialchars(trim(stripcslashes($data)));
                     break;
     
                 case 'integer':

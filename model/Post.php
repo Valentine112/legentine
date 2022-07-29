@@ -48,7 +48,7 @@
                 // Check if post exist in blocked
                 // I created a function to search for needle in an object
                 // If 1 is in the array, it means there is a match
-                
+
                 $search = Func::searchObject($blocked, $item[$key], "other");
 
                 if(!in_array(1, $search)):
@@ -65,13 +65,11 @@
                         return $action;
                     endif;
 
-                    //print_r($this->selecting->pull());
-
                     $other_user = $this->selecting->pull()[0][0];
 
                     // Check if post has been liked by user
-                    $this->selecting->more_details("WHERE post = ? AND other = ?, $post, $user");
-                    $action = $this->selecting->action("other", "star");
+                    $this->selecting->more_details("WHERE post = ? AND user = ?, $post, $user");
+                    $action = $this->selecting->action("user", "star");
                     $this->selecting->reset();
 
                     if($action != null):
@@ -528,6 +526,98 @@
                 $this->status = 0;
                 $this->message = "void";
                 $this->content = "Post belongs to user";
+
+            endif;
+
+            return $this->deliver();
+        }
+
+        public function react() : array {
+            $token = $this->data['val']['token'];
+            $data = [
+                'token' => $token,
+                'table' => 'post'
+            ];
+
+            $value = $this->fetchId($data);
+            if($value[1] > 0):
+                $post = $value[0][0]['id'];
+
+                // Check if its already been liked
+                $this->selecting->more_details("WHERE post = ? AND user = ?, $post, $this->user");
+                $action = $this->selecting->action("id", "star");
+                if($action != null):
+                    return $action;
+                endif;
+
+                $value = $this->selecting->pull();
+                if($value[1] > 0):
+
+                    // Reaction exist, so delete 
+                    $star = $value[0][0]['id'];
+
+                    $deleting = new Delete(self::$db, "WHERE id = ?, $star");
+                    $action = $deleting->proceed("star");
+                    if($action):
+                        $this->type = "success";
+                        $this->status = 1;
+                        $this->message = "void";
+                        $this->content = [
+                            "type" => "unstar",
+                            "count" => 0
+                        ];
+                    
+                    else:
+                        return $action;
+
+                    endif;
+
+                else:
+
+                    // Reaction doesn't exist so create a new one
+                    $subject = [
+                        "token",
+                        "post",
+                        "user",
+                        "date",
+                        "time"
+                    ];
+
+                    $items = [
+                        Func::tokenGenerator(),
+                        $post,
+                        $this->user,
+                        Func::dateFormat(),
+                        time()
+                    ];
+
+                    $inserting = new Insert(self::$db, "star", $subject, "");
+                    $action = $inserting->push($items, 'siisi');
+                    $inserting->reset();
+
+                    if($action):
+                        $this->type = "success";
+                        $this->status = 1;
+                        $this->message = "void";
+                        $this->content = [
+                            "type" => "star",
+                            "count" => 0
+                        ];
+                        
+                    else:
+                        return $action;
+                    endif;
+
+                endif;
+
+                // Fetch the total number of likes here
+                // Sum it up and save it in the post table also
+                // Then send it back as a value for count key in content
+            else:
+                $this->type = "error";
+                $this->status = 0;
+                $this->message = "fill";
+                $this->content = "Post must have been deleted";
 
             endif;
 
