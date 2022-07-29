@@ -3,8 +3,8 @@
 
     use mysqli;
     use Query\{
-    Delete,
-    Insert,
+        Delete,
+        Insert,
         Select,
         Update
     };
@@ -42,11 +42,18 @@
                 "more" => []
             ];
 
+            $blocked = $blocked[0];
+
             foreach ($items as $item):
-                if(!in_array($item[$key], $blocked)):
+                // Check if post exist in blocked
+                // I created a function to search for needle in an object
+                // If 1 is in the array, it means there is a match
+                
+                $search = Func::searchObject($blocked, $item[$key], "other");
+
+                if(!in_array(1, $search)):
                     
                     // Fetch post owner details
-
                     $other = $item['user'];
                     $post = $item['id'];
 
@@ -502,6 +509,8 @@
 
                     $inserting = new Insert(self::$db, "saved", $subject, "");
                     $action = $inserting->push($items, 'siisi');
+                    $inserting->reset();
+
                     if($action):
                         $this->type = "success";
                         $this->status = 1;

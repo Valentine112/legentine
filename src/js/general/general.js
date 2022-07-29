@@ -18,7 +18,7 @@ window.addEventListener("load", function() {
 })
 
 // Click events for elements would be activated here
-window.addEventListener("click", async function(e) {
+document.body.addEventListener("click", async function(e) {
     var elem = e.target
     var parent = elem
 
@@ -39,14 +39,18 @@ window.addEventListener("click", async function(e) {
 
     // Hide the large option if anywhere other than the toggle option is clicked
     if(action != "toggle_options"){
-        var active_option = this.document.querySelector("[data-status=option-active]")
-        if(active_option != null) {
+        if(document.querySelector("[data-status=option-active]") != null) {
+            var active_option = document.querySelector("[data-status=option-active]")
             active_option.style.display = "none"
             active_option.removeAttribute("data-status")
         }
     }
 
+    // Declare the post
     var post = new Post()
+
+    // Declare the user
+    var user = new User()
 
     switch (action) {
         case "sub-dropdown":
@@ -105,6 +109,16 @@ window.addEventListener("click", async function(e) {
 
         case "save_post":
             post.save_post(elem)
+
+            break;
+
+        case "react":
+            post.react(elem)
+
+            break;
+
+        case "unlist_user":
+            user.unlist_user(elem)
 
             break;
 

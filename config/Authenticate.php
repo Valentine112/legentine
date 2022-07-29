@@ -3,6 +3,7 @@
     
     use Config\Database;
     use Query\Select;
+    use Service\Func;
     // Check if user is logged in
 
     class Authenticate{
@@ -14,8 +15,9 @@
             ];
 
             if(!empty($_COOKIE['token'])):
-                $sessionToken = $_COOKIE['token'];
+                $sessionToken = Func::cleanData($_COOKIE['token'], 'string');
 
+                // Check if the token actually exist
                 $selecting = new Select(new Database);
                 $selecting->more_details("WHERE token = ?, $sessionToken");
                 $action = $selecting->action("user", "logins");

@@ -54,7 +54,6 @@
 
         public function reset() {
             self::$ques = [];
-            //$this->subject = [];
         }
     }
 

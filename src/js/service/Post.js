@@ -232,4 +232,23 @@ class Post {
         })
     }
 
+    react(elem) {
+        var post_body = elem.closest(".post-body"),
+        token = new Func().removeInitials(post_body.getAttribute("data-token"))
+
+        var data = {
+            part: "post",
+            action: 'save_post',
+            val: {
+                token: token,
+
+            }
+        }
+
+        this.func.request("../request.php", JSON.stringify(data), 'json')
+        .then(val => {
+            console.log(val)
+        })
+    }
+
 }

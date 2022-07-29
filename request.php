@@ -6,7 +6,8 @@
     use Controller\{
         Signup,
         Login,
-        Post
+        Post,
+        User
     };
     use Service\Response;
 
@@ -26,6 +27,11 @@
     $request->is_post(
         'post',
         [Post::class, 'main']
+    );
+
+    $request->is_post(
+        'user',
+        [User::class, 'main']
     );
     
     print_r(Response::sendJSON($request->listen()));

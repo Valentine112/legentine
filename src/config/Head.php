@@ -19,6 +19,7 @@
                 <script async src="'.$struct.'src/js/service/Func.js"></script>
                 <script async src="'.$struct.'src/js/service/Form.js"></script>
                 <script async src="'.$struct.'src/js/service/Post.js"></script>
+                <script async src="'.$struct.'src/js/service/User.js"></script>
             </head>';
         }
     }
