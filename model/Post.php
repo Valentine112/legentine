@@ -42,9 +42,12 @@
                 "more" => []
             ];
 
-            $blocked = $blocked[0];
+            // Check if the blocked is empty and assign properly
+
+            $blocked = !empty($blocked) ? $blocked[0] : $blocked;
 
             foreach ($items as $item):
+                
                 // Check if post exist in blocked
                 // I created a function to search for needle in an object
                 // If 1 is in the array, it means there is a match
@@ -233,6 +236,8 @@
 
         public function fetch_post($session) : array {
             (int) $zero = 0;
+            $week = ((60 * 60) * 24) * 7;
+
             $from = $this->data['val']['from'];
             $filter = $this->data['val']['filter'];
 
@@ -241,7 +246,7 @@
 
             // Determine the order based on the page the request was sent from
             if($from === "rank"):
-                $order = "ORDER BY star DESC LIMIT 15";
+                $order = "ORDER BY stars DESC LIMIT 15";
             else:
                 $order = "ORDER BY id DESC LIMIT 20";
             endif;
@@ -273,13 +278,42 @@
                 endif;
 
                 // Check if there is a filter attached
-                if($from != "session"):
+                // Fetch the post in regards to the page
+                if($from == "home"):
                     if($filter === ""):
                         $this->selecting->more_details("WHERE privacy = ? $order, $zero");
                     else:
                         $this->selecting->more_details("WHERE privacy = ? AND category = ? $order, $zero, $filter");
                     endif;
-                else:
+
+                elseif($from == "rank"):
+                    // In this section the time range would also be put into account
+                    // If it's weekly then the post would be based on under one week
+                    // Else, it would be all time
+                    $time_range = 0;
+
+                    $time = $this->data['val']['more'];
+
+                    // If all time, then make the time_range the present time, so when proceed, the range would be 0
+                    // If it's weekly, then the time range should be one week back
+
+                    if($time == "all-time") {
+                        $time_range = time();
+
+                    }elseif($time == "weekly") {
+                        $time_range = $week;
+                    }
+
+                    // Processing the time for the query
+                    $range = time() - $time_range;
+
+                    if($filter === ""):
+                        $this->selecting->more_details("WHERE privacy = ? AND time >= ? $order, $zero, $range");
+                    else:
+                        $this->selecting->more_details("WHERE privacy = ? AND category = ? AND time >= ? $order, $zero, $filter, $range");
+                    endif;
+
+                elseif($from == "session"):
                     $token = $filter['token'];
 
                     $this->selecting->more_details("WHERE token = ?, $token");
@@ -546,11 +580,17 @@
                 // Check if its already been liked
                 $this->selecting->more_details("WHERE post = ? AND user = ?, $post, $this->user");
                 $action = $this->selecting->action("id", "star");
+                $this->selecting->reset();
+
                 if($action != null):
                     return $action;
                 endif;
 
                 $value = $this->selecting->pull();
+
+                // Turn off the database until every transaction is completed
+                self::$db->autocommit(false);
+
                 if($value[1] > 0):
 
                     // Reaction exist, so delete 
@@ -613,6 +653,28 @@
                 // Fetch the total number of likes here
                 // Sum it up and save it in the post table also
                 // Then send it back as a value for count key in content
+
+                // Get the total number of likes
+                $this->selecting->more_details("WHERE post = ?, $post");
+                $action = $this->selecting->action("id", "star");
+                $this->selecting->reset();
+
+                if($action != null){
+                    return $action;
+                }
+                $value = $this->selecting->pull();
+
+                $total = $value[1];
+
+                // Update the likes in the post table
+                $updating = new Update(self::$db, "SET stars = ? WHERE id = ?# $total# $post");
+                $action = $updating->mutate('ii', 'post');
+                if($action):
+                    // Turn the database on since every transaction has been completed
+                    self::$db->autocommit(true);
+
+                    $this->content['count'] = $total;
+                endif;
             else:
                 $this->type = "error";
                 $this->status = 0;

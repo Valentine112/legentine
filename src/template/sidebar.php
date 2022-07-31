@@ -15,8 +15,8 @@
             bottom: 0;
             left: 0;
             right: 0;
-            z-index: 1;
-            background-color: transparent;
+            z-index: 3;
+            background-color: rgba(255, 255, 255, 0.5);
             transition: background-color 0.3s ease-in-out;
         }
         .sidebar-list{
@@ -25,7 +25,8 @@
             top:0;
             bottom: 0;
             width: 75%;
-            z-index: 2;
+            z-index: 3;
+            height: 100vh;
             margin-left: auto;
             padding-left: 10px;
             background-color: #fff;
@@ -36,13 +37,13 @@
             margin-bottom: 10%;
         }
         .sidebar .sidebar-items{
-            font-family: 'Arial', sans-serif;
+            font-family: 'NotoSansJP', sans-serif;
             padding: 10px;
         }
         .sidebar .sidebar-items header{
             font-size: 15px;
-            color: grey;
-            font-weight: 600;
+            color: silver;
+            font-weight: 400;
         }
         .sidebar .sidebar-items hr{
             width: 100%;
@@ -59,15 +60,16 @@
         }
         .sidebar .sidebar-items ul li a{
             text-decoration: none;
-            color: #444;
             font-size: 14px;
-            font-weight: 500;
+            color: #000;
+            font-weight: 400;
             display: block;
             width: 100%;
             padding: 12px 0 12px 0;
         }
         .sidebar .sidebar-items ul li span{
-            color: #444;
+            color: #000;
+            font-weight: 500;
             font-size: 14px;
             font-weight: 500;
         }
@@ -276,7 +278,7 @@
                                     <li>
                                         <a href="">
                                             <img src="../src/icon/sidebar-icon/logout.svg" alt="">
-
+                                            &emsp;
                                             <span>Log out</span>
                                         </a>
                                     </li>

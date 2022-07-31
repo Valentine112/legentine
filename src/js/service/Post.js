@@ -6,36 +6,49 @@ class Post {
         return this
     }
 
-    fetch_post(from, filter) {
-        var result = ""
+    fetch_post(from, filter, more) {
+        if(from === "home" || from === "rank") {
+            var filter_value
 
-        var data = {
-            part: "post",
-            action: "fetch_post",
-            val: {
-                from: from,
-                filter: filter
+            (filter == "all") ? filter_value = "" : filter_value = filter
+
+            var result = ""
+
+            var data = {
+                part: "post",
+                action: "fetch_post",
+                val: {
+                    from: from,
+                    filter: filter_value,
+                    more: more
+                }
             }
+
+            this.func.request("../request.php", JSON.stringify(data), 'json')
+            .then(val => {
+                result  = val
+                
+                if(val.status === 1){
+                    var content = val.content
+                    var article_content = document.querySelector(".article-content")
+
+                    // Remove all the previous content if there is a filter
+                    if(filter != ""){
+                        document.querySelectorAll(".post-body").forEach(elem => {
+                            elem.remove()
+                        })
+                    }
+                    content.forEach(elem => {
+                        var post = new PostHTML(elem, from, "../")
+                        article_content.insertAdjacentHTML("beforeend", post.main())
+                    })
+                }
+
+                this.func.notice_box(val)
+            })
+
+            return result
         }
-
-        this.func.request("../request.php", JSON.stringify(data), 'json')
-        .then(val => {
-            result  = val
-            
-            if(val.status === 1){
-                var content = val.content
-                content.forEach(elem => {
-                    var post = new PostHTML(elem, from, "../")
-
-                    document.querySelector(".article-content").insertAdjacentHTML("beforeend", post.main())
-                })
-            }
-
-            this.func.notice_box(val)
-        })
-
-        return result
-
     }
 
     toggle_options(elem) {
@@ -196,7 +209,7 @@ class Post {
             "date": parent.getAttribute("data-date")
         }
 
-        document.querySelector(".article-content").insertAdjacentHTML("beforeend", Properties(data))
+        parent.insertAdjacentHTML("beforeend", Properties(data))
     }
 
     save_post(elem) {
@@ -208,7 +221,6 @@ class Post {
             action: 'save_post',
             val: {
                 token: token,
-
             }
         }
 
@@ -246,21 +258,28 @@ class Post {
 
         this.func.request("../request.php", JSON.stringify(data), 'json')
         .then(val => {
-            console.log(val)
 
             if(val.status === 1){
                 var box = elem.closest(".reaction-box")
-                if(val.message['type'] === "Star") {
-                    box.querySelector("unstar").style.display = "block"
-                    box.querySelector("star").style.display = "block"
+
+                var type = val.content['type']
+                var count = val.content['count']
+
+                if(type === "star") {
+                    box.querySelector(".unstar").classList.remove("active")
+                    box.querySelector(".star").classList.add("active")
+
                 }else{
-                    if(val.message['type'] === "Unstar") {
-                        box.querySelector("star").style.display = "block"
-                        box.querySelector("unstar").style.display = "block"
+                    if(type === "unstar") {
+                        box.querySelector(".star").classList.remove("active")
+                        box.querySelector(".unstar").classList.add("active")
                     }
                 }
 
+                if(count === 0) count = ""
+
                 // Show the total number of likes here
+                post_body.querySelector(".reaction-count span").innerText = count
             }
         })
     }

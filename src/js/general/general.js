@@ -1,18 +1,32 @@
 
 window.addEventListener("load", function() {
 
+    var path = new Func().getPath()['main_path']
+
+    // Creating this due to the other segregation in rank page
+    // As there would also be all time and weekly
+    var more = ""
+    if(path == "rank"){
+        var ranking_time = document.querySelector(".ranking-time")
+        more = ranking_time.querySelector(".active").getAttribute("value")
+    }
+    
+    // Fetch post
+    new Post().fetch_post(path, "", more)
+
     // Hide the contents loader if there is]
     var contents_loader = document.querySelector(".content-loader")
     if(contents_loader != null) {
         contents_loader.style.display = "none"
     }
 
-    setTimeout(() => {
+    // Lazy images
+    this.setInterval(() => {
         if(this.document.querySelector(".lazy-load-image") != null){
             new Func().intersect_show_image("data-image", "src", 0.75, ".lazy-load-image")
         }
 
-    }, 3000)
+    }, 2000)
 
 
 })
@@ -20,7 +34,6 @@ window.addEventListener("load", function() {
 // Click events for elements would be activated here
 document.body.addEventListener("click", async function(e) {
     var elem = e.target
-    var parent = elem
 
     var action = ""
 
@@ -28,11 +41,11 @@ document.body.addEventListener("click", async function(e) {
     if(elem.getAttribute("data-action") != null) {
         action = elem.getAttribute("data-action")
     }else{
+
         // Check if the parent has the class as action which signifies there is a data-toggle
         if(elem.closest(".action") != null) {
             elem = elem.closest(".action")
             action = elem.getAttribute("data-action")
-            parent = elem.closest(".action")
         }
     }
 
@@ -46,6 +59,8 @@ document.body.addEventListener("click", async function(e) {
         }
     }
 
+    var func = new Func()
+
     // Declare the post
     var post = new Post()
 
@@ -53,12 +68,60 @@ document.body.addEventListener("click", async function(e) {
     var user = new User()
 
     switch (action) {
+        case "category":
+            var path = func.getPath()['main_path']
+
+            // Creating this due to the other segregation in rank page
+            // As there would also be all time and weekly
+            var more = ""
+            if(path == "rank"){
+                var ranking_time = document.querySelector(".ranking-time").querySelector(".active")
+                more = ranking_time.getAttribute("value")
+            }
+
+            var category_cover = elem.closest(".category")
+
+            // Remove the current active element
+            category_cover.querySelector(".active").classList.remove("active")
+
+            // Set a new active element next
+            elem.classList.add("active")
+
+            // Fetch the post
+            var filter = elem.getAttribute("value")
+            post.fetch_post(path, filter, more)
+
+            break;
+
+        case "time-section":
+            var path = func.getPath()['main_path']
+
+            var parent = elem.closest(".ranking-time")
+            parent.querySelector(".active").classList.remove("active")
+            elem.classList.add("active")
+
+            // Get the time section
+            var more = ""
+            if(path == "rank") {
+                var ranking_time = parent.querySelector(".active")
+                more = ranking_time.getAttribute("value")
+            }
+
+            // Get the category section
+            var category_cover = document.querySelector(".category")
+
+            // Remove the current active element
+            var filter = category_cover.querySelector(".active").getAttribute("value")
+
+            post.fetch_post(path, filter, more)
+            break;
+
         case "sub-dropdown":
             // Doing this because the focus on css, when trying to toggle the feature items doesn't work properyly
 
             var sub_item = elem.querySelector(".feature-dropdown-item")
             if(sub_item != null) {
-                var feature_display = this.getComputedStyle(sub_item).getPropertyValue("display")
+                var feature_display = getComputedStyle(sub_item).getPropertyValue("display")
 
                 if(feature_display === "block"){
                     sub_item.style.display = "none"

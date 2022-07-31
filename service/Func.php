@@ -69,15 +69,22 @@
         }
 
         public static function searchObject(array $data, string|int $needle, string $key) : array {
+            /**
+             * Search for needly in object
+             * If 1 exist, then the item is found
+             * Else, Item does not exist in object
+             */
             $exist = [];
-            foreach($data as $val):
-                if($val[$key] == $needle):
-                    array_push($exist, 1);
-                else:
-                    array_push($exist, 0);
-                endif;
+            if(!empty($data)):
+                foreach($data as $val):
+                    if($val[$key] == $needle):
+                        array_push($exist, 1);
+                    else:
+                        array_push($exist, 0);
+                    endif;
 
-            endforeach;
+                endforeach;
+            endif;
 
             return $exist;
         }
