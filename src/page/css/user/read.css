@@ -1,0 +1,92 @@
+*{
+    box-sizing: content-box;
+}
+hr{
+    width: 75%;
+    height: 1px;
+    border: 0;
+    background-color: #f1f1f1;
+}
+
+.read .main{
+    margin-top: 10px;
+    font-family: var(--theme-font);
+}
+.read .photo{
+    text-align: center;
+}
+.read .photo a{
+    width: fit-content;
+    height: fit-content;
+    border-radius: 50px;
+}
+.read .photo img{
+    height: 60px;
+    width: 60px;
+    border-radius: 50px;
+    border: 5px solid #f1f1f1;
+}
+.read .post-title{
+    text-align: center;
+    font-size: 25px;
+}
+.read .post-content{
+    text-align: center;
+    font-size: 17px;
+    width: 90%;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.read .section{
+    margin-top: 15px;
+    text-align: center;
+}
+
+.read .reaction img{
+    height: 20px;
+    width: 20px;
+}
+.read .comment-cover{
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 3%;
+    margin: auto;
+    width: 100%;
+}
+.read .comment-box{
+    width: 90%;
+    margin: auto;
+}
+.read .comment-box > div{
+    display: inline-block;
+    vertical-align: middle;
+    align-items: center;
+}
+.read .comment-box > div:first-child{
+    background-color: blue;
+    width: 80%;
+}
+.read .comment-box > div:last-child{
+    width: 18%;
+    text-align: center;
+    background-color: green;
+}
+.read .comment-guage{
+    background-color: purple;
+    width: 90%;
+    padding: 10px;
+    white-space: wrap;
+    word-wrap: break-word;
+    max-height: 15vh;
+}
+.read .comment-input{
+    width: 90%;
+    padding: 10px;
+}
+.read .comment-cover button{
+    background-color: transparent;
+    font-size: 18px;
+    border: 0;
+}

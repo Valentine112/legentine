@@ -51,7 +51,7 @@ class PostHTML {
                             <div class="info-body">
                                 <div class="info-segment">
                                     <div class="article-segment">
-                                        <a href="" class="article-link">
+                                        <a href="read?${this.post['token']}" class="article-link">
                                             <div class="title-segment">
                                                 <span>
                                                     <span class="title search-key">

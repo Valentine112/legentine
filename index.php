@@ -62,6 +62,10 @@
         require "src/page/user/feedback.php";
     })
 
+    ->get('/user/read', function() {
+        require "src/page/user/read.php";
+    })
+
     ->listen();
 
     // Routing ends
