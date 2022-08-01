@@ -1,7 +1,8 @@
 
 window.addEventListener("load", function() {
 
-    var path = new Func().getPath()['main_path']
+    var pathObj = new Func().getPath()
+    var path = pathObj['main_path']
 
     // Creating this due to the other segregation in rank page
     // As there would also be all time and weekly
@@ -11,8 +12,10 @@ window.addEventListener("load", function() {
         more = ranking_time.querySelector(".active").getAttribute("value")
     }
     
-    // Fetch post
-    new Post().fetch_post(path, "", more)
+    if(path != "read"){
+        // Fetch post
+        new Post().fetch_post(path, "", more)
+    }
 
     // Hide the contents loader if there is]
     var contents_loader = document.querySelector(".content-loader")

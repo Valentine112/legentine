@@ -313,7 +313,7 @@
                         $this->selecting->more_details("WHERE privacy = ? AND category = ? AND time >= ? $order, $zero, $filter, $range");
                     endif;
 
-                elseif($from == "session"):
+                elseif($from == "session" || $from === "read"):
                     $token = $filter['token'];
 
                     $this->selecting->more_details("WHERE token = ?, $token");

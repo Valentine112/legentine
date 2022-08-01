@@ -1,5 +1,6 @@
 *{
     box-sizing: content-box;
+    font-family: var(--theme-font);
 }
 hr{
     width: 75%;
@@ -7,10 +8,11 @@ hr{
     border: 0;
     background-color: #f1f1f1;
 }
-
+.read{
+    margin-bottom: 10px;
+}
 .read .main{
     margin-top: 10px;
-    font-family: var(--theme-font);
 }
 .read .photo{
     text-align: center;
@@ -26,7 +28,7 @@ hr{
     border-radius: 50px;
     border: 5px solid #f1f1f1;
 }
-.read .post-title{
+.read .post-header{
     text-align: center;
     font-size: 25px;
 }
@@ -35,7 +37,23 @@ hr{
     font-size: 17px;
     width: 90%;
     margin: auto;
-    margin-top: 10px;
+    margin-top: 20px;
+}
+.read .reaction-box .reaction{
+    display: none;
+}
+.read .reaction-box .active{
+    display: block;
+    margin: auto;
+}
+.read .feature button{
+    border: 0;
+    background-color: #f5f5f5;
+    border: 1px solid lightgrey;
+    padding: 5px 25px 5px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
 .read .section{
@@ -47,6 +65,59 @@ hr{
     height: 20px;
     width: 20px;
 }
+
+/* Comment section */
+.comment-content{
+    margin-top: 10px;
+}
+.comment-box{
+    margin-top: 10px;
+    padding: 5px;
+    border-bottom: 1px solid #f1f1f1;
+}
+.comment-details > div {
+    display: inline-block;
+    vertical-align: middle;
+    align-items: center;
+}
+.comment-details > div:first-child{
+    width: 10%;
+}
+.comment-details > div:last-child{
+    width: 85%;
+    font-size: 15px;
+    text-align: left;
+}
+.comment-details > div:last-child .username{
+    font-family: 600;
+    color: grey;
+    font-size: 13px;
+}
+.comment-details > div:last-child .user-comment{
+    font-weight: 400;
+}
+.comments .comment-content img{
+    height: 20px;
+    width: 20px;
+    border-radius: 50px;
+}
+.comment-options{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+    margin-top: 5px;
+    font-size: 13px;
+}
+.comment-options > div{
+    margin: 0 15px 0 15px;
+    color: grey;
+}
+
+/* END */
+
+/* comment input */
 .read .comment-cover{
     position: fixed;
     left: 0;
@@ -54,39 +125,70 @@ hr{
     bottom: 3%;
     margin: auto;
     width: 100%;
+    display: none;
 }
-.read .comment-box{
+.read .comment-holder{
     width: 90%;
     margin: auto;
+    border-bottom: 2px solid #f1f1f1;
 }
-.read .comment-box > div{
+.read .comment-holder > div{
     display: inline-block;
     vertical-align: middle;
     align-items: center;
 }
-.read .comment-box > div:first-child{
-    background-color: blue;
+.read .comment-holder > div:first-child{
     width: 80%;
 }
-.read .comment-box > div:last-child{
+.read .comment-holder > div:last-child{
     width: 18%;
     text-align: center;
-    background-color: green;
 }
-.read .comment-guage{
-    background-color: purple;
+.read .comment-input{
+    background-color: transparent;
     width: 90%;
     padding: 10px;
     white-space: wrap;
     word-wrap: break-word;
+    border: 0;
     max-height: 15vh;
+    outline: none;
+    font-family: var(--theme-font);
 }
-.read .comment-input{
-    width: 90%;
-    padding: 10px;
+/* Add the placeholder for the div */
+[contentEditable=true]:empty:before{
+    content: attr(data-placeholder);
 }
 .read .comment-cover button{
     background-color: transparent;
     font-size: 18px;
     border: 0;
+}
+
+/* END */
+
+@media screen and (min-width: 768px) {
+    .main{
+        height: 90vh;
+        margin: auto;
+        width: 80%;
+        overflow-y: auto;
+        box-shadow: 4px 4px 10px 4px lightgrey;
+        padding: 10px;
+    }
+
+    .read .comment-content{
+        width: 70%;
+        margin: auto;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .main{
+        width: 55%;
+        margin-bottom: 10px;
+    }
+    .read .comment-content{
+        width: 45%;
+    }
 }

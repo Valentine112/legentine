@@ -24,6 +24,7 @@ class Post {
                 }
             }
 
+
             this.func.request("../request.php", JSON.stringify(data), 'json')
             .then(val => {
                 result  = val

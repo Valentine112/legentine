@@ -9,36 +9,38 @@
     <title>Read</title>
 </head>
 <body>
-    <div class="read">
+    <div class="read post-body">
         <div>
             <div class="main">
                 <div class="photo">
                     <a href="">
-                        <img src="../src/photo/image.jpg" alt="">
+                        <img src=" " alt="">
                     </a>
                 </div>
 
-                <div class="post-title">
-                    <span>Free verse By Himself</span>
+                <div class="post-header">
+                    <span class="post-username">
+                        <!-- The content goes here -->
+                    </span>
+                    <span>By</span>
+                    <span class="post-title">
+
+                    </span>
                 </div>
 
                 <div class="post-content">
                     <span>
-                        I saw the best minds of my generation destroyed by madness, starving hysterical naked,
-                        dragging themselves through the negro streets at dawn looking for an angry fix,
-                        angelheaded hipsters burning for the ancient heavenly connection to the starry dynamo in the machinery of night,
-                        who poverty and tatters and hollow-eyed and high sat up smoking in the supernatural darkness of cold-water flats floating across the tops of cities contemplating jazz,
-                        who bared their brains to Heaven under the El and saw Mohammedan angels staggering on tenement roofs illuminated ...
+                        <!-- The content goes here -->
                     </span>
                 </div>
 
                 <div class="reaction section">
-                    <div class="reaction-box">
-                        <img src="../src/icon/post-icon/star.svg" alt="" class="reaction star active" data-action="react">
+                    <div class="reaction-box reaction-cover">
+                        <!-- Reaction goes here -->
                     </div>
 
                     <div class="reaction-count">
-                        <span>1</span>
+                        <span></span>
                     </div>
                 </div>
 
@@ -59,19 +61,59 @@
                         <span>Thursday, Mar 4, 22</span>
                     </div>
                 </div>
+
+                <div class="feature section">
+                    <div>
+                        <button>Feature</button>
+                    </div>
+                </div>
             </div>
 
             <hr class="section">
 
-            <div class="comment-comment">
+            <div class="comments section">
+                <div>
+                    <header>Comments</header>
+                </div>
 
+                <div class="comment-content">
+                    <?php $i = 0; while($i < 3): $i++; ?>
+                    <div class="comment-box">
+                        <div class="comment-details">
+                            <div>
+                                <a href="">
+                                    <img src="../src/photo/image.jpg" alt="">
+                                </a>
+                            </div>
+
+                            <div>
+                                <span class="username">Himself</span><br>
+                                <span class="user-comment">I have a day to make it all work, but i have forever to make it. What's really needed for this because my mind is so clouded</span>
+                            </div>
+                        </div>
+
+                        <div class="comment-options">
+                            <div>
+                                <span>Reply</span>
+                            </div>
+
+                            <div>
+                                <span>Edit</span>
+                            </div>
+                            
+                            <div>
+                                <span>Delete</span>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endwhile; ?>
+                </div>
             </div>
 
             <div class="comment-cover">
-                <div class="comment-box">
+                <div class="comment-holder">
                     <div>
-                        <div class="comment-guage"></div>
-                        <textarea class="comment-input" name="" id="" autocomplete="off" autofocus rows="1"></textarea>
+                        <div class="comment-input" contenteditable="true" data-placeholder="comment"></div>
                     </div>
 
                     <div>
@@ -80,6 +122,11 @@
                 </div>
             </div>
         </div>
+
+        // Include the notice box here
+        <?php include "src/template/quick-notice.php"; ?>
     </div>
 </body>
+<script src="../src/js/page/user/read.js"></script>
+<script src="../src/js/general/general.js"></script>
 </html>
