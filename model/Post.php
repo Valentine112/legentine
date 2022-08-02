@@ -13,6 +13,10 @@
         Func
     };
 
+    use Model\{
+        Comment
+    };
+
     class Post extends Response{
 
         private static $db;
@@ -172,7 +176,7 @@
 
             if(!empty($this->data['val']['title']) && !empty($this->data['val']['content'])):
                 $inserting = new Insert(self::$db, "post", $subject, "");
-                $action = $inserting->push($items, 'sisssi');
+                $action = $inserting->push($items, 'sisssisi');
                 if(is_bool($action) && $action):
                     $this->status = 1;
                     $this->message = "void";
@@ -235,14 +239,16 @@
         }
 
         public function fetch_post($session) : array {
-            (int) $zero = 0;
             $week = ((60 * 60) * 24) * 7;
 
             $from = $this->data['val']['from'];
             $filter = $this->data['val']['filter'];
 
-            $result = "";
-            $order = "";
+            (array) $result = [];
+            (array) $comments = [];
+            (string) $order = "";
+            (int) $user = 0;
+            (int) $zero = 0;
 
             // Determine the order based on the page the request was sent from
             if($from === "rank"):
@@ -277,95 +283,93 @@
 
                 endif;
 
-                // Check if there is a filter attached
-                // Fetch the post in regards to the page
-                if($from == "home"):
-                    if($filter === ""):
-                        $this->selecting->more_details("WHERE privacy = ? $order, $zero");
-                    else:
-                        $this->selecting->more_details("WHERE privacy = ? AND category = ? $order, $zero, $filter");
-                    endif;
-
-                elseif($from == "rank"):
-                    // In this section the time range would also be put into account
-                    // If it's weekly then the post would be based on under one week
-                    // Else, it would be all time
-                    $time_range = 0;
-
-                    $time = $this->data['val']['more'];
-
-                    // If all time, then make the time_range the present time, so when proceed, the range would be 0
-                    // If it's weekly, then the time range should be one week back
-
-                    if($time == "all-time") {
-                        $time_range = time();
-
-                    }elseif($time == "weekly") {
-                        $time_range = $week;
-                    }
-
-                    // Processing the time for the query
-                    $range = time() - $time_range;
-
-                    if($filter === ""):
-                        $this->selecting->more_details("WHERE privacy = ? AND time >= ? $order, $zero, $range");
-                    else:
-                        $this->selecting->more_details("WHERE privacy = ? AND category = ? AND time >= ? $order, $zero, $filter, $range");
-                    endif;
-
-                elseif($from == "session" || $from === "read"):
+                if($from == "session"):
                     $token = $filter['token'];
 
                     $this->selecting->more_details("WHERE token = ?, $token");
                 endif;
 
-                $action = $this->selecting->action("*", "post");
-                $this->selecting->reset();
-
-                if($action != null):
-                    return $action;
-                endif;
-
-                $post = $this->selecting->pull();
-
-                $result = $this->config_data($blocked_users, $post[0], "user", $user);
-
             else:
-                $result = [];
-
-                $box = [
-                    "post" => [],
-                    "other" => [],
-                    "self" => [
-                        "user" => 0
-                    ],
-                    "more" => []
-                ];
-
                 // If user is not logged in
                 $this->selecting->more_details("WHERE privacy = ? $order, $zero");
-                $action = $this->selecting->action("*", "post");
-                $this->selecting->reset();
-
-                if($action != null):
-                    return $action;
-                endif;
-
-                $value = $this->selecting->pull()[0];
-                foreach($value as $val):
-                    $box = [
-                        "post" => $val,
-                        "other" => [],
-                        "self" => [
-                            "user" => 0
-                        ]
-                    ];
-
-                    array_push($result, $box);
-
-                endforeach;
 
             endif;
+
+            // FETCHING POST BASED ON THE TYPE OF PAGE THE USER IS IN
+
+            // Check if there is a filter attached
+            // Fetch the post in regards to the page
+            if($from == "home"):
+                if($filter === ""):
+                    $this->selecting->more_details("WHERE privacy = ? $order, $zero");
+                else:
+                    $this->selecting->more_details("WHERE privacy = ? AND category = ? $order, $zero, $filter");
+                endif;
+
+            elseif($from == "rank"):
+                // In this section the time range would also be put into account
+                // If it's weekly then the post would be based on under one week
+                // Else, it would be all time
+                $time_range = 0;
+
+                $time = $this->data['val']['more'];
+
+                // If all time, then make the time_range the present time, so when proceed, the range would be 0
+                // If it's weekly, then the time range should be one week back
+
+                if($time == "all-time") {
+                    $time_range = time();
+
+                }elseif($time == "weekly") {
+                    $time_range = $week;
+                }
+
+                // Processing the time for the query
+                $range = time() - $time_range;
+
+                if($filter === ""):
+                    $this->selecting->more_details("WHERE privacy = ? AND time >= ? $order, $zero, $range");
+                else:
+                    $this->selecting->more_details("WHERE privacy = ? AND category = ? AND time >= ? $order, $zero, $filter, $range");
+                endif;
+
+            elseif($from == "read"):
+                $token = $filter['token'];
+
+                $this->selecting->more_details("WHERE token = ?, $token");
+
+                // Fetching the comments for the post
+                $data = [
+                    'token'=> $token,
+                    'table' => 'post'
+                ];
+    
+                $post = 0;
+    
+                $post = $this->fetchId($data)[0][0]['id'];
+
+                $fetch_comments = new Comment(self::$db, null);
+                $fetch_comments = $fetch_comments->fetch_comment($post);
+
+                if($fetch_comments['status'] === 1):
+                    $comments = $fetch_comments['content'][0];
+                else:
+                    return $fetch_comments;
+                endif;
+
+            endif;
+
+            $action = $this->selecting->action("*", "post");
+            $this->selecting->reset();
+
+            if($action != null) return $action;
+
+            $post = $this->selecting->pull();
+
+            $result = $this->config_data($blocked_users, $post[0], "user", $user);
+
+            $result[0]['comments'] = $comments;
+
 
             $this->type = "success";
             $this->status = 1;

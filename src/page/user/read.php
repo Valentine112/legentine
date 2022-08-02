@@ -19,11 +19,11 @@
                 </div>
 
                 <div class="post-header">
-                    <span class="post-username">
+                    <span class="post-title">
                         <!-- The content goes here -->
                     </span>
                     <span>By</span>
-                    <span class="post-title">
+                    <span class="post-username">
 
                     </span>
                 </div>
@@ -46,19 +46,19 @@
 
                 <div class="category section">
                     <div>
-                        Category - <span>Poem</span>
+                        Category - <span></span>
                     </div>
                 </div>
 
                 <div class="reader section">
                     <div>
-                        Readers - <span>Poem</span>
+                        Readers - <span></span>
                     </div>
                 </div>
 
                 <div class="date section">
                     <div>
-                        <span>Thursday, Mar 4, 22</span>
+                        <span></span>
                     </div>
                 </div>
 
@@ -123,7 +123,7 @@
             </div>
         </div>
 
-        // Include the notice box here
+        <!-- Include the notice box here -->
         <?php include "src/template/quick-notice.php"; ?>
     </div>
 </body>

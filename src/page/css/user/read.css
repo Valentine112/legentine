@@ -1,6 +1,7 @@
 *{
     box-sizing: content-box;
     font-family: var(--theme-font);
+    color: #fff;
 }
 hr{
     width: 75%;
@@ -8,8 +9,11 @@ hr{
     border: 0;
     background-color: #f1f1f1;
 }
+body{
+    background: linear-gradient(145deg, #444, #000);
+}
 .read{
-    margin-bottom: 10px;
+    margin-bottom: 70px;
 }
 .read .main{
     margin-top: 10px;
@@ -31,6 +35,8 @@ hr{
 .read .post-header{
     text-align: center;
     font-size: 25px;
+    margin-top: 10px;
+    color: #f1f1f1;
 }
 .read .post-content{
     text-align: center;
@@ -38,6 +44,9 @@ hr{
     width: 90%;
     margin: auto;
     margin-top: 20px;
+}
+.read .post-content span{
+    line-height: 40px;
 }
 .read .reaction-box .reaction{
     display: none;
@@ -54,10 +63,11 @@ hr{
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
+    color: #000;
 }
 
 .read .section{
-    margin-top: 15px;
+    margin-top: 20px;
     text-align: center;
 }
 
@@ -73,7 +83,7 @@ hr{
 .comment-box{
     margin-top: 10px;
     padding: 5px;
-    border-bottom: 1px solid #f1f1f1;
+    border-bottom: 1px solid #a1a1a1;
 }
 .comment-details > div {
     display: inline-block;
@@ -85,7 +95,7 @@ hr{
 }
 .comment-details > div:last-child{
     width: 85%;
-    font-size: 15px;
+    font-size: 14px;
     text-align: left;
 }
 .comment-details > div:last-child .username{
@@ -125,11 +135,11 @@ hr{
     bottom: 3%;
     margin: auto;
     width: 100%;
-    display: none;
 }
 .read .comment-holder{
     width: 90%;
     margin: auto;
+    background-color: #444;
     border-bottom: 2px solid #f1f1f1;
 }
 .read .comment-holder > div{
@@ -175,6 +185,7 @@ hr{
         overflow-y: auto;
         box-shadow: 4px 4px 10px 4px lightgrey;
         padding: 10px;
+        margin-bottom: 20px;
     }
 
     .read .comment-content{
@@ -185,8 +196,7 @@ hr{
 
 @media screen and (min-width: 992px) {
     .main{
-        width: 55%;
-        margin-bottom: 10px;
+        width: 50%;
     }
     .read .comment-content{
         width: 45%;

@@ -3,9 +3,12 @@ window.addEventListener("load", function() {
     var post_body = this.document.querySelector(".post-body")
     var username = this.document.querySelector(".post-username")
     var title = this.document.querySelector(".post-title")
-    var content = this.document.querySelector(".post-content")
+    var content = this.document.querySelector(".post-content span")
     var reaction_box = this.document.querySelector(".reaction-box")
     var reaction_count = this.document.querySelector(".reaction-count span")
+    var category = this.document.querySelector(".category span")
+    var reader = this.document.querySelector(".reader span")
+    var date = this.document.querySelector(".date span")
 
     var func = new Func()
 
@@ -36,6 +39,7 @@ window.addEventListener("load", function() {
                     var post = val.content[0]['post']
                     var more =  val.content[0]['more']
 
+                    // The post token
                     post_body.setAttribute("data-token", "LT-" + post['token'])
 
                     post_photo.setAttribute("src", '../' + other['photo'])
@@ -46,6 +50,13 @@ window.addEventListener("load", function() {
                     // Set react button
                     reaction_box.innerHTML = config_react(more)
                     reaction_count.innerText = post['stars'] == 0 ? "" : post['stars']
+
+                    // Category
+                    category.innerText = post['category']
+                    // Reader
+                    reader.innerText = post['readers']
+                    // Date
+                    date.innerText = func.dateFormatting(post['date'])
                 }
 
                 func.notice_box(val)
