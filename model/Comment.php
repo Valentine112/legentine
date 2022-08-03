@@ -102,7 +102,7 @@
 
                     $this->status = 1;
                     $this->message = "void";
-                    $this->content = ;
+                    $this->content = "";
                 else:
                     return $action;
                 endif;
