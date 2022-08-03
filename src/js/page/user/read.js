@@ -38,6 +38,7 @@ window.addEventListener("load", function() {
                     var other = val.content[0]['other']
                     var post = val.content[0]['post']
                     var more =  val.content[0]['more']
+                    var comment = val.content[0]['comments']
 
                     // The post token
                     post_body.setAttribute("data-token", "LT-" + post['token'])
@@ -57,6 +58,9 @@ window.addEventListener("load", function() {
                     reader.innerText = post['readers']
                     // Date
                     date.innerText = func.dateFormatting(post['date'])
+
+                    // Comments
+
                 }
 
                 func.notice_box(val)

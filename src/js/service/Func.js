@@ -187,7 +187,7 @@ class Func {
             remove_previous(error_text)
             
             notice_modal.style.display = "none"
-        }, 3000)
+        }, 4000)
     }
 
     approximate_count(data) {

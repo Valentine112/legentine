@@ -21,12 +21,14 @@
 
         private static $db;
 
-        public function __construct(mysqli $db, array $data, int|string $user) {
+        public function __construct(mysqli $db, ?array $data, int|string $user) {
             self::$db = $db;
 
             $this->data = $data;
             $this->selecting = new Select(self::$db);
             $this->user = $user;
+
+            return $this;
         }
 
         public function config_data(array|string $blocked, array $items, string $key, ?int $user) : array {
@@ -348,16 +350,20 @@
     
                 $post = $this->fetchId($data)[0][0]['id'];
 
-                $fetch_comments = new Comment(self::$db, null);
+                $fetch_comments = new Comment(self::$db, null, "");
                 $fetch_comments = $fetch_comments->fetch_comment($post);
 
                 if($fetch_comments['status'] === 1):
-                    $comments = $fetch_comments['content'][0];
+                    $comments = $fetch_comments['content'];
                 else:
                     return $fetch_comments;
                 endif;
 
             endif;
+
+            // Need to work on fetching the comments, not done yet
+            // But first i need to work on creating the comments first
+    
 
             $action = $this->selecting->action("*", "post");
             $this->selecting->reset();

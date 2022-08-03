@@ -113,11 +113,11 @@
             <div class="comment-cover">
                 <div class="comment-holder">
                     <div>
-                        <div class="comment-input" contenteditable="true" data-placeholder="comment"></div>
+                        <div class="comment-input" contenteditable="true" data-placeholder="comment" id="comment-value"></div>
                     </div>
 
                     <div>
-                        <button>Send</button>
+                        <button data-action="create_comment">Send</button>
                     </div>
                 </div>
             </div>

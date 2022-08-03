@@ -70,6 +70,9 @@ document.body.addEventListener("click", async function(e) {
     // Declare the user
     var user = new User()
 
+    // Declare the comment
+    var comment = new CommentActions()
+
     switch (action) {
         case "category":
             var path = func.getPath()['main_path']
@@ -188,6 +191,10 @@ document.body.addEventListener("click", async function(e) {
 
             break;
 
+        case "create_comment":
+            comment.create_comment()
+            
+            break;
         default:
             break;
     }

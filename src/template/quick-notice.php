@@ -46,10 +46,10 @@
             height: 20px;
             width: 20px;
         }
-        .quick-notice .notice-header{
+        .quick-notice .notice-header span{
             font-weight: 300!important;
             font-size: 15px;
-            color: silver;
+            color: silver!important;
         }
         .quick-notice .success{
             color: #25AE88;

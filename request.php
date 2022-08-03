@@ -7,8 +7,10 @@
         Signup,
         Login,
         Post,
-        User
+        User,
+        Comment
     };
+    
     use Service\Response;
 
     $db = new Database;
@@ -32,6 +34,11 @@
     $request->is_post(
         'user',
         [User::class, 'main']
+    );
+
+    $request->is_post(
+        'comment',
+        [Comment::class, 'main']
     );
     
     print_r(Response::sendJSON($request->listen()));
