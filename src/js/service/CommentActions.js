@@ -24,10 +24,15 @@ class CommentActions {
                 }
             }
 
+            comment_elem.innerText = ""
             // Fetch the post first, then comments next
             this.func.request("../request.php", JSON.stringify(data), 'json')
             .then(async function(val) {
                 console.log(val)
+                if(val.status === 1){
+                    var comments = new Comment(val.content['comment'])
+                    document.querySelector(".comment-content").insertAdjacentHTML("afterbegin", comments.main())
+                }
 
                 new Func().notice_box(val)
             })

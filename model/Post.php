@@ -350,11 +350,12 @@
     
                 $post = $this->fetchId($data)[0][0]['id'];
 
-                $fetch_comments = new Comment(self::$db, null, "");
+                $fetch_comments = new Comment(self::$db, null, $this->user);
                 $fetch_comments = $fetch_comments->fetch_comment($post);
 
                 if($fetch_comments['status'] === 1):
                     $comments = $fetch_comments['content'];
+
                 else:
                     return $fetch_comments;
                 endif;

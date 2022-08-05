@@ -34,6 +34,7 @@ window.addEventListener("load", function() {
             func.request("../request.php", JSON.stringify(data), 'json')
             .then(async function(val) {
                 console.log(val)
+
                 if(val.status === 1) {
                     var other = val.content[0]['other']
                     var post = val.content[0]['post']
@@ -59,7 +60,13 @@ window.addEventListener("load", function() {
                     // Date
                     date.innerText = func.dateFormatting(post['date'])
 
+                    console.log(comment)
+
                     // Comments
+                    comment.forEach(elem => {
+                        comment_box = new Comment(elem)
+                        document.querySelector(".comment-content").insertAdjacentHTML("afterbegin", comment_box.main())
+                    })
 
                 }
 

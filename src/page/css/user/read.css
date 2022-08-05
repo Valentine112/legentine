@@ -83,7 +83,7 @@ body{
 .comment-box{
     margin-top: 10px;
     padding: 5px;
-    border-bottom: 1px solid #a1a1a1;
+    border-bottom: 1px solid #636161;
 }
 .comment-details > div {
     display: inline-block;
@@ -122,7 +122,9 @@ body{
 }
 .comment-options > div{
     margin: 0 15px 0 15px;
-    color: grey;
+}
+.comment-options > div span{
+    color: rgb(137, 134, 134)!important;
 }
 
 /* END */
@@ -187,10 +189,12 @@ body{
         padding: 10px;
         margin-bottom: 20px;
     }
-
     .read .comment-content{
         width: 70%;
         margin: auto;
+    }
+    .read .comment-holder{
+        width: 60%;
     }
 }
 
@@ -200,5 +204,8 @@ body{
     }
     .read .comment-content{
         width: 45%;
+    }
+    .read .comment-holder{
+        width: 40%;
     }
 }

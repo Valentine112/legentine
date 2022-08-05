@@ -6,6 +6,7 @@
         Head::tags(); 
     ?>
     <link rel="stylesheet" href="../src/page/css/user/read.css">
+    <script src="../src/js/view/Comment.js"></script>
     <title>Read</title>
 </head>
 <body>
@@ -77,36 +78,8 @@
                 </div>
 
                 <div class="comment-content">
-                    <?php $i = 0; while($i < 3): $i++; ?>
-                    <div class="comment-box">
-                        <div class="comment-details">
-                            <div>
-                                <a href="">
-                                    <img src="../src/photo/image.jpg" alt="">
-                                </a>
-                            </div>
-
-                            <div>
-                                <span class="username">Himself</span><br>
-                                <span class="user-comment">I have a day to make it all work, but i have forever to make it. What's really needed for this because my mind is so clouded</span>
-                            </div>
-                        </div>
-
-                        <div class="comment-options">
-                            <div>
-                                <span>Reply</span>
-                            </div>
-
-                            <div>
-                                <span>Edit</span>
-                            </div>
-                            
-                            <div>
-                                <span>Delete</span>
-                            </div>
-                        </div>
-                    </div>
-                    <?php endwhile; ?>
+                    <!-- Comments are rendered here -->
+                    
                 </div>
             </div>
 

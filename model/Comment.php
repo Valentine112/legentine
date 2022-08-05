@@ -27,10 +27,7 @@
         }
 
         public function fetch_comment($post) : array {
-            $result = [
-                'content' => [],
-                'other' => []
-            ];
+            $result = [];
 
             $this->selecting->more_details("WHERE post = ? LIMIT 20, $post");
             $action = $this->selecting->action("*", "comments");
@@ -45,14 +42,36 @@
             foreach($value[0] as $val):
                 $other = $val['user'];
 
+                //Fetching the comment owner details
                 $this->selecting->more_details("WHERE id = ?, $other");
                 $action = $this->selecting->action("fullname, username, photo, rating", "user");
                 $this->selecting->reset();
 
                 if($action != null) return $action;
 
-                array_push($result['content'], $val);
-                array_push($result['other'], $this->selecting->pull()[0][0]);
+                $other_val = $this->selecting->pull()[0][0];
+
+                // Fetch the post owner id
+                $this->selecting->more_details("WHERE id = ? LIMIT 1, $post");
+                $action = $this->selecting->action("user", "post");
+                $this->selecting->reset();
+
+                if($action != null):
+                    return $action;
+                endif;
+
+                $post_owner = $this->selecting->pull()[0][0]['user'];
+
+                $arr = [
+                    "comment" => $val,
+                    "other" => $other_val,
+                    "self" => $this->user,
+                    "more" => [
+                        "post_owner" => $post_owner
+                    ]
+                ];
+
+                array_push($result, $arr);
 
             endforeach;
 
@@ -67,6 +86,7 @@
         public function create_comment() : array {
             $val = $this->data['val'];
 
+            $result = [];
             // Fetch post first
             $post = new Post(self::$db, null, "");
             $item = [
@@ -95,14 +115,50 @@
                     time()
                 ];
 
+                // Turn off the database
+                self::$db->autocommit(false);
+
                 $inserting = new Insert(self::$db, "comments", $subject, "");
                 $action = $inserting->push($items, 'siissi');
                 if($action):
-                    // Fetch the comment that was made and save it in content
+                    // Fetch the comment the comment owner info
+                    $this->selecting->more_details("WHERE id = ? LIMIT 1, $this->user");
+                    $action = $this->selecting->action("fullname, username, photo, rating", "user");
+                    $this->selecting->reset();
+
+                    if($action != null):
+                        return $action;
+                    endif;
+
+                    $other_user = $this->selecting->pull()[0][0];
+
+                    // Fetch the post owner id
+                    $this->selecting->more_details("WHERE id = ? LIMIT 1, $post");
+                    $action = $this->selecting->action("user", "post");
+                    $this->selecting->reset();
+
+                    if($action != null):
+                        return $action;
+                    endif;
+
+                    $post_owner = $this->selecting->pull()[0][0]['user'];
+
+                    $result['comment'] = array_combine($subject, $items);
+                    $result['other'] = $other_user;
+                    $result['self'] = $this->user;
+                    $result['more'] = [
+                        'post_owner' => $post_owner
+                    ];
+
+                    // Commit changes to the database
+                    self::$db->autocommit(true);
 
                     $this->status = 1;
                     $this->message = "void";
-                    $this->content = "";
+                    $this->content = [
+                        "comment" => $result
+                    ];
+
                 else:
                     return $action;
                 endif;
