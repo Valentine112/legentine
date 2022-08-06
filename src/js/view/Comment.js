@@ -1,6 +1,7 @@
 class Comment {
 
     constructor(data) {
+        this.func = new Func()
         this.data = data
 
         this.comment = data['comment']
@@ -33,18 +34,22 @@ class Comment {
                         ${this.other['username']}
                         </span><br>
                         <span class="user-comment">
-                        `
-                        +
-                        // Comment goes here
-                        `
-                        ${this.comment['comment']}
+                            `
+                            +
+                            // Comment goes here
+                            `
+                            ${this.comment['comment']}
+                        </span>
+                        &ensp;
+                        <span class="date">
+                            ${this.func.timeFormatting(this.comment['time'], this.comment['date'])}
                         </span>
                     </div>
                 </div>
 
                 <div class="comment-options">
                     <div>
-                        <span>Reply</span>
+                        <span data-action="reply-comment">Reply</span>
                     </div>
                     `
                     +
@@ -62,11 +67,11 @@ class Comment {
         if(this.self === this.comment['user'] || this.more['post_owner'] === this.self){
             return `
                 <div>
-                    <span>Edit</span>
+                    <span data-action="edit-comment">Edit</span>
                 </div>
                 
                 <div>
-                    <span>Delete</span>
+                    <span data-action="delete-comment">Delete</span>
                 </div>
             `
         }else{

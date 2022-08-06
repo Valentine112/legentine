@@ -12,8 +12,12 @@ hr{
 body{
     background: linear-gradient(145deg, #444, #000);
 }
+.config .content-loader{
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
 .read{
-    margin-bottom: 70px;
+    margin-bottom: 85px;
 }
 .read .main{
     margin-top: 10px;
@@ -100,11 +104,17 @@ body{
 }
 .comment-details > div:last-child .username{
     font-family: 600;
-    color: grey;
+    color: silver;
     font-size: 13px;
 }
 .comment-details > div:last-child .user-comment{
     font-weight: 400;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+.comment-details .date{
+    font-size: 12px;
+    color: grey;
 }
 .comments .comment-content img{
     height: 20px;
@@ -124,7 +134,8 @@ body{
     margin: 0 15px 0 15px;
 }
 .comment-options > div span{
-    color: rgb(137, 134, 134)!important;
+    color: silver!important;
+    cursor: pointer;
 }
 
 /* END */
@@ -134,9 +145,23 @@ body{
     position: fixed;
     left: 0;
     right: 0;
-    bottom: 3%;
+    bottom: 2%;
     margin: auto;
     width: 100%;
+}
+.read .comment-cover > div:first-child{
+    width: 90%;
+    margin: auto;
+    margin-bottom: 5px;
+    text-align: left;
+}
+.read .comment-cover > div:first-child span{
+    color: #fff;
+    display: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px 5px 2px 5px;
+    background-color: #444;
 }
 .read .comment-holder{
     width: 90%;
@@ -175,6 +200,7 @@ body{
     background-color: transparent;
     font-size: 18px;
     border: 0;
+    user-select: none;
 }
 
 /* END */
@@ -193,6 +219,9 @@ body{
         width: 70%;
         margin: auto;
     }
+    .read .comment-cover > div:first-child{
+        width: 60%;
+    }
     .read .comment-holder{
         width: 60%;
     }
@@ -204,6 +233,9 @@ body{
     }
     .read .comment-content{
         width: 45%;
+    }
+    .read .comment-cover > div:first-child{
+        width: 40%;
     }
     .read .comment-holder{
         width: 40%;

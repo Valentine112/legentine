@@ -10,7 +10,10 @@
     <title>Read</title>
 </head>
 <body>
-    <div class="read post-body">
+    <div class="read post-body config">
+        <div class="content-loader">
+            <div></div>
+        </div>
         <div>
             <div class="main">
                 <div class="photo">
@@ -84,13 +87,16 @@
             </div>
 
             <div class="comment-cover">
+                <div>
+                    <span id="cancel-edit-comment" onclick="cancel_edit_comment(this)">Cancel</span>
+                </div>
                 <div class="comment-holder">
                     <div>
                         <div class="comment-input" contenteditable="true" data-placeholder="comment" id="comment-value"></div>
                     </div>
 
                     <div>
-                        <button data-action="create_comment">Send</button>
+                        <button data-action="create-comment" id="send">Send</button>
                     </div>
                 </div>
             </div>

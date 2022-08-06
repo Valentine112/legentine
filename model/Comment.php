@@ -4,8 +4,9 @@
     use mysqli;
     use Query\{
         Insert,
-        Select
-    };
+        Select,
+    Update
+};
     use Service\{
         Response,
         Func
@@ -171,6 +172,84 @@
 
             endif;
 
+
+            return $this->deliver();
+        }
+
+        public function edit_comment() : array {
+            $val = $this->data['val'];
+
+            $post = $val['post'];
+            $comment = $val['comment'];
+
+            // Save the comment token with a new variable to send back to the client
+            $token = $comment;
+
+            (bool) $authority = false;
+
+            $result = [];
+
+            // Check if user owns the comment
+            $this->selecting->more_details("WHERE token = ? AND user = ?, $comment, $this->user");
+            $action = $this->selecting->action("id", "comments");
+            $this->selecting->reset();
+
+            if($action != null) return $action;
+            $value = $this->selecting->pull();
+
+            // Check if user is the owner of the post
+            $this->selecting->more_details("WHERE token = ? AND user = ?, $post, $this->user");
+            $action = $this->selecting->action("id", "post");
+            $this->selecting->reset();
+
+            if($action != null) return $action;
+            $value1 = $this->selecting->pull();
+
+            if($value[1]):
+                $authority = true;
+
+            elseif($value1[1] > 0):
+                $authority = true;
+
+            endif;
+
+            // Validate if the user has authority to edit the comment
+            if($authority):
+                $comment = $value[0][0]['id'];
+
+                $comment_value = $val['comment_value'];
+                if(strlen(trim($comment_value)) > 0):
+
+                    // Edit the comment
+                    $updating = new Update(self::$db, "SET comment = ? WHERE id = ?# $comment_value# $comment");
+                    $action = $updating->mutate('si', 'comments');
+
+                    if($action):
+                        $this->type = "success";
+                        $this->status = 1;
+                        $this->message = "void";
+                        $this->content = [
+                            "token" => $token,
+                            "comment" => $comment_value
+                        ];
+
+                    else:
+                        return $action;
+                    endif;
+                else:
+                    $this->type = "warning";
+                    $this->status = 0;
+                    $this->message = "fill";
+                    $this->content = "Comment is empty";
+
+                endif;
+            else:
+                $this->type = "error";
+                $this->status = 0;
+                $this->message = "void";
+                $this->content = "You do not have authority to perform this action";
+
+            endif;
 
             return $this->deliver();
         }

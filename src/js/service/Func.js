@@ -261,4 +261,55 @@ class Func {
 
     }
 
+    timeFormatting(time, backup_date) {
+        var result
+        time = new Date(backup_date).getTime()
+        var current_time = new Date().getTime()
+
+        time = Number(time)
+        current_time = Number(current_time)
+
+        console.log("Current time: " + current_time)
+        console.log("Comment time: " + time)
+        console.log("Diff: " + (current_time - time))
+
+        var hour = 60 * 60,
+        day = hour * 24,
+        week = day * 7
+
+        var diff = current_time - time;
+        if(diff < 60) {
+            result = "Just now";
+        }
+        else if(diff >= 60 && diff < 120){
+            result = "a minute ago";
+        }
+        else if(diff >= 120 && diff < hour){
+            result = Math.floor(diff / 60)+" minutes ago";
+        }
+        else if(diff >= hour && diff < (hour * 2)){
+            result = "an hour ago";
+        }
+        else if(diff >= (hour * 2) && diff < day){
+            result = Math.floor(diff / hour)+" hours ago";
+        }
+        else if(diff >= day && diff < (day * 2)){
+            result = "a day ago";
+        }
+        else if(diff >= (day * 2) && diff < (day * 28)){
+            result = Math.floor(diff / day)+ " days ago";
+        }
+        else if(diff >= week && diff < (week * 2)){
+            result = "a week back";
+        }
+        else if(diff >= (week * 2) && diff <= (week * 4)){
+            result = Math.floor(diff / week)+ " weeks back";
+        }
+        else{
+            result = backup_date;
+        }
+
+        return result
+    }
+
 }

@@ -32,6 +32,7 @@ window.addEventListener("load", function() {
     }, 2000)
 
 
+
 })
 
 // Click events for elements would be activated here
@@ -61,6 +62,7 @@ document.body.addEventListener("click", async function(e) {
             active_option.removeAttribute("data-status")
         }
     }
+
 
     var func = new Func()
 
@@ -191,10 +193,27 @@ document.body.addEventListener("click", async function(e) {
 
             break;
 
-        case "create_comment":
+        case "create-comment":
             comment.create_comment()
             
             break;
+
+        case "reply-comment":
+
+            break;
+
+        case "edit-comment":
+            comment.edit_comment(elem)
+            break;
+
+        case "delete-comment":
+            comment.delete_comment(elem)
+            break;
+
+        case "edit-comment-1":
+            comment.edit_comment_1(elem)
+            break;
+
         default:
             break;
     }

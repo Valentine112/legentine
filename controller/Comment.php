@@ -31,6 +31,11 @@
 
                         break;
 
+                    case "edit_comment":
+                        $result = $modelComment->edit_comment();
+                        
+                        break;
+
                     default:
                         break;
 

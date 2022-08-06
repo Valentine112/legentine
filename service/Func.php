@@ -7,7 +7,7 @@
             
             switch ($type) {
                 case 'string':
-                    $data = htmlspecialchars(trim(stripcslashes($data)));
+                    $data = htmlspecialchars(trim(stripcslashes($data)), ENT_NOQUOTES);
                     break;
     
                 case 'integer':
@@ -44,7 +44,7 @@
         }
 
         public static function dateFormat() : string {
-            return Date('m/d/Y');
+            return Date('m/d/Y h:i:s a');
         }
         public static function dateParts(string $date) : array {
             $year = substr($date, 0, 4);
