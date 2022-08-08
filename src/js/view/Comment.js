@@ -14,7 +14,7 @@ class Comment {
 
     main() {
         var element = `
-            <div class="comment-box"
+            <div class="comment-box entity-body"
                 data-token=LT-${this.comment['token']}
                 data-post=${this.comment['post']}
             >
@@ -42,7 +42,7 @@ class Comment {
                         </span>
                         &ensp;
                         <span class="date">
-                            ${this.func.timeFormatting(this.comment['time'], this.comment['date'])}
+                            ${this.func.timeFormatting(this.comment['date'])}
                         </span>
                     </div>
                 </div>
@@ -64,12 +64,22 @@ class Comment {
     }
 
     config_authority() {
-        if(this.self === this.comment['user'] || this.more['post_owner'] === this.self){
+        // First check if user is the owner of the comment
+        // If he is, display all options
+        // Else if he's owner of post, then display only the delete option
+        // Else display no option
+        if(this.self === this.comment['user']){
             return `
                 <div>
                     <span data-action="edit-comment">Edit</span>
                 </div>
-                
+                <div>
+                    <span data-action="delete-comment">Delete</span>
+                </div>
+            `
+        }
+        else if(this.more['post_owner'] === this.self){
+            return `
                 <div>
                     <span data-action="delete-comment">Delete</span>
                 </div>

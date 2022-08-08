@@ -174,22 +174,30 @@ class Post {
         })
     }
 
-    async delete_post(elem) {
+    async delete_entity(elem) {
         // First hide the post
         // Display delete notice and start the animation
         // Then set a timeout for 5 seconds
         // If delete notice is clicked within that time, cancel the timeout
         // Proceed to send the resources for deleting
 
-        var parent = elem.closest(".post-body"),
+        var parent = elem.closest(".entity-body"),
         token = parent.getAttribute("data-token")
+
+        var data = {
+            part: "post",
+            action: "delete_post",
+            val: {
+                token: ""
+            }
+        }
 
         var delete_notice = document.querySelector(".delete-notice")
 
         var promise = new Promise(res => {
             res(
-                delete_notice.setAttribute("data-post-token", token),
-                call_animation(parent)
+                delete_notice.setAttribute("data-delete-token", token),
+                call_animation(parent, data)
             )
         })
         await promise

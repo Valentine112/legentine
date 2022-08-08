@@ -261,23 +261,23 @@ class Func {
 
     }
 
-    timeFormatting(time, backup_date) {
+    timeFormatting(date) {
         var result
-        time = new Date(backup_date).getTime()
+
+        var time = new Date(date).getTime()
         var current_time = new Date().getTime()
 
-        time = Number(time)
         current_time = Number(current_time)
-
-        console.log("Current time: " + current_time)
-        console.log("Comment time: " + time)
-        console.log("Diff: " + (current_time - time))
 
         var hour = 60 * 60,
         day = hour * 24,
         week = day * 7
 
         var diff = current_time - time;
+
+        // Divided by 1000 to convert it back to seconds rather than milliseconds
+        diff = Math.round(diff/1000)
+
         if(diff < 60) {
             result = "Just now";
         }
@@ -306,7 +306,7 @@ class Func {
             result = Math.floor(diff / week)+ " weeks back";
         }
         else{
-            result = backup_date;
+            result = this.dateFormatting(date);
         }
 
         return result

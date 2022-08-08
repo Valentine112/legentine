@@ -104,6 +104,9 @@
 
         <!-- Include the notice box here -->
         <?php include "src/template/quick-notice.php"; ?>
+
+        <!-- Include the delete box here -->
+        <?php include "src/template/delete-notice.php"; ?>
     </div>
 </body>
 <script src="../src/js/page/user/read.js"></script>

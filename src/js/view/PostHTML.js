@@ -16,7 +16,7 @@ class PostHTML {
         var photo = this.other['photo']
 
         var element = `
-            <div class="post-body box lazy-load-element" 
+            <div class="post-body box lazy-load-element entity-body" 
             data-token="LT-${this.post['token']}"
             data-name="${this.other['fullname']}"
             data-rating="${this.other['rating']}"
@@ -31,6 +31,9 @@ class PostHTML {
             data-stars="${this.post['stars']}"
             data-category="${this.post['category']}"
             data-saved-state="${this.more['saved-state']}"
+            data-delete-part="post",
+            data-delete-action="delete_post",
+            data-delete-attr="data-delete-token"
             >
                 <div class="post-assist box">
                     <div class="post-sub box">
@@ -230,7 +233,7 @@ class PostHTML {
                 ${this.comment_state()}
             </div>
             
-            <div class="edit-options action" data-action="delete_post">
+            <div class="edit-options action" data-action="delete-entity">
                 <div>
                     <img src="${this.path}src/icon/option-icon/delete.svg" alt="">
                 </div>

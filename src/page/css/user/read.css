@@ -15,6 +15,12 @@ body{
 .config .content-loader{
     background-color: rgba(0, 0, 0, 0.4);
 }
+.delete-notice{
+    bottom: 10%!important;
+}
+.delete-notice .delete-cover{
+    border: 1px solid #444!important;
+}
 
 .read{
     margin-bottom: 85px;

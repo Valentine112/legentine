@@ -36,6 +36,11 @@
                         
                         break;
 
+                    case "delete_comment":
+                        $result = $modelComment->delete_comment();
+
+                        break;
+
                     default:
                         break;
 

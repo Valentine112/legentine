@@ -1,6 +1,8 @@
 <?php
     namespace Service;
 
+    use DateTime;
+
     class Func {
 
         public static function cleanData($data, string $type) {
@@ -44,7 +46,10 @@
         }
 
         public static function dateFormat() : string {
-            return Date('m/d/Y h:i:s a');
+            $date = new DateTime('now');
+            $date = $date->format('Y-m-d\TH:i:sp');
+
+            return $date;
         }
         public static function dateParts(string $date) : array {
             $year = substr($date, 0, 4);

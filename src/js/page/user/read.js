@@ -33,7 +33,6 @@ window.addEventListener("load", function() {
             // Fetch the post first, then comments next
             func.request("../request.php", JSON.stringify(data), 'json')
             .then(async function(val) {
-                console.log(val)
 
                 if(val.status === 1) {
                     var other = val.content[0]['other']
@@ -58,9 +57,7 @@ window.addEventListener("load", function() {
                     // Reader
                     reader.innerText = post['readers']
                     // Date
-                    date.innerText = func.dateFormatting(post['date'])
-
-                    console.log(comment)
+                    date.innerText = func.timeFormatting(post['date'])
 
                     // Comments
                     comment.forEach(elem => {
@@ -68,10 +65,27 @@ window.addEventListener("load", function() {
                         document.querySelector(".comment-content").insertAdjacentHTML("afterbegin", comment_box.main())
                     })
 
+                    // Add reader
+                    var data = {
+                        part: "post",
+                        action: "reader",
+                        val: {
+                            from: param['main_path'],
+                            post: post,
+                        }
+                    }
+
+                    // Fetch the post first, then comments next
+                    func.request("../request.php", JSON.stringify(data), 'json')
+                    .then(async function(val) {
+                        
+                    })
                 }
 
                 func.notice_box(val)
+            
             })
+
 
         }
     }

@@ -5,9 +5,10 @@
             bottom: 8%;
             left: 0;
             right: 0;
-            width: 92%;
+            width: 90%;
             margin: auto;
             background-color: snow;
+            border-radius: 5px;
             z-index: 4;
             font-family: var(--theme-font);
             display: none;
@@ -23,6 +24,7 @@
             background-color: #444;
             border-radius: 5px;
             z-index: -1;
+            cursor: pointer;
         }
         .delete-animation.animate{
             transition: width 5s linear;
@@ -36,7 +38,9 @@
             padding: 10px;
             border-radius: 5px;
             text-align: center;
-            border: 1px solid #f1f1f1;
+            border: 1px solid snow;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
         .delete-notice > div div{
@@ -91,7 +95,7 @@
 <script>
     var delete_notice = document.querySelector(".delete-notice")
 
-    function call_animation(element) {
+    function call_animation(element, data) {
         element.style.display = "none"
 
         // Setting the data process to 1, meaning the process is still on
@@ -116,23 +120,22 @@
 
                 // If the data_process is 1, proceed with it
                 if(data_process == 1) {
-                    var token = delete_notice.getAttribute("data-post-token")
+                    var token = delete_notice.getAttribute("data-delete-token")
                     token = new Func().removeInitials(token)
 
                     // Send the data to the server for processing
-                    var data = {
-                        part: "post",
-                        action: "delete_post",
-                        val: {
-                            token: token
-                        }
-                    }
+                    data['val']['token'] = token
+
+                    console.log(data)
 
                     // reset the animation after all the data has been gotten
                     stop_animation("")
 
                     new Func().request("../request.php", JSON.stringify(data), 'json')
                     .then(val => {
+                        if(val.status === 1){
+                            element.remove()
+                        }
                         this.func.notice_box(val)
                     })
                 }
@@ -143,7 +146,7 @@
     }
 
     function stop_animation(type) {
-        var token = delete_notice.getAttribute("data-post-token")
+        var token = delete_notice.getAttribute("data-delete-token")
         var delete_animation = document.querySelector(".delete-animation")
 
         if(type === "restore"){
@@ -155,7 +158,7 @@
         delete_notice.setAttribute("data-process", 0)
 
         // Remove the data token
-        delete_notice.removeAttribute("data-post-token")
+        delete_notice.removeAttribute("data-delete-token")
 
         // Get the width
         var delete_width = getComputedStyle(delete_animation).getPropertyValue("width")

@@ -87,9 +87,8 @@ class CommentActions {
             this.func.request("../request.php", JSON.stringify(data), 'json')
             .then(async function(val) {
 
-                // Revert the button back to it's defaults
-                elem.removeAttribute("data-comment")
-                elem.setAttribute("data-action", "create-comment")
+                // Revert everything back to how it was
+                cancel_edit_comment(document.getElementById("cancel-edit-comment"))
 
                 if(val.status === 1){
                     var comment_box = document.querySelector("[data-token=LT-" + val.content['token'])
@@ -104,6 +103,35 @@ class CommentActions {
         }else{
             comment_input.focus()
         }
+    }
+
+    async delete_comment(elem) {
+        var parent = elem.closest(".entity-body"),
+        token = parent.getAttribute("data-token")
+
+        // Fetch post token
+        var post = document.querySelector(".post-body").getAttribute("data-token")
+        post = this.func.removeInitials(post)
+
+        var data = {
+            part: "comment",
+            action: "delete_comment",
+            val: {
+                from: this.pathObj['main_path'],
+                token: "",
+                post: post
+            }
+        }
+
+        var delete_notice = document.querySelector(".delete-notice")
+
+        var promise = new Promise(res => {
+            res(
+                delete_notice.setAttribute("data-delete-token", token),
+                call_animation(parent, data)
+            )
+        })
+        await promise
     }
 }
 

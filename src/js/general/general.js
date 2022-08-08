@@ -168,8 +168,8 @@ document.body.addEventListener("click", async function(e) {
 
             break
 
-        case "delete_post":
-            post.delete_post(elem)
+        case "delete-entity":
+            post.delete_entity(elem)
 
             break
 
