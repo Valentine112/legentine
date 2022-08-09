@@ -131,7 +131,7 @@ body{
     display: flex;
     justify-content: left;
     align-items: center;
-    width: 90%;
+    width: 95%;
     margin: auto;
     margin-top: 5px;
     font-size: 13px;
@@ -172,7 +172,7 @@ body{
 .read .comment-holder{
     width: 90%;
     margin: auto;
-    background-color: #444;
+    background: linear-gradient(145deg, #444, #000);
     border-bottom: 2px solid #f1f1f1;
 }
 .read .comment-holder > div{

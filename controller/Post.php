@@ -63,6 +63,10 @@
                         $result = $modelPost->react();
 
                         break;
+                    case 'reader':
+                        $result = $modelPost->reader();
+
+                        break;
                     default:
                         break;
 

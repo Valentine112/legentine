@@ -102,6 +102,9 @@
             </div>
         </div>
 
+        <!-- Include the replies box here -->
+        <?php include "src/template/replies.php"; ?>
+
         <!-- Include the notice box here -->
         <?php include "src/template/quick-notice.php"; ?>
 

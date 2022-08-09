@@ -71,14 +71,14 @@ window.addEventListener("load", function() {
                         action: "reader",
                         val: {
                             from: param['main_path'],
-                            post: post,
+                            post: post['token'],
                         }
                     }
 
                     // Fetch the post first, then comments next
                     func.request("../request.php", JSON.stringify(data), 'json')
                     .then(async function(val) {
-                        
+                        console.log(val)
                     })
                 }
 

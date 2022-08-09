@@ -21,7 +21,7 @@ class Comment {
                 <div class="comment-details">
                     <div>
                         <a href="">
-                            <img src="../${this.other['photo']}" alt="">
+                            <img src="../${this.other['photo']}" alt="" class="comment-img">
                         </a>
                     </div>
 

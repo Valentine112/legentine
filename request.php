@@ -40,6 +40,11 @@
         'comment',
         [Comment::class, 'main']
     );
+
+    $request->is_post(
+        'feature',
+        [Feature::class, 'main']
+    );
     
     print_r(Response::sendJSON($request->listen()));
 

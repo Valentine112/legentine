@@ -506,18 +506,19 @@
                 // Get post id
                 $post = $this->fetchId($data)[0][0]['id'];
 
-                // Check if post has already been saved
-                $this->selecting->more_details("WHERE post = ? AND user = ?, $post, $this->user");
-                $action = $this->selecting->action("id", "saved");
-                $this->selecting->reset();
+                $data = [
+                    "post" => $post,
+                    "user" => $this->user,
+                    "needle" => "id",
+                    "table" => "saved"
+                ];
 
-                if($action != null):
-                    return $action;
-                endif;
+                // Check if post has been saved before
+                $search = Func::searchDb(self::$db, $data);
 
                 // Post has been saved before so proceed to remove
-                if($this->selecting->pull()[1] > 0):
-                    $saved = $this->selecting->pull()[0][0]['id'];
+                if(is_int($search)):
+                    $saved = $search;
 
                     $deleting = new Delete(self::$db, "WHERE id = ?, $saved");
                     $action = $deleting->proceed("saved");
@@ -579,6 +580,7 @@
 
         public function react() : array {
             $token = $this->data['val']['token'];
+            
             $data = [
                 'token' => $token,
                 'table' => 'post'
@@ -588,24 +590,23 @@
             if($value[1] > 0):
                 $post = $value[0][0]['id'];
 
+                $data = [
+                    "post" => $post,
+                    "user" => $this->user,
+                    "needle" => "id",
+                    "table" => "star"
+                ];
+
                 // Check if its already been liked
-                $this->selecting->more_details("WHERE post = ? AND user = ?, $post, $this->user");
-                $action = $this->selecting->action("id", "star");
-                $this->selecting->reset();
-
-                if($action != null):
-                    return $action;
-                endif;
-
-                $value = $this->selecting->pull();
+                $search = Func::searchDb(self::$db, $data);
 
                 // Turn off the database until every transaction is completed
                 self::$db->autocommit(false);
 
-                if($value[1] > 0):
+                if(is_int($search)):
 
                     // Reaction exist, so delete 
-                    $star = $value[0][0]['id'];
+                    $star = $search;
 
                     $deleting = new Delete(self::$db, "WHERE id = ?, $star");
                     $action = $deleting->proceed("star");
@@ -692,6 +693,73 @@
                 $this->message = "fill";
                 $this->content = "Post must have been deleted";
 
+            endif;
+
+            return $this->deliver();
+        }
+
+        public function reader() : array {
+            (int) $one = 1;
+            $post = $this->data['val']['post'];
+
+
+            // Fetching the comments for the post
+            $data = [
+                'token'=> $post,
+                'table' => 'post'
+            ];
+
+            $post = $this->fetchId($data)[0][0]['id'];
+
+            $data = [
+                'post' => $post,
+                'user' => $this->user,
+                'needle' => 'id',
+                'table' => 'readers' 
+            ];
+
+            // Check if user already read post
+            $search = Func::searchDb(self::$db, $data);
+
+            if(!$search):
+
+                // Save as new reader
+                $subject = [
+                    "token",
+                    "post",
+                    "user",
+                    "date",
+                    "time"
+                ];
+                $items = [
+                    Func::tokenGenerator(),
+                    $post,
+                    $this->user,
+                    Func::dateFormat(),
+                    time()
+                ];
+
+                self::$db->autocommit(false);
+
+                $inserting = new Insert(self::$db, "readers", $subject, "");
+                $action = $inserting->push($items, 'siisi');
+                if($action):
+                    // Update readers on post
+                    $updating = new Update(self::$db, "SET readers = readers + ? WHERE id = ?# $one# $post");
+                    $action = $updating->mutate('ii', 'post');
+                    if($action):
+                        self::$db->autocommit(true);
+                        $this->type = "success";
+                        $this->status = 1;
+                        $this->message = "void";
+                        $this->content = "New reader added successfully";
+
+                    else:
+                        return $action;
+                    endif;
+                else:
+                    return $action;
+                endif;
             endif;
 
             return $this->deliver();

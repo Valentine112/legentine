@@ -2,6 +2,8 @@
     namespace Service;
 
     use DateTime;
+    use mysqli;
+    use Query\Select;
 
     class Func {
 
@@ -92,6 +94,30 @@
             endif;
 
             return $exist;
+        }
+
+        public static function searchDb(mysqli $db, $data) {
+            $keys = array_keys($data);
+            $values = array_values($data);
+
+            $key = $keys[0];
+            $key1 = $keys[1];
+            $val = $values[0];
+            $val1 = $values[1];
+            $needle = $data['needle'];
+            $table = $data['table'];
+
+            $selecting = new Select($db);
+            $selecting->more_details("WHERE $key = ? AND $key1 = ?, $val, $val1");
+            $action = $selecting->action($needle, $table);
+
+            if($action != null) return $action;
+            $value = $selecting->pull();
+            if($value[1] > 0):
+                return $value[0][0][$needle];
+            else:
+                return false;
+            endif;
         }
     }
 

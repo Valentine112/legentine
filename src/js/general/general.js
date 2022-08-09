@@ -214,6 +214,10 @@ document.body.addEventListener("click", async function(e) {
             comment.edit_comment_1(elem)
             break;
 
+        case "reply-comment":
+            comment.reply_comment()
+            break;
+
         default:
             break;
     }

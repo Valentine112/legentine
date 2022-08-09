@@ -133,6 +133,35 @@ class CommentActions {
         })
         await promise
     }
+
+    reply_comment(elem) {
+        var parent = elem.closest(".comment-box")
+        var token = parent.getAttribute("data-token")
+        token = this.func.removeInitials("token")
+
+        // Fetch post token
+        var post = document.querySelector(".post-body").getAttribute("data-token")
+        post = this.func.removeInitials(post)
+
+        // Display the reply box first
+        // Feed in the values of the comment next
+        // Fetch all the replies
+
+        var reply_box = document.querySelector(".reply")
+        reply_box.setAttribute("data-reply-token", token)
+        reply_box.setAttribute("data-post-token", post)
+
+        // Feed the values
+        var photo = document.getElementById("comment-photo")
+        var username = document.getElementById("comment-username")
+        var content = document.getElementById("comment-content")
+        var date = document.getElementById("comment-date")
+
+        username.innerText = elem.querySelector(".username").innerText
+        content.innerText = elem.querySelector(".user-comment").innerText
+        date.innerText = elem.querySelector(".date").innerText
+
+    }
 }
 
 function cancel_edit_comment(self) {
