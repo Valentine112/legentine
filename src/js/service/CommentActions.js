@@ -163,6 +163,8 @@ class CommentActions {
         reply_box.setAttribute("data-reply-token", token)
         reply_box.setAttribute("data-post-token", post)
 
+        reply_box.style.display = "block"
+
         // Feed the values
         var photo = document.getElementById("comment-photo")
         var username = document.getElementById("comment-username")

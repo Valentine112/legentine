@@ -215,7 +215,8 @@ document.body.addEventListener("click", async function(e) {
             break;
 
         case "reply-comment":
-            comment.reply_comment()
+            console.log(elem)
+            comment.reply_comment(elem)
             break;
 
         default:
