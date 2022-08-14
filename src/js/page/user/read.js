@@ -30,9 +30,10 @@ window.addEventListener("load", function() {
                 }
             }
 
-            // Fetch the post first, then comments next
+            // Fetch the post first
             func.request("../request.php", JSON.stringify(data), 'json')
             .then(async function(val) {
+                console.log(val)
 
                 if(val.status === 1) {
                     var other = val.content[0]['other']
@@ -75,7 +76,7 @@ window.addEventListener("load", function() {
                         }
                     }
 
-                    // Fetch the post first, then comments next
+                    // Add the reader count here
                     func.request("../request.php", JSON.stringify(data), 'json')
                     .then(async function(val) {
                         console.log(val)

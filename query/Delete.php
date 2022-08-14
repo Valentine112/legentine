@@ -9,7 +9,6 @@
         public $type;
         public $value = [];
         public $more1;
-        public $prepared = [];
 
         public function __construct(object $conn, string $more) {
             $this->connect = $conn;
@@ -17,6 +16,8 @@
         }
 
         public function process(){
+            $prepared = [];
+
             if($this->more != "" && strlen(trim($this->more)) > 0) {
                 $more_split = explode(',', $this->more);
                 $this->more1 = $more_split[0];
@@ -24,12 +25,12 @@
 
                 for($a = 0; $a < $more_len; $a++) {
                     if($a > 0) {
-                        array_push($this->prepared, 's');
+                        array_push($prepared, 's');
                         $more_value = $more_split[$a];
                         array_push($this->value, stripslashes(trim($more_value)));
                     }
                 }
-                $this->type = join($this->prepared);
+                $this->type = join($prepared);
             }
         }
 
@@ -59,7 +60,8 @@
         }
 
         public function end() {
-            unset($this->value);
+            $this->value = [];
+            $this->type = "";
         }
 
         public function close() : bool {

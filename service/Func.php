@@ -119,6 +119,41 @@
                 return false;
             endif;
         }
+
+        public static function mention(mysqli $db, string $content, array $data) {
+            $key = array_keys($data)[0];
+            $val = array_values($data)[0];
+
+
+            $selecting = new Select($db);
+            $selecting->more_details("WHERE $key = ?, $val");
+            $action = $selecting->action("other", "mentions");
+            $selecting->reset();
+
+            if($action != null) return $action;
+
+            $value = $selecting->pull()[0];
+
+            foreach($value as $other):
+                $mentioned = $other['other'];
+                // Get the username of person
+                $selecting->more_details("WHERE id = ?, $mentioned");
+                $selecting->action("username", "user");
+                $selecting->reset();
+
+                if($action != null) return $action;
+    
+                $username = $selecting->pull()[0][0]['username'];
+
+
+                $mention = "@$username";
+                $format = "<a href='profile?id=$mentioned' style='color: #ff465b; text-decoration: none;'>$mention</a>";
+                $content = str_replace($mention, $format, $content);
+            endforeach;
+
+            return $content;
+        }
+
     }
 
 ?>

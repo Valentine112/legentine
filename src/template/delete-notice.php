@@ -72,7 +72,7 @@
         }
         @media screen and (min-width: 992px) {
             .delete-notice{
-                bottom: 2%;
+                bottom: 10%;
                 width: 25%;
             }
         }
@@ -111,13 +111,14 @@
             delete_animation.classList.add("animate")
         }, 0050)
 
-        var transitionEvents = ['transitionend', 'OTransitionEnd', 'webkitTransitionEnd'];
+        var transitionEvents = ['transitionend', 'OTransitionEnd', 'webkitTransitionEnd', 'mozTransitionend'];
 
         // Checking if the transition has ended
         transitionEvents.forEach(trans => {
             delete_animation.addEventListener(trans, function() {
                 var data_process = delete_notice.getAttribute("data-process")
 
+                console.log(data_process)
                 // If the data_process is 1, proceed with it
                 if(data_process == 1) {
                     var token = delete_notice.getAttribute("data-delete-token")
@@ -125,8 +126,6 @@
 
                     // Send the data to the server for processing
                     data['val']['token'] = token
-
-                    console.log(data)
 
                     // reset the animation after all the data has been gotten
                     stop_animation("")
@@ -136,7 +135,7 @@
                         if(val.status === 1){
                             element.remove()
                         }
-                        this.func.notice_box(val)
+                        new Func().notice_box(val)
                     })
                 }
                 

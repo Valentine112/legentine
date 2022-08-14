@@ -8,8 +8,13 @@ class CommentActions {
     }
 
     create_comment() {
+        var mentions = []
         var comment_elem = document.getElementById("comment-value")
         var comment = comment_elem.innerText
+
+        // Fetch the mentions from the comment
+        mentions = new Func().fetch_mentions(comment)
+
         if(new Func().stripSpace(comment).length > 0) {
             var post = document.querySelector(".post-body").getAttribute("data-token")
 
@@ -20,6 +25,7 @@ class CommentActions {
                 val: {
                     from: this.pathObj['main_path'],
                     content: comment,
+                    mentions: mentions,
                     filter: post
                 }
             }
@@ -60,9 +66,14 @@ class CommentActions {
     }
 
     edit_comment_1(elem) {
+        var self = this
         var comment = elem.getAttribute("data-comment")
 
         var comment_input = document.getElementById("comment-value")
+
+        // Fetch the mentions from the comment
+        var mentions = new Func().fetch_mentions(comment_input.innerText)
+
         // Fetch post token
         var post = document.querySelector(".post-body").getAttribute("data-token")
         post = this.func.removeInitials(post)
@@ -77,22 +88,23 @@ class CommentActions {
                     from: this.pathObj['main_path'],
                     comment_value: comment_input.innerText,
                     post: post,
-                    comment: comment
+                    comment: comment,
+                    mentions: mentions
                 }
             }
-
-            comment_input.innerText = ""
 
             // Fetch the post first, then comments next
             this.func.request("../request.php", JSON.stringify(data), 'json')
             .then(async function(val) {
 
+                console.log(self)
                 // Revert everything back to how it was
-                cancel_edit_comment(document.getElementById("cancel-edit-comment"))
+                self.cancel_edit_comment(document.getElementById("cancel-edit-comment"))
 
                 if(val.status === 1){
                     var comment_box = document.querySelector("[data-token=LT-" + val.content['token'])
-                    comment_box.querySelector(".user-comment").innerText = val.content['comment']
+
+                    comment_box.querySelector(".user-comment").innerHTML = val.content['comment']
 
                 }
 
@@ -162,18 +174,20 @@ class CommentActions {
         date.innerText = elem.querySelector(".date").innerText
 
     }
-}
 
-function cancel_edit_comment(self) {
-    var comment_input = document.getElementById("comment-value")
-    // Fetch the button to change the data-action
-    var send = document.getElementById("send")
-
-    // Revert the button back to it's defaults
-    send.removeAttribute("data-comment")
-    send.setAttribute("data-action", "create-comment")
-
-    comment_input.innerText = ""
-
-    self.style.display = "none"
+    cancel_edit_comment(elem) {
+        var comment_input = document.getElementById("comment-value")
+        // Fetch the button to change the data-action
+        var send = document.getElementById("send")
+    
+        // Revert the button back to it's defaults
+        send.removeAttribute("data-comment")
+        send.setAttribute("data-action", "create-comment")
+    
+        comment_input.innerText = ""
+    
+        console.log(elem)
+    
+        elem.style.display = "none"
+    }
 }

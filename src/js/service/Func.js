@@ -312,4 +312,30 @@ class Func {
         return result
     }
 
+    fetch_mentions(data) {
+        var mentions = []
+        // Split the string first by spaces
+        var data_splitted = data.split(" ")
+        // Loop throught the splitted string
+        data_splitted.forEach(val => {
+            // Check if "@" is the first letter of each word
+            if(val.indexOf("@") == 0){
+                // Check if there is a string after the @
+                if(this.stripSpace(val).length > 1) {
+                    let mention = val.replace("@", "")
+
+                    mentions.push(mention)
+                }
+            }
+        })
+
+        return mentions
+    }
+
+    domParser(str, type) {
+        var parser = new DOMParser()
+        var format = parser.parseFromString(str, type)
+        return format.body.innerHTML
+    }
+
 }

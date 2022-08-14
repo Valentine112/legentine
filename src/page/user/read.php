@@ -88,7 +88,7 @@
 
             <div class="comment-cover">
                 <div>
-                    <span id="cancel-edit-comment" onclick="cancel_edit_comment(this)">Cancel</span>
+                    <span id="cancel-edit-comment" onclick="new CommentActions().cancel_edit_comment(this)">Cancel</span>
                 </div>
                 <div class="comment-holder">
                     <div>

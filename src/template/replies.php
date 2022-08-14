@@ -8,6 +8,7 @@
         right: 0;
         margin: auto;
         padding: 20px;
+        display: none;
     }
 
     .reply .more span{
@@ -172,7 +173,7 @@
                                 Yeah yeah yeah
                             </span>
                             &ensp;
-                            <span class="date" id="comment-date>
+                            <span class="date" id="comment-date">
                                 14 hours ago
                             </span>
                         </div>

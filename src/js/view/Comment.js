@@ -38,7 +38,7 @@ class Comment {
                             +
                             // Comment goes here
                             `
-                            ${this.comment['comment']}
+                            ${this.func.domParser(this.comment['content'], 'text/html')}
                         </span>
                         &ensp;
                         <span class="date">
