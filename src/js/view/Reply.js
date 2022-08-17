@@ -4,7 +4,7 @@ class Reply {
         this.func = new Func()
         this.data = data
 
-        this.comment = data['comment']
+        this.reply = data['reply']
         this.other = data['other']
         this.self = data['self']
         this.more = data['more']
@@ -14,35 +14,67 @@ class Reply {
 
     main() {
         var element = `
-            <div class="replies box">
+            <div class="replies box"
+            data-token=${this.reply['token']}
+            data-self=${this.self}
+            data-other=${this.reply['user']}
+            >
                 <div>
                     <div>
-                        <img src="../src/photo/image.jpg" alt="">
+                        <img src="../${this.other['photo']}" alt="">
                     </div>
 
                     <div>
                         <div class="reply-username">
-                            <span>Himself</span>
+                            <span>${this.other['username']}</span>
                         </div>
                         <div class="reply-content">
                             <span>
-                                Now we can comment
-                                &ensp;
-                                <span class="date">
-                                14 hours ago
-                                </span>
+                                ${this.reply['content']}
+                            </span>
+                            &ensp;
+                            <span class="date">
+                                ${new Func().timeFormatting(this.reply['date'])}
                             </span>
                         </div>
                     </div>
                 </div>
 
                 <div class="reply-options">
+                    ${this.authorOptions()}
                     <div>
-                        <span>Delete</span>
+                        <span data-action="reply-reply">Reply</span>
                     </div>
                 </div>
             </div>
         `
+
+        return element
+    }
+
+    authorOptions() {
+        // THis options is for the owner of the reply
+        if(this.reply['user'] === this.self) {
+            return `
+                <div>
+                    <span data-action="edit-reply">Edit</span>
+                </div>
+
+                <div>
+                    <span data-action="delete-reply">Delete</span>
+                </div>
+            `
+        }
+        // This option is for the owner of the post
+        else if(this.more['post_owner'] === this.self) {
+            return `
+                <div>
+                    <span data-action="delete-reply">Delete</span>
+                </div>
+            `
+        }else{
+            return ``
+        }
     }
 
 }

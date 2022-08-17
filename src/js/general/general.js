@@ -31,8 +31,6 @@ window.addEventListener("load", function() {
 
     }, 2000)
 
-
-
 })
 
 // Click events for elements would be activated here
@@ -53,7 +51,6 @@ document.body.addEventListener("click", async function(e) {
         }
     }
 
-
     // Hide the large option if anywhere other than the toggle option is clicked
     if(action != "toggle_options"){
         if(document.querySelector("[data-status=option-active]") != null) {
@@ -62,7 +59,6 @@ document.body.addEventListener("click", async function(e) {
             active_option.removeAttribute("data-status")
         }
     }
-
 
     var func = new Func()
 
@@ -199,11 +195,13 @@ document.body.addEventListener("click", async function(e) {
             break;
 
         case "reply-comment":
+            comment.reply_comment(elem)
 
             break;
 
         case "edit-comment":
             comment.edit_comment(elem)
+
             break;
 
         case "delete-comment":
@@ -214,11 +212,15 @@ document.body.addEventListener("click", async function(e) {
             comment.edit_comment_1(elem)
             break;
 
-        case "reply-comment":
-            console.log(elem)
-            comment.reply_comment(elem)
+        case "create-reply":
+            comment.create_reply(elem)
+
             break;
 
+        case "reply-reply":
+            comment.reply_reply(elem)
+            break;
+            
         default:
             break;
     }

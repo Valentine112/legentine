@@ -251,6 +251,7 @@
             (string) $order = "";
             (int) $user = 0;
             (int) $zero = 0;
+            $blocked_users = [];
 
             // Determine the order based on the page the request was sent from
             if($from === "rank"):
@@ -262,7 +263,6 @@
             // Verify that user is logged in
             if($session['type'] === 2):
                 $user = $session['content'];
-                $blocked_users = [];
 
                 // Check where the request is coming from and process
                 if($from === "home" || $from == "rank" || $from == "saved"):
@@ -375,7 +375,7 @@
 
             $result = $this->config_data($blocked_users, $post[0], "user", $user);
 
-            $result[0]['comments'] = $comments;
+            if($from === "read") $result[0]['comments'] = $comments;
 
 
             $this->type = "success";

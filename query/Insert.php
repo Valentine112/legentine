@@ -6,7 +6,7 @@
 
     class Insert extends Response {
 
-        static $ques = [];
+        public $ques = [];
         static $insert_item = "";
 
         public function __construct(object $conn, string $where, array $subject, string $more) {
@@ -22,9 +22,9 @@
             for($a = 0; $a < $this->subject_len; $a++):
                 $sum = $a + 1;
                 if($sum < $this->subject_len):
-                    array_push(self::$ques, "?,");
+                    array_push($this->ques, "?,");
                 elseif($sum === $this->subject_len):
-                    array_push(self::$ques, "?");
+                    array_push($this->ques, "?");
                 endif;
             endfor;
         }
@@ -33,7 +33,7 @@
             $this->create_ques();
             
             $item = implode(",", $this->subject);
-            $prepared = join(self::$ques);
+            $prepared = join($this->ques);
 
             self::$insert_item = $this->connect->prepare("INSERT INTO $this->where ($item) VALUES ($prepared) $this->more");
             self::$insert_item->bind_param($type, ...$values);
@@ -53,7 +53,7 @@
         }
 
         public function reset() {
-            self::$ques = [];
+            $this->ques = [];
         }
     }
 

@@ -7,6 +7,7 @@
     ?>
     <link rel="stylesheet" href="../src/page/css/user/read.css">
     <script src="../src/js/view/Comment.js"></script>
+    <script src="../src/js/view/Reply.js"></script>
     <title>Read</title>
 </head>
 <body>
@@ -86,13 +87,13 @@
                 </div>
             </div>
 
-            <div class="comment-cover">
+            <div class="comment-cover cancel-box">
                 <div>
-                    <span id="cancel-edit-comment" onclick="new CommentActions().cancel_edit_comment(this)">Cancel</span>
+                    <span id="cancel-edit-comment" onclick="new CommentActions().cancel_edit(this, 'create-comment')">Cancel</span>
                 </div>
                 <div class="comment-holder">
                     <div>
-                        <div class="comment-input" contenteditable="true" data-placeholder="comment" id="comment-value"></div>
+                        <div class="comment-input input-value" contenteditable="true" data-placeholder="comment" id="comment-value"></div>
                     </div>
 
                     <div>

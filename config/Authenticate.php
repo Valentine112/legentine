@@ -36,7 +36,7 @@
                 else:
                     $result = [
                         "type" => 0,
-                        "content" => "You need to <a href='../login'>Login</a>"
+                        "content" => "You need to <a href='../login' style='color: dodgerblue'>Login</a>"
                     ];
 
                 endif;
@@ -51,7 +51,7 @@
                 else:
                     $result = [
                         "type" => 0,
-                        "content" => "You need to <a href='../login'>Login</a> to perform this action"
+                        "content" => "You need to <a href='../login' style='color: dodgerblue'>Login</a> to perform this action"
                     ];
 
                 endif;

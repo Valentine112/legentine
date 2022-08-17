@@ -143,11 +143,14 @@
 
             if(strlen(trim($val['content'])) > 0):
                 $token = Func::tokenGenerator();
+
                 $subject = [
                     "token",
                     "post",
                     "user",
                     "content",
+                    "replies",
+                    "edited",
                     "date",
                     "time"
                 ];
@@ -157,6 +160,8 @@
                     $post,
                     $this->user,
                     $val['content'],
+                    0,
+                    0,
                     Func::dateFormat(),
                     time()
                 ];
@@ -165,7 +170,7 @@
                 self::$db->autocommit(false);
 
                 $inserting = new Insert(self::$db, "comments", $subject, "");
-                $action = $inserting->push($items, 'siissi');
+                $action = $inserting->push($items, 'siisiisi');
                 $inserting->reset();
                 if($action):
                     
@@ -180,48 +185,14 @@
 
                     // Insert mentions if there are any
                     $mentions = $val['mentions'];
-                    foreach($mentions as $mention):
 
-                        $this->selecting->more_details("WHERE username = ?, $mention");
-                        $action = $this->selecting->action("id", "user");
-                        $this->selecting->reset();
+                    $arr = [
+                        "post" => $post,
+                        "comment" => $comment,
+                        "reply" => 0
+                    ];
 
-                        if($action != null) return $action;
-
-                        $other = $this->selecting->pull();
-                        if($other[1] > 0):
-                            $other = $other[0][0]['id'];
-
-                            $subject1 = [
-                                "token",
-                                "post",
-                                "comment",
-                                "user",
-                                "other",
-                                "type",
-                                "date",
-                                "time"
-                            ];
-                            
-                            $items1 = [
-                                Func::tokenGenerator(),
-                                $post,
-                                $comment,
-                                $this->user,
-                                $other,
-                                "comment",
-                                Func::dateFormat(),
-                                time()
-                            ];
-
-                            $inserting = new Insert(self::$db, "mentions", $subject1, "");
-                            $action = $inserting->push($items1, "siiiissi");
-                            $inserting->reset();
-
-                            if(!$action) return $action;
-                        endif;
-
-                    endforeach;
+                    $this->save_mentions($mentions, $arr);
 
                     // Update the number of comments in post
                     $updating = new Update(self::$db, "SET comments = comments + ? WHERE id = ?# $one# $post");
@@ -239,16 +210,21 @@
 
                         $other_user = $this->selecting->pull()[0][0];
 
+                        $data = [
+                            "id" => $post,
+                            "1" => "1",
+                            "needle" => "user",
+                            "table" => "post"
+                        ];
+        
                         // Fetch the post owner id
-                        $this->selecting->more_details("WHERE id = ? LIMIT 1, $post");
-                        $action = $this->selecting->action("user", "post");
-                        $this->selecting->reset();
+                        $search = Func::searchDb(self::$db, $data);
 
-                        if($action != null):
-                            return $action;
+                        $post_owner = 0;
+
+                        if(is_int($search)):
+                            $post_owner = $search;
                         endif;
-
-                        $post_owner = $this->selecting->pull()[0][0]['user'];
 
                         $items[3] = Func::mention(self::$db, $items[3], ['comment' => $comment]);
 
@@ -322,6 +298,7 @@
                 if(strlen(trim($comment_value)) > 0):
 
                     self::$db->autocommit(false);
+
                     // Edit the comment
                     $updating = new Update(self::$db, "SET content = ?, edited = ? WHERE id = ?# $comment_value# $one# $comment");
                     $action = $updating->mutate('sii', 'comments');
@@ -397,12 +374,12 @@
                                 endif;
                                 
                             endforeach;
-
-                            self::$db->autocommit(true);
                         else:
                             $this->content = $removed_mention;
     
                         endif;
+
+                        self::$db->autocommit(true);
 
                         $this->type = "success";
                         $this->status = 1;
@@ -525,22 +502,26 @@
             (int) $one = 1;
             (array) $result = [];
             // Fetch post first
-            $post = new Post(self::$db, null, "");
+            $postClass = new Post(self::$db, null, "");
+
             $item = [
                 "token" => $val['post'],
                 "table" => "post"
             ];
 
-            $post = $post->fetchId($item)[0][0]['id'];
+            // FETCH THE POST ID HERE
+            $post = $postClass->fetchId($item)[0][0]['id'];
 
             $item = [
                 "token" => $val['comment'],
-                "table" => "comment"
+                "table" => "comments"
             ];
 
-            $comment = $post->fetchId($item)[0][0]['id'];
+            // FETCH THE COMMENT ID HERE
+            $comment = $postClass->fetchId($item)[0][0]['id'];
 
             if(strlen(trim($val['content'])) > 0):
+                $token = Func::tokenGenerator();
 
                 $subject = [
                     "token",
@@ -553,7 +534,7 @@
                 ];
 
                 $items = [
-                    Func::tokenGenerator(),
+                    $token,
                     $post,
                     $comment,
                     $this->user,
@@ -567,7 +548,29 @@
                 $inserting = new Insert(self::$db, "replies", $subject, "");
                 $action = $inserting->push($items, 'siiissi');
                 if($action):
-                    // Update the number of replies in post
+
+                    // Fetch the reply id
+                    // Would need it for storing any mention
+                    $item = [
+                        "token" => $token,
+                        "table" => "replies"
+                    ];
+
+                    $reply = $postClass->fetchId($item)[0][0]['id'];
+
+                    // Insert mentions if there are any
+                    $mentions = $val['mentions'];
+
+                    $arr = [
+                        "post" => $post,
+                        "reply" => $reply,
+                        "comment" => $comment
+                    ];
+
+                    // Save mentions attached to the reply
+                    $this->save_mentions($mentions, $arr);
+
+                    // Update the number of replies in comments
                     $updating = new Update(self::$db, "SET replies = replies + ? WHERE id = ?# $one# $comment");
                     $action = $updating->mutate('ii', 'comments');
                     if($action):
@@ -594,7 +597,9 @@
 
                         $post_owner = $this->selecting->pull()[0][0]['user'];
 
-                        $result['comment'] = array_combine($subject, $items);
+                        $items[4] = Func::mention(self::$db, $items[4], ['reply' => $reply]);
+
+                        $result['reply'] = array_combine($subject, $items);
                         $result['other'] = $reply_owner;
                         $result['self'] = $this->user;
                         $result['more'] = [
@@ -626,10 +631,11 @@
 
         public function fetch_reply() : array {
             $val = $this->data['val'];
+            $result = [];
 
             $item = [
                 "token" => $val['comment'],
-                "table" => "comment"
+                "table" => "comments"
             ];
 
             // Fetch post first
@@ -639,6 +645,7 @@
 
             $this->selecting->more_details("WHERE comment = ? LIMIT 20, $comment");
             $action = $this->selecting->action("*", "replies");
+            $this->selecting->reset();
 
             if($action != null) return $action;
 
@@ -668,8 +675,11 @@
 
                 $post_owner = $this->selecting->pull()[0][0]['user'];
 
+                // Modify the value
+                $val['content'] = Func::mention(self::$db, $val['content'], ['reply' => $val['id']]);
+
                 $arr = [
-                    "comment" => $val,
+                    "reply" => $val,
                     "other" => $other_val,
                     "self" => $this->user,
                     "more" => [
@@ -685,11 +695,6 @@
             $this->status = 1;
             $this->message = "void";
             $this->content = $result;
-
-            return $this->deliver();
-        }
-
-        public function reply_reply() : array {
 
             return $this->deliver();
         }
@@ -898,32 +903,92 @@
 
             if($action != null) return $action;
 
-            $value = $this->selecting->pull()[0];
-            foreach($value as $val1):
+            $value = $this->selecting->pull();
+            if($value[1] > 0):
+                foreach($value[0] as $val1):
+                    $result = true;
+                    // Get previous mentioned person's username
+                    $data = [
+                        "id" => $val1['other'],
+                        "1" => "1",
+                        "needle" => "username",
+                        "table" => "user" 
+                    ];
+
+                    $search = Func::searchDb(self::$db, $data);
+                    if(is_string($search)) $mentioned = $search;
+
+                    // If the mentioned from the database does not exist with the new mention
+                    // Delete it
+                    if(!in_array($mentioned, $mentions)):
+                        $other = $val1['other'];
+                        // Proceeding to delete the old mention
+                        $deleting = new Delete(self::$db, "WHERE $key = ? AND other = ?, $val, $other");
+                        $result = $deleting->proceed("mentions");
+                    endif;
+
+                endforeach;
+            else:
                 $result = true;
-                // Get previous mentioned person's username
-                $data = [
-                    "id" => $val1['other'],
+            endif;
+
+            return $result;
+        }
+
+        public function save_mentions(array $mentions, array $data) {
+            $key = array_keys($data);
+            $value = array_values($data);
+
+            // Insert mentions if there are any
+            $date = Func::dateFormat();
+            $time = time();
+
+            foreach($mentions as $mention):
+
+                $arr = [
+                    "username" => $mention,
                     "1" => "1",
-                    "needle" => "username",
-                    "table" => "user" 
+                    "needle" => "id",
+                    "table" => "user"
                 ];
 
-                $search = Func::searchDb(self::$db, $data);
-                if(is_string($search)) $mentioned = $search;
+                $search = Func::searchDb(self::$db, $arr);
 
-                // If the mentioned from the database does not exist with the new mention
-                // Delete it
-                if(!in_array($mentioned, $mentions)):
-                    $other = $val1['other'];
-                    // Proceeding to delete the old mention
-                    $deleting = new Delete(self::$db, "WHERE $key = ? AND other = ?, $val, $other");
-                    $result = $deleting->proceed("mentions");
+                if(is_int($search)):
+                    $other = $search;
+
+                    $subject = [
+                        "token",
+                        $key[0],
+                        $key[1],
+                        $key[2],
+                        "user",
+                        "other",
+                        "type",
+                        "date",
+                        "time"
+                    ];
+                    
+                    $items = [
+                        Func::tokenGenerator(),
+                        $value[0],
+                        $value[1],
+                        $value[2],
+                        $this->user,
+                        $other,
+                        $key[1],
+                        $date,
+                        $time
+                    ];
+
+                    $inserting = new Insert(self::$db, "mentions", $subject, "");
+                    $action = $inserting->push($items, "siiiiissi");
+                    $inserting->reset();
+
+                    if(!$action) return $action;
                 endif;
 
             endforeach;
-
-            return $result;
         }
     }
 ?>

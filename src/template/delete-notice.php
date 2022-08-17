@@ -96,17 +96,40 @@
     var delete_notice = document.querySelector(".delete-notice")
 
     function call_animation(element, data) {
-        element.style.display = "none"
 
-        // Setting the data process to 1, meaning the process is still on
-        delete_notice.setAttribute("data-process", 1)
+        // Deleting a previous request directly
+        var process = delete_notice.getAttribute("data-process")
+        var notice_token = delete_notice.getAttribute("data-delete-token")
+
+        if(process == 1 && notice_token != null) {
+            // A previous request was sent and hasn't been completed
+            // Process that request before sending a new one
+
+            data['val']['token'] = new Func().removeInitials(notice_token)
+
+            new Func().request("../request.php", JSON.stringify(data), 'json')
+            .then(val => {
+
+                new Func().notice_box(val)
+            })
+            
+        }
+
+        // Process the new request
+        delete_notice.setAttribute("data-delete-token", element.getAttribute("data-token"))
 
         var delete_animation = document.querySelector(".delete-animation")
+        element.style.display = "none"
+
+        delete_animation.classList.remove("animate")
+        // Check if there was a previous request and 
+        // Setting the data process to 1, meaning the process is still on
+        delete_notice.setAttribute("data-process", 1)
 
         // Display delete notice
         delete_notice.style.display = "block"
 
-        setTimeout(() => {
+        setTimeout(() =>{
             // Start animation
             delete_animation.classList.add("animate")
         }, 0050)
@@ -118,7 +141,6 @@
             delete_animation.addEventListener(trans, function() {
                 var data_process = delete_notice.getAttribute("data-process")
 
-                console.log(data_process)
                 // If the data_process is 1, proceed with it
                 if(data_process == 1) {
                     var token = delete_notice.getAttribute("data-delete-token")

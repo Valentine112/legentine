@@ -96,8 +96,8 @@ class CommentActions {
             // Fetch the post first, then comments next
             this.func.request("../request.php", JSON.stringify(data), 'json')
             .then(async function(val) {
+                console.log(val)
 
-                console.log(self)
                 // Revert everything back to how it was
                 self.cancel_edit_comment(document.getElementById("cancel-edit-comment"))
 
@@ -118,8 +118,7 @@ class CommentActions {
     }
 
     async delete_comment(elem) {
-        var parent = elem.closest(".entity-body"),
-        token = parent.getAttribute("data-token")
+        var parent = elem.closest(".entity-body")
 
         // Fetch post token
         var post = document.querySelector(".post-body").getAttribute("data-token")
@@ -135,11 +134,8 @@ class CommentActions {
             }
         }
 
-        var delete_notice = document.querySelector(".delete-notice")
-
         var promise = new Promise(res => {
             res(
-                delete_notice.setAttribute("data-delete-token", token),
                 call_animation(parent, data)
             )
         })
@@ -155,6 +151,9 @@ class CommentActions {
         var post = document.querySelector(".post-body").getAttribute("data-token")
         post = this.func.removeInitials(post)
 
+        // Fetch the comment token
+        var comment = this.func.removeInitials(parent.getAttribute("data-token"))
+
         // Display the reply box first
         // Feed in the values of the comment next
         // Fetch all the replies
@@ -165,28 +164,148 @@ class CommentActions {
 
         reply_box.style.display = "block"
 
-        // Feed the values
+        // MODIFYING THE COMMENT BOX FOR THE COMMENT THAT WAS REPLIED TO
+        var comment_body = document.getElementById("reply-comment")
         var photo = document.getElementById("comment-photo")
         var username = document.getElementById("comment-username")
         var content = document.getElementById("comment-content")
         var date = document.getElementById("comment-date")
 
-        username.innerText = elem.querySelector(".username").innerText
-        content.innerText = elem.querySelector(".user-comment").innerText
-        date.innerText = elem.querySelector(".date").innerText
+        comment_body.setAttribute("data-token", "LT-" + comment)
+        username.innerText = parent.querySelector(".username").innerText
+        content.innerHTML = parent.querySelector(".user-comment").innerHTML
+        date.innerText = parent.querySelector(".date").innerText
+        photo.setAttribute("src", parent.querySelector(".comment-img").getAttribute("src"))
+
+        // FETCHING THE REPLIES HERE
+        var data = {
+            part: "comment",
+            action: "fetch_reply",
+            val: {
+                from: this.pathObj['main_path'],
+                comment: comment,
+                post: post
+            }
+        }
+
+        // Fetch the post first, then comments next
+        this.func.request("../request.php", JSON.stringify(data), 'json')
+        .then(async function(val) {
+
+            if(val.status === 1) {
+
+                var reply_cover = document.querySelector(".reply-cover")
+                // Empty the reply cover before inserting new elements
+                reply_cover.innerHTML = ""
+
+                val.content.forEach(elem => {
+                    var reply = new Reply(elem)
+
+                    reply_cover.insertAdjacentHTML("afterbegin", reply.main())
+                })
+            }
+
+            new Func().notice_box(val)
+        })
 
     }
 
-    cancel_edit_comment(elem) {
-        var comment_input = document.getElementById("comment-value")
+    create_reply(elem) {
+        var mentions = []
+        var reply_elem = document.getElementById("reply-value")
+        var reply = reply_elem.innerText
+
+        // Fetch the mentions from the comment
+        mentions = new Func().fetch_mentions(reply)
+
+        if(new Func().stripSpace(reply).length > 0) {
+            // Fetch the post token
+            var post = document.querySelector(".post-body").getAttribute("data-token")
+
+            // Fetch the comment token
+            var comment = document.getElementById("reply-comment")
+            comment = this.func.removeInitials(comment.getAttribute("data-token"))
+
+            post = this.func.removeInitials(post)
+            var data = {
+                part: "comment",
+                action: "create_reply",
+                val: {
+                    from: this.pathObj['main_path'],
+                    content: reply,
+                    mentions: mentions,
+                    comment: comment,
+                    post: post
+                }
+            }
+
+            reply_elem.innerText = ""
+            // Fetch the post first, then comments next
+            this.func.request("../request.php", JSON.stringify(data), 'json')
+            .then(async function(val) {
+                console.log(val)
+                if(val.status === 1) {
+                    var reply_box = new Reply(val.content['comment'])
+
+                    document.querySelector(".reply-cover").insertAdjacentHTML("afterbegin", reply_box.main())
+                }
+
+                new Func().notice_box(val)
+            })
+
+        }else{
+           reply_elem.focus()
+        }
+    }
+
+    reply_reply(elem) {
+        var parent = elem.closest(".replies")
+        var reply_value = document.getElementById("reply-value")
+
+        // Check if its the same person
+        if(parent.getAttribute("data-self") != parent.getAttribute("data-other")){
+            var username  = parent.querySelector(".reply-username span")
+
+            // Check if person has been mention previously
+            if(reply_value.innerHTML.includes("@" + username.innerText)){
+                console.log("found")
+            }
+            reply_value.innerHTML += "@" + username.innerText
+        }
+
+        reply_value.focus()
+    }
+
+    edit_reply(elem) {
+        var parent = elem.closest(".replies")
+        var reply_input = document.getElementById("reply-value")
+        // Fetch the user comment to place in the input field
+        var user_comment = parent.querySelector(".reply-content")
         // Fetch the button to change the data-action
-        var send = document.getElementById("send")
+        var send = document.querySelector(".send-reply")
+
+        reply_input.innerText = user_comment.innerText
+        reply_input.focus()
+
+        send.setAttribute("data-action", "edit-reply-1")
+        send.setAttribute("data-comment", parent.getAttribute("data-token"))
+
+        document.getElementById("cancel-edit-comment").style.display = "inline"
+    }
+
+    cancel_edit(elem, action) {
+        var parent = elem.closest(".cancel-box")
+        var input_value = parent.querySelector(".input-value")
+        // Fetch the button to change the data-action
+        var send = parent.querySelector("#send")
     
         // Revert the button back to it's defaults
         send.removeAttribute("data-comment")
-        send.setAttribute("data-action", "create-comment")
+        send.removeAttribute("data-reply")
+
+        send.setAttribute("data-action", action)
     
-        comment_input.innerText = ""
+        input_value.innerText = ""
     
         console.log(elem)
     

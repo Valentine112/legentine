@@ -49,7 +49,7 @@ class Comment {
 
                 <div class="comment-options">
                     <div>
-                        <span data-action="reply-comment">Reply</span>
+                        <span data-action="reply-comment">Reply - ${this.comment['replies']}</span>
                     </div>
                     `
                     +

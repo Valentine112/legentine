@@ -41,6 +41,16 @@
 
                         break;
 
+                    case "fetch_reply":
+                        $result =  $modelComment->fetch_reply();
+
+                        break;
+
+                    case "create_reply":
+                        $result = $modelComment->create_reply();
+
+                        break;
+
                     default:
                         break;
 

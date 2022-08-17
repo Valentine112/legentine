@@ -35,7 +35,7 @@
 
     .reply .reply-comment{
         border-bottom: 2px solid #222;
-        padding-bottom: 3px;
+        padding-bottom: 10px;
     }
     .main-reply .box > div:first-child > div{
         display: inline-block;
@@ -59,11 +59,6 @@
         color: grey;
     }
 
-    .reply .reply-options span{
-        font-size: 14px;
-        color: silver;
-    }
-
     .reply-cover{
         width: 90%;
         margin-left: auto;
@@ -71,6 +66,16 @@
     }
     .replies{
         margin: 10px 0 10px 0;
+    }
+    .reply .reply-options > div{
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 5px 0 5px;
+    }
+    .reply .reply-options span{
+        font-size: 13px;
+        color: silver;
+        cursor: pointer;
     }
 
     /* reply input */
@@ -146,7 +151,7 @@
     <div>
         <div class="more">
             <div>
-                <span>Close</span>
+                <span onclick="this.closest('.reply').style.display = 'none'">Close</span>
             </div>
 
             <div class="small">
@@ -155,51 +160,50 @@
         </div>
 
         <div class="main-reply">
-            <div class="reply-comment box">
+            <div class="reply-comment box" id="reply-comment">
                 <div>
                     <div>
                         <a href="">
-                            <img src="../src/photo/image.jpg" alt="" id="comment-photo">  
+                            <img src=" " alt="" id="comment-photo">  
                         </a>
                     </div>
 
                     <div>
                         <div class="reply-username">
-                            <span id="comment-username">Himself</span>
+                            <span id="comment-username">
+                                <!-- Comment username -->
+                            </span>
                         </div>
 
                         <div>
                             <span class="reply-content" id="comment-content">
-                                Yeah yeah yeah
+                                <!-- The comment content goes here -->
                             </span>
                             &ensp;
                             <span class="date" id="comment-date">
-                                14 hours ago
+                                <!-- Comment date goes here -->
                             </span>
                         </div>
-                    </div>
-                </div>
-
-                <div class="reply-options">
-                    <div class="reply-delete">
-                        <span>Delete</span>
                     </div>
                 </div>
 
             </div>
 
             <div class="reply-cover">
-
+            <!-- REPLIES GOES HERE -->
             </div>
 
-            <div class="reply-input">
+            <div class="reply-input cancel-box">
+                <div>
+                    <span id="cancel-edit-reply" onclick="new CommentActions().cancel_edit(this, 'create-reply')">Cancel</span>
+                </div>
+
                 <div class="reply-holder">
                     <div>
-                        <div class="reply-value" contenteditable="true" data-placeholder="reply" id="reply-value"></div>
+                        <div class="reply-value input-value" contenteditable="true" data-placeholder="reply. . ." id="reply-value"></div>
                     </div>
-
                     <div>
-                        <button data-action="create-reply" id="send">Send</button>
+                        <button data-action="create-reply" id="send" class="send-reply">Send</button>
                     </div>
                 </div>
             </div>

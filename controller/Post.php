@@ -26,7 +26,7 @@
                 case 'fetch_post':
                     $result = $modelPost->fetch_post(USER);
                     break;
-
+                    
                 default:
 
                     break;

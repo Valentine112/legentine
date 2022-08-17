@@ -35,10 +35,9 @@ class Post {
 
                     // Remove all the previous content if there is a filter
                     if(filter != ""){
-                        document.querySelectorAll(".post-body").forEach(elem => {
-                            elem.remove()
-                        })
+                        article_content.innerHTML = ""
                     }
+                    
                     content.forEach(elem => {
                         var post = new PostHTML(elem, from, "../")
                         article_content.insertAdjacentHTML("beforeend", post.main())
