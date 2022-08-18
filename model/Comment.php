@@ -838,15 +838,21 @@
 
                     if($removed_mention):
                         // Check if the users are valid and fetch their id
-                        foreach($mentions as $mention):
+                        foreach($mentions as $mentioned):
 
-                            $this->selecting->more_details("WHERE username = ?, $mentioned");
-                            $action = $this->selecting->action("id", "user");
+                            $data = [
+                                "username" => $mentioned,
+                                "1" => "1",
+                                "needle" => "id",
+                                "table" => "user"
+                            ];
+                
+                            // Check if user is the owner of the reply
+                            $search = Func::searchDb(self::$db, $data);
 
-                            if($action != null) return $action;
-
-                            $other = $values[0][0]['id'];
-                            if(is_int($other)):
+                            if(is_int($search)):
+                                $other = $search;
+                                
                                 // Check if mention does not exist to determine wether to add one
 
                                 $data = [

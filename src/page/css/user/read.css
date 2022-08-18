@@ -155,13 +155,13 @@ body{
     margin: auto;
     width: 100%;
 }
-.read .comment-cover > div:first-child{
+.read .cancel-box > div:first-child{
     width: 90%;
     margin: auto;
     margin-bottom: 5px;
     text-align: left;
 }
-.read .comment-cover > div:first-child span{
+.read .cancel-box > div:first-child span{
     color: #fff;
     display: none;
     cursor: pointer;
@@ -198,6 +198,7 @@ body{
     outline: none;
     font-family: var(--theme-font);
 }
+
 /* Add the placeholder for the div */
 [contentEditable=true]:empty:before{
     content: attr(data-placeholder);

@@ -15,7 +15,7 @@
         <div class="content-loader">
             <div></div>
         </div>
-        <div>
+        <div class="main-content">
             <div class="main">
                 <div class="photo">
                     <a href="">
@@ -89,7 +89,7 @@
 
             <div class="comment-cover cancel-box">
                 <div>
-                    <span id="cancel-edit-comment" onclick="new CommentActions().cancel_edit(this, 'create-comment')">Cancel</span>
+                    <span id="cancel-edit-comment" class="cancel-edit" onclick="new CommentActions().cancel_edit(this, 'create-comment')">Cancel</span>
                 </div>
                 <div class="comment-holder">
                     <div>

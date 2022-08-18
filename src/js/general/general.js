@@ -204,12 +204,12 @@ document.body.addEventListener("click", async function(e) {
 
             break;
 
-        case "delete-comment":
-            comment.delete_comment(elem)
-            break;
-
         case "edit-comment-1":
             comment.edit_comment_1(elem)
+            break;
+
+        case "delete-comment":
+            comment.delete_comment(elem)
             break;
 
         case "create-reply":
@@ -219,8 +219,18 @@ document.body.addEventListener("click", async function(e) {
 
         case "reply-reply":
             comment.reply_reply(elem)
+
             break;
-            
+
+        case "edit-reply":
+            comment.edit_reply(elem)
+
+            break;
+        
+        case "edit-reply-1":
+            comment.edit_reply_1(elem)
+
+            break;
         default:
             break;
     }

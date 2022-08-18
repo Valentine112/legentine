@@ -99,7 +99,7 @@ class CommentActions {
                 console.log(val)
 
                 // Revert everything back to how it was
-                self.cancel_edit_comment(document.getElementById("cancel-edit-comment"))
+                self.cancel_edit(elem.closest(".cancel-box").querySelector(".cancel-edit"), "create-comment")
 
                 if(val.status === 1){
                     var comment_box = document.querySelector("[data-token=LT-" + val.content['token'])
@@ -288,9 +288,56 @@ class CommentActions {
         reply_input.focus()
 
         send.setAttribute("data-action", "edit-reply-1")
-        send.setAttribute("data-comment", parent.getAttribute("data-token"))
+        send.setAttribute("data-reply", parent.getAttribute("data-token"))
 
-        document.getElementById("cancel-edit-comment").style.display = "inline"
+        elem.closest(".main-content").querySelector(".cancel-edit").style.display = "inline"
+    }
+
+    edit_reply_1(elem) {
+        var self = this
+        var reply = elem.getAttribute("data-reply")
+
+        var reply_input = document.getElementById("reply-value")
+
+        // Fetch post token
+        var post = document.querySelector(".post-body").getAttribute("data-token")
+        post = self.func.removeInitials(post)
+
+        if(new Func().stripSpace(comment_input.innerText).length > 0) {
+            // Fetch the mentions from the comment
+            var mentions = new Func().fetch_mentions(reply_input.innerText)
+
+            reply = this.func.removeInitials(reply)
+            var data = {
+                part: "comment",
+                action: "edit_reply",
+                val: {
+                    from: this.pathObj['main_path'],
+                    reply_value: reply_input.innerText,
+                    post: post,
+                    reply: reply,
+                    mentions: mentions
+                }
+            }
+
+            // Fetch the post first, then comments next
+            this.func.request("../request.php", JSON.stringify(data), 'json')
+            .then(async function(val) {
+                console.log(val)
+
+                // Revert everything back to how it was
+                self.cancel_edit(elem.closest(".cancel-box").querySelector(".cancel-edit"), "create-reply")
+
+                if(val.status === 1){
+                    var reply_box = document.querySelector("[data-token=LT-" + val.content['token'])
+
+                    reply_box.querySelector(".reply-content").innerHTML = val.content['content']
+
+                }
+
+                new Func().notice_box(val)
+            })
+        }
     }
 
     cancel_edit(elem, action) {

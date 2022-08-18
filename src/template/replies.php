@@ -70,7 +70,7 @@
     .reply .reply-options > div{
         display: inline-block;
         vertical-align: middle;
-        margin: 0 5px 0 5px;
+        margin: 0 15px 0 15px;
     }
     .reply .reply-options span{
         font-size: 13px;
@@ -93,6 +93,7 @@
         width: 90%;
         margin: auto;
         background-color: inherit;
+        background-color: #444;
         border-bottom: 2px solid #f1f1f1;
     }
     .reply .reply-holder > div{
@@ -147,7 +148,7 @@
     }
 </style>
 
-<div class="reply config">
+<div class="main-content reply config">
     <div>
         <div class="more">
             <div>
@@ -195,7 +196,7 @@
 
             <div class="reply-input cancel-box">
                 <div>
-                    <span id="cancel-edit-reply" onclick="new CommentActions().cancel_edit(this, 'create-reply')">Cancel</span>
+                    <span id="cancel-edit-reply" class="cancel-edit" onclick="new CommentActions().cancel_edit(this, 'create-reply')">Cancel</span>
                 </div>
 
                 <div class="reply-holder">

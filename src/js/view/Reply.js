@@ -15,7 +15,7 @@ class Reply {
     main() {
         var element = `
             <div class="replies box"
-            data-token=${this.reply['token']}
+            data-token=LT-${this.reply['token']}
             data-self=${this.self}
             data-other=${this.reply['user']}
             >
@@ -28,8 +28,8 @@ class Reply {
                         <div class="reply-username">
                             <span>${this.other['username']}</span>
                         </div>
-                        <div class="reply-content">
-                            <span>
+                        <div>
+                            <span class="reply-content">
                                 ${this.reply['content']}
                             </span>
                             &ensp;
