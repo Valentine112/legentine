@@ -280,8 +280,6 @@
             (bool) $authority = false;
             (int) $one = 1;
 
-            $result = [];
-
             $permission = $this->check_permission($comment, $post);
 
             // Check if user is the owner of the commment
@@ -333,8 +331,20 @@
                         
                                     $search = Func::searchDb(self::$db, $data);
     
+                                    // If it doesn't exist, proceed to add this one
                                     if(!$search):
-                                        // If it doesn't exist, proceed to add this one
+                                        
+                                        // Fetch post id
+                                        $data = [
+                                            "token" => $post,
+                                            "1" => "1",
+                                            "needle" => "id",
+                                            "table" => "post"
+                                        ];
+
+                                        $search = Func::searchDb(self::$db, $data);
+                                        if(is_int($search)) $post = $search;
+
                                         $comment_str = "comment";
                                         $subject1 = [
                                             "token",
@@ -361,10 +371,7 @@
                                         $inserting = new Insert(self::$db, "mentions", $subject1, "");
                                         $action = $inserting->push($items1, "siiiissi");
 
-                                        if($action):
-                                            // Fetch replies
-    
-                                        else:
+                                        if(!$action):
                                             return $action;
                                         endif;
     
@@ -464,6 +471,7 @@
                             // Delete mentions related to the comment
                             if($deleting->proceed("mentions")):
                                 $deleting->end();
+
                                 // Commit the database to true if everything is set
                                 self::$db->autocommit(true);
 
@@ -706,6 +714,7 @@
              * Or the person performing this action is the owner of the reply
              * Those are the 2 who have permission to do it
              */
+            (int) $one = 1;
             $authority = 0;
             $val = $this->data['val'];
 
@@ -716,7 +725,7 @@
 
             // Check if its reply owner
             $data = [
-                "token" => $val['reply'],
+                "token" => $val['token'],
                 "user" => $this->user,
                 "needle" => "id",
                 "table" => "replies"
@@ -740,6 +749,7 @@
                 $authority = 1;
 
                 $reply = $val['reply'];
+
                 // Fetch the reply id
                 $this->selecting->more_details("WHERE token = ?, $reply");
                 $action = $this->selecting->action("id", "replies");
@@ -756,25 +766,52 @@
                 // Delete reply
                 // Delete mentions involving reply
 
+                // Fetch comment id to update the number of replies it has
+                $data = [
+                    "id" => $reply,
+                    "1" => "1",
+                    "needle" => "comment",
+                    "table" => "replies"
+                ];
+
+                $search = Func::searchDb(self::$db, $data);
+
                 self::$db->autocommit(false);
 
                 $deleting = new Delete(self::$db, "WHERE id = ?, $reply");
                 $action = $deleting->proceed("replies");
                 if($action):
 
-                    // Delete mentions
-                    $from = "reply";
-                    $deleting = new Delete(self::$db, "WHERE reply = ? AND from = ?, $reply, $from");
-                    $action = $deleting->proceed("mentions");
-                    if($action):
-                        $this->type = "success";
-                        $this->status = 1;
-                        $this->message = "void";
-                        $this->content = "Success";
+                    if(is_int($search)):
+                        $comment = $search;
 
-                        self::$db->autocommit(true);
+                        // Update the number of replies in comments
+                        $updating = new Update(self::$db, "SET replies = replies - ? WHERE id = ?# $one# $comment");
+                        $action = $updating->mutate('ii', 'comments');
+
+                        if($action):
+
+                            // Delete mentions
+                            $from = "reply";
+                            $deleting = new Delete(self::$db, "WHERE reply = ? AND type = ?, $reply, $from");
+                            $action = $deleting->proceed("mentions");
+
+                            if($action):
+                                $this->type = "success";
+                                $this->status = 1;
+                                $this->message = "void";
+                                $this->content = "Success";
+
+                                self::$db->autocommit(true);
+
+                            else:
+                                return $action;
+                            endif;
+                        else:
+                            return $action;
+                        endif;
                     else:
-                        return $action;
+                        $this->content = "Couldn't fetch comment id from reply table";
                     endif;
                 else:
                     return $action;
@@ -801,9 +838,14 @@
 
             $val = $this->data['val'];
 
+            (int) $one = 1;
+
+            $post = $val['post'];
             $reply = $val['reply'];
             $content = $val['content'];
-            (array) $mentions = $val['mention'];
+            (array) $mentions = $val['mentions'];
+
+            $reply_token = $reply;
 
             $this->type = "error";
             $this->status = 0;
@@ -825,18 +867,22 @@
             $search = Func::searchDb(self::$db, $data);
 
             if(is_int($search)):
+
                 $reply = $search;
 
-                // Update the reply if the user has the permission to do so
-                $updating = new Update(self::$db, "SET content = ? WHERE id = ?# $content# $reply");
-                $action = $updating->mutate('si', 'replies');
+                if(strlen(trim($content)) > 0):
 
-                if($action):
+                    self::$db->autocommit(false);
 
-                    // Remove mentions that are no longer present in this edited reply
-                    $removed_mention = $this->removed_mention($mentions, ["reply" => $reply]);
+                    // Update the reply if the user has the permission to do so
+                    $updating = new Update(self::$db, "SET content = ?, edited = ? WHERE id = ?# $content# $one# $reply");
+                    $action = $updating->mutate('sii', 'replies');
 
-                    if($removed_mention):
+                    if($action):
+
+                        // Remove mentions that are no longer present in this edited reply
+                        $this->removed_mention($mentions, ["reply" => $reply]);
+
                         // Check if the users are valid and fetch their id
                         foreach($mentions as $mentioned):
 
@@ -847,7 +893,6 @@
                                 "table" => "user"
                             ];
                 
-                            // Check if user is the owner of the reply
                             $search = Func::searchDb(self::$db, $data);
 
                             if(is_int($search)):
@@ -862,17 +907,51 @@
                                     "table" => "mentions"
                                 ];
                     
-                                // Check if user is the owner of the reply
                                 $search = Func::searchDb(self::$db, $data);
 
+                                // If it doesn't exist, proceed to add this one
                                 if(!$search):
-                                    // If it doesn't exist, proceed to add this one
-                                    $inserting = new Insert(self::$db, "mentions", $subject, "");
-                                    $action = $inserting->push($items, "");
-                                    if($action):
-                                        // Fetch replies
 
-                                    else:
+                                    // Fetch post id
+                                    $data = [
+                                        "token" => $post,
+                                        "1" => "1",
+                                        "needle" => "id",
+                                        "table" => "post"
+                                    ];
+                                    
+                                    $search = Func::searchDb(self::$db, $data);
+
+                                    if(is_int($search)) $post = $search;
+                                    
+                                    $subject = [
+                                        "token",
+                                        "post",
+                                        "reply",
+                                        "user",
+                                        "other",
+                                        "type",
+                                        "date",
+                                        "time"
+                                    ];
+                                    
+                                    $items = [
+                                        Func::tokenGenerator(),
+                                        $post,
+                                        $reply,
+                                        $this->user,
+                                        $other,
+                                        "reply",
+                                        Func::dateFormat(),
+                                        time()
+                                    ];
+
+
+                                    $inserting = new Insert(self::$db, "mentions", $subject, "");
+                                    $action = $inserting->push($items, "siiiissi");
+
+                                    if(!$action):
+
                                         return $action;
                                     endif;
 
@@ -882,13 +961,25 @@
                             endif;
 
                         endforeach;
-                    else:
-                        $this->content = $removed_mention;
 
+                    
+                        self::$db->autocommit(true);
+
+                        $this->type = "success";
+                        $this->status = 1;
+                        $this->message = "void";
+                        $this->content = [
+                            "token" => $reply_token,
+                            "content" => Func::mention(self::$db, $content, ['reply' => $reply])
+                        ];
+
+                    else:
+                        $this->content = "Couldn't update reply";
                     endif;
                 else:
-                    $this->content = "Couldn't update reply";
+                    $this->content = "Your reply is empty";
                 endif;
+
             endif;
 
             return $this->deliver();

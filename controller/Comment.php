@@ -51,6 +51,16 @@
 
                         break;
 
+                    case "edit_reply":
+                        $result = $modelComment->edit_reply();
+
+                        break;
+
+                    case "delete_reply":
+                        $result = $modelComment->delete_reply();
+                        
+                        break;
+
                     default:
                         break;
 

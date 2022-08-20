@@ -107,6 +107,7 @@ body{
     width: 85%;
     font-size: 14px;
     text-align: left;
+    word-wrap: break-word;
 }
 .comment-details > div:last-child .username{
     font-family: 600;
@@ -115,12 +116,11 @@ body{
 }
 .comment-details > div:last-child .user-comment{
     font-weight: 400;
-    word-break: break-all;
-    word-wrap: break-word;
 }
 .comment-details .date{
     font-size: 12px;
     color: grey;
+    white-space: nowrap;
 }
 .comments .comment-content img{
     height: 20px;

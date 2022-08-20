@@ -231,6 +231,12 @@ document.body.addEventListener("click", async function(e) {
             comment.edit_reply_1(elem)
 
             break;
+        
+        case "delete-reply":
+            comment.delete_reply(elem)
+
+            break;
+            
         default:
             break;
     }

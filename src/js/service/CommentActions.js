@@ -34,7 +34,6 @@ class CommentActions {
             // Fetch the post first, then comments next
             this.func.request("../request.php", JSON.stringify(data), 'json')
             .then(async function(val) {
-                console.log(val)
                 if(val.status === 1){
                     var comments = new Comment(val.content['comment'])
                     document.querySelector(".comment-content").insertAdjacentHTML("afterbegin", comments.main())
@@ -96,7 +95,6 @@ class CommentActions {
             // Fetch the post first, then comments next
             this.func.request("../request.php", JSON.stringify(data), 'json')
             .then(async function(val) {
-                console.log(val)
 
                 // Revert everything back to how it was
                 self.cancel_edit(elem.closest(".cancel-box").querySelector(".cancel-edit"), "create-comment")
@@ -134,12 +132,7 @@ class CommentActions {
             }
         }
 
-        var promise = new Promise(res => {
-            res(
-                call_animation(parent, data)
-            )
-        })
-        await promise
+        call_animation(parent, data)
     }
 
     reply_comment(elem) {
@@ -243,7 +236,6 @@ class CommentActions {
             // Fetch the post first, then comments next
             this.func.request("../request.php", JSON.stringify(data), 'json')
             .then(async function(val) {
-                console.log(val)
                 if(val.status === 1) {
                     var reply_box = new Reply(val.content['comment'])
 
@@ -267,10 +259,9 @@ class CommentActions {
             var username  = parent.querySelector(".reply-username span")
 
             // Check if person has been mention previously
-            if(reply_value.innerHTML.includes("@" + username.innerText)){
-                console.log("found")
+            if(reply_value.innerHTML.search("@" + username.innerText) === -1){
+                reply_value.innerHTML += "@" + username.innerText
             }
-            reply_value.innerHTML += "@" + username.innerText
         }
 
         reply_value.focus()
@@ -303,7 +294,7 @@ class CommentActions {
         var post = document.querySelector(".post-body").getAttribute("data-token")
         post = self.func.removeInitials(post)
 
-        if(new Func().stripSpace(comment_input.innerText).length > 0) {
+        if(new Func().stripSpace(reply_input.innerText).length > 0) {
             // Fetch the mentions from the comment
             var mentions = new Func().fetch_mentions(reply_input.innerText)
 
@@ -313,14 +304,13 @@ class CommentActions {
                 action: "edit_reply",
                 val: {
                     from: this.pathObj['main_path'],
-                    reply_value: reply_input.innerText,
+                    content: reply_input.innerText,
                     post: post,
                     reply: reply,
                     mentions: mentions
                 }
             }
 
-            // Fetch the post first, then comments next
             this.func.request("../request.php", JSON.stringify(data), 'json')
             .then(async function(val) {
                 console.log(val)
@@ -340,6 +330,26 @@ class CommentActions {
         }
     }
 
+    delete_reply(elem) {
+        var parent = elem.closest(".entity-body")
+
+        // Fetch post token
+        var post = document.querySelector(".post-body").getAttribute("data-token")
+        post = this.func.removeInitials(post)
+
+        var data = {
+            part: "comment",
+            action: "delete_reply",
+            val: {
+                from: this.pathObj['main_path'],
+                token: "",
+                post: post
+            }
+        }
+
+        call_animation(parent, data)
+    }
+
     cancel_edit(elem, action) {
         var parent = elem.closest(".cancel-box")
         var input_value = parent.querySelector(".input-value")
@@ -353,8 +363,6 @@ class CommentActions {
         send.setAttribute("data-action", action)
     
         input_value.innerText = ""
-    
-        console.log(elem)
     
         elem.style.display = "none"
     }

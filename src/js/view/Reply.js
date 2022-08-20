@@ -14,7 +14,7 @@ class Reply {
 
     main() {
         var element = `
-            <div class="replies box"
+            <div class="replies box entity-body"
             data-token=LT-${this.reply['token']}
             data-self=${this.self}
             data-other=${this.reply['user']}
