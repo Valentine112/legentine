@@ -32,6 +32,16 @@
                         $result = $modelUser->unlist();
 
                         break;
+
+                    case 'openSearch';
+                    $result = $modelUser->openSearch();
+                    
+                        break;
+
+                    case 'search':
+                        $result = $modelUser->search();
+
+                        break;
                     
                     default:
 

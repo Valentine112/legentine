@@ -70,7 +70,8 @@
             return [
                 'id' => 'legendstime1@gmail.com',
                 'pass' => 'Anthonyval',
-                'name' => 'Legentine'
+                'name' => 'Legentine',
+                'host' => 'smtp.gmail.com'
             ];
 
         }

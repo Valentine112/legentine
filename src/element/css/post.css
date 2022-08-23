@@ -348,8 +348,8 @@
 }
 @media screen and (min-width: 992px) {
     .post-body{
-        width: 30%;
-        margin: 1.6%;
+        width: 40%;
+        margin: 4.3%;
     }
     .post-assist{
         width: 75%;
@@ -366,4 +366,11 @@
 
     /* Toggling ends */
 
+}
+
+@media screen and (min-width: 1100px) {
+    .post-body{
+        width: 30%;
+        margin: 1.6%;
+    }
 }

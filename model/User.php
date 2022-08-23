@@ -107,5 +107,61 @@
             return $this->deliver();
         }
 
+        public function openSearch() : array {
+            $self = $this;
+            
+            $result = [
+                "people" => [],
+                "post" => []
+            ];
+
+            // Select some top rated random persons apart from myself
+            // Get people that are rated 4 and above
+            (int) $ratingMargin = 4;
+            (int) $people = 4;
+
+            function getRandomPeople(object $self, int $people, int $ratingMargin) : array {
+                $self->selecting->more_details("WHERE id <> ? AND rating > ? ORDER BY RAND() LIMIT $people, $self->user, $ratingMargin");
+                $action = $self->selecting->action("id, username, photo", "user");
+    
+                if($action != null) return $action;
+    
+                $value = $self->selecting->pull();
+
+                return $value;
+            }
+
+            $value = getRandomPeople($this, $people, $ratingMargin);
+            
+            // If the number of people with 4 ratings and above are not enough, get the remaining that are 3 and above
+
+            if($value[1] < 4):
+                $people -= $value[1];
+                (int) $ratingMargin = 3;
+
+                $value1 = getRandomPeople($this, $people, $ratingMargin);
+
+                array_push($value[0], ...$value1[0]);
+            endif;
+
+            $result['people'] = $value[0];
+
+
+
+            $this->type = "success";
+            $this->status = 1;
+            $this->message = "void";
+            $this->content = $result;
+
+            
+        }
+
+        public function search() : array {
+            $val = $this->data['val'];
+
+            // Fetch persons first
+            return $this->deliver();
+        }
+
     }
 ?>

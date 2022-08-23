@@ -1,5 +1,8 @@
 <?php
     require 'vendor/autoload.php';
+
+    use Service\FileHandling;
+
     ini_set("pcre.jit", "0");
     ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
 
@@ -7,6 +10,7 @@
     define("REGFILE", "log/signup.json");
     define("LOGINFILE", "log/login.json");
     define("FORGOTFILE", "log/forgot.json");
+    define("RANDOMS", "log/randoms.json");
 
     // Trimming the development url tp function with the router
     $path = $_SERVER['REQUEST_URI'];
@@ -51,6 +55,12 @@
         $session_type = null;
 
     endif;
+
+    // Getting the random people and post that would be displayed in the search menu
+    $fileHandling = new FileHandling(RANDOMS);
+    $file = json_decode($fileHandling->fetchFile(), true);
+
+    // Check if file is empty
 
 
 ?>

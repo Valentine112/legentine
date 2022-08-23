@@ -10,7 +10,7 @@
             right: 0;
             border-top: 1px solid #f5f5f5;
             padding: 12px 3px 12px 3px;
-            z-index: 2;
+            z-index: 3;
         }
         .navbar .small-navbar{
             display: flex;

@@ -8,14 +8,15 @@
 
     class Mailing extends PHPMailer{
 
-        public function __construct(string $email, ?string $full_name, int $code, array $config) {
+        public function __construct(string $email, ?string $fullname, ?int $code, array $config) {
             //Instantiation and passing 'true' enables exceptions
             parent::__construct(false);
 
-            $this->email = (string) Func::cleanData($email, "email");
-            is_string($full_name) ? $this->full_name = Func::cleanData($full_name, "string") : $this->full_name = "";
+            $this->email = Func::cleanData($email, "email");
+            $this->full_name = is_string($fullname) ? Func::cleanData($fullname, "string") : "";
             
-            $this->code = (int) Func::cleanData($code, "integer");
+            $this->code = $code !== null ? Func::cleanData($code, "integer") : 0;
+
             $this->config = $config;
         }
 
@@ -26,7 +27,7 @@
             $this->SMTPDebug = SMTP::DEBUG_OFF;                      // Enable verbose debug output
             $this->isSMTP();                                            // Send using SMTP
             $this->CharSet = "utf-8";
-            $this->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+            $this->Host = $this->config['host'];                    // Set the SMTP server to send through
             $this->SMTPAuth   = true;                                   // Enable SMTP authentication
             $this->Username   = $id;                     // SMTP username
             $this->Password   = $pass;                               // SMTP password
@@ -43,15 +44,17 @@
 
         public function set_params(string $message, string $subject) {
             $this->config();
-            //Recipients
+            // Server info
             $this->setFrom($this->config['id'], $this->config['name']);
-            $this->addAddress($this->email, $this->full_name);     // Add a recipient
-
-            $this->isHTML(true);                                  // Set email format to HTML
+            // Add a recipient
+            $this->addAddress($this->email, $this->fullname);
+            // Set email format to HTML
+            $this->isHTML(true);
+            // Set the subject of the mail
             $this->Subject = $subject;
-
+            // Set the body of the mail
             $this->msgHTML($message);
-            
+            // Set an alternative body of the mail
             $this->AltBody = $this->code;
        
         }
