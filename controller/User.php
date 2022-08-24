@@ -34,7 +34,7 @@
                         break;
 
                     case 'openSearch';
-                    $result = $modelUser->openSearch();
+                        $result = $modelUser->openSearch();
                     
                         break;
 

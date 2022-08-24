@@ -1,5 +1,7 @@
 :root{
     --theme-font: "SourceSansPro", sans-serif;
+    --theme-font-2: "montserrat", sans-serif;
+    --theme-font-3: 'Arial', sans-serif;
     --theme-color: #ff465b;
 }
 body{
@@ -206,5 +208,5 @@ body{
     }
 }
 
-/* Delete notice has the highest z-index of 4 */
-/* Quick notice sidebar has the third highest z-index of 3 */
+/* Delete notice has the highest z-index of 5 */
+/* Quick options has the third highest z-index of 4 */

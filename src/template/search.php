@@ -1,6 +1,6 @@
 <style>
-    *{
-        font-family: var(--theme-font);
+    a{
+        text-decoration: none;
     }
     .search{
         position: fixed;
@@ -8,14 +8,15 @@
         bottom: 0;
         left: 0;
         right: 0;
-        z-index: 4;
-        margin-bottom: 5%;
+        z-index: 2;
         height: 100vh;
         background-color: #fff;
-        overflow-y: auto;
+        overflow-y: scroll;
+        display: none;
     }
     .search .search-cover{
         margin-top: 2%;
+        margin-bottom: 25%;
     }
     .search .search-section{
         display: flex;
@@ -30,6 +31,8 @@
         flex: 1;
         color: #000;
         text-align: center;
+        font-family: var(--theme-font-3);
+        cursor: pointer;
     }
     .search .search-section input[type="text"] {
         width: 90%;
@@ -47,10 +50,11 @@
         margin-top: 5%;
     }
     .result-section .top-randoms header{
-        font-size: 17px;
-        font-family: 'Arial';
-        font-weight: 400;
-        margin-left: 4.5%;
+        font-size: 20px;
+        font-family: var(--theme-font-2);
+        font-weight: 800;
+        color: #000;
+        margin: 0 2%;
     }
     .top-randoms .people{
         width: 100%;
@@ -59,29 +63,26 @@
         display: inline-block;
         vertical-align: middle;
         position: relative;
-        height: 100px;
         width: 45%;
-        margin: 4px 2%;
+        margin: 8px 2%;
     }
     .top-randoms .people-box img{
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 1;
-        height: 100px;
+        height: 150px;
         width: 100%;
         border-radius: 5px;
         object-fit: cover;
     }
+    .top-randoms .people-box .top-fullname{
+        color: #000;
+        font-size: 15px;
+        font-weight: 400;
+        font-family: var(--theme-font-3);
+    }
     .top-randoms .people-box .top-username{
-        position: absolute;
-        bottom: 4%;
-        left: 4%;
-        z-index: 2;
-        color: #fff;
-        font-weight: 600;
+        color: grey;
+        font-size: 14px;
+        font-weight: 400;
+        font-family: var(--theme-font-3);
     }
 
     .top-randoms .top-rated-post{
@@ -91,16 +92,25 @@
         color: #000;
         text-decoration: none;
         margin: 3px 0 3px 0;
+        font-family: var(--theme-font-3);
     }
     .top-rated-post a > div{
+        background-color: rgba(255, 255, 255, 0.4);
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
         width: 90%;
-        margin: 4px 2%;
-        padding: 4px;
-        border-bottom: 1px solid #f1f1f1;
+        margin: 15px 0 25px 0;
+        box-shadow: 2px 2px 2px #fff;
+        border-radius: 10px;
+    }
+    .top-rated-post .title{
+        font-size: 16px;
+        color: #000;
+        font-weight: 600;
     }
     .top-rated-post .content{
         font-size: 15px;
-        color: grey;
+        color: #444;
     }
 
     .search-result a{
@@ -152,7 +162,7 @@
                     >
                 </div>
                 <div>
-                    <span>Cancel</span>
+                    <span onclick="toggleSearch(document.getElementById('hide-search'), 'alt-icon')">Cancel</span>
                 </div>
             </div>
 
@@ -165,46 +175,21 @@
                     <div class="top-rated-people">
                         <header>Some top rated persons</header>
                         <div class="people">
-                            <?php $i = 0; while($i < 4): $i++ ?>
-                            <div class="people-box">
-                                <a href="">
-                                    <div>
-                                        <img src="../src/photo/image.jpg" alt="">
-                                    </div>
-    
-                                    <div class="top-username">
-                                        <span>
-                                            Himself
-                                        </span>
-                                    </div>
-                                </a>
-                            </div>
-                            <?php endwhile; ?>
+                            <!-- The people goes here -->
                         </div>
                     </div>
 
-                    <div class="top-rated-post">
+                    <div class="top-rated-post previews">
                         <header>Some top starred post</header>
                         <div class="post">
-                            <?php $i = 0; while($i < 4): $i++ ?>
-                            <a href="">
-                                <div>
-                                    <div class="title">Despair</div>
-                                    <span class="content">
-                                        April is the cruellest month, breeding
-                                        Lilacs out of the dead land, mixing
-                                        Memory and desire, stirring
-                                        . . .
-                                    </span>
-                                </div>
-                            </a>
-                            <?php endwhile; ?>
+                            <!-- The post goes here -->
                         </div>
                     </div>
                 </div>
 
-                <div class="search-result">
-                    
+                <div class="search-result" id="search-result">
+                    <!-- Search result goes here -->
+
                 </div>
             </div>
         </div>

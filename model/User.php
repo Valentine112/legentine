@@ -120,32 +120,24 @@
             (int) $ratingMargin = 4;
             (int) $people = 4;
 
-            function getRandomPeople(object $self, int $people, int $ratingMargin) : array {
-                $self->selecting->more_details("WHERE id <> ? AND rating > ? ORDER BY RAND() LIMIT $people, $self->user, $ratingMargin");
-                $action = $self->selecting->action("id, username, photo", "user");
-    
-                if($action != null) return $action;
-    
-                $value = $self->selecting->pull();
+            $this->selecting->more_details("WHERE id <> ? AND rating >= ? ORDER BY RAND() LIMIT $people, $self->user, $ratingMargin");
 
-                return $value;
-            }
+            $action = $this->selecting->action("id, fullname, username, photo", "user");
+            $self->selecting->reset();
 
-            $value = getRandomPeople($this, $people, $ratingMargin);
-            
-            // If the number of people with 4 ratings and above are not enough, get the remaining that are 3 and above
+            if($action != null) return $action;
 
-            if($value[1] < 4):
-                $people -= $value[1];
-                (int) $ratingMargin = 3;
+            $result['people'] = $this->selecting->pull()[0];
 
-                $value1 = getRandomPeople($this, $people, $ratingMargin);
+            // Select some top starred post apart from my post
+            (int) $starMargin = 1;
+            $this->selecting->more_details("WHERE user <> ? AND stars >= ? ORDER BY RAND() LIMIT 4, $this->user, $starMargin");
+            $action = $this->selecting->action("token, title, content", "post");
+            $this->selecting->reset();
 
-                array_push($value[0], ...$value1[0]);
-            endif;
+            if($action != null) return $action;
 
-            $result['people'] = $value[0];
-
+            $result['post'] = $this->selecting->pull()[0];
 
 
             $this->type = "success";
@@ -153,13 +145,77 @@
             $this->message = "void";
             $this->content = $result;
 
-            
+            return $this->deliver();
+
         }
 
         public function search() : array {
             $val = $this->data['val'];
 
+            $arr = [];
+            $result = [
+                "person" => [],
+                "post" => []
+            ];
+
             // Fetch persons first
+            $content = $val['content'];
+            $contentRegExp = '%'.$content.'%';
+
+            function searchExp(object $self, string $contentRegExp) : array {
+                $self->selecting->more_details("WHERE fullname LIKE ? OR username LIKE ?, $contentRegExp, $contentRegExp");
+
+                $action = $self->selecting->action("username", "user");
+                $self->selecting->reset();
+                if($action !== null) return $action;
+
+                return $self->selecting->pull()[0];
+            }
+
+
+            // Fetch the first set of result that matches the whole content
+            $value = searchExp($this, $contentRegExp);
+            array_push($result, $value);
+
+            // Split the search value in 2 to get results from the first side
+            // And get the result from the second side
+            // This should be done if the length of the search is greater than 4
+
+            $contentLength = strlen(trim($content));
+            if($contentLength > 3):
+                $halfContent = $contentLength / 2;
+
+                if(!is_float($halfContent)):
+                    $firstHalf = substr($content, 0, $halfContent);
+                    $secondHalf = substr($content, $halfContent);
+
+                else:
+                    $firstHalf = substr($content, 0, ceil($halfContent));
+                    $secondHalf = substr($content, floor($halfContent));
+                endif;
+
+                $firstContentExp = '%'.$firstHalf.'%';
+                $secondContentExp = '%'.$secondHalf.'%';
+
+
+                // Fetch the first half content
+                $value = searchExp($this, $firstContentExp);
+                array_push($arr, $value);
+
+                // Fetch the first half content
+                $value = searchExp($this, $secondContentExp);
+                array_push($arr, $value);
+
+                print_r($arr);
+
+                $result['person'] = array_merge(...$arr);
+
+                print_r($result);
+                
+                $this->content = $result;
+
+            endif;
+
             return $this->deliver();
         }
 

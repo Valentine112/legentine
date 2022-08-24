@@ -8,7 +8,7 @@
     <style>
         .welcome{
             font-size: 30px;
-            font-family: 'montserrat', sans-serif;
+            font-family: var(--theme-font-2);
             color: var(--theme-color);
         }
         .welcome > div{

@@ -128,7 +128,7 @@
     text-shadow: 2px 3px 4px #e5e5e5;
 }
 .post-sub .content-segment .title-segment{
-    font-family: 'montserrat', sans-serif;
+    font-family: var(--theme-font-2);
     color: #000;
     width: 90%;
     white-space: nowrap;

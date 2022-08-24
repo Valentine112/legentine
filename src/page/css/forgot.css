@@ -10,7 +10,7 @@
     text-align: center;
 }
 .forgot-2 > div:first-child{
-    font-family: 'montserrat', sans-serif;
+    font-family: var(--theme-font-2);
     font-size: 22px;
     color: var(--theme-color);
 }

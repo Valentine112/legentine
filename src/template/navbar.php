@@ -203,10 +203,10 @@
                 </a>
             </div>
                 
-            <div>
-                <img src="../src/icon/header/plain-icon/search.svg" alt="search" class="config-icon-1 ori-icon">
+            <div class="search-toggle">
+                <img src="../src/icon/header/plain-icon/search.svg" alt="search" class="config-icon-1 ori-icon" onclick="toggleSearch(this, 'ori-icon')">
 
-                <img src="../src/icon/header/color-icon/search.svg" alt="search" class="config-icon-1 alt-icon">
+                <img src="../src/icon/header/color-icon/search.svg" alt="search" class="config-icon-1 alt-icon" id="hide-search" onclick="toggleSearch(this, 'alt-icon')">
             </div>
 
             <div>
@@ -320,7 +320,11 @@
 
             <div class="section-2">
                 <div>
-                    <input type="search"  id="search" autocomplete="off" placeholder="Search for people. . .">
+                    <input type="search"  id="search" autocomplete="off" placeholder="Search for people. . ."                     onkeyup="Search(this)">
+
+                    <div class="search-result-big" id="search-result">
+
+                    </div>
                 </div>
 
                 <div>
@@ -369,5 +373,29 @@
                     }
                 }) 
             }
+
+            // Display the search menu
+
         }, true)
+
+        function toggleSearch(self, option) {
+            // Showing which search is active when the OpenSaerch is ready
+            // This is so that if the page hasn't loaded,
+            // The toggling search button wouldn't give off the impression that something is working
+            if(document.querySelector(".search") != null) {
+                self.style.display = "none"
+                var search = document.querySelector(".search")
+
+                if(option === "ori-icon") {
+                    self.closest(".search-toggle").querySelector(".alt-icon").style.display = "inline"
+
+                    search.style.display = "block"
+                }
+                else if(option === "alt-icon") {
+                    self.closest(".search-toggle").querySelector(".ori-icon").style.display = "inline"
+
+                    search.style.display = "none"
+                }
+            }
+        }
     </script>

@@ -9,7 +9,7 @@
             margin: auto;
             background-color: snow;
             border-radius: 5px;
-            z-index: 4;
+            z-index: 5;
             font-family: var(--theme-font);
             display: none;
         }

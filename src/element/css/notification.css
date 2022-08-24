@@ -2,7 +2,7 @@
     font-family: var(--theme-font);
 }
 .notification .sub-pages{
-    font-family: 'montserrat', sans-serif;
+    font-family: var(--theme-font-2);
     text-align: center;
 }
 .notification > div:last-child{
