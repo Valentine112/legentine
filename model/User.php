@@ -175,7 +175,7 @@
 
             // Fetch the first set of result that matches the whole content
             $value = searchExp($this, $contentRegExp);
-            array_push($result, $value);
+            array_push($arr, $value);
 
             // Split the search value in 2 to get results from the first side
             // And get the result from the second side

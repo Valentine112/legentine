@@ -94,6 +94,49 @@
                 flex-grow: 1;
                 text-align: center;
             }
+
+            /* OPEN SEARCH BOX */
+
+            .large-navbar .section-2 .search-section{
+                position: relative;
+            }
+            .large-navbar .section-2 .openSearchBox{
+                background-color: #f9f9f9;
+                position: absolute;
+                right: 0;
+                width: 90%;
+                height: 80vh;
+                overflow-y: auto;
+                text-align: left;
+                font-family: var(--theme-font);
+            }
+            .section-2 .openSearchBox .previews{
+                padding: 15px;
+            }
+            .recent-toggle{
+                display: none;
+            }
+            .recents header{
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .recents header > div:last-child{
+                color: var(--theme-color);
+            }
+            .section-2 .openSearchBox .recent-results{
+                margin: 15px 15px;
+                font-size: 15px;
+            }
+            .section-2 .openSearchBox .recent-results > div{
+                padding: 4px;
+                border-bottom: 1px solid #f1f1f1;
+                margin: 4px 0;
+            }
+
+            /* END */
+
             .navbar .large-navbar > a, .navbar .large-navbar span{
                 font-size: 14px;
             }
@@ -319,11 +362,42 @@
             </div>
 
             <div class="section-2">
-                <div>
-                    <input type="search"  id="search" autocomplete="off" placeholder="Search for people. . ."                     onkeyup="Search(this)">
+                <div class="search-section search-parent">
+                    <input 
+                        type="search"  
+                        id="search" 
+                        autocomplete="off" 
+                        placeholder="Search for people. . ."                     onkeyup="Search(this)"
+                        onfocus="startSearch(this)"
+                    />
 
-                    <div class="search-result-big" id="search-result">
+                    <div class="openSearchBox recent-toggle">
+                        <div class="previews">
+                            <div class="recents recent-toggle search-previews">
+                                <header>
+                                    <div>
+                                        Recents
+                                    </div>
 
+                                    <div>
+                                        <div>Clear</div>
+                                    </div>
+                                </header>
+
+                                <div class="recent-results">
+                                    <div>
+                                        <div>Himself</div>
+                                    </div>
+                                    <div>
+                                        <div>Himself</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="search-result" id="search-result">
+                            <!-- Search result goes here -->
+                        </div>
                     </div>
                 </div>
 

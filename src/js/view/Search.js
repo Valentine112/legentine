@@ -35,10 +35,10 @@ class OpenSearch {
     Post() {
         var post = this.data
 
-        var brief = ""
+        var brief = post['content']
 
-        if(new Func().stripSpace(post['content']).length > 200) {
-            brief = post['content'].slice(0, 150) + "..."
+        if(new Func().stripSpace(brief).length > 100) {
+            brief = brief.slice(0, 100) + "..."
         }
 
         var element = `
@@ -48,6 +48,44 @@ class OpenSearch {
                     <span class="content">
                         ${brief}
                     </span>
+                </div>
+            </a>
+        `
+
+        return element
+    }
+}
+
+class SearchBox {
+    
+    constructor(data) {
+        this.data = data
+    }
+
+    people() {
+        var element = `
+            <a href="">
+                <div class="result-box person">
+                    <div>
+                        <img src="../src/photo/image.jpg" alt="">
+                    </div>
+                    <div>
+                        <div class="fullname post-title">Ngene Valentine</div>
+                        <div class="username">Himself</div>
+                    </div>
+                </div>
+            </a>
+        `
+
+        return element
+    }
+
+    post() {
+        var element = `
+            <a href="">
+                <div class="result-box post">
+                    <div class="post-title">${this.post['title']}</div>
+                    <div class="post-content">${this.post['content']}</div>
                 </div>
             </a>
         `

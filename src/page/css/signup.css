@@ -32,6 +32,7 @@
 .form-holder form .password-div span{
     font-family: var(--theme-font);
     cursor: pointer;
+    color: var(--theme-color);
 }
 .form-holder form > div:last-child{
     margin-top: 30px;

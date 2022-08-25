@@ -21,7 +21,7 @@
                 <script async src="'.$struct.'src/js/service/Post.js"></script>
                 <script async src="'.$struct.'src/js/service/User.js"></script>
                 <script async src="'.$struct.'src/js/service/CommentActions.js"></script>
-                <script async src="'.$struct.'src/js/view/OpenSearch.js"></script>
+                <script async src="'.$struct.'src/js/view/Search.js"></script>
             </head>';
         }
     }

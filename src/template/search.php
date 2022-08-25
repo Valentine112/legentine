@@ -29,7 +29,7 @@
     }
     .search .search-section > div:last-child{
         flex: 1;
-        color: #000;
+        color: var(--theme-color);
         text-align: center;
         font-family: var(--theme-font-3);
         cursor: pointer;
@@ -37,12 +37,34 @@
     .search .search-section input[type="text"] {
         width: 90%;
         margin: auto;
-        padding: 13px 10px 13px 10px;
+        padding: 10px 10px 10px 10px;
         outline: none;
-        border: 1px solid rgb(223, 236, 250);
+        border: 1px solid #f5f5f5;
+        background-color: #f5f5f5;
         font-size: 16px;
-        border-radius: 4px;
+        border-radius: 10px;
     }
+
+    /* RECENTS HERE */
+
+    .recent-toggle{
+        display: none;
+        padding: 15px;
+        font-family: var(--theme-font-3);
+    }
+    .recents header{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .recents header > div:last-child{
+        color: var(--theme-color);
+    }
+
+    /* END */
+
+    /* DISPLAYING MORE PEOPLE HERE */
 
     .search-cover .result-section .top-randoms{
         width: 90%;
@@ -54,7 +76,7 @@
         font-family: var(--theme-font-2);
         font-weight: 800;
         color: #000;
-        margin: 0 2%;
+        margin: 0 1%;
     }
     .top-randoms .people{
         width: 100%;
@@ -64,7 +86,7 @@
         vertical-align: middle;
         position: relative;
         width: 45%;
-        margin: 8px 2%;
+        margin: 8px 1%;
     }
     .top-randoms .people-box img{
         height: 150px;
@@ -99,7 +121,7 @@
         -webkit-backdrop-filter: blur(5px);
         backdrop-filter: blur(5px);
         width: 90%;
-        margin: 15px 0 25px 0;
+
         box-shadow: 2px 2px 2px #fff;
         border-radius: 10px;
     }
@@ -107,58 +129,70 @@
         font-size: 16px;
         color: #000;
         font-weight: 600;
+        padding: 3px 0;
+        border-bottom: 1px inset #f1f1f1;
     }
     .top-rated-post .content{
+        margin-top: 5px;
         font-size: 15px;
         color: #444;
     }
+
+    /* END */
 
     .search-result a{
         color: #000;
         text-decoration: none;
     }
     .search-result .result-box{
+        border-bottom: 1px solid #f1f1f1;
+        margin-bottom: 5px;
+        padding: 5px 0;
+    }
+    .search-result .person{
+        border-radius: 10px;
         display: flex;
         justify-content: left;
         align-items: center;
-        padding: 10px 0 10px 0;
     }
-
-    /* Different background color for the type of result gotten */
-    .search-result .person{
-        background-color: #f5f5f5;
+    .search-result .post{
+        margin-left: 20px;
     }
-
-    /* END */
-
-    .search-result .result-box > div:first-child{
+    .search-result .person > div:first-child{
         flex: 1;
         text-align: center;
     }
-    .search-result .result-box > div:last-child{
+    .search-result .person > div:last-child{
         flex: 5;
     }
-    .result-section .search-result img{
+    .search-result img{
         height: 42px;
         width: 42px;
         border-radius: 50px;
         margin: auto;
         vertical-align: middle;
     }
-    .result-section .search-result .username{
+    .search-result .username{
         font-size: 14px;
+        color: #444;
+    }
+    .search-result .post .post-content{
+        margin-top: 0;
+        font-size: 14px;
+        color: #5e5e5e;
     }
 </style>
 <div class="small">
     <div class="search">
-        <div class="search-cover">
+        <div class="search-cover search-parent">
             <div class="search-section">
                 <div>
                     <input 
                     type="text"
-                    placeholder="Search for contents and people. . ."
-                    aria-placeholder="Search for contents and people"
+                    placeholder="Find post and people"
+                    aria-placeholder="Search for post and people"
                     onkeyup="Search(this)"
+                    onfocus="startSearch(this)"
                     >
                 </div>
                 <div>
@@ -167,11 +201,19 @@
             </div>
 
             <div class="result-section">
-                <div class="recents previews">
+                <div class="recents search-previews recent-toggle">
+                    <header>
+                        <div>
+                            Recents
+                        </div>
 
+                        <div>
+                            <div>Clear</div>
+                        </div>
+                    </header>
                 </div>
 
-                <div class="top-randoms previews">
+                <div class="top-randoms search-previews">
                     <div class="top-rated-people">
                         <header>Some top rated persons</header>
                         <div class="people">
@@ -217,13 +259,28 @@
         return result_box
     }
 
+    function startSearch(self) {
+        // Hide the recents and tips
+        // But show only the recents when the search focuses
+
+        document.querySelectorAll(".search-previews").forEach(elem => {
+            elem.style.display = "none"
+        })
+
+        var recentSearch = document.querySelectorAll(".recent-toggle")
+        recentSearch.forEach(elem => {
+            elem.style.display = "block"
+        })
+    }
+
+    // Show the previews for the small device here
     function Search(self) {
         var searchValue = new Func().stripSpace(self.value)
 
         if(searchValue.length > 0) {
 
             // Hide the recents and tips
-            document.querySelectorAll(".previews").forEach(elem => {
+            document.querySelectorAll(".search-previews").forEach(elem => {
                 elem.style.display = "none"
             })
 
@@ -244,7 +301,7 @@
             })
         }else{
             // Show the recents and tips
-            document.querySelectorAll(".previews").forEach(elem => {
+            document.querySelectorAll(".search-previews").forEach(elem => {
                 elem.style.display = "block"
             })
         }
