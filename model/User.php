@@ -26,6 +26,61 @@
         }
 
         public function fetchUser() : array {
+            $result = [];
+
+            $box = [
+                "person" => [],
+                "self" => [
+                    "user" => $this->user
+                ],
+                "more" => []
+            ];
+
+            $user = $this->data['val']['user'];
+
+            $this->selecting->more_details("WHERE id = ?, $user");
+            $action = $this->selecting->action("*", "user");
+            $this->selecting->reset();
+
+            if($action !== null) return $action;
+
+            $value = $this->selecting->pull()[0];
+            foreach($value as $val):
+                $box['person'] = $val;
+
+                $person = $val['id'];
+
+                if($this->user !== $person):
+                    // Check pinned
+                    $this->selecting->more_details("WHERE user = ? AND other = ?, $this->user, $person");
+                    $action = $this->selecting->action("token", "pin");
+                    $this->selecting->reset();
+
+                    if($action !== null) return $action;
+                    $value = $this->selecting->pull();
+
+                    $box['more']['pinned'] = $value[1] > 0 ? true : false;
+
+                    // Check Listed
+                    $this->selecting->more_details("WHERE user = ? AND other = ?, $this->user, $person");
+                    $action = $this->selecting->action("token", "blocked_users");
+                    $this->selecting->reset();
+
+                    if($action !== null) return $action;
+                    $value = $this->selecting->pull();
+
+                    $box['more']['listed'] = $value[1] > 0 ? true : false;
+
+                endif;
+
+                array_push($result, $box);
+            endforeach;
+
+            
+            $this->type = "success";
+            $this->status = 1;
+            $this->message = "void";
+            $this->content = $result;
 
             return $this->deliver();
         }

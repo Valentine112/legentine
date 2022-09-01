@@ -4,8 +4,8 @@ class Profile {
         this.data = data
     }
 
-    main() {
-        var person = this.data['person']
+    main(ind) {
+        var person = this.data[ind]['person']
 
         var element = `
             <div class="profileSub">
@@ -15,7 +15,7 @@ class Profile {
                     </div>
                 </div>
 
-                ${this.profileAction()}
+                ${this.profileAction(ind)}
             </div>
 
             <div class="userInfo">
@@ -29,13 +29,13 @@ class Profile {
                     </div>
 
                     <div>
-                        <span>${person['quote']}</span>
+                        <span>${person['quote'] == "" ? person['username'] + " doesn't have a favourite quote" : person['quote']}</span>
                     </div>
 
                     <div>
                         <div>
                             <span>Stars - </span>
-                            <span class="rating">${person['rating']}</span>
+                            <span class="rating">${parseFloat(person['rating'].toFixed(1))}</span>
                         </div>
                     </div>
 
@@ -53,8 +53,8 @@ class Profile {
         return element
     }
 
-    profileAction() {
-        var person = this.data['person']
+    profileAction(ind) {
+        var person = this.data[ind]['person']
 
         var self = `
             <div class="self">
@@ -70,23 +70,23 @@ class Profile {
         var other = `
             <div class="other">
                 <div class="pinBox">
-                    ${this.checkPin()}
+                    ${this.checkPin(ind)}
                 </div>
                 <br>
                 <div class="unlistBox">
-                    ${this.checkList()}
+                    ${this.checkList(ind)}
                 </div>
             </div>
         `
 
-        if(person['id'] === this.self) {
+        if(person['id'] === this.data[ind]['self']['user']) {
             return self
         }else{
             return other
         }
     }
 
-    checkPin() {
+    checkPin(ind) {
         var unpin = `
             <img src="../src/icon/profile/unpin.svg" alt="" class="unpin active" data-type="unpin" data-action="pin">
 
@@ -99,32 +99,33 @@ class Profile {
             <img src="../src/icon/profile/unpin.svg" alt="" class="unpin" data-type="unpin" data-action="pin">
         `
 
-        if(this.more['pinned']) {
+        if(this.data[ind]['more']['pinned']) {
             return pinned
         }else{
             return unpin
         }
     }
 
-    checkList() {
+    checkList(ind) {
         var list = ""
-        if(this.more['listed']) {
-            list = "Unlist"
-        }else{
+
+        if(this.data[ind]['more']['listed']) {
             list = "List"
+        }else{
+            list = "Unlist"
         }
 
         return `
-            <div class="${list}>
+            <div class="${list} action" data-action="profileList">
                 <span>${list}</span>
             </div>
         `
     }
 
-    rating() {
+    rating(ind) {
         var rate = document.getElementById("rate")
 
-        var person = this.data['person']
+        var person = this.data[ind]['person']
 
         var rating = person['rating']
 

@@ -63,6 +63,21 @@ class Options {
     }
 
     authorOptions() {
+        // Remove unlist from the post options if user is in profile page
+        var unlistOption = `
+            <div class="edit-options action" data-action="unlist_user">
+                <div>
+                    <img src="${this.path}src/icon/option-icon/unlist.svg" alt="">
+                </div>
+                <div>
+                    <span>Unlist user</span>
+                </div>
+            </div>
+        `
+        if(this.from === "profile") {
+            unlistOption = ""
+        }
+
         var personnal = `
             <div class="author personnal-options">
                 <div class="edit-options action">
@@ -106,14 +121,7 @@ class Options {
                     </div>
                 </div>
 
-                <div class="edit-options action" data-action="unlist_user">
-                    <div>
-                        <img src="${this.path}src/icon/option-icon/unlist.svg" alt="">
-                    </div>
-                    <div>
-                        <span>Unlist user</span>
-                    </div>
-                </div>
+                ${unlistOption}
             </div>
         `
 

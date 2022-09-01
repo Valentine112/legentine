@@ -213,6 +213,22 @@ class PostHTML {
     }
 
     options() {
+        // Remove unlist from the post options if user is in profile page
+        var unlistOption = `
+            <div class="edit-options action" data-action="unlist_user">
+                <div>
+                    <img src="${this.path}src/icon/option-icon/unlist.svg" alt="">
+                </div>
+                <div>
+                    <span>Unlist user</span>
+                </div>
+            </div>
+        `
+
+        if(this.from === "profile") {
+            unlistOption = ""
+        }
+
         var personnal = `<div class="author personnal-options">
             <div class="edit-options action">
                 <a href="session?token=${this.post['token']}">
@@ -253,14 +269,7 @@ class PostHTML {
                 </div>
             </div>
 
-            <div class="edit-options action" data-action="unlist_user">
-                <div>
-                    <img src="${this.path}src/icon/option-icon/unlist.svg" alt="">
-                </div>
-                <div>
-                    <span>Unlist user</span>
-                </div>
-            </div>
+            ${unlistOption}
         </div>`
 
         var save = `<div class="viewer personnal-options" data-action="remove_saved_post">
@@ -297,7 +306,7 @@ class PostHTML {
         </div>`
 
         // Return any of this if page is from home/rank/profile
-        if(this.from === "home" || this.from === "rank"){
+        if(this.from === "home" || this.from === "rank" || this.from === "profile"){
 
             // Check if post belongs to viewer
             if(this.more['owner']) {

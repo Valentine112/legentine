@@ -2,13 +2,14 @@
     margin-top: 20px;
 }
 
-.profile .self{
-    display: none;
-}
 .profileHead{
     padding-left: 20px;
 }
+.profileHead .profileHTML{
+    width: 100%;
+}
 .profileHead .profileSub{
+    width: 100%;
     display: flex;
     align-items: top;
 }
@@ -54,13 +55,22 @@
     margin: auto;
     font-size: 15px;
     border-radius: 10px;
-}
-.profileSub .unlistBox .Unlist{
-    border: 1px solid var(--theme-color);
-    color: var(--theme-color);
+    cursor: pointer;
 }
 .profileSub .unlistBox .List{
+    border: 1px solid var(--theme-color);
+    color: var(--theme-color);
+    transition: border 1s linear, color 1s linear;
+}
+.profileSub .unlistBox .List span{
+    color: var(--theme-color);
+}
+.profileSub .unlistBox .Unlist{
     border: 1px solid dodgerblue;
+    color: dodgerblue;
+    transition: border 1s linear, color 1s linear;
+}
+.profileSub .unlistBox .Unlist span{
     color: dodgerblue;
 }
 /* END */

@@ -37,8 +37,8 @@
 
         <div class="profile">
             <div class="profileHead">
-                <div class="profileHTML">
-                    <!-- Show the profile head -->
+                <div class="profile" id="profileHTML">
+                    <!-- Profile head goes here -->
                 </div>
 
                 <div class="headerSection">
