@@ -155,7 +155,7 @@ class Options {
         `
 
         // Return any of this if page is from home/rank/profile
-        if(this.from === "home" || this.from === "rank"){
+        if(this.from === "home" || this.from === "rank" || this.from === "profile"){
 
             // this.data['owner'] is not a boolean, rather a string
             // It converted to a string when i added it to the html body

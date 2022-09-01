@@ -66,6 +66,14 @@
         require "src/page/user/read.php";
     })
 
+    ->get('/user/search', function() {
+        require "src/page/user/search.php";
+    })
+
+    ->get('/user/profile', function() {
+        require "src/page/user/profile.php";
+    })
+
     ->listen();
 
     // Routing ends

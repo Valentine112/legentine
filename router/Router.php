@@ -122,6 +122,9 @@ class Router
         }
 
         // Display 404 page
+        header("location: ../404.php");
+
+        return;
         
     }
 

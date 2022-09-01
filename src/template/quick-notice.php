@@ -9,7 +9,7 @@
             margin: auto;
             display: none;
             transition: opacity 3s ease-out;
-            z-index: 2;
+            z-index: 5;
         }
         .quick-notice > div{
             border-radius: 5px;

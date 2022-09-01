@@ -54,6 +54,18 @@ class OpenSearch {
 
         return element
     }
+
+    Recent() {
+        var element = `
+            <a href="search?${this.data['token']}">
+                <div>
+                    <span>${this.data['username']}</span>
+                </div>
+            </a>
+        `
+
+        return element
+    }
 }
 
 class SearchBox {
@@ -62,16 +74,17 @@ class SearchBox {
         this.data = data
     }
 
-    people() {
+    people(ind) {
+        var data = this.data[ind]
         var element = `
-            <a href="">
+            <a href="profile?token=${data['id']}">
                 <div class="result-box person">
                     <div>
-                        <img src="../src/photo/image.jpg" alt="">
+                        <img src="../${data['photo']}" alt="">
                     </div>
                     <div>
-                        <div class="fullname post-title">Ngene Valentine</div>
-                        <div class="username">Himself</div>
+                        <div class="fullname post-title">${data['fullname']}</div>
+                        <div class="username">${data['username']}</div>
                     </div>
                 </div>
             </a>
@@ -80,12 +93,20 @@ class SearchBox {
         return element
     }
 
-    post() {
+    post(ind) {
+        var data = this.data[ind]
+
+        var brief = data['content']
+
+        if(new Func().stripSpace(brief).length > 100) {
+            brief = brief.slice(0, 100) + "..."
+        }
+
         var element = `
-            <a href="">
+            <a href="read?token=${data['token']}">
                 <div class="result-box post">
-                    <div class="post-title">${this.post['title']}</div>
-                    <div class="post-content">${this.post['content']}</div>
+                    <div class="post-title">${data['title']}</div>
+                    <div class="post-content">${brief}</div>
                 </div>
             </a>
         `

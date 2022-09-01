@@ -62,6 +62,18 @@
         color: var(--theme-color);
     }
 
+    .recents .recent-searches{
+        margin-top: 3%;
+    }
+    .recent-searches a{
+        text-decoration: none;
+        color: #000;
+        display: block;
+        width: 100%;
+        padding: 7px;
+    }
+
+
     /* END */
 
     /* DISPLAYING MORE PEOPLE HERE */
@@ -148,6 +160,13 @@
         border-bottom: 1px solid #f1f1f1;
         margin-bottom: 5px;
         padding: 5px 0;
+        font-family: var(--theme-font-3);
+    }
+    .result-section .search-result .person{
+        padding: 10px 0;
+    }
+    .result-section .search-result .post{
+        padding: 10px 0;
     }
     .search-result .person{
         border-radius: 10px;
@@ -187,13 +206,17 @@
         <div class="search-cover search-parent">
             <div class="search-section">
                 <div>
-                    <input 
-                    type="text"
-                    placeholder="Find post and people"
-                    aria-placeholder="Search for post and people"
-                    onkeyup="Search(this)"
-                    onfocus="startSearch(this)"
-                    >
+                    <form method="get" onsubmit="fullSearch(event)">
+                        <input 
+                            type="text"
+                            placeholder="Find post and people"
+                            aria-placeholder="Search for post and people"
+                            onkeyup="Search(this)"
+                            onfocus="focusSearch(this)"
+                            id="searchInput"
+                        >
+                    </form>
+
                 </div>
                 <div>
                     <span onclick="toggleSearch(document.getElementById('hide-search'), 'alt-icon')">Cancel</span>
@@ -211,6 +234,10 @@
                             <div>Clear</div>
                         </div>
                     </header>
+
+                    <div class="recent-searches">
+                        <!-- The recent goes here -->
+                    </div>
                 </div>
 
                 <div class="top-randoms search-previews">
@@ -259,51 +286,86 @@
         return result_box
     }
 
-    function startSearch(self) {
+    function focusSearch(self) {
         // Hide the recents and tips
-        // But show only the recents when the search focuses
+        // But show only the recents when the search focuses and is empty
 
         document.querySelectorAll(".search-previews").forEach(elem => {
             elem.style.display = "none"
         })
 
-        var recentSearch = document.querySelectorAll(".recent-toggle")
-        recentSearch.forEach(elem => {
-            elem.style.display = "block"
-        })
+        if(new Func().stripSpace(self.value).length < 1){
+            var recentSearch = document.querySelectorAll(".recent-toggle")
+            recentSearch.forEach(elem => {
+                elem.style.display = "block"
+            })
+        }
     }
 
     // Show the previews for the small device here
     function Search(self) {
+        var searchResult = self.closest(".search-parent").querySelector(".search-result")
+
         var searchValue = new Func().stripSpace(self.value)
 
-        if(searchValue.length > 0) {
+        if(searchValue.length > 0 && searchValue != "") {
 
             // Hide the recents and tips
             document.querySelectorAll(".search-previews").forEach(elem => {
                 elem.style.display = "none"
             })
 
-
             var data = {
                 part: "user",
                 action: 'search',
                 val: {
                     content: searchValue,
+                    limit: 10
                 }
             }
 
             new Func().request("../request.php", JSON.stringify(data), 'json')
             .then(val => {
-                console.log(val)
 
+                if(val.status === 1) {
+                    searchResult.innerHTML = ""
+
+                    var content = val.content
+                    var search = new SearchBox(content)
+
+                    content.forEach((val, ind) => {
+                        if(val['type'] === "people") {
+                            searchResult.insertAdjacentHTML('beforeend', search.people(ind))
+                        }
+
+                        if(val['type'] === "post") {
+                            searchResult.insertAdjacentHTML('beforeend', search.post(ind))
+                        }
+                    })
+                }
                 //new Func().notice_box(val)
             })
         }else{
-            // Show the recents and tips
-            document.querySelectorAll(".search-previews").forEach(elem => {
+            searchResult.innerHTML = ""
+
+            // Show the recents
+            var recentSearch = document.querySelectorAll(".recent-toggle")
+            recentSearch.forEach(elem => {
                 elem.style.display = "block"
             })
+        }
+    }
+
+    function fullSearch(ev) {
+        ev.preventDefault()
+        ev.stopPropagation()
+
+        var val = document.getElementById("searchInput")
+
+        var searchValue = new Func().stripSpace(val.value)
+
+        if(searchValue.length > 0 && searchValue != "") {
+            window.location = `search?keyword=${searchValue}`
         }
     }
 </script>

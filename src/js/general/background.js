@@ -7,7 +7,8 @@ window.addEventListener("load", () => {
         var search = this.document.querySelector(".search")
 
         var people = search.querySelector(".people")
-        var post = search.querySelector(".post");
+        var post = search.querySelector(".post")
+        var recentSearches = document.querySelector(".recent-searches")
 
 
         var data = {
@@ -33,6 +34,13 @@ window.addEventListener("load", () => {
                     var openSearch = new OpenSearch(elem)
     
                     post.insertAdjacentHTML("afterbegin", openSearch.Post());
+                })
+
+                // Create the recently searched
+                val.content['recent'].forEach(elem => {
+                    var openSearch = new OpenSearch(elem)
+
+                    recentSearches.insertAdjacentHTML("afterbegin", openSearch.Recent())
                 })
             }
 

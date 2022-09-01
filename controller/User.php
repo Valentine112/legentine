@@ -42,6 +42,11 @@
                         $result = $modelUser->search();
 
                         break;
+
+                    case 'fetchUser':
+                        $result = $modelUser->fetchUser();
+
+                        break;
                     
                     default:
 

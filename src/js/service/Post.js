@@ -7,7 +7,7 @@ class Post {
     }
 
     fetch_post(from, filter, more) {
-        if(from === "home" || from === "rank") {
+        if(from === "home" || from === "rank" || from === "profile") {
             var filter_value
 
             (filter == "all") ? filter_value = "" : filter_value = filter
@@ -253,6 +253,19 @@ class Post {
     }
 
     react(elem) {
+        var box = elem.closest(".reaction-box")
+        var type = elem.getAttribute("data-type")
+
+        if(type === "unstar") {
+            box.querySelector(".unstar").classList.remove("active")
+            box.querySelector(".star").classList.add("active")
+
+        }else if(type === "star") {
+            box.querySelector(".star").classList.remove("active")
+            box.querySelector(".unstar").classList.add("active")
+
+        }
+        
         var post_body = elem.closest(".post-body"),
         token = new Func().removeInitials(post_body.getAttribute("data-token"))
 
@@ -268,7 +281,6 @@ class Post {
         .then(val => {
 
             if(val.status === 1){
-                var box = elem.closest(".reaction-box")
 
                 var type = val.content['type']
                 var count = val.content['count']

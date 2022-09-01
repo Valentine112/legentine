@@ -45,7 +45,7 @@ class PostHTML {
                         <div class="content-segment box">
                             <div class="picture-segment">
                                 <div>
-                                    <a href="">
+                                    <a href="profile?token=${this.post['user']}">
                                         <img src=" " alt="" class="lazy-load-image" data-image="${this.path + photo}">
                                     </a>
                                 </div>
@@ -359,15 +359,15 @@ class PostHTML {
 
     reaction() {
         var star = `<div class="reaction-box">
-            <img src="${this.path}src/icon/post-icon/star.svg" alt="" class="reaction star active" data-action="react">
+            <img src="${this.path}src/icon/post-icon/star.svg" alt="" class="reaction star active" data-type="star" data-action="react">
 
-            <img src="${this.path}src/icon/post-icon/unstar.svg" alt="" class="reaction unstar" data-action="react">
+            <img src="${this.path}src/icon/post-icon/unstar.svg" alt="" class="reaction unstar" data-type="unstar" data-action="react">
         </div>`
 
         var unstar = `<div class="reaction-box">
-            <img src="${this.path}src/icon/post-icon/unstar.svg" alt="" class="reaction unstar active" data-action="react">
+            <img src="${this.path}src/icon/post-icon/unstar.svg" alt="" class="reaction unstar active" data-type="unstar" data-action="react">
 
-            <img src="${this.path}src/icon/post-icon/star.svg" alt="" class="reaction star" data-action="react">
+            <img src="${this.path}src/icon/post-icon/star.svg" alt="" class="reaction star" data-type="star" data-action="react">
         </div>`
 
         // First check if the user is not logged in by checking if the self['user'] = 0

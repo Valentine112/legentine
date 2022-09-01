@@ -338,4 +338,53 @@ class Func {
         return format.body.innerHTML
     }
 
+    printRatings(rating) {
+        var result = []
+
+        var ceilRating = Math.ceil(rating)
+        var floorRating = Math.floor(rating)
+
+        var totalRatings = 5
+
+        for(let i = 0; i < totalRatings; i++) {
+            if(rating === 0) {
+                result.push(0)
+            }else{
+                // Check if its float
+                let isFloat = ceilRating - floorRating
+
+                if(isFloat > 0) {
+                    // Insert star as long as the decimal point hasn't been reached
+                    var ind = i + 1
+                    if(i < floorRating){
+                        result.push(2)
+                    }
+                    // Making sure to insert the half star only once
+                    // This happens when the decimal point has been reached
+                    else if(ind === (isFloat + floorRating)) {
+                        // Insert the halfstar
+                        result.push(1)
+                    }else{
+                        // Insert the unstar
+                        // This happens when the decimal has been passed
+                        result.push(0)
+                    }
+
+                }else{
+                    // Before the threshold
+                    if(i < floorRating) {
+                        result.push(2)
+                    }
+                    // After the threshold
+                    else{
+                        result.push(0)
+                    }
+
+                }
+            }
+        }
+
+        return result
+    }
+
 }

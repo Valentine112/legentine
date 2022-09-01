@@ -360,6 +360,20 @@
                     return $fetch_comments;
                 endif;
 
+            elseif($from === "profile"):
+                $more = $this->data['val']['more'];
+
+                if($filter === "notes"):
+                    $this->selecting->more_details("WHERE privacy = ? AND user = ? $order, $zero, $more");
+
+                elseif($filter === "photos"):
+
+                    // Would return the request here so it doesn't process the rest
+                    // Which is meant for fetching a post
+
+                    
+                endif;
+
             endif;
 
             // Need to work on fetching the comments, not done yet

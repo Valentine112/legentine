@@ -368,7 +368,7 @@
                         id="search" 
                         autocomplete="off" 
                         placeholder="Search for people. . ."                     onkeyup="Search(this)"
-                        onfocus="startSearch(this)"
+                        onfocus="focusSearch(this)"
                     />
 
                     <div class="openSearchBox recent-toggle">
@@ -402,7 +402,7 @@
                 </div>
 
                 <div>
-                    <a href="" class="nav-links profile">
+                    <a href="profile" class="nav-links profile">
                         <span>Profile</span>
                     </a>
                 </div>

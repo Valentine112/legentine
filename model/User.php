@@ -25,6 +25,11 @@
             $this->user = $user;
         }
 
+        public function fetchUser() : array {
+
+            return $this->deliver();
+        }
+
         public function unlist() : array {
             $other = $this->data['val']['user'];
 
@@ -112,7 +117,8 @@
             
             $result = [
                 "people" => [],
-                "post" => []
+                "post" => [],
+                "recent" => []
             ];
 
             // Select some top rated random persons apart from myself
@@ -139,6 +145,14 @@
 
             $result['post'] = $this->selecting->pull()[0];
 
+            // Fetch the recent searches from this user
+            $this->selecting->more_details("WHERE user = ? ORDER BY id DESC LIMIT 10, $this->user");
+            $action = $this->selecting->action("token, username", "recent");
+            $this->selecting->reset();
+
+            if($action != null) return $action;
+
+            $result['recent'] = $this->selecting->pull()[0];
 
             $this->type = "success";
             $this->status = 1;
@@ -153,30 +167,60 @@
             $val = $this->data['val'];
 
             $arr = [];
-            $result = [
-                "person" => [],
-                "post" => []
-            ];
+            $result = [];
 
-            // Fetch persons first
             $content = $val['content'];
+            $limit = $val['limit'];
             $contentRegExp = '%'.$content.'%';
 
-            function searchExp(object $self, string $contentRegExp) : array {
-                $self->selecting->more_details("WHERE fullname LIKE ? OR username LIKE ?, $contentRegExp, $contentRegExp");
+            function searchPeopleExp(object $self, string $contentRegExp, int $limit) : array {
+                $result = [];
 
-                $action = $self->selecting->action("username", "user");
+                $self->selecting->more_details("WHERE fullname LIKE ? OR username LIKE ? AND id <> ? LIMIT $limit, $contentRegExp, $contentRegExp, $self->user");
+
+                $action = $self->selecting->action("id, fullname, username, photo", "user");
                 $self->selecting->reset();
                 if($action !== null) return $action;
 
-                return $self->selecting->pull()[0];
+                $value = $self->selecting->pull();
+                foreach($value[0] as $val):
+                    $val['type'] = "people";
+                    $val['sort'] = $val['username'];
+                    $val['filter'] = $val['id'];
+
+                    array_push($result, $val);
+                endforeach;
+
+                return $result;
             }
 
+            function searchPostExp(object $self, string $contentRegExp, int $limit) : array {
+                $result = [];
+                $self->selecting->more_details("WHERE title LIKE ? LIMIT $limit, $contentRegExp");
 
-            // Fetch the first set of result that matches the whole content
-            $value = searchExp($this, $contentRegExp);
+                $action = $self->selecting->action("token, title, content", "post");
+                $self->selecting->reset();
+                if($action !== null) return $action;
+
+                $value = $self->selecting->pull();
+                foreach($value[0] as $val):
+                    $val['type'] = "post";
+                    $val['sort'] = $val['title'];
+                    $val['filter'] = $val['token'];
+
+                    array_push($result, $val);
+                endforeach;
+
+                return $result;
+            }
+
+            // Fetch the first set of result that matches the whole content from people
+
+            $value = searchPeopleExp($this, $contentRegExp, $limit);
             array_push($arr, $value);
 
+            $value = searchPostExp($this, $contentRegExp, $limit);
+            array_push($arr, $value);
             // Split the search value in 2 to get results from the first side
             // And get the result from the second side
             // This should be done if the length of the search is greater than 4
@@ -197,24 +241,41 @@
                 $firstContentExp = '%'.$firstHalf.'%';
                 $secondContentExp = '%'.$secondHalf.'%';
 
-
-                // Fetch the first half content
-                $value = searchExp($this, $firstContentExp);
+                // Fetch the first half content from people
+                $value = searchPeopleExp($this, $firstContentExp, $limit);
                 array_push($arr, $value);
 
-                // Fetch the first half content
-                $value = searchExp($this, $secondContentExp);
+                // Fetch the second half content from people
+                $value = searchPeopleExp($this, $secondContentExp, $limit);
                 array_push($arr, $value);
-
-                print_r($arr);
-
-                $result['person'] = array_merge(...$arr);
-
-                print_r($result);
-                
-                $this->content = $result;
 
             endif;
+
+            $result = array_merge(...$arr);
+
+            // remove recurssive
+            $a = [];
+            foreach($result as $res):
+                // Check if the type and filter matches
+                // If it does, then its the same object
+                // Pick only one
+                $search = Func::searchObject($a, $res['filter'], 'filter');
+                if(!in_array(1, $search)):
+                    array_push($a, $res);
+                endif;
+
+            endforeach;
+
+            $filtering = array_column($a, 'sort');
+            array_multisort($filtering, SORT_ASC, $a);
+
+            $result = $a;
+
+
+            $this->type = "success";
+            $this->status = 1;
+            $this->message = "void";
+            $this->content = $result;
 
             return $this->deliver();
         }

@@ -12,7 +12,7 @@ window.addEventListener("load", function() {
         more = ranking_time.querySelector(".active").getAttribute("value")
     }
     
-    if(path != "read"){
+    if(path != "read" && path != "profile"){
         // Fetch post
         new Post().fetch_post(path, "", more)
     }
