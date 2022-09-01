@@ -461,7 +461,7 @@
 
                     // Update the number of comments in post
                     $updating = new Update(self::$db, "SET comments = comments - ? WHERE token = ?# $one# $post");
-                    if($updating->mutate('ii', 'post')):
+                    if($updating->mutate('is', 'post')):
                         // Delete mentions and also notifications regarding this comment and mention
 
                         $deleting = new Delete(self::$db, "WHERE comment = ?, $comment");

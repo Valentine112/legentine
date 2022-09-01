@@ -37,12 +37,37 @@
             margin-bottom: 10%;
         }
         .sidebar .sidebar-items{
-            font-family: 'NotoSansJP', sans-serif;
+            font-family: var(--theme-font-3)!important;
             padding: 10px;
+        }
+        .sidebar-items .profile .profile-sub{
+            display: flex;
+            justify-content: left;
+            align-items: center;
+        }
+        .sidebar-items .profile a{
+            color: #000;
+        }
+        .sidebar-items .profile-sub > div:first-child{
+            flex: 2;
+        }
+        .sidebar-items .profile-sub > div:last-child{
+            flex: 5;
+        }
+        .profile-sub div:last-child > div:first-child{
+            font-size: 17px;
+        }
+        .profile-sub div:last-child > div:last-child{
+            font-size: 15px;
+        }
+        .sidebar .sidebar-items .profile img{
+            height: 50px;
+            width: 50px;
+            margin: auto;
         }
         .sidebar .sidebar-items header{
             font-size: 15px;
-            color: silver;
+            color: grey;
             font-weight: 400;
         }
         .sidebar .sidebar-items hr{
@@ -60,18 +85,16 @@
         }
         .sidebar .sidebar-items ul li a{
             text-decoration: none;
-            font-size: 14px;
-            color: #000;
-            font-weight: 400;
+            font-size: 15px;
+            color: #5e5e5e;
             display: block;
             width: 100%;
             padding: 12px 0 12px 0;
         }
         .sidebar .sidebar-items ul li span{
-            color: #000;
-            font-weight: 500;
-            font-size: 14px;
-            font-weight: 500;
+            color: #5e5e5e;
+            font-size: 15px;
+            font-family: var(--theme-font-3);
         }
         .sidebar .sidebar-items ul li div{
             width: 100%;
@@ -102,10 +125,27 @@
                 <div class="sidebar-closure" onclick="close_sidebar(this)"></div>
                 <div class="sidebar-list">
                     <div class="sidebar-list-1">
-                        <header>
-
-                        </header>
                         <div class="sidebar-items">
+                            <div class="profile">
+                                <a href="">
+                                    <div class="profile-sub">
+                                        <div>
+                                            <img src="../src/photo/image.jpg" alt="">
+                                        </div>
+                                        <div>
+                                            <div>
+                                                <span>Ngene Valentine</span>
+                                            </div>
+
+                                            <div>
+                                                <span>Himself</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <hr>
 
                             <div>
                                 <header>General</header>

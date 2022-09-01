@@ -122,10 +122,13 @@
     .top-randoms .top-rated-post{
         margin-top: 15px;
     }
+    .top-rated-post .post{
+        margin-top: 10px;
+    }
     .top-rated-post a{
         color: #000;
         text-decoration: none;
-        margin: 3px 0 3px 0;
+        margin: 10px 0 10px 0;
         font-family: var(--theme-font-3);
     }
     .top-rated-post a > div{
@@ -133,7 +136,6 @@
         -webkit-backdrop-filter: blur(5px);
         backdrop-filter: blur(5px);
         width: 90%;
-
         box-shadow: 2px 2px 2px #fff;
         border-radius: 10px;
     }
