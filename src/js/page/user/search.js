@@ -59,11 +59,8 @@ window.addEventListener("load", function() {
             this.document.querySelector(".active").classList.remove("active")
 
             elem.classList.add("active")
-            console.log(searchResult)
 
             searchResult.innerHTML = ""
-
-            console.log(searchResult)
 
             if(results.status === 1) {
                 content = results.content

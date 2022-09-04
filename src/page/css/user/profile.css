@@ -1,4 +1,4 @@
-.profile{
+.profilePage{
     margin-top: 20px;
 }
 
@@ -125,6 +125,7 @@
     height: 25px;
     width: 25px;
     margin: 0 2px;
+    cursor: pointer;
 }
 
 .headerSection{

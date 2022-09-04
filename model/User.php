@@ -57,9 +57,9 @@
                     $this->selecting->reset();
 
                     if($action !== null) return $action;
-                    $value = $this->selecting->pull();
+                    $fetch = $this->selecting->pull();
 
-                    $box['more']['pinned'] = $value[1] > 0 ? true : false;
+                    $box['more']['pinned'] = $fetch[1] > 0 ? true : false;
 
                     // Check Listed
                     $this->selecting->more_details("WHERE user = ? AND other = ?, $this->user, $person");
@@ -67,9 +67,34 @@
                     $this->selecting->reset();
 
                     if($action !== null) return $action;
-                    $value = $this->selecting->pull();
+                    $fetch = $this->selecting->pull();
 
-                    $box['more']['listed'] = $value[1] > 0 ? true : false;
+                    $box['more']['listed'] = $fetch[1] > 0 ? true : false;
+
+                    // Fetching user summedRating and totalRating
+                    $this->selecting->more_details("WHERE other = ?, $person");
+                    $action = $this->selecting->action("SUM(rate), COUNT(id)", "ratings");
+                    $this->selecting->reset();
+
+                    if($action !== null) return $action;
+                    $fetch = $this->selecting->pull();
+
+                    $summedRating = $fetch[0][0]["SUM(rate)"] === null ? 0 : $fetch[0][0]["SUM(rate)"];
+
+                    $totalRating = $fetch[0][0]["COUNT(id)"] === null ? 0 : $fetch[0][0]["COUNT(id)"];
+
+                    $box['more']['summedRating'] = $summedRating;
+                    $box['more']['totalRating'] = $totalRating;
+
+                    // Check if user has rated
+                    $this->selecting->more_details("WHERE other = ? AND user = ?, $person, $this->user");
+                    $action = $this->selecting->action("id", "ratings");
+                    $this->selecting->reset();
+
+                    if($action !== null) return $action;
+                    $fetch = $this->selecting->pull();
+
+                    $box['more']['rated'] = $fetch[1] > 0 ? true : false;
 
                 endif;
 
@@ -173,8 +198,20 @@
             $result = [
                 "people" => [],
                 "post" => [],
-                "recent" => []
+                "recent" => [],
+                "user" => []
             ];
+
+            // Using this opportunity to also fetch the user logged in
+            // This would be for the sidebar menu
+
+            $this->selecting->more_details("WHERE id = ?, $this->user");
+            $action = $this->selecting->action("id, fullname, username, photo", "user");
+            $this->selecting->reset();
+
+            if($action != null) return $action;
+
+            $result['user'] = $this->selecting->pull()[0];
 
             // Select some top rated random persons apart from myself
             // Get people that are rated 4 and above
@@ -331,6 +368,76 @@
             $this->status = 1;
             $this->message = "void";
             $this->content = $result;
+
+            return $this->deliver();
+        }
+
+        public function rateUser() : array {
+            // Declaring the general error message first
+            $this->type = "error";
+            $this->status = 0;
+            $this->message = "void";
+
+
+            $val = $this->data['val'];
+            (int) $rating = $val['rating'];
+            $other = $val['other'];
+
+            
+
+            // Make sure that you are not rating yourself
+            if($this->user !== $other):
+                // Making sure that the rating value is within this range
+                if($rating > 0 && $rating < 6):
+                    self::$db->autocommit(false);
+
+                    $subject = [
+                        "token",
+                        "user",
+                        "other",
+                        "rate",
+                        "date",
+                        "time"
+                    ];
+
+                    $items = [
+                        Func::tokenGenerator(),
+                        $this->user,
+                        $other,
+                        $rating,
+                        Func::dateFormat(),
+                        time()
+                    ];
+
+                    $inserting = new Insert(self::$db, "ratings", $subject, "");
+                    $action = $inserting->push($items, 'siiisi');
+                    $inserting->reset();
+
+                    if($action):
+                        // Calculate the current ratings and update in user table
+                        // First select and sum all the ratings from this user
+                        $this->selecting->more_details("WHERE other = ?, $other");
+                        $action = $this->selecting->pull("SUM(rate)", "ratings");
+                        $this->selecting->reset();
+
+                        if($action !== null) return $action;
+
+                        $summedRating = $this->selecting->pull()[0];
+                        $totalRating = $this->selecting->pull()[1];
+
+                        print_r($summedRating);
+                    
+                    else:
+                        return $action;
+
+                    endif;
+                else:
+                    $this->content = "Rating range should be between 1 - 5";
+                endif;
+            else:
+                $this->content = "You cannot rate yourself";
+
+            endif;
 
             return $this->deliver();
         }

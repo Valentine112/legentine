@@ -35,9 +35,9 @@
             ?>
         </div>
 
-        <div class="profile">
+        <div class="profilePage">
             <div class="profileHead">
-                <div class="profile" id="profileHTML">
+                <div class="profileHeadSub" id="profileHTML">
                     <!-- Profile head goes here -->
                 </div>
 

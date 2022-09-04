@@ -40,12 +40,7 @@ class Profile {
                     </div>
 
                     <!-- Other person profile -->
-
-                    <div class="other">
-                        <div class="rate" id="rate">
-                            <!-- Ratings would go here -->
-                        </div>
-                    </div>
+                    ${this.checkRating(ind)}
                 </div>
             </div>
         `
@@ -122,35 +117,55 @@ class Profile {
         `
     }
 
+    checkRating(ind) {
+        var more = this.data[ind]['more']
+        var element = `
+            <div class="other">
+                <div class="rate" id="rate" data-sum="${more['summedRating']}" data-total=${more['totalRating']} data-rated=${more['rated']}>
+                    <!-- Ratings would go here -->
+                </div>
+            </div>
+        `
+
+        // Checking if it is not the same user
+        if(this.data[ind]['person']['id'] !== this.data[ind]['self']['user']) {
+            return element
+        }else{
+            return ""
+        }
+    }
+
     rating(ind) {
-        var rate = document.getElementById("rate")
+        if(document.querySelector("#rate") !== null) {
+            var rate = document.getElementById("rate")
 
-        var person = this.data[ind]['person']
+            var person = this.data[ind]['person']
 
-        var rating = person['rating']
-
-        var result = new Func().printRatings(rating)
-
-        result.forEach(elem => {
-            switch (elem) {
-                case 0:
-                    var img = `<img src="../src/icon/profile/unstar.svg" alt="">`
-                    rate.insertAdjacentHTML("beforeend", img)
-                    break;
-            
-                case 1:
-                    var img = `<img src="../src/icon/profile/halfstar.svg" alt="">`
-                    rate.insertAdjacentHTML("beforeend", img)
-                    break;
-
-                case 2:
-                    var img = `<img src="../src/icon/profile/star.svg" alt="">`
-                    rate.insertAdjacentHTML("beforeend", img)
-                    break;
-                default:
-                    break;
-            }
-        })
+            var rating = person['rating']
+    
+            var result = new Func().printRatings(rating)
+    
+            result.forEach(elem => {
+                switch (elem) {
+                    case 0:
+                        var img = `<img src="../src/icon/profile/unstar.svg" alt="" class="ratingStar" data-action="rateUser">`
+                        rate.insertAdjacentHTML("beforeend", img)
+                        break;
+                
+                    case 1:
+                        var img = `<img src="../src/icon/profile/halfstar.svg" alt="" class="ratingStar" data-action="rateUser">`
+                        rate.insertAdjacentHTML("beforeend", img)
+                        break;
+    
+                    case 2:
+                        var img = `<img src="../src/icon/profile/star.svg" alt="" class="ratingStar" data-action="rateUser">`
+                        rate.insertAdjacentHTML("beforeend", img)
+                        break;
+                    default:
+                        break;
+                }
+            })
+        }
 
     }
 }

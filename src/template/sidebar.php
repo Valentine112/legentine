@@ -47,6 +47,8 @@
         }
         .sidebar-items .profile a{
             color: #000;
+            display: block;
+            padding: 10px 0;
         }
         .sidebar-items .profile-sub > div:first-child{
             flex: 2;
@@ -126,23 +128,8 @@
                 <div class="sidebar-list">
                     <div class="sidebar-list-1">
                         <div class="sidebar-items">
-                            <div class="profile">
-                                <a href="">
-                                    <div class="profile-sub">
-                                        <div>
-                                            <img src="../src/photo/image.jpg" alt="">
-                                        </div>
-                                        <div>
-                                            <div>
-                                                <span>Ngene Valentine</span>
-                                            </div>
-
-                                            <div>
-                                                <span>Himself</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
+                            <div class="profile" id="sidebarProfile">
+                                <!-- The profile goes here --> 
                             </div>
 
                             <hr>

@@ -22,6 +22,9 @@ window.addEventListener("load", () => {
 
             if(val.status === 1) {
 
+                // Profile on the sidebar menu
+                document.getElementById("sidebarProfile").innerHTML = SidebarProfile(val.content['user'][0])
+
                 // Create the people
                 val.content['people'].forEach(elem => {
                     var openSearch = new OpenSearch(elem)
@@ -49,3 +52,26 @@ window.addEventListener("load", () => {
 
     // ---------------------------------------- //
 })
+
+function SidebarProfile(data) {
+    var element = `
+        <a href="profile?token=${data['id']}">
+            <div class="profile-sub">
+                <div>
+                    <img src="../${data['photo']}" alt="">
+                </div>
+                <div>
+                    <div>
+                        <span>${data['fullname']}</span>
+                    </div>
+
+                    <div>
+                        <span>${data['username']}</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+    `
+
+    return element
+}

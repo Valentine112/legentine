@@ -1,4 +1,4 @@
-window.addEventListener("load", function () {
+window.addEventListener("load", async function () {
 
     var pathObj = new Func().getPath()
     var path = pathObj['main_path']
@@ -51,10 +51,9 @@ document.body.addEventListener("click", function(e) {
     var pathObj = new Func().getPath()
     var param = pathObj['parameter']['token'] != null ? pathObj['parameter']['token'] : ""
 
-    console.log(elem)
-
     switch (action) {
         case "profileList":
+            // Unlist and list user
 
             var data = {
                 part: "user",
@@ -88,9 +87,50 @@ document.body.addEventListener("click", function(e) {
             })
 
             break;
+
+            case "rateUser":
+                var parent = elem.parentNode
+                var child = Array.from(parent.children)
+
+                var summedRating = parent.getAttribute("data-sum")
+                var totalRating = parent.getAttribute("data-total")
+                var rated = parent.getAttribute("data-rated")
+
+                var rate = child.indexOf(elem) + 1
+
+                print(rated)
+                var newTotal = rated ? totalRating : totalRating + 1
+                
+                var clientSideCalc = (summedRating + rate) / (newTotal)
+                console.log(clientSideCalc)
+
+                var printRating = new Func().printRatings(clientSideCalc)
+                console.log(printRating)
+                // Fetch user info
+                /*var data = {
+                    part: "user",
+                    action: 'rateUser',
+                    val: {
+                        other: param,
+                        rating: (ind + 1)
+                    }
+                }*/
+
+
+                new Func().request("../request.php", JSON.stringify(data), 'json')
+                .then(val => {
+
+                })
+
+                break;
     
         default:
             break;
     }
 
 })
+
+// Rate user
+function rateUser() {
+
+}

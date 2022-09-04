@@ -47,6 +47,11 @@
                         $result = $modelUser->fetchUser();
 
                         break;
+
+                    case 'rateUser':
+                        $result = $modelUser->rateUser();
+
+                        break;
                     
                     default:
 
