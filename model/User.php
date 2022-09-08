@@ -10,8 +10,9 @@
     use Query\{
         Delete,
         Insert,
-        Select
-    };
+        Select,
+    Update
+};
 
     class User extends Response {
 
@@ -87,14 +88,16 @@
                     $box['more']['totalRating'] = $totalRating;
 
                     // Check if user has rated
-                    $this->selecting->more_details("WHERE other = ? AND user = ?, $person, $this->user");
-                    $action = $this->selecting->action("id", "ratings");
-                    $this->selecting->reset();
+                    $data = [
+                        "user" => $this->user,
+                        "other" => $person,
+                        "needle" => "rate",
+                        "table" => "ratings"
+                    ];
+    
+                    $search = Func::searchDb(self::$db, $data);
 
-                    if($action !== null) return $action;
-                    $fetch = $this->selecting->pull();
-
-                    $box['more']['rated'] = $fetch[1] > 0 ? true : false;
+                    $box['more']['rated'] = is_int($search) ? $search : "";
 
                 endif;
 
@@ -117,19 +120,20 @@
 
                 // Check if the person has already been unlisted by you
                 // If he is, remove the person, else add the person
-                $this->selecting->more_details("WHERE user = ? AND other = ?, $this->user, $other");
-                $action = $this->selecting->action("id", "blocked_users");
-                $this->selecting->reset();
-                if($action != null):
-                    return $action;
-                endif;
+                $data = [
+                    "user" => $this->user,
+                    "other" => $other,
+                    "needle" => "id",
+                    "table" => "blocked_users"
+                ];
 
-                $value = $this->selecting->pull();
-                if($value[1] > 0):
+                $search = Func::searchDb(self::$db, $data);
+
+                if(is_int($search)):
                     // User has already been unlisted
                     // Proceed to list the user back
 
-                    $unlisted = $value[0][0]['id'];
+                    $unlisted = $search;
                     $deleting = new Delete(self::$db, "WHERE id = ?, $unlisted");
                     $action = $deleting->proceed("blocked_users");
 
@@ -391,41 +395,89 @@
                 if($rating > 0 && $rating < 6):
                     self::$db->autocommit(false);
 
-                    $subject = [
-                        "token",
-                        "user",
-                        "other",
-                        "rate",
-                        "date",
-                        "time"
-                    ];
+                    $action = false;
 
-                    $items = [
-                        Func::tokenGenerator(),
-                        $this->user,
-                        $other,
-                        $rating,
-                        Func::dateFormat(),
-                        time()
+                    // Check if user has rated before
+                    // If so, update instead of insert
+                    $data = [
+                        "user" => $this->user,
+                        "other" => $other,
+                        "needle" => "id",
+                        "table" => "ratings"
                     ];
+    
+                    $search = Func::searchDb(self::$db, $data);
 
-                    $inserting = new Insert(self::$db, "ratings", $subject, "");
-                    $action = $inserting->push($items, 'siiisi');
-                    $inserting->reset();
+                    if(!is_int($search)):
+                        // Create a new rating
+
+                        $subject = [
+                            "token",
+                            "user",
+                            "other",
+                            "rate",
+                            "date",
+                            "time"
+                        ];
+
+                        $items = [
+                            Func::tokenGenerator(),
+                            $this->user,
+                            $other,
+                            $rating,
+                            Func::dateFormat(),
+                            time()
+                        ];
+
+                        $inserting = new Insert(self::$db, "ratings", $subject, "");
+                        $action = $inserting->push($items, 'siiisi');
+                        $inserting->reset();
+                    else:
+
+                        // Update the rating
+                        $ratingsId = $search;
+
+                        $updating = new Update(self::$db, "SET rate = ? WHERE id = ?# $rating# $ratingsId");
+                        $action = $updating->mutate('ii', 'ratings');
+
+                    endif;
 
                     if($action):
                         // Calculate the current ratings and update in user table
                         // First select and sum all the ratings from this user
                         $this->selecting->more_details("WHERE other = ?, $other");
-                        $action = $this->selecting->pull("SUM(rate)", "ratings");
+                        $action = $this->selecting->action("SUM(rate), COUNT(id)", "ratings");
                         $this->selecting->reset();
 
                         if($action !== null) return $action;
 
-                        $summedRating = $this->selecting->pull()[0];
-                        $totalRating = $this->selecting->pull()[1];
+                        $summedRating = $this->selecting->pull()[0][0]["SUM(rate)"];
+                        $totalRating = $this->selecting->pull()[0][0]["COUNT(id)"];
 
-                        print_r($summedRating);
+                        $calcRating = $summedRating / $totalRating;
+
+                        // Update the rating value in the user table
+                        $updating = new Update(self::$db, "SET rating = ? WHERE id = ?# $calcRating# $other");
+                        $action = $updating = $updating->mutate("si", "user");
+
+                        if($action):
+                            self::$db->autocommit(true);
+
+                            $result = [
+                                "summedRating" => $summedRating,
+                                "totalRating" => $totalRating,
+                                "rated" => $rating,
+                                "calcRating" => $calcRating
+                            ];
+
+                            $this->type = "success";
+                            $this->status = 1;
+                            $this->message = "void";
+                            $this->content = $result;
+
+                        else:
+                            return $action;
+                        endif;
                     
                     else:
                         return $action;
@@ -437,6 +489,73 @@
             else:
                 $this->content = "You cannot rate yourself";
 
+            endif;
+
+            return $this->deliver();
+        }
+
+        public function pin() : array {
+            // Declaring the general error message first
+            $this->type = "error";
+            $this->status = 0;
+            $this->message = "void";
+
+            $other = $this->data['val']['other'];
+
+            if(!empty($other)):
+                // Check if other has been pinned by user
+                $data = [
+                    "user" => $this->user,
+                    "other" => $other,
+                    "needle" => "id",
+                    "table" => "pin"
+                ];
+
+                $search = Func::searchDb(self::$db, $data);
+
+                $this->type = "success";
+                $this->status = 1;
+                $this->message = "void";
+
+                if(is_int($search)):
+                    // Unpin user
+                    $pinId = $search;
+                    $deleting = new Delete(self::$db, "WHERE id = ?, $pinId");
+                    $action = $deleting->proceed("pin");
+                    if($action):
+                        $this->content = "unpin";
+                    else:
+                        return $action;
+                    endif;
+
+                else:
+                    // Pin user
+                    $subject = [
+                        "token",
+                        "user",
+                        "other",
+                        "date",
+                        "time"
+                    ];
+
+                    $items = [
+                        Func::tokenGenerator(),
+                        $this->user,
+                        $other,
+                        Func::dateFormat(),
+                        time()
+                    ];
+
+                    $inserting = new Insert(self::$db, "pin", $subject, "");
+                    $action =$inserting->push($items, "siisi");
+                    if($action):
+                        $this->content = "pin";
+                    else:
+                        return $action;
+                    endif;
+                endif;
+            else:
+                $this->content = "Other id should not be empty";
             endif;
 
             return $this->deliver();

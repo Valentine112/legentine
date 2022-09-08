@@ -52,6 +52,11 @@
                         $result = $modelUser->rateUser();
 
                         break;
+
+                    case 'pin':
+                        $result = $modelUser->pin();
+
+                        break;
                     
                     default:
 

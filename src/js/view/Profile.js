@@ -2,6 +2,8 @@ class Profile {
 
     constructor(data) {
         this.data = data
+
+        return this
     }
 
     main(ind) {
@@ -35,7 +37,7 @@ class Profile {
                     <div>
                         <div>
                             <span>Stars - </span>
-                            <span class="rating">${parseFloat(person['rating'].toFixed(1))}</span>
+                            <span class="rating" id="ratingNumber">${parseFloat(person['rating'].toFixed(1))}</span>
                         </div>
                     </div>
 
@@ -142,30 +144,36 @@ class Profile {
             var person = this.data[ind]['person']
 
             var rating = person['rating']
+
+            var more = this.data[ind]['more']
     
-            var result = new Func().printRatings(rating)
+            var result = new Func().printRatings(parseFloat(more['rated']).toFixed(1))
     
-            result.forEach(elem => {
-                switch (elem) {
-                    case 0:
-                        var img = `<img src="../src/icon/profile/unstar.svg" alt="" class="ratingStar" data-action="rateUser">`
-                        rate.insertAdjacentHTML("beforeend", img)
-                        break;
-                
-                    case 1:
-                        var img = `<img src="../src/icon/profile/halfstar.svg" alt="" class="ratingStar" data-action="rateUser">`
-                        rate.insertAdjacentHTML("beforeend", img)
-                        break;
-    
-                    case 2:
-                        var img = `<img src="../src/icon/profile/star.svg" alt="" class="ratingStar" data-action="rateUser">`
-                        rate.insertAdjacentHTML("beforeend", img)
-                        break;
-                    default:
-                        break;
-                }
-            })
+            this.displayRatingStars(result, rate)
         }
 
+    }
+
+    displayRatingStars(result, rate) {
+        result.forEach(elem => {
+            switch (elem) {
+                case 0:
+                    var img = `<img src="../src/icon/profile/unstar.svg" alt="" class="ratingStar" data-action="rateUser">`
+                    rate.insertAdjacentHTML("beforeend", img)
+                    break;
+            
+                case 1:
+                    var img = `<img src="../src/icon/profile/halfstar.svg" alt="" class="ratingStar" data-action="rateUser">`
+                    rate.insertAdjacentHTML("beforeend", img)
+                    break;
+
+                case 2:
+                    var img = `<img src="../src/icon/profile/star.svg" alt="" class="ratingStar" data-action="rateUser">`
+                    rate.insertAdjacentHTML("beforeend", img)
+                    break;
+                default:
+                    break;
+            }
+        })
     }
 }

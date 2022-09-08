@@ -18,7 +18,6 @@ window.addEventListener("load", async function () {
 
     new Func().request("../request.php", JSON.stringify(data), 'json')
     .then(val => {
-        console.log(val)
         if(val.status === 1) {
             var content = val.content
 
@@ -65,7 +64,6 @@ document.body.addEventListener("click", function(e) {
     
             new Func().request("../request.php", JSON.stringify(data), 'json')
             .then(val => {
-                console.log(val)
 
                 if(val.status === 1) {
                     if(val.content === "Unlisted") {
@@ -88,42 +86,118 @@ document.body.addEventListener("click", function(e) {
 
             break;
 
-            case "rateUser":
-                var parent = elem.parentNode
-                var child = Array.from(parent.children)
+        case "rateUser":
 
-                var summedRating = parent.getAttribute("data-sum")
-                var totalRating = parent.getAttribute("data-total")
-                var rated = parent.getAttribute("data-rated")
+            var parent = elem.parentNode
+            var child = Array.from(parent.children)
 
-                var rate = child.indexOf(elem) + 1
+            var summedRating = parent.getAttribute("data-sum")
+            var totalRating = parent.getAttribute("data-total")
+            var rated = parent.getAttribute("data-rated")
 
-                print(rated)
-                var newTotal = rated ? totalRating : totalRating + 1
-                
-                var clientSideCalc = (summedRating + rate) / (newTotal)
-                console.log(clientSideCalc)
+            totalRating = Number(totalRating)
 
-                var printRating = new Func().printRatings(clientSideCalc)
-                console.log(printRating)
-                // Fetch user info
-                /*var data = {
-                    part: "user",
-                    action: 'rateUser',
-                    val: {
-                        other: param,
-                        rating: (ind + 1)
+            var rate = child.indexOf(elem) + 1
+
+            // Get the total number of ratings
+            var newTotal = rated == "" ? totalRating + 1 : totalRating
+
+            summedRating = Number(summedRating)
+
+            // Get the sum of rating
+            // If user has rated before, Subtract the previous rating from the summedrating
+            summedRating = rated == "" ? summedRating : summedRating - Number(rated)
+
+            var printRating = new Func().printRatings(rate)
+
+            parent.innerHTML = ""
+
+            new Profile("").displayRatingStars(printRating, parent)
+
+            parent.setAttribute("data-rated", rate)
+            parent.setAttribute("data-total", newTotal)
+
+            var data = {
+                part: "user",
+                action: 'rateUser',
+                val: {
+                    other: param,
+                    rating: rate
+                }
+            }
+
+
+            new Func().request("../request.php", JSON.stringify(data), 'json')
+            .then(val => {
+                if(val.status === 1) {
+                    parent.innerHTML = ""
+
+                    var content = val.content
+
+                    var serverSideCalc = parseFloat(content['calcRating'].toFixed(1))
+
+                    document.getElementById("ratingNumber").innerText = serverSideCalc
+
+                    var printRating = new Func().printRatings(content['rated'])
+
+                    new Profile("").displayRatingStars(printRating, parent)
+
+                    parent.setAttribute("data-sum", content['summedRating'])
+                    parent.setAttribute("data-total", content['totalRating'])
+                    parent.setAttribute("data-rated", content['rated'])
+
+                }
+
+                new Func().notice_box(val)
+            })
+
+            break;
+
+        case "pin":
+            var parent = elem.parentNode
+            var type = elem.getAttribute("data-type")
+
+            // First display the effect from the client side
+            elem.classList.remove("active")
+
+            if(type === "pinned") {
+                parent.querySelector(".unpin").classList.add("active")
+
+            }else if(type === "unpin") {
+                parent.querySelector(".pinned").classList.add("active")
+
+            }
+
+            var data = {
+                part: "user",
+                action: 'pin',
+                val: {
+                    other: param,
+                }
+            }
+
+            new Func().request("../request.php", JSON.stringify(data), 'json')
+            .then(val => {
+                if(val.status === 1){
+                    var unpin = parent.querySelector(".unpin")
+                    var pin = parent.querySelector(".pinned")
+
+                    if(val.content === "pin") {
+                        unpin.classList.remove("active")
+
+                        pin.classList.add("active")
                     }
-                }*/
 
+                    if(val.content === "unpin") {
+                        pin.classList.remove("active")
+                        
+                        unpin.classList.add("active")
+                    }
+                }
+            })
 
-                new Func().request("../request.php", JSON.stringify(data), 'json')
-                .then(val => {
-
-                })
-
-                break;
-    
+            break;
+            
         default:
             break;
     }
