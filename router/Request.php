@@ -37,6 +37,8 @@
                 if(str_contains($contentType, 'application/json')):
                     $value = json_decode(file_get_contents("php://input"), true);
 
+                    print_r($value);
+
                     $value = $value ?? [];
 
                     if(is_array($value)):

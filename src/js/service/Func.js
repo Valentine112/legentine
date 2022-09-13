@@ -31,6 +31,14 @@ class Func {
             'standard': 'application/x-www-form-urlencoded'
         }
 
+        if(headerType == "file"){
+            header = {}
+        }else{
+            header = {
+                'Content-Type': header[headerType]
+            }
+        }
+
         var req = await fetch(url, {
             // Method for sending the data
             method: 'POST',
@@ -41,9 +49,7 @@ class Func {
             // Same origin
             credentials: 'same-origin',
             // Headers
-            headers: {
-                'Content-Type': header[headerType]
-            },
+            headers: header,
             // Data to send to server
             body: data
         })

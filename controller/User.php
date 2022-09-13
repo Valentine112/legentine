@@ -57,6 +57,11 @@
                         $result = $modelUser->pin();
 
                         break;
+
+                    case "uploadPhoto":
+                        $result = $modelUser->uploadPhoto();
+
+                        break;
                     
                     default:
 

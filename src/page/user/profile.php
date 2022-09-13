@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../src/element/css/post.css">
     <link rel="stylesheet" href="../src/element/css/options.css">
     <link rel="stylesheet" href="../src/element/css/properties.css">
+    <title>Profile</title>
 </head>
 <body>
     <div class="content config">
@@ -59,6 +60,13 @@
                     <div></div>
                 </div>
             </div>
+        </div>
+
+        <div>
+            <?php
+                // Include upload here
+                include "src/template/upload.php";
+            ?>
         </div>
     </div>
 </body>

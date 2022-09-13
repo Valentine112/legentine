@@ -31,6 +31,7 @@
     border-radius: 5px;
     text-align: center;
     margin-bottom: 15px;
+    cursor: pointer;
 }
 /* For others */
 
@@ -147,4 +148,51 @@
 .headerSection .active{
     border-bottom: 2px solid grey;
     color: #000;
+}
+
+@media screen and (min-width: 768px) {
+    .profileHead .profileSub{
+        display: block;
+        text-align: center;
+        width: 100%;
+        margin: auto;
+        position: relative;
+    }
+    .profileHead .profileSub > div{
+        text-align: center;
+        margin: auto;
+    }
+    .profileSub .self > div{
+        border: 1px solid #f1f1f1;
+    }
+    .profileHead .profileSub > div:first-child{
+        display: inline-block;
+        width: 100%;
+    }
+    .profileHead .profileSub > div:last-child{
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        height: fit-content;
+        width: 30%;
+        margin: auto;
+    }
+    .profileHead .profileSub > div:first-child img{
+        height: 250px;
+        width: 250px;
+        border-radius: 0;
+        border: 5px solid #f5f5f5;
+    }
+    .userInfo{
+        width: 100%;
+        text-align: center;
+    }
+    .userInfoSub > div:nth-child(3){
+        margin: auto;
+    }
+    .userInfoSub > div:nth-child(4){
+        margin: auto;
+        margin-top: 5px;
+    }
 }

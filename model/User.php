@@ -561,5 +561,11 @@
             return $this->deliver();
         }
 
+        public function uploadPhoto() : array {
+            //print_r($this->data);
+
+            return $this->deliver();
+        }
+
     }
 ?>
