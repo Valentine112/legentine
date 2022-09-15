@@ -4,7 +4,8 @@
     use mysqli;
     use Service\{
         Response,
-        Func
+        Func,
+        Upload
     };
 
     use Query\{
@@ -562,7 +563,81 @@
         }
 
         public function uploadPhoto() : array {
-            //print_r($this->data);
+            // Declaring the general error message first
+            $this->type = "error";
+            $this->status = 0;
+            $this->message = "void";
+
+            $val = $this->data['val'];
+
+            $uploading = new Upload("src/photo", "photo", $val['files']);
+            $savingImage = $uploading->saveImage();
+
+            if($savingImage['status'] === 1):
+                $content = $savingImage['content'];
+
+                // Check if there was an error in any of the uploads and abort the whole process if so
+                // If the is 0 in the content, it means there was an error
+                if(!in_array(0, $content)):
+                    // Check the upload type
+                    if($this->data['uploadType'] === "profilePicture"):
+                        $path = $content[0];
+                        
+                        $updating = new Update(self::$db, "SET photo = ? WHERE id = ?, $path, $this->user");
+                        $action = $updating->mutate('si', 'user');
+
+                        if($action):
+                            $this->type = "success";
+                            $this->status = 1;
+                            $this->message = "void";
+                            $this->content = "Successfully uploaded picture";
+                        else:
+                            return $action;
+                        endif;
+
+                    elseif($this->data['uploadType'] === "uploadPicture"):
+                        self::$db->autocommit(false);
+
+                        $subject = [
+                            "token",
+                            "user",
+                            "photo",
+                            "date",
+                            "time"
+                        ];
+
+                        foreach($content as $val):
+                            $items = [
+                                Func::tokenGenerator(),
+                                $this->user,
+                                $val,
+                                Func::dateFormat(),
+                                time()
+                            ];
+
+                            $inserting = new Insert(self::$db, "gallery", $subject, "");
+                            $action = $inserting->push($items, 'sissi');
+
+                            if($action):
+                                $this->type = "success";
+                                $this->status = 1;
+                                $this->message = "void";
+                                $this->content = "Successfully uploaded picture";
+                            else:
+                                return $action;
+                            endif;
+
+                        endforeach;
+
+                        self::$db->autocommit(true);
+                    endif;
+
+                else:
+                    $this->content = "Error in uploading file";
+                endif;
+            else:
+                return $savingImage;
+            endif;
 
             return $this->deliver();
         }

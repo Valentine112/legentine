@@ -170,6 +170,7 @@
     var uploadError = document.querySelector(".uploadError")
     var imageDisplay = document.getElementById("imageDisplay")
     var imagePreview = document.querySelector(".imagePreview")
+    var imageData = ""
 
     function selectImage(self) {
         var reader = new FileReader
@@ -242,8 +243,10 @@
         // If there is an error, then the code would return and wouldn't reach here
         reader.onload = function(ev) {
             imageDisplay.src = ev.target.result
+            //imageData = ev.target.result
         }
         reader.readAsDataURL(files[0])
+
     }
 
     function uploadImage(self) {
@@ -265,19 +268,15 @@
 
             var formdata = new FormData()
             Array.from(file.files).forEach(elem => {
-                console.log(elem)
                 formdata.append("files[]", elem)
             })
 
-            var data = {
-                part: "user",
-                action: 'uploadPhoto',
-                val: {
-                    file: file.files[0],
-                }
-            }
+            formdata.append("part", "user")
+            formdata.append("action", "uploadPhoto")
+            formdata.append("type", "file");
+            formdata.append("uploadType", uploadType)
 
-            new Func().request("../request.php", JSON.stringify(data), 'json')
+            new Func().request("../request.php", formdata, 'file')
             .then(val => {
                 console.log(val)
             })
