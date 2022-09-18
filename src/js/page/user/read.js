@@ -43,7 +43,7 @@ window.addEventListener("load", function() {
                     // The post token
                     post_body.setAttribute("data-token", "LT-" + post['token'])
 
-                    post_photo.setAttribute("src", '../' + other['photo'])
+                    post_photo.setAttribute("src", '../src/' + other['photo'])
                     username.innerText = other['username']
                     title.innerText = post['title']
                     content.innerText = post['content']

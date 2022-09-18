@@ -58,7 +58,7 @@ function SidebarProfile(data) {
         <a href="profile?token=${data['id']}">
             <div class="profile-sub">
                 <div>
-                    <img src="../${data['photo']}" alt="">
+                    <img src="../src/${data['photo']}" alt="">
                 </div>
                 <div>
                     <div>

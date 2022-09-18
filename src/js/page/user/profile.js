@@ -208,3 +208,27 @@ document.body.addEventListener("click", function(e) {
 function rateUser() {
 
 }
+
+function showUpload(type) {
+    var uploadBox = document.querySelector(".upload")
+    var file = uploadBox.querySelector("#file")
+    var checkBox = uploadBox.querySelector("#checkbox")
+
+    file.setAttribute("data-type", type)
+    if(type === "profilePicture") {
+        file.removeAttribute("multiple")
+        checkBox.setAttribute("disabled", "disabled")
+
+    }else if(type === "uploadPicture") {
+        file.setAttribute("multiple", "multiple")
+        checkBox.removeAttribute("disabled")
+    }
+
+    uploadBox.style.display = "block"
+}
+
+function closeUpload() {
+    document.getElementById("imageDisplay").src = ""
+    document.querySelector(".upload").style.display = "none"
+    document.getElementById('file').value = ""
+}

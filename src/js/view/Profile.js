@@ -10,10 +10,12 @@ class Profile {
         var person = this.data[ind]['person']
 
         var element = `
-            <div class="profileSub">
+            <div class="profileSub config">
                 <div>
                     <div>
-                        <img src="../${person['photo']}" alt="">
+                        <img src="../src/${person['photo']}" alt="" id="profilePicture">
+                        
+                        <div class="config-loader"></div>
                     </div>
                 </div>
 
@@ -55,7 +57,7 @@ class Profile {
 
         var self = `
             <div class="self">
-                <div>
+                <div onclick="showUpload('profilePicture')">
                     <span>Upload</span>
                 </div>
 

@@ -18,7 +18,7 @@ class Options {
                                 <header class="post-info">
                                     <div>
                                         <a href="">
-                                            <img src="${this.path + this.data['photo']}" alt="">
+                                            <img src="${this.path + "src/" + this.data['photo']}" alt="">
                                         </a>
                                     </div>
                                     <div>

@@ -156,7 +156,7 @@
             </div>
 
             <div class="small">
-                <span class="post-title">Free</span>
+                <span class="post-title"></span>
             </div>
         </div>
 

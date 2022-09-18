@@ -580,22 +580,22 @@
                 // If the is 0 in the content, it means there was an error
                 if(!in_array(0, $content)):
                     // Check the upload type
-                    if($this->data['uploadType'] === "profilePicture"):
+                    if($val['type'] === "profilePicture"):
                         $path = $content[0];
                         
-                        $updating = new Update(self::$db, "SET photo = ? WHERE id = ?, $path, $this->user");
+                        $updating = new Update(self::$db, "SET photo = ? WHERE id = ?# $path# $this->user");
                         $action = $updating->mutate('si', 'user');
 
                         if($action):
                             $this->type = "success";
                             $this->status = 1;
                             $this->message = "void";
-                            $this->content = "Successfully uploaded picture";
+                            $this->content = "profilePicture%%$path";
                         else:
                             return $action;
                         endif;
 
-                    elseif($this->data['uploadType'] === "uploadPicture"):
+                    elseif($val['type'] === "uploadPicture"):
                         self::$db->autocommit(false);
 
                         $subject = [
@@ -606,11 +606,28 @@
                             "time"
                         ];
 
-                        foreach($content as $val):
+                        $action = "";
+
+                        // check the mode
+                        if($val['mode']):
+                            foreach($content as $val):
+                                $items = [
+                                    Func::tokenGenerator(),
+                                    $this->user,
+                                    $val,
+                                    Func::dateFormat(),
+                                    time()
+                                ];
+
+                                $inserting = new Insert(self::$db, "gallery", $subject, "");
+                                $action = $inserting->push($items, 'sissi');
+
+                            endforeach;
+                        else:
                             $items = [
                                 Func::tokenGenerator(),
                                 $this->user,
-                                $val,
+                                implode("%%", $val),
                                 Func::dateFormat(),
                                 time()
                             ];
@@ -618,16 +635,16 @@
                             $inserting = new Insert(self::$db, "gallery", $subject, "");
                             $action = $inserting->push($items, 'sissi');
 
-                            if($action):
-                                $this->type = "success";
-                                $this->status = 1;
-                                $this->message = "void";
-                                $this->content = "Successfully uploaded picture";
-                            else:
-                                return $action;
-                            endif;
+                        endif;
 
-                        endforeach;
+                        if($action):
+                            $this->type = "success";
+                            $this->status = 1;
+                            $this->message = "void";
+                            $this->content = "uploadPicture";
+                        else:
+                            return $action;
+                        endif;
 
                         self::$db->autocommit(true);
                     endif;

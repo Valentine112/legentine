@@ -54,10 +54,6 @@ class Func {
             body: data
         })
 
-        if(headerType === "file") {
-            return req.text()
-        }
-
         return req.json()
     }
 

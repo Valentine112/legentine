@@ -8,7 +8,7 @@
             // This is the path where the file goes
             $this->folder = Func::cleanData($folder, 'string');
             // Picture directory to access from site
-            $this->path = Func::cleanData($path, 'integer');
+            $this->path = Func::cleanData($path, 'string');
             $this->files = $files;
         }
 
@@ -51,8 +51,8 @@
             if(strpos($photo_name, "%") >= 0):
                 $photo_name = str_replace("%", "_", $photo_name);
             endif;
-            if(strpos($photo_name, "Ahid") === FALSE):
-                $photo_name = "Ahid_".$photo_name;
+            if(strpos($photo_name, "LT") === FALSE):
+                $photo_name = "LT".$photo_name;
             endif;
 
             return $photo_name."$rand $date";

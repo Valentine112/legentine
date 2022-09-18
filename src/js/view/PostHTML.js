@@ -46,7 +46,7 @@ class PostHTML {
                             <div class="picture-segment">
                                 <div>
                                     <a href="profile?token=${this.post['user']}">
-                                        <img src=" " alt="" class="lazy-load-image" data-image="${this.path + photo}">
+                                        <img src=" " alt="" class="lazy-load-image" data-image="${this.path + "src/" + photo}">
                                     </a>
                                 </div>
                             </div>

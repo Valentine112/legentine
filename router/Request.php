@@ -34,8 +34,6 @@
                 // Make sure Content-type is application/json
                 $contentType = ($_SERVER['CONTENT_TYPE']) ?? '';
 
-                print_r(file_get_contents("php://input"));
-
                 $value = json_decode(file_get_contents("php://input"), true);
 
                 if(str_contains($contentType, 'application/json')):
@@ -86,6 +84,7 @@
 
                     // Check if it's not a json data
                     if(json_last_error() !== JSON_ERROR_NONE):
+                        // Check if it's a file
                         if($_POST['type'] === "file"):
 
                             // Clean the routing request variables
@@ -102,7 +101,12 @@
                                 endforeach;
                             endforeach;
 
-                            $data['val'] = $_FILES;
+                            $data['val'] = [
+                                "files" => $_FILES['files'],
+                                "type" => $data['uploadType'],
+                                "mode" => $data['mode'],
+                            ];
+
                         endif;
 
                         $this->data = $data;

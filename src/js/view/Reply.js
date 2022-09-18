@@ -21,7 +21,7 @@ class Reply {
             >
                 <div>
                     <div>
-                        <img src="../${this.other['photo']}" alt="">
+                        <img src="../src/${this.other['photo']}" alt="">
                     </div>
 
                     <div>

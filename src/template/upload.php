@@ -9,12 +9,14 @@
         z-index: 4;
         margin: auto;
         font-family: var(--theme-font);
+        display: none;
     }
     .upload .closeUpload{
         position: absolute;
         top: 2%;
         right: 2%;
         color: #fff;
+        z-index: 2;
     }
     .upload .uploadError{
         position: absolute;
@@ -28,6 +30,7 @@
         color: var(--theme-color);
         box-shadow: 1px 1px 3px #5e5e5e;
         text-align: center;
+        z-index: 2;
     }
     .upload .uploadError span{
         padding: 10px 5px;
@@ -95,6 +98,9 @@
     .upload .uploadOptions > div:first-child{
         border-right: 1px solid #5e5e5e;
     }
+    .uploadOptions #uploadMode{
+        border-right: 1px solid #5e5e5e;
+    }
     .uploadOptions .fileInput{
         display: none;
     }
@@ -130,8 +136,8 @@
                 <span onclick="uploadImage(this)">Upload</span>
             </div>
             <div id="uploadMode">
-                <input type="checkbox" id="checkbox">
-                <label for="checkbox" id="mode">Multiple</label>
+                <input type="checkbox" id="checkbox" checked>
+                <label for="checkbox" id="mode">Single</label>
             </div>
             <div>
                 <label for="file">Select</label>
@@ -140,12 +146,19 @@
         </div>
     </div>
 </div>
+
 <script>
+    var uploadError = document.querySelector(".uploadError")
+    var imageDisplay = document.getElementById("imageDisplay")
+    var imagePreview = document.querySelector(".imagePreview")
+    var imageData = ""
+
     function errorBox(errorMessage) {
         return `
             <span class="uploadErrorMessage">${errorMessage}</span>
         `
     }
+
     function imagePreviewBox(file) {
         return `
             <div>
@@ -167,17 +180,11 @@
         }, 2500)
     }
 
-    var uploadError = document.querySelector(".uploadError")
-    var imageDisplay = document.getElementById("imageDisplay")
-    var imagePreview = document.querySelector(".imagePreview")
-    var imageData = ""
-
     function selectImage(self) {
         var reader = new FileReader
         var files = self.files
         var fileLength = files.length
 
-        console.log(files)
         var validImageTypes = ['image/jpg', 'image/jpeg', 'image/png']
         var validLength = 0
         var error = 0
@@ -259,6 +266,7 @@
             if(uploadType === "profilePicture"){
                 mode = "single"
                 type = "profile"
+
             }else if(uploadType === "uploadPicture"){
                 var modeCheckBox = document.getElementById("mode")
 
@@ -274,11 +282,19 @@
             formdata.append("part", "user")
             formdata.append("action", "uploadPhoto")
             formdata.append("type", "file");
+            formdata.append("mode", document.getElementById("checkbox").checked)
             formdata.append("uploadType", uploadType)
 
             new Func().request("../request.php", formdata, 'file')
             .then(val => {
-                console.log(val)
+                if(val.status === 1) {
+                    var content = val.content.split("%%")
+
+                    if(content[0] == "profilePicture") {
+                        closeUpload()
+                        document.getElementById("profilePicture").src = "../src/" + content[1]
+                    }
+                }
             })
         }else{
             var error = errorBox("Please select a photo first")
@@ -286,4 +302,5 @@
             return
         }
     }
+
 </script>

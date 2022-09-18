@@ -13,6 +13,11 @@
     display: flex;
     align-items: top;
 }
+.profileSub > div:first-child > div{
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+}
 .profileHead .profileSub > div:first-child img{
     height: 80px;
     width: 80px;
