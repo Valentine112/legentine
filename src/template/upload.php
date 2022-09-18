@@ -151,7 +151,9 @@
     var uploadError = document.querySelector(".uploadError")
     var imageDisplay = document.getElementById("imageDisplay")
     var imagePreview = document.querySelector(".imagePreview")
+    var file = document.getElementById('file')
     var imageData = ""
+    var cropper = ""
 
     function errorBox(errorMessage) {
         return `
@@ -247,6 +249,26 @@
             })
         }
 
+        setTimeout(() => { 
+            cropper = new Cropper(imageDisplay, {
+                autoCrop: false,
+                aspectRatio: 12 / 12,
+                background: false,
+                viewMode: 1,
+                crossOrigin: false,
+                autoCropArea: 1,
+                movable: false,
+                rotatable: false,
+                cropBoxResizable: false,
+                dragMode: 'move',
+                cropBoxResizable: false,
+                checkOrientation: false,
+                ready(){
+                    this.cropper.crop()
+                },
+            });
+        }, 0800)
+
         // If there is an error, then the code would return and wouldn't reach here
         reader.onload = function(ev) {
             imageDisplay.src = ev.target.result
@@ -257,8 +279,13 @@
     }
 
     function uploadImage(self) {
-        var file = document.getElementById('file')
-        if(file.files.length > 0) {
+        var profileLoader = document.getElementById("profilePictureLoader")
+        const files = file.files
+
+        if(files.length > 0) {
+            // Close the upload box
+            closeUpload()
+
             var uploadType = file.getAttribute("data-type")
             var mode = ""
             var type = ""
@@ -266,6 +293,8 @@
             if(uploadType === "profilePicture"){
                 mode = "single"
                 type = "profile"
+
+                profileLoader.style.display = "block"
 
             }else if(uploadType === "uploadPicture"){
                 var modeCheckBox = document.getElementById("mode")
@@ -275,7 +304,7 @@
             }
 
             var formdata = new FormData()
-            Array.from(file.files).forEach(elem => {
+            Array.from(files).forEach(elem => {
                 formdata.append("files[]", elem)
             })
 
@@ -287,12 +316,14 @@
 
             new Func().request("../request.php", formdata, 'file')
             .then(val => {
+                console.log(val)
                 if(val.status === 1) {
                     var content = val.content.split("%%")
 
                     if(content[0] == "profilePicture") {
-                        closeUpload()
                         document.getElementById("profilePicture").src = "../src/" + content[1]
+
+                        profileLoader.style.display = "none"
                     }
                 }
             })

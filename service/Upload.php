@@ -51,8 +51,8 @@
             if(strpos($photo_name, "%") >= 0):
                 $photo_name = str_replace("%", "_", $photo_name);
             endif;
-            if(strpos($photo_name, "LT") === FALSE):
-                $photo_name = "LT".$photo_name;
+            if(strpos($photo_name, "LT-") === FALSE):
+                $photo_name = "LT-".$photo_name;
             endif;
 
             return $photo_name."$rand $date";

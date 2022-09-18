@@ -139,7 +139,6 @@ body{
 }
 .vertical-divider{
     width: 1px;
-    height: ;
     background-color: #000;
 }
 /* Divider ends */
@@ -174,7 +173,7 @@ body{
     border-left: 4px solid transparent;
     border-radius: 50px;
     animation: rotate 1.5s linear infinite;
-
+    display: none;
 }
 
 @keyframes rotate{

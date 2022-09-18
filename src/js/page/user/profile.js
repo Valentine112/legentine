@@ -228,7 +228,7 @@ function showUpload(type) {
 }
 
 function closeUpload() {
-    document.getElementById("imageDisplay").src = ""
     document.querySelector(".upload").style.display = "none"
-    document.getElementById('file').value = ""
+    document.getElementById("imageDisplay").src = ""
+    document.getElementById.value = ""
 }

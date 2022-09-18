@@ -15,7 +15,9 @@ class Profile {
                     <div>
                         <img src="../src/${person['photo']}" alt="" id="profilePicture">
                         
-                        <div class="config-loader"></div>
+                        <div class="content-loader" id="profilePictureLoader">
+                            <div></div>
+                        </div>
                     </div>
                 </div>
 

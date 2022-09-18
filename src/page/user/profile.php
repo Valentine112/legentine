@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="../src/element/css/post.css">
     <link rel="stylesheet" href="../src/element/css/options.css">
     <link rel="stylesheet" href="../src/element/css/properties.css">
+    <link rel="stylesheet" href="../src/cropperjs/dist/cropper.min.css">
+    <script src="../src/cropperjs/dist/cropper.min.js" type='module'></script>
     <title>Profile</title>
 </head>
 <body>
