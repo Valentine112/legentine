@@ -13,7 +13,7 @@
             parent::__construct(false);
 
             $this->email = Func::cleanData($email, "email");
-            $this->full_name = is_string($fullname) ? Func::cleanData($fullname, "string") : "";
+            $this->fullname = is_string($fullname) ? Func::cleanData($fullname, "string") : "";
             
             $this->code = $code !== null ? Func::cleanData($code, "integer") : 0;
 

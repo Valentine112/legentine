@@ -45,12 +45,12 @@
                 </div>
 
                 <div class="headerSection">
-                    <div>
-                        <div class="active">
+                    <div class="headerSectionSub">
+                        <div class="active action" data-type="notes" data-action="profileSection">
                             <span>Notes</span>
                         </div>
 
-                        <div>
+                        <div class="action" data-type="photos" data-action="profileSection">
                             <span>Photos</span>
                         </div>
                     </div>
@@ -69,6 +69,13 @@
                 // Include upload here
                 include "src/template/upload.php";
             ?>
+        </div>
+
+        <!-- Upload photo here -->
+        <div class="uploadPhotoBox">
+            <div class="uploadPhoto">
+                <img src="../src/icon/profile/camera.svg" alt="" id="uploadPhoto" onclick="showUpload('uploadPicture')">
+            </div>
         </div>
     </div>
 </body>

@@ -1,11 +1,12 @@
+var person = ""
+var user = ""
+
 window.addEventListener("load", async function () {
 
     var pathObj = new Func().getPath()
     var path = pathObj['main_path']
 
     var param = pathObj['parameter']['token'] != null ? pathObj['parameter']['token'] : ""
-
-    new Post().fetch_post(path, "notes", param)
 
     // Fetch user info
     var data = {
@@ -28,8 +29,13 @@ window.addEventListener("load", async function () {
 
                 profile.rating(ind)
             })
+
+            person = content[0]['person']['id']
+            user = content[0]['self']['user']
         }
     })
+
+    new Post().fetch_post(path, "notes", param)
 })
 
 document.body.addEventListener("click", function(e) {
@@ -49,6 +55,7 @@ document.body.addEventListener("click", function(e) {
 
     var pathObj = new Func().getPath()
     var param = pathObj['parameter']['token'] != null ? pathObj['parameter']['token'] : ""
+    
 
     switch (action) {
         case "profileList":
@@ -197,6 +204,37 @@ document.body.addEventListener("click", function(e) {
             })
 
             break;
+
+        case "profileSection":
+            var uploadPhotoBox = document.querySelector(".uploadPhotoBox")
+            var parent = elem.closest(".headerSectionSub")
+            var type = elem.getAttribute("data-type")
+
+            // Toggle the active link
+            parent.querySelector(".active").classList.remove("active")
+            elem.classList.add("active")
+
+            var articleContent = document.querySelector(".article-content")
+            articleContent.innerHTML = ""
+
+            // Display the photo box
+            if(person === user) {
+                if(type === "photos") {
+                    uploadPhotoBox.style.display = "block"
+                }
+            }
+
+            if(type === "notes") {
+                new Post().fetch_post(pathObj['main_path'], "notes", param)
+
+                uploadPhotoBox.style.display = "none"
+            }
+
+            if(type === "photos") {
+
+            }
+
+            break;
             
         default:
             break;
@@ -215,6 +253,7 @@ function showUpload(type) {
     var checkBox = uploadBox.querySelector("#checkbox")
 
     file.setAttribute("data-type", type)
+    file.value = ""
     if(type === "profilePicture") {
         file.removeAttribute("multiple")
         checkBox.setAttribute("disabled", "disabled")
@@ -230,5 +269,4 @@ function showUpload(type) {
 function closeUpload() {
     document.querySelector(".upload").style.display = "none"
     document.getElementById("imageDisplay").src = ""
-    document.getElementById.value = ""
 }

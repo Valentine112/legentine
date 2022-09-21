@@ -393,4 +393,24 @@ class Func {
         return result
     }
 
+    cropper(cropImage) {
+        return new Cropper(cropImage, {
+            autoCrop: false,
+            aspectRatio: 16 / 16,
+            background: false,
+            viewMode: 2,
+            crossOrigin: false,
+            autoCropArea: 1,
+            movable: false,
+            rotatable: false,
+            cropBoxResizable: false,
+            dragMode: 'move',
+            cropBoxResizable: false,
+            checkOrientation: false,
+            ready(){
+                this.cropper.crop()
+            },
+        })
+    }
+
 }

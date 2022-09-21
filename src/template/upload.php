@@ -50,11 +50,7 @@
     }
     .uploadSub main > div:first-child img{
         width: 90%;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        transform: translateY(50%);
         margin: auto;
     }
     main > div:first-child .full{
@@ -151,9 +147,11 @@
     var uploadError = document.querySelector(".uploadError")
     var imageDisplay = document.getElementById("imageDisplay")
     var imagePreview = document.querySelector(".imagePreview")
-    var file = document.getElementById('file')
+    var file = ""
     var imageData = ""
     var cropper = ""
+    var formdata = new FormData()
+    var fileName = ""
 
     function errorBox(errorMessage) {
         return `
@@ -183,6 +181,7 @@
     }
 
     function selectImage(self) {
+        file = self
         var reader = new FileReader
         var files = self.files
         var fileLength = files.length
@@ -190,6 +189,8 @@
         var validImageTypes = ['image/jpg', 'image/jpeg', 'image/png']
         var validLength = 0
         var error = 0
+
+        fileName = files[0]['name']
 
         // Check if its a profile picture or the user is just uploading photos
         var type = self.getAttribute("data-type")
@@ -249,26 +250,6 @@
             })
         }
 
-        setTimeout(() => { 
-            cropper = new Cropper(imageDisplay, {
-                autoCrop: false,
-                aspectRatio: 12 / 12,
-                background: false,
-                viewMode: 1,
-                crossOrigin: false,
-                autoCropArea: 1,
-                movable: false,
-                rotatable: false,
-                cropBoxResizable: false,
-                dragMode: 'move',
-                cropBoxResizable: false,
-                checkOrientation: false,
-                ready(){
-                    this.cropper.crop()
-                },
-            });
-        }, 0800)
-
         // If there is an error, then the code would return and wouldn't reach here
         reader.onload = function(ev) {
             imageDisplay.src = ev.target.result
@@ -276,11 +257,19 @@
         }
         reader.readAsDataURL(files[0])
 
+        if(type === "profilePicture"){
+            var cropImage = document.getElementById("imageDisplay")
+            setTimeout(() => { 
+                cropper = new Func().cropper(cropImage)
+            }, 0800)
+        }
     }
 
     function uploadImage(self) {
         var profileLoader = document.getElementById("profilePictureLoader")
         const files = file.files
+
+        console.log(files)
 
         if(files.length > 0) {
             // Close the upload box
@@ -291,42 +280,90 @@
             var type = ""
 
             if(uploadType === "profilePicture"){
+                // Would be running the request here
+                // Since the i cannot store the toBlob result with a global variable
+                // Because its in a function
+
                 mode = "single"
                 type = "profile"
 
                 profileLoader.style.display = "block"
+
+                cropper.getCroppedCanvas();
+                cropper.getCroppedCanvas({
+                    minWidth: 256,
+                    minHeight: 256,
+                    maxWidth: 4096,
+                    maxHeight: 4096,
+                    fillColor: '#fff',
+                    imageSmoothingEnabled: false,
+                    imageSmoothingQuality: 'high'
+                })
+                
+                cropper.getCroppedCanvas().toBlob((elem) => {
+                    var formdata = new FormData()
+
+                    elem['name'] = files[0]['name']
+
+                    formdata.append("files[]", elem, fileName)
+                    formdata.append("part", "user")
+                    formdata.append("action", "uploadPhoto")
+                    formdata.append("type", "file")
+                    formdata.append("mode", document.getElementById("checkbox").checked)
+                    formdata.append("uploadType", "profilePicture")
+
+                    new Func().request("../request.php", formdata, 'file')
+                    .then(val => {
+
+                        // Reset the cropper and the file
+                        cropper.destroy()
+                        file.value = ""
+
+                        if(val.status === 1) {
+                            var content = val.content.split("%%")
+
+                            if(content[0] == "profilePicture") {
+                                document.getElementById("profilePicture").src = "../src/" + content[1]
+
+                                profileLoader.style.display = "none"
+                            }
+                        }
+                    })
+
+                }, 'image/jpeg', 0.8)
 
             }else if(uploadType === "uploadPicture"){
                 var modeCheckBox = document.getElementById("mode")
 
                 modeCheckBox ? mode = "single" : mode = "multiple"
                 type = "photo"
-            }
 
-            var formdata = new FormData()
-            Array.from(files).forEach(elem => {
-                formdata.append("files[]", elem)
-            })
+                var formdata = new FormData()
 
-            formdata.append("part", "user")
-            formdata.append("action", "uploadPhoto")
-            formdata.append("type", "file");
-            formdata.append("mode", document.getElementById("checkbox").checked)
-            formdata.append("uploadType", uploadType)
+                Array.from(files).forEach(elem => {
+                    formdata.append("files[]", elem)
+                })
 
-            new Func().request("../request.php", formdata, 'file')
-            .then(val => {
-                console.log(val)
-                if(val.status === 1) {
-                    var content = val.content.split("%%")
+                formdata.append("part", "user")
+                formdata.append("action", "uploadPhoto")
+                formdata.append("type", "file")
+                formdata.append("mode", document.getElementById("checkbox").checked)
+                formdata.append("uploadType", "uploadPicture")
 
-                    if(content[0] == "profilePicture") {
-                        document.getElementById("profilePicture").src = "../src/" + content[1]
+                new Func().request("../request.php", formdata, 'file')
+                .then(val => {
+                    file.value = ""
+                    console.log(val)
+                    if(val.status === 1) {
+                        var content = val.content.split("%%")
 
-                        profileLoader.style.display = "none"
+                        if(content[0] == "uploadPicture") {
+
+                        }
                     }
-                }
-            })
+                })
+            }
+            
         }else{
             var error = errorBox("Please select a photo first")
             resetValue(file, error)

@@ -168,6 +168,26 @@
     color: #000;
 }
 
+.uploadPhotoBox{
+    display: none;
+}
+.uploadPhoto{
+    position: fixed;
+    bottom: 10%;
+    right: 8%;
+    height: fit-content;
+    width: fit-content;
+    margin: auto;
+    z-index: 3;
+    padding: 13px 16px;
+    border-radius: 50px;
+    background-color: var(--theme-color);
+}
+#uploadPhoto{
+    height: 25px;
+    width: 25px;
+}
+
 @media screen and (min-width: 768px) {
     .profileHead .profileSub{
         display: block;
@@ -185,7 +205,8 @@
     }
     .profileHead .profileSub > div:first-child{
         display: inline-block;
-        width: 100%;
+        width: fit-content;
+        margin: auto;
     }
     .profileHead .profileSub > div:last-child{
         position: absolute;

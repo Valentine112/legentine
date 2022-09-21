@@ -569,8 +569,9 @@
             $this->message = "void";
 
             $val = $this->data['val'];
-
+            
             $uploading = new Upload("src/photo", "photo", $val['files']);
+            
             $savingImage = $uploading->saveImage();
 
             if($savingImage['status'] === 1):
