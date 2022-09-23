@@ -43,28 +43,36 @@
     }
     .uploadSub main > div:first-child{
         width: 100%;
-        height: 85%;
+        height: 80%;
         margin: auto;
         text-align: center;
         position: relative;
     }
     .uploadSub main > div:first-child img{
-        width: 90%;
-        transform: translateY(50%);
         margin: auto;
     }
     main > div:first-child .full{
-        max-height: 90vh;
+        max-height: 90%;
         max-width: 90%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
     }
     main > div:first-child .half{
         max-height: 70vh;
+        max-width: 90%;
     }
 
     .uploadSub .imagePreview{
         display: flex;
         justify-content: center;
         align-items: center;
+        width: 100%;
+        height: 18%;
+        position: relative;
     }
     .imagePreview > div{
         height: 100%;
@@ -181,6 +189,8 @@
     }
 
     function selectImage(self) {
+        if(cropper != "") cropper.destroy()
+
         file = self
         var reader = new FileReader
         var files = self.files
@@ -227,8 +237,8 @@
         else{
             imagePreview.innerHTML = ""
             // Set the display size
-            imageDisplay.classList.remove("half")
-            imageDisplay.classList.add("full")
+            imageDisplay.classList.remove("full")
+            imageDisplay.classList.add("half")
 
             // Check for the file type
             Array.from(files).forEach((elem, ind) => {
@@ -324,6 +334,12 @@
 
                             if(content[0] == "profilePicture") {
                                 document.getElementById("profilePicture").src = "../src/" + content[1]
+
+                                if(document.querySelectorAll(".post-image") !== null) {
+                                    document.querySelectorAll(".post-image").forEach(elem => {
+                                        elem.setAttribute("data-image", "../src/" + content[1])
+                                    })
+                                }
 
                                 profileLoader.style.display = "none"
                             }

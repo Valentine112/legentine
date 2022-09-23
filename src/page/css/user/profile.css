@@ -162,6 +162,7 @@
     padding: 6px;
     text-align: center;
     color: grey;
+    cursor: pointer;
 }
 .headerSection .active{
     border-bottom: 2px solid grey;

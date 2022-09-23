@@ -33,4 +33,19 @@ class User {
             this.func.notice_box(val)
         })
     }
+
+    fetchPhotos(user) {
+        var data = {
+            part: "user",
+            action: 'fetchPhotos',
+            val: {
+                user: user,
+            }
+        }
+
+        this.func.request("../request.php", JSON.stringify(data), 'json')
+        .then(val => {
+            console.log(valui)
+        })
+    }
 }

@@ -660,5 +660,19 @@
             return $this->deliver();
         }
 
+        public function fetchPhotos() : array {
+            $val = $this->data['val'];
+
+            $person = $val['person'];
+            $result = [
+                "content" => [],
+                "self" => [],
+                "more" => []
+            ];
+
+            $selecting = $this->selecting->more_details("WHERE ")
+            return $this->deliver();
+        }
+
     }
 ?>

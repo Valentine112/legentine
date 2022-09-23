@@ -231,7 +231,7 @@ document.body.addEventListener("click", function(e) {
             }
 
             if(type === "photos") {
-
+                new User().fetchPhotos()
             }
 
             break;
@@ -269,4 +269,6 @@ function showUpload(type) {
 function closeUpload() {
     document.querySelector(".upload").style.display = "none"
     document.getElementById("imageDisplay").src = ""
+    if(cropper != "") cropper.destroy()
+    document.querySelector(".imagePreview").innerHTML = ""
 }
