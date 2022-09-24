@@ -58,9 +58,20 @@
             </div>
 
             <div class="article-content post-controller box">
+                <div id="postCover">
+
+                </div>
+
                 <div class="content-loader">
                     <div></div>
                 </div>
+
+                <div class="photosCover">
+                    <div class="photosSub" id="photoSub">
+                        <!-- The photos goes here -->
+                    </div>
+                </div>
+
             </div>
         </div>
 

@@ -37,6 +37,10 @@
         </div>
 
         <div class="article-content post-controller box">
+            <div id="postCover">
+
+            </div>
+            
             <div class="content-loader">
                 <div></div>
             </div>

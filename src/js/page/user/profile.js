@@ -214,8 +214,11 @@ document.body.addEventListener("click", function(e) {
             parent.querySelector(".active").classList.remove("active")
             elem.classList.add("active")
 
-            var articleContent = document.querySelector(".article-content")
-            articleContent.innerHTML = ""
+            var postCover = document.getElementById("postCover")
+            var photoSub = document.getElementById("photoSub")
+
+            postCover.innerHTML = ""
+            photoSub.innerHTML = ""
 
             // Display the photo box
             if(person === user) {
@@ -225,13 +228,19 @@ document.body.addEventListener("click", function(e) {
             }
 
             if(type === "notes") {
+                photoSub.style.display = "none"
+                postCover.style.display = "block"
+
                 new Post().fetch_post(pathObj['main_path'], "notes", param)
 
                 uploadPhotoBox.style.display = "none"
             }
 
             if(type === "photos") {
-                new User().fetchPhotos()
+                postCover.style.display = "none"
+                photoSub.style.display = "flex"
+                
+                new User().fetchPhotos(param)
             }
 
             break;
@@ -271,4 +280,37 @@ function closeUpload() {
     document.getElementById("imageDisplay").src = ""
     if(cropper != "") cropper.destroy()
     document.querySelector(".imagePreview").innerHTML = ""
+}
+
+function photoBox(data) {
+
+    var result = data['content']
+    var photo = ""
+    var count = ""
+
+    console.log(result)
+    
+    if(result['mode'] == 1) {
+        var photos = result['photo'].split("%%")
+        photo = photos[0]
+        photo.length <= 1 ? count = "" : count == photo.length
+
+    }else if(result['mode'] == 0) {
+        photo = result['photo']
+        count = ""
+    }
+
+    return `
+        <div>
+            <div class="multiple">${count}</div>
+            <img
+            src=" "
+            class="lazy-load-image"
+            data-image="../src/${result['photo']}"
+            data-token="${result['token']}"
+            data-user="${result['user']}"
+            data-self="${data['self']}"
+            >
+        </div>
+    `
 }

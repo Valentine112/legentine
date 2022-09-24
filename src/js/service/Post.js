@@ -31,16 +31,16 @@ class Post {
                 
                 if(val.status === 1){
                     var content = val.content
-                    var article_content = document.querySelector(".article-content")
+                    var postCover = document.getElementById("postCover")
 
                     // Remove all the previous content if there is a filter
                     if(filter != ""){
-                        article_content.innerHTML = ""
+                        postCover.innerHTML = ""
                     }
                     
                     content.forEach(elem => {
                         var post = new PostHTML(elem, from, "../")
-                        article_content.insertAdjacentHTML("beforeend", post.main())
+                        postCover.insertAdjacentHTML("beforeend", post.main())
                     })
                 }
 

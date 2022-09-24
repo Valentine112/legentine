@@ -168,6 +168,37 @@
     border-bottom: 2px solid grey;
     color: #000;
 }
+.photosCover{
+    width: 100%;
+    margin-top: 2%;
+    margin-bottom: 5%;
+}
+.photosCover .photosSub{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.photosSub > div{
+    position: relative;
+    width: 47%;
+    margin: 0 1.5%;
+    text-align: center;
+}
+.photosSub div .multiple{
+    font-family: var(--theme-font);
+    position: absolute;
+    top: 1%;
+    right: 3%;
+    color: #f1f1f1;
+}
+.photosSub img{
+    object-fit: cover;
+    -o-object-fit: cover;
+    height: 200px;
+    width: 98%;
+    margin: auto;
+    border-radius: 10px;
+}
 
 .uploadPhotoBox{
     display: none;

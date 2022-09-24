@@ -35,6 +35,7 @@ class User {
     }
 
     fetchPhotos(user) {
+
         var data = {
             part: "user",
             action: 'fetchPhotos',
@@ -43,9 +44,21 @@ class User {
             }
         }
 
+
         this.func.request("../request.php", JSON.stringify(data), 'json')
         .then(val => {
-            console.log(valui)
+            if(val.status === 1) {
+                var photoSub = document.getElementById("photoSub")
+
+                var content = val.content
+                content.forEach(elem => {
+
+                    photoSub.insertAdjacentHTML("afterbegin", photoBox(elem))
+                })
+            }
+
+            this.func.notice_box(val)
         })
+
     }
 }

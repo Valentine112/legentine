@@ -62,6 +62,11 @@
                         $result = $modelUser->uploadPhoto();
 
                         break;
+
+                    case "fetchPhotos":
+                        $result = $modelUser->fetchPhotos();
+
+                        break;
                     
                     default:
 

@@ -591,7 +591,12 @@
                             $this->type = "success";
                             $this->status = 1;
                             $this->message = "void";
-                            $this->content = "profilePicture%%$path";
+                            $this->content = [
+                                "mode" => 1,
+                                "profilePicture",
+                                "content" => $path
+                            ];
+
                         else:
                             return $action;
                         endif;
@@ -599,42 +604,70 @@
                     elseif($val['type'] === "uploadPicture"):
                         self::$db->autocommit(false);
 
+                        $result = [];
+                        $arr = [
+                            "content" => [],
+                            "self" => [],
+                            "more" => []
+                        ];
+
                         $subject = [
                             "token",
                             "user",
                             "photo",
+                            "mode",
                             "date",
-                            "time"
+                            "time",
                         ];
 
                         $action = "";
+                        $this->content = [
+                            "type" => "",
+                            "content" => [],
+                            "mode" => ""
+                        ];
 
                         // check the mode
                         if($val['mode']):
+                            $this->content['mode'] = 0;
+
                             foreach($content as $val):
                                 $items = [
                                     Func::tokenGenerator(),
                                     $this->user,
                                     $val,
+                                    0,
                                     Func::dateFormat(),
                                     time()
                                 ];
 
                                 $inserting = new Insert(self::$db, "gallery", $subject, "");
-                                $action = $inserting->push($items, 'sissi');
+                                $action = $inserting->push($items, 'sisisi');
+
+                                $arr['content'] = array_combine($subject, $items);
+                                $arr['self'] = $this->user;
+
+                                array_push($result, $arr);
 
                             endforeach;
                         else:
+                            $this->content['mode'] = 1;
                             $items = [
                                 Func::tokenGenerator(),
                                 $this->user,
                                 implode("%%", $val),
+                                1,
                                 Func::dateFormat(),
                                 time()
                             ];
 
                             $inserting = new Insert(self::$db, "gallery", $subject, "");
-                            $action = $inserting->push($items, 'sissi');
+                            $action = $inserting->push($items, 'sisisi');
+
+                            $arr['content'] = array_combine($subject, $items);
+                            $arr['self'] = $this->user;
+
+                            array_push($result, $arr);
 
                         endif;
 
@@ -642,7 +675,10 @@
                             $this->type = "success";
                             $this->status = 1;
                             $this->message = "void";
-                            $this->content = "uploadPicture";
+
+                            $this->content["type"] = "uploadPicture";
+                            $this->content["content"] = $result;
+
                         else:
                             return $action;
                         endif;
@@ -663,14 +699,31 @@
         public function fetchPhotos() : array {
             $val = $this->data['val'];
 
-            $person = $val['person'];
-            $result = [
+            $person = $val['user'];
+            $result = [];
+            $arr = [
                 "content" => [],
                 "self" => [],
                 "more" => []
             ];
 
-            $selecting = $this->selecting->more_details("WHERE ")
+            $this->selecting->more_details("WHERE user = ?, $person");
+            $action = $this->selecting->action("*", "gallery");
+            if($action != null) return $action;
+
+            $value = $this->selecting->pull()[0];
+            foreach($value as $val):
+                $arr['content'] = $val;
+                $arr['self'] = $this->user;
+
+                array_push($result, $arr);
+            endforeach;
+
+            $this->status = 1;
+            $this->type = "success";
+            $this->message = "void";
+            $this->content = $result;
+
             return $this->deliver();
         }
 

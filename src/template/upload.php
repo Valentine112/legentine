@@ -330,14 +330,14 @@
                         file.value = ""
 
                         if(val.status === 1) {
-                            var content = val.content.split("%%")
+                            var content = val.content
 
-                            if(content[0] == "profilePicture") {
-                                document.getElementById("profilePicture").src = "../src/" + content[1]
+                            if(content["type"] == "profilePicture") {
+                                document.getElementById("profilePicture").src = "../src/" + content["content"]
 
                                 if(document.querySelectorAll(".post-image") !== null) {
                                     document.querySelectorAll(".post-image").forEach(elem => {
-                                        elem.setAttribute("data-image", "../src/" + content[1])
+                                        elem.setAttribute("data-image", "../src/" + content["content"])
                                     })
                                 }
 
@@ -369,12 +369,18 @@
                 new Func().request("../request.php", formdata, 'file')
                 .then(val => {
                     file.value = ""
-                    console.log(val)
+
                     if(val.status === 1) {
-                        var content = val.content.split("%%")
+                        var content = val.content
 
-                        if(content[0] == "uploadPicture") {
+                        if(content["type"] == "uploadPicture") {
+                            var result = content['content']
+                            console.log(result)
+                            var photoSub = document.getElementById("photoSub")
 
+                            result.forEach(elem => {
+                                photoSub.insertAdjacentHTML("afterbegin", photoBox(elem))
+                            })
                         }
                     }
                 })
