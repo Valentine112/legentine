@@ -39,6 +39,7 @@
     $twentyfourHrs = (60 * 60) * 12;
     cleanFile(REGFILE, $twentyfourHrs);
     cleanFile(FORGOTFILE, $twentyfourHrs);
+    cleanFile(LOGINFILE, $twentyfourHrs);
 
     // So the file doesn't get too overloaded
 

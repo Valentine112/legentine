@@ -287,13 +287,11 @@ function photoBox(data) {
     var result = data['content']
     var photo = ""
     var count = ""
-
-    console.log(result)
     
     if(result['mode'] == 1) {
         var photos = result['photo'].split("%%")
         photo = photos[0]
-        photo.length <= 1 ? count = "" : count == photo.length
+        photos.length <= 1 ? count = "" : count = "<img src='../src/icon/profile/stack.svg'>"
 
     }else if(result['mode'] == 0) {
         photo = result['photo']
@@ -304,12 +302,14 @@ function photoBox(data) {
         <div>
             <div class="multiple">${count}</div>
             <img
-            src=" "
-            class="lazy-load-image"
-            data-image="../src/${result['photo']}"
-            data-token="${result['token']}"
-            data-user="${result['user']}"
-            data-self="${data['self']}"
+                src=" "
+                class="lazy-load-image"
+                data-image="../src/${photo}"
+                data-src="${result['photo']}"
+                data-token="${result['token']}"
+                data-user="${result['user']}"
+                data-self="${data['self']}"
+                onclick="viewImage(this)"
             >
         </div>
     `

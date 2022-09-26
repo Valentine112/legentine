@@ -571,7 +571,6 @@
             $val = $this->data['val'];
             
             $uploading = new Upload("src/photo", "photo", $val['files']);
-            
             $savingImage = $uploading->saveImage();
 
             if($savingImage['status'] === 1):
@@ -628,7 +627,7 @@
                         ];
 
                         // check the mode
-                        if($val['mode']):
+                        if($val['mode'] == "true"):
                             $this->content['mode'] = 0;
 
                             foreach($content as $val):
@@ -650,12 +649,12 @@
                                 array_push($result, $arr);
 
                             endforeach;
-                        else:
+                        elseif($val['mode'] == "false"):
                             $this->content['mode'] = 1;
                             $items = [
                                 Func::tokenGenerator(),
                                 $this->user,
-                                implode("%%", $val),
+                                implode("%%", $content),
                                 1,
                                 Func::dateFormat(),
                                 time()

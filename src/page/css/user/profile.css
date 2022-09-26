@@ -177,6 +177,11 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 15%;
+}
+.photosSub #loadingBackground{
+    height: 200px;
+    background-color: #f1f1f1;
 }
 .photosSub > div{
     position: relative;
@@ -190,6 +195,10 @@
     top: 1%;
     right: 3%;
     color: #f1f1f1;
+}
+.photosSub .multiple img{
+    height: 15px;
+    width: 15px;
 }
 .photosSub img{
     object-fit: cover;

@@ -13,7 +13,7 @@
 
 /* Responsiveness ends */
 
-.post-controller{
+.post-controller #postCover{
     display: flex;
     justify-content: flex-start;
     align-items: top;

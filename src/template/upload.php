@@ -179,6 +179,12 @@
         imageDisplay.src = self.src
     }
 
+    function loadingBackground() {
+        return `
+            <div id="loadingBackground"></div>
+        `
+    }
+
     function resetValue(self, error) {
         uploadError.innerHTML = error
         self.value = ""
@@ -279,8 +285,6 @@
         var profileLoader = document.getElementById("profilePictureLoader")
         const files = file.files
 
-        console.log(files)
-
         if(files.length > 0) {
             // Close the upload box
             closeUpload()
@@ -349,6 +353,14 @@
                 }, 'image/jpeg', 0.8)
 
             }else if(uploadType === "uploadPicture"){
+                var photoSub = document.getElementById("photoSub")
+
+                if(document.querySelector("#loadingBackground") != null) {
+                    document.getElementById("loadingBackground").remove()
+                }else{
+                    photoSub.insertAdjacentHTML("afterbegin", loadingBackground())
+                }
+
                 var modeCheckBox = document.getElementById("mode")
 
                 modeCheckBox ? mode = "single" : mode = "multiple"
@@ -376,7 +388,8 @@
                         if(content["type"] == "uploadPicture") {
                             var result = content['content']
                             console.log(result)
-                            var photoSub = document.getElementById("photoSub")
+
+                            document.getElementById("loadingBackground").remove()
 
                             result.forEach(elem => {
                                 photoSub.insertAdjacentHTML("afterbegin", photoBox(elem))
