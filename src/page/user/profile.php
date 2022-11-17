@@ -88,6 +88,32 @@
                 <img src="../src/icon/profile/camera.svg" alt="" id="uploadPhoto" onclick="showUpload('uploadPicture')">
             </div>
         </div>
+
+        <div class="viewImageBox" data-action="closeImage">
+            <div class="imageControl">
+                <div data-action="closeImage" class="closeImage">
+                    <span>Close</span>
+                </div>
+
+                <div class="scrollImagePage">
+                    <span id="currentImage">1</span>
+                    /
+                    <span id="totalImage">2</span>
+                </div>
+
+                <div class="viewImages">
+                    <div class="imageCover">
+                        <img src="../src/photo/LT-IMG-20220408-WA00239963 22_09_23.jpeg" alt="">
+                    </div>
+                    <div class="imageCover">
+                        <img src="../src/photo/LT-IMG-20220408-WA00239963 22_09_23.jpeg" alt="">
+                    </div>
+                </div>
+                <div class="imageOptions">
+                    <button data-action="deleteImage">Delete</button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 <script src="../src/js/page/user/profile.js"></script>

@@ -244,17 +244,16 @@ document.body.addEventListener("click", function(e) {
             }
 
             break;
+
+        case "closeImage":
+
+            break;
             
         default:
             break;
     }
 
 })
-
-// Rate user
-function rateUser() {
-
-}
 
 function showUpload(type) {
     var uploadBox = document.querySelector(".upload")
@@ -313,4 +312,8 @@ function photoBox(data) {
             >
         </div>
     `
+}
+
+function viewImage(self) {
+    
 }

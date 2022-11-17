@@ -229,6 +229,91 @@
     width: 25px;
 }
 
+.viewImageBox{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    margin: auto;
+    z-index: 4;
+    background-color: rgba(255, 255, 255, 0.4);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+.viewImageBox .imageControl{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: #444;
+    margin: auto;
+    white-space: nowrap;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-snap-type: both mandatory;
+    scroll-behavior: smooth;
+}
+.imageControl .closeImage{
+    position: absolute;
+    top: 2%;
+    right: 3%;
+    height: fit-content;
+    width: fit-content;
+    color: #fff;
+    font-family: var(--theme-font);
+    font-size: 15px;
+}
+
+.viewImageBox .viewImages{
+    height: 100vh;
+    scroll-snap-align: start;
+    white-space: nowrap;
+    overflow-y: scroll;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+.viewImageBox .viewImages{
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.viewImageBox .viewImages::-webkit-scrollbar{
+    display: none;
+}
+.viewImageBox .imageCover{
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    scroll-snap-align: start;
+}
+.viewImageBox img{
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.viewImageBox .imageOptions{
+    text-align: center;
+    height: 10vh;
+    width: 100%;
+    scroll-snap-align: start;
+}
+.imageOptions button{
+    background-color: var(--theme-color);
+    color: #fff;
+    width: 30%;
+    border: 0;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-family: var(--theme-font);
+}
+
 @media screen and (min-width: 768px) {
     .profileHead .profileSub{
         display: block;
@@ -274,5 +359,28 @@
     .userInfoSub > div:nth-child(4){
         margin: auto;
         margin-top: 5px;
+    }
+
+    .photosSub > div{
+        width: 30%;
+        margin: 2% 1.5%;
+    }
+    .photosSub img{
+        height: 350px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .photosSub > div{
+        width: 20%;
+        margin: 2% 2.5%;
+    }
+
+    .viewImageBox .imageControl{
+        width: 30%;
+    }
+    .viewImages img{
+        max-width: 100%;
+        max-height: 100vh;
     }
 }
