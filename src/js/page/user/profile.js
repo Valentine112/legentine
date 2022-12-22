@@ -32,6 +32,14 @@ window.addEventListener("load", async function () {
 
             person = content[0]['person']['id']
             user = content[0]['self']['user']
+
+
+            // Display the delete button from viewing photo
+            // Depending on whose profile this is
+
+            if(user !== person) {
+                document.querySelector(".imageOptions").style.display = "none"
+            }
         }
     })
 
@@ -55,7 +63,7 @@ document.body.addEventListener("click", function(e) {
 
     var pathObj = new Func().getPath()
     var param = pathObj['parameter']['token'] != null ? pathObj['parameter']['token'] : ""
-    
+
 
     switch (action) {
         case "profileList":
@@ -229,7 +237,7 @@ document.body.addEventListener("click", function(e) {
 
             if(type === "notes") {
                 photoSub.style.display = "none"
-                postCover.style.display = "block"
+                postCover.style.display = "flex"
 
                 new Post().fetch_post(pathObj['main_path'], "notes", param)
 
@@ -245,7 +253,29 @@ document.body.addEventListener("click", function(e) {
 
             break;
 
-        case "closeImage":
+        case "deleteImage":
+            var elemToken = elem.getAttribute("data-token")
+
+            console.log(elem)
+            var data = {
+                part: "user",
+                action: 'deleteImage',
+                val: {
+                    token: elemToken,
+                }
+            }
+
+
+            new Func().request("../request.php", JSON.stringify(data), 'json')
+            .then(val => {
+                if(val.status === 1) {
+                    closePicture()
+
+                    document.querySelector("[data-image-token=LT-" + elemToken + "]").closest(".photoBoxCover").remove()
+                }
+
+                new Func().notice_box(val)
+            })
 
             break;
             
@@ -254,6 +284,12 @@ document.body.addEventListener("click", function(e) {
     }
 
 })
+
+function closePicture() {
+    document.querySelector(".viewImageBox").style.display = "none"
+    document.querySelector(".viewImages").innerHTML = ""
+    document.getElementById("deleteImage").removeAttribute("data-token")
+}
 
 function showUpload(type) {
     var uploadBox = document.querySelector(".upload")
@@ -298,14 +334,15 @@ function photoBox(data) {
     }
 
     return `
-        <div>
+        <div class="photoBoxCover">
             <div class="multiple">${count}</div>
             <img
                 src=" "
                 class="lazy-load-image"
                 data-image="../src/${photo}"
                 data-src="${result['photo']}"
-                data-token="${result['token']}"
+                data-token="LT-${result['token']}"
+                data-image-token="LT-${result['token']}"
                 data-user="${result['user']}"
                 data-self="${data['self']}"
                 onclick="viewImage(this)"
@@ -314,6 +351,68 @@ function photoBox(data) {
     `
 }
 
+
 function viewImage(self) {
-    
+
+    function ImageBox(path, ind) {
+        return `
+            <div class="imageCover">
+                <img src="../src/${path}" alt="" data-ind="${ind}">
+            </div>
+        `
+    }
+
+    var scrollImageInd = document.querySelector(".scrollImagePage")
+    var currentImageInd = document.getElementById("currentImage")
+    var totalImageInd = document.getElementById("totalImage")
+    var viewImagesBox = document.querySelector(".viewImages")
+    var deleteImage = document.getElementById("deleteImage")
+
+    var token = self.getAttribute("data-token")
+    var images = self.getAttribute("data-src")
+    var imageSect = images.split("%%")
+    var imageLen = imageSect.length
+
+    token = new Func().removeInitials(token)
+
+    // Show the imageIndex if the total image is greater than 1 and vice versa
+    if(imageLen < 2) {
+        scrollImageInd.style.display = "none"
+    }else{
+        scrollImageInd.style.display = "block"
+    }
+
+    var viewImageBox = document.getElementById("viewImageBox")
+    // Display the box
+    viewImageBox.style.display = "block"
+
+    // Set the total
+    totalImageInd.innerText = imageLen
+
+    // Add the pictures
+    imageSect.forEach((elem, ind) => {
+        viewImagesBox.insertAdjacentHTML("beforeend", ImageBox(elem, (ind + 1)))
+    })
+
+    // Add token to the delete button
+    deleteImage.setAttribute("data-token", token)
+
+
+    let observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) =>{
+            if(entry.isIntersecting){
+                var tar = entry.target
+                var targetImageInd = tar.querySelector("img").getAttribute("data-ind")
+                //observer.unobserve(entry.target);
+
+                currentImageInd.innerText = targetImageInd
+            }
+        })
+    }, {rootMargin:"0px 0px 0px 0px", threshold:0.75});
+
+    document.querySelectorAll(".imageCover").forEach(img => {
+        observer.observe(img)
+    })
 }
+
+

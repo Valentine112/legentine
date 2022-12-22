@@ -286,8 +286,6 @@
         const files = file.files
 
         if(files.length > 0) {
-            // Close the upload box
-            closeUpload()
 
             var uploadType = file.getAttribute("data-type")
             var mode = ""
@@ -319,6 +317,7 @@
 
                     elem['name'] = files[0]['name']
 
+                    // Passing all the neccessary data via formdata
                     formdata.append("files[]", elem, fileName)
                     formdata.append("part", "user")
                     formdata.append("action", "uploadPhoto")
@@ -336,8 +335,11 @@
                         if(val.status === 1) {
                             var content = val.content
 
-                            if(content["type"] == "profilePicture") {
+                            if(content[0] == "profilePicture") {
                                 document.getElementById("profilePicture").src = "../src/" + content["content"]
+
+                                // Adding the new profile picture to the post pictures as well
+                                // The first condition checks if the user has any post
 
                                 if(document.querySelectorAll(".post-image") !== null) {
                                     document.querySelectorAll(".post-image").forEach(elem => {
@@ -404,6 +406,9 @@
             resetValue(file, error)
             return
         }
+
+        // Close the upload box
+        closeUpload()
     }
 
 </script>

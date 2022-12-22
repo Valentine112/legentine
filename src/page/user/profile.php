@@ -89,28 +89,23 @@
             </div>
         </div>
 
-        <div class="viewImageBox" data-action="closeImage">
+        <div class="viewImageBox" id="viewImageBox">
             <div class="imageControl">
-                <div data-action="closeImage" class="closeImage">
-                    <span>Close</span>
+                <div class="closeImage">
+                    <span onclick="closePicture()">Close</span>
                 </div>
 
                 <div class="scrollImagePage">
                     <span id="currentImage">1</span>
                     /
-                    <span id="totalImage">2</span>
+                    <span id="totalImage"></span>
                 </div>
 
                 <div class="viewImages">
-                    <div class="imageCover">
-                        <img src="../src/photo/LT-IMG-20220408-WA00239963 22_09_23.jpeg" alt="">
-                    </div>
-                    <div class="imageCover">
-                        <img src="../src/photo/LT-IMG-20220408-WA00239963 22_09_23.jpeg" alt="">
-                    </div>
+                    <!-- PHOTOS GOES HERE -->
                 </div>
                 <div class="imageOptions">
-                    <button data-action="deleteImage">Delete</button>
+                    <button data-action="deleteImage" id="deleteImage">Delete</button>
                 </div>
             </div>
         </div>

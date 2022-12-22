@@ -363,6 +363,10 @@
             elseif($from === "profile"):
                 $more = $this->data['val']['more'];
 
+                // Profile of the user
+                // There would be no token in the url, so i use the one gotten from the cookie
+                if($more === "") $more = $this->user;
+
                 if($filter === "notes"):
                     $this->selecting->more_details("WHERE privacy = ? AND user = ? $order, $zero, $more");
 

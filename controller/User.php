@@ -67,6 +67,11 @@
                         $result = $modelUser->fetchPhotos();
 
                         break;
+
+                    case "deleteImage";
+                        $result = $modelUser->deleteImage();
+
+                        break;
                     
                     default:
 

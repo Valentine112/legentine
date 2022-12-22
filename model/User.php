@@ -12,8 +12,8 @@
         Delete,
         Insert,
         Select,
-    Update
-};
+        Update
+    };
 
     class User extends Response {
 
@@ -39,6 +39,8 @@
             ];
 
             $user = $this->data['val']['user'];
+
+            if($user === "") $user = $this->user;
 
             $this->selecting->more_details("WHERE id = ?, $user");
             $action = $this->selecting->action("*", "user");
@@ -699,6 +701,9 @@
             $val = $this->data['val'];
 
             $person = $val['user'];
+
+            if($person === "") $person = $this->user;
+            
             $result = [];
             $arr = [
                 "content" => [],
@@ -722,6 +727,48 @@
             $this->type = "success";
             $this->message = "void";
             $this->content = $result;
+
+            return $this->deliver();
+        }
+
+        public function deleteImage() : array {
+            $val = $this->data['val'];
+
+            $token = $val['token'];
+
+            // Check if photo belongs to who is performing the action
+
+            $data = [
+                "user" => $this->user,
+                "token" => $token,
+                "needle" => "id",
+                "table" => "gallery"
+            ];
+
+            $search = Func::searchDb(self::$db, $data);
+
+            if(is_int($search)):
+                $deleting = new Delete(self::$db, "WHERE id = ?, $search");
+                $action = $deleting->proceed("gallery");
+
+                if($action):
+                    // If everything i set, commit to true and send a positive response
+                    $this->type = "success";
+                    $this->status = 1;
+                    $this->message = "void";
+                    $this->content = "Successful";
+
+                else:
+                    return $action;
+
+                endif;
+            else:
+                // Photo does not belong to user
+                $this->type = "error";
+                $this->status = 0;
+                $this->message = "void";
+                $this->content = "This is not your photo";
+            endif;
 
             return $this->deliver();
         }
