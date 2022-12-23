@@ -773,5 +773,103 @@
             return $this->deliver();
         }
 
+        public function changeQuote() : array {
+            $val = $this->data['val'];
+
+            $quote = $val['content'];
+
+            $updating = new Update(self::$db, "SET quote = ? WHERE id = ?# $quote# $this->user");
+            $action = $updating->mutate('si', 'user');
+
+            if($action):
+
+                $this->type = "success";
+                $this->status = 1;
+                $this->message = "fill";
+                $this->content = "Successful";
+            else:
+                return $action;
+            endif;
+
+            return $this->deliver();
+        }
+
+        public function changeUsername() : array {
+            // Photo does not belong to user
+            $this->type = "error";
+            $this->status = 0;
+            $this->message = "void";
+
+            $val = $this->data['val'];
+
+            $username = $val['username'];
+            $password = $val['password'];
+
+            // Fetch the last changed username date
+
+            $data = [
+                "id" => $this->user,
+                "1" => "1",
+                "needle" => "usernameChange",
+                "table" => "user"
+            ];
+
+            $search = Func::searchDb(self::$db, $data);
+
+            if(is_int($search)):
+                $timeLimit = ((3600 * 24) * 14);
+
+                // Check if the time is ready to change
+                if(time() - $search >= $timeLimit):
+                    // Check if username forms well
+                    if(!preg_match("/^[a-z A-z 0-9]*$/", $username) || strlen(trim($username)) < 1):
+                        $this->message = "fill";
+                        $this->content = "Username only accepts letters,numbers and underscore";
+                    else:
+                        // Check if username already exist
+                        $data = [
+                            "username" => $username,
+                            "1" => "1",
+                            "needle" => "id",
+                            "table" => "user"
+                        ];
+            
+                        $search = Func::searchDb(self::$db, $data);
+
+                        if(is_int($search)):
+                            $this->message = "fill";
+                            $this->content = "Username already exist";
+                        else:
+                            $time = time();
+
+                            $updating = new Update(self::$db, "SET username = ?, usernameChange = ? WHERE id = ?# $username# $time# $this->user");
+                            $action = $updating->mutate('sii', 'user');
+
+                            if($action):
+                                $this->type = "success";
+                                $this->status = 1;
+                                $this->message = "fill";
+                                $this->content = "Successful";
+
+                            else:
+                                return $action;
+                            endif;
+                        endif;
+                    endif;
+                else:
+                    $daysLeft = floor((time() - $search) / (3600 * 24));
+                    $daysLeft = 14 - $daysLeft;
+
+                    $this->message = "fill";
+                    $this->content = "You have $daysLeft"."day(s) left until you can change your username again";
+
+                endif;
+            else:
+                $this->content = "Failed to fetch the last time of the username chnage";
+            endif;
+
+            return $this->deliver();
+        }
+
     }
 ?>

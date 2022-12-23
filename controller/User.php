@@ -72,6 +72,16 @@
                         $result = $modelUser->deleteImage();
 
                         break;
+
+                    case "changeQuote":
+                        $result = $modelUser->changeQuote();
+
+                        break;
+
+                    case "changeUsername":
+                        $result = $modelUser->changeUsername();
+
+                        break;
                     
                     default:
 

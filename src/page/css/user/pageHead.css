@@ -1,0 +1,11 @@
+.pageHead{
+    text-align: center;
+    margin: 3% 0;
+}
+.pageHead h2{
+    font-family: 'SourceSansPro', sans-serif;
+    font-size: 30px;
+}
+.main{
+    margin-top: 5%;
+}

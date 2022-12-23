@@ -64,7 +64,7 @@ class Profile {
                 </div>
 
                 <div>
-                    <a href="">Setup</a>
+                    <a href="setup">Setup</a>
                 </div>
             </div>
         `

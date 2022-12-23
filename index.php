@@ -74,6 +74,10 @@
         require "src/page/user/profile.php";
     })
 
+    ->get('/user/setup', function() {
+        require "src/page/user/setup.php";
+    })
+
     ->listen();
 
     // Routing ends

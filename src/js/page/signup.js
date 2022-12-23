@@ -103,5 +103,5 @@ window.addEventListener("load", function () {
 // Toggling the password visibility
 
 function togglePassword(self) {
-    (new Func).togglePassword(self, self.closest(".password-div").querySelector(".form"))
+    (new Func).togglePassword(self, self.closest(".password-div").querySelectorAll(".form"))
 }

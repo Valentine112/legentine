@@ -58,14 +58,28 @@ class Func {
     }
 
     togglePassword(action, form) {
-        var elemType = form.getAttribute("type")
-        if(elemType == "password") {
-            form.type = "text"
-            action.innerText = "hide"
-        }
-        else if(elemType == "text") {
-            form.type = "password"
+        var elemStatus = ""
+
+        Array.from(form).forEach(elem => {
+            var elemType = elem.getAttribute("type")
+
+            if(elemType == "password") {
+                elem.type = "text"
+
+                elemStatus = "text"
+            }
+            else if(elemType == "text") {
+                elem.type = "password"
+
+                elemStatus = "password"
+            }
+        })
+        
+        if(elemStatus == "password") {
             action.innerText = "show"
+        }
+        else if(elemStatus == "text") {
+            action.innerText = "hide"
         }
     }
 
