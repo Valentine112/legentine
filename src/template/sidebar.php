@@ -147,7 +147,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="">
+                                        <a href="private">
                                             <img src="../src/icon/sidebar-icon/lock.svg" alt="">
                                             &emsp;
                                             <span>Private</span>
@@ -162,7 +162,7 @@
                                 <header>Activities</header>
                                 <ul class="first-list">
                                     <li>
-                                        <a href="">
+                                        <a href="saved">
                                             <img src="../src/icon/sidebar-icon/save.svg" alt="">
                                             &emsp;
                                             <span>Saved</span>
@@ -170,7 +170,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="">
+                                        <a href="pinned">
                                             <img src="../src/icon/sidebar-icon/pin.svg" alt="">
                                             &emsp;
                                             <span>Pin</span>

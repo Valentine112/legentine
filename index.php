@@ -43,6 +43,10 @@
         require "src/page/help.php";
     })
 
+    ->get('/about', function() {
+        require "src/page/about.html";
+    })
+
 
     // Pages accessible after the landing, this are the content pages
 
@@ -56,10 +60,6 @@
 
     ->get('/user/session', function() {
         require "src/page/user/session.php";
-    })
-
-    ->get('/user/feedback', function() {
-        require "src/page/user/feedback.php";
     })
 
     ->get('/user/read', function() {
@@ -76,6 +76,34 @@
 
     ->get('/user/setup', function() {
         require "src/page/user/setup.php";
+    })
+
+    ->get('/user/private', function() {
+        require "src/page/user/private.php";
+    })
+
+    ->get('/user/saved', function() {
+        require "src/page/user/saved.php";
+    })
+
+    ->get('/user/pinned', function() {
+        require "src/page/user/pinned.php";
+    })
+
+    ->get('/user/notification/feature/request', function() {
+        require "src/page/user/feature/request.php";
+    })
+
+    ->get('/user/notification/feature/history', function() {
+        require "src/page/user/feature/history.php";
+    })
+
+    ->get('/user/unlisted', function() {
+        require "src/page/user/unlisted.php";
+    })
+
+    ->get('/user/feedback', function() {
+        require "src/page/user/feedback.php";
     })
 
     ->listen();

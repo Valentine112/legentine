@@ -288,7 +288,7 @@
                                     <hr>
                                     <ul>
                                         <li><a href="">Chat</a></li>
-                                        <li><a href="">Private</a></li>
+                                        <li><a href="private">Private</a></li>
                                     </ul>
                                 </div>
     
@@ -296,8 +296,8 @@
                                     <header>Activites</header>
                                     <hr>
                                     <ul>
-                                        <li><a href="">Saved</a></li>
-                                        <li><a href="">Pinned</a></li>
+                                        <li><a href="saved">Saved</a></li>
+                                        <li><a href="pinned">Pinned</a></li>
                                     </ul>
                                 </div>
     
@@ -305,14 +305,14 @@
                                     <header>Notification</header>
                                     <hr>
                                     <ul>
-                                        <li><a href="">Notification</a></li>
+                                        <li><a href="notification">Notification</a></li>
                                         <li class="dropdown-host" tabindex="0">
                                             <div>
                                                 <span>Feature <img src="../src/icon/header/drop-down.svg" alt="more" class="dropdown-icon"></span>
     
                                                 <ul id="drop" class="dropdown-item">
-                                                    <li><a href="">Request</a></li>
-                                                    <li><a href="">History</a></li>
+                                                    <li><a href="feature/request">Request</a></li>
+                                                    <li><a href="feature/history">History</a></li>
                                                     <li>Quiet</li>
                                                 </ul>
                                             </div>
@@ -325,7 +325,7 @@
                                     <hr>
                                     <ul>
                                         <li><a href="">Password</a></li>
-                                        <li><a href="">Unlisted</a></li>
+                                        <li><a href="unlisted">Unlisted</a></li>
                                     </ul>
                                 </div>
     
