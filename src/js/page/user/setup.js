@@ -107,6 +107,7 @@ function writingQuote(self) {
 }
 
 function saveSetup(self) {
+    var func = new Func()
     var result
 
     var parent = self.closest(".mainSub")
@@ -119,16 +120,18 @@ function saveSetup(self) {
         val: {}
     }
 
+    func.buttonConfig(self, "before")
+
     switch (parentType) {
         case "quote":
             data.action = "changeQuote"
             data.val.content = document.getElementById("quote").value
 
-            new Func().request("../request.php", JSON.stringify(data), 'json')
+            func.request("../request.php", JSON.stringify(data), 'json')
             .then(val => {
-                console.log(val)
+                func.buttonConfig(self, "after")
 
-                new Func().notice_box(val)
+                func.notice_box(val)
                 result = val
             })
 
@@ -139,17 +142,28 @@ function saveSetup(self) {
             data.val.username = document.getElementById("username").value
             data.val.password = parent.querySelector(".confirmPassword").value
 
-            new Func().request("../request.php", JSON.stringify(data), 'json')
+            func.request("../request.php", JSON.stringify(data), 'json')
             .then(val => {
-                console.log(val)
+                func.buttonConfig(self, "after")
 
-                new Func().notice_box(val)
+                func.notice_box(val)
                 result = val
             })
 
             break;
 
         case "password":
+            data.action = "changePassword"
+            data.val.newPassword = document.getElementById("newPassword").value
+            data.val.oldPassword = parent.querySelector(".confirmPassword").value
+
+            func.request("../request.php", JSON.stringify(data), 'json')
+            .then(val => {
+                func.buttonConfig(self, "after")
+
+                func.notice_box(val)
+                result = val
+            })
 
             break;
     

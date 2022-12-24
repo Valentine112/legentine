@@ -46,7 +46,7 @@ window.addEventListener("load", async function () {
     new Post().fetch_post(path, "notes", param)
 })
 
-document.body.addEventListener("click", function(e) {
+document.body.addEventListener("click", async function(e) {
     var elem = e.target
     var action = ""
     // Check if the targetted element has the data-action attribute
@@ -254,28 +254,32 @@ document.body.addEventListener("click", function(e) {
             break;
 
         case "deleteImage":
-            var elemToken = elem.getAttribute("data-token")
 
-            console.log(elem)
+            var elemToken = elem.getAttribute("data-token"),
+
+            parent = document.querySelector("[data-image-token=LT-" + elemToken + "]")
+    
             var data = {
                 part: "user",
-                action: 'deleteImage',
+                action: "deleteImage",
                 val: {
-                    token: elemToken,
+                    token: ""
                 }
             }
 
-
-            new Func().request("../request.php", JSON.stringify(data), 'json')
-            .then(val => {
-                if(val.status === 1) {
-                    closePicture()
-
-                    document.querySelector("[data-image-token=LT-" + elemToken + "]").closest(".photoBoxCover").remove()
-                }
-
-                new Func().notice_box(val)
+            // Close the viewing picture page
+            closePicture()
+    
+            var delete_notice = document.querySelector(".delete-notice")
+    
+            var promise = new Promise(res => {
+                res(
+                    // Call the delete timer here
+                    delete_notice.setAttribute("data-delete-token", elemToken),
+                    call_animation(parent, data)
+                )
             })
+            await promise
 
             break;
             
@@ -350,7 +354,6 @@ function photoBox(data) {
         </div>
     `
 }
-
 
 function viewImage(self) {
 

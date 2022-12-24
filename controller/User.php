@@ -82,6 +82,11 @@
                         $result = $modelUser->changeUsername();
 
                         break;
+
+                    case "changePassword":
+                        $result = $modelUser->changePassword();
+
+                        break;
                     
                     default:
 

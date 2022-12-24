@@ -30,6 +30,7 @@
             margin: auto;
             background-color: #fff;
             border-radius: 5px;
+            cursor: pointer;
         }
         .quick-notice .notice-cover > div:first-child{
             width: fit-content;
@@ -75,7 +76,7 @@
 </head>
 <div class="quick-notice">
     <div>
-        <div class="notice-cover server-error">
+        <div class="notice-cover server-error" onclick="this.closest('.quick-notice').style.display = 'none'">
 
             <div>
                 <img src="../src/icon/notice/success.svg" class="success" alt="">

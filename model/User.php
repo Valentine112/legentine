@@ -871,5 +871,72 @@
             return $this->deliver();
         }
 
+        public function changePassword() : array {
+            // Photo does not belong to user
+            $this->type = "error";
+            $this->status = 0;
+            $this->message = "void";
+
+            $val = $this->data['val'];
+
+            $oldPassword = $val['oldPassword'];
+            $newPassword = $val['newPassword'];
+
+            // Fetch the last changed username date
+
+            $data = [
+                "id" => $this->user,
+                "1" => "1",
+                "needle" => "password",
+                "table" => "user"
+            ];
+
+            $search = Func::searchDb(self::$db, $data);
+
+            if(!empty($search) || $search !== null):
+                // Check if old password is correct
+                if(password_verify($oldPassword, $search)):
+                    // Confirm the formation of the new password
+                    if(strlen(trim($newPassword)) < 7 || !preg_match("/[0-9]/", $newPassword)):
+                        $this->message = "fill";
+                        $this->content = "Password should contain both letters and numbers and should be greater than 7";
+
+                    else:
+                        // Confirm that the new password doesn't match the old one
+                        if(password_verify($newPassword, $search)):
+                            $this->message = "fill";
+                            $this->content = "New password should be different from the old one";
+
+                        else:
+                            // Hash and update the new password
+                            $hashed_password = password_hash($newPassword, PASSWORD_DEFAULT);
+
+                            $updating = new Update(self::$db, "SET password = ? WHERE id = ?# $hashed_password# $this->user");
+                            $action = $updating->mutate('si', 'user');
+
+                            if($action):
+                                $this->type = "success";
+                                $this->status = 1;
+                                $this->message = "fill";
+                                $this->content = "Password changed";
+
+                            else:
+                                return $action;
+                            endif;
+
+                        endif;
+                    endif;
+                else:
+                    $this->message = "fill";
+                    $this->content = "Old password is incorrect";
+                endif;
+
+            endif;
+
+            return $this->deliver();
+
+        }
+
+
     }
 ?>
