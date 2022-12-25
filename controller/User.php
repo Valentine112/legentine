@@ -87,6 +87,11 @@
                         $result = $modelUser->changePassword();
 
                         break;
+
+                    case "fetchPin":
+                        $result = $modelUser->fetchPin();
+
+                        break;
                     
                     default:
 

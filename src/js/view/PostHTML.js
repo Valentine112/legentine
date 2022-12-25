@@ -272,8 +272,9 @@ class PostHTML {
             ${unlistOption}
         </div>`
 
-        var save = `<div class="viewer personnal-options" data-action="remove_saved_post">
-            <div class="edit-options action">
+        var save = `
+        <div class="viewer personnal-options">
+            <div class="edit-options action" data-action="remove_saved_post">
                 <div>
                     <img src="${this.path}src/icon/option-icon/delete.svg" alt="">
                 </div>

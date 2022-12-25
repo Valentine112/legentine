@@ -713,6 +713,8 @@
 
             $this->selecting->more_details("WHERE user = ?, $person");
             $action = $this->selecting->action("*", "gallery");
+            $this->selecting->reset();
+
             if($action != null) return $action;
 
             $value = $this->selecting->pull()[0];
@@ -935,6 +937,44 @@
 
             return $this->deliver();
 
+        }
+
+        public function fetchPin() : array {
+            $result = [
+                "user" => [],
+                "token" => []
+            ];
+            // Fetch all the pinned users assoiciated with the user fetching them
+            $this->selecting->more_details("WHERE user = ?, $this->user");
+            $action = $this->selecting->action('*', 'pin');
+            $this->selecting->reset();
+            
+            if($action != null) return $action;
+
+            $value = $this->selecting->pull();
+            if($value[1] > 0):
+                $result['token'] = $value[0][0]['token'];
+                
+                foreach($value[0] as $val):
+                    // Fetch the pinned users info
+                    $other = $val['other'];
+
+                    $this->selecting->more_details("WHERE id = ?, $other");
+                    $this->selecting->action('*', 'user');
+
+                    $this->selecting->reset();
+                
+                    if($action != null) return $action;
+        
+                    $value1 = $this->selecting->pull();
+                    if($value1[1] > 0):
+                        array_push($result['user'], $value);
+                    endif;
+
+                endforeach;
+            endif;
+
+            return $this->deliver();
         }
 
 

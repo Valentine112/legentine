@@ -60,4 +60,18 @@ class User {
         })
 
     }
+
+    fetchPin() {
+        var data = {
+            part: "user",
+            action: 'fetchPin',
+            val: {}
+        }
+
+
+        this.func.request("../request.php", JSON.stringify(data), 'json')
+        .then(val => {
+            
+        })
+    }
 }

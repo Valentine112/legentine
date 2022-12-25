@@ -59,6 +59,12 @@
                         $result = $modelPost->save_post();
 
                         break;
+
+                    case 'remove_saved_post';
+                        $result = $modelPost->remove_saved_post();
+
+                        break;
+                        
                     case 'react':
                         $result = $modelPost->react();
 

@@ -11,7 +11,7 @@ class OpenSearch {
             <div class="people-box">
                 <a href="">
                     <div>
-                        <img src="../${people['photo']}" alt="">
+                        <img src="../src/${people['photo']}" alt="">
                     </div>
 
                     <div class="top-fullname">
@@ -80,7 +80,7 @@ class SearchBox {
             <a href="profile?token=${data['id']}">
                 <div class="result-box person">
                     <div>
-                        <img src="../${data['photo']}" alt="">
+                        <img src="../src/${data['photo']}" alt="">
                     </div>
                     <div>
                         <div class="fullname post-title">${data['fullname']}</div>

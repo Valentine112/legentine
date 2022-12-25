@@ -661,6 +661,51 @@
             return $this->deliver();
         }
 
+        public function remove_saved_post() : array {
+
+            $token = $this->data['val']['token'];
+
+            // Confirm if the post exist by searching for its id via its token
+            $data = [
+                "token" => $token,
+                "1" => "1",
+                "needle" => "id",
+                "table" => "post"
+            ];
+
+            $search = Func::searchDb(self::$db, $data);
+
+            if(is_int($search)):
+                // Delete the post from saved table
+                // Use the post id and the user id
+                // This works since a user can only save a particular post once
+
+                $deleting = new Delete(self::$db, "WHERE post = ? AND user = ?, $search, $this->user");
+                $action = $deleting->proceed('saved');
+                if($action):
+
+                    // If everything i set, commit to true and send a positive response
+                    $this->type = "success";
+                    $this->status = 1;
+                    $this->message = "void";
+                    $this->content = "Post deleted";
+
+                else:
+                    return $action;
+
+                endif;
+
+            else:
+                $this->type = "error";
+                $this->status = 0;
+                $this->message = "fill";
+                $this->content = "Post does not exist";
+
+            endif;
+
+
+            return $this->deliver();
+        }
         public function react() : array {
             $token = $this->data['val']['token'];
             
