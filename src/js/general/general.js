@@ -179,6 +179,11 @@ document.body.addEventListener("click", async function(e) {
 
             break;
 
+        case "remove_saved_post":
+            post.remove_saved_post(elem)
+
+            break;
+
         case "react":
             post.react(elem)
 

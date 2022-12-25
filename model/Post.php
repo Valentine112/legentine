@@ -265,7 +265,7 @@
                 $user = $session['content'];
 
                 // Check where the request is coming from and process
-                if($from === "home" || $from == "rank" || $from == "saved"):
+                if($from === "home" || $from == "rank"):
                     /**
                      * For homepage
                      * Every blocked user wouldn't be displayed
@@ -285,10 +285,85 @@
 
                 endif;
 
+                /**
+                 * Fetching post from pages that requires the user to be logged in
+                 * Pages ---- Session
+                 *  Pages ---- Profile
+                 * Pages ---- Saved
+                 * Pages ---- Private
+                 */
+
                 if($from == "session"):
                     $token = $filter['token'];
 
                     $this->selecting->more_details("WHERE token = ?, $token");
+                endif;
+
+                if($from === "profile"):
+                    $more = $this->data['val']['more'];
+    
+                    // Profile of the user
+                    // There would be no token in the url, so i use the one gotten from the cookie
+                    if($more === "") $more = $this->user;
+
+                    if($filter === "notes"):
+                        $this->selecting->more_details("WHERE privacy = ? AND user = ? $order, $zero, $more");
+
+                    endif;
+
+                endif;
+
+                if($from === "saved"):
+                    // First fetch all the post from the saved pointing to this user
+                    $this->selecting->more_details("WHERE user = ?, $this->user");
+                    $action = $this->selecting->action('*', 'saved');
+                    $this->selecting->reset();
+
+                    if($action != null):
+                        return $action;
+                    endif;
+
+                    $savedPost = $this->selecting->pull();
+
+                    $tempResult = [
+                        0 => [],
+                        1 => 0
+                    ];
+
+                    foreach($savedPost[0] as $ind => $saved):
+                        // Fetch the post that has been saved by this user
+                        $post = $saved['post'];
+
+                        $this->selecting->more_details("WHERE id = ?, $post");
+                        $action = $this->selecting->action('*', 'post');
+                        $this->selecting->reset();
+
+                        if($action != null):
+                            return $action;
+                        endif;
+
+                        $tempResult[1] = $ind + 1;
+
+                        // This avoids the case of throwing an error when the post is deleted
+                        if($this->selecting->pull()[1] > 0):
+                            array_push($tempResult[0], $this->selecting->pull()[0][0]);
+
+                        endif;
+
+                    endforeach;
+
+                    $blocked_users = [];
+
+                    $result = $this->config_data($blocked_users, $tempResult[0], "user", $user);
+
+                    $this->type = "success";
+                    $this->status = 1;
+                    $this->message = "void";
+                    $this->content = $result;
+        
+                    return $this->deliver();
+
+                    //print_r($tempResult);
                 endif;
 
             else:
@@ -301,6 +376,13 @@
 
             // Check if there is a filter attached
             // Fetch the post in regards to the page
+            /**
+             * User can choose not to be logged in on any of this page
+             * Pages ---- "home"
+             * Pages ---- "rank"
+             * Pages ---- "read"
+             */
+            
             if($from == "home"):
                 if($filter === ""):
                     $this->selecting->more_details("WHERE privacy = ? $order, $zero");
@@ -330,9 +412,9 @@
                 $range = time() - $time_range;
 
                 if($filter === ""):
-                    $this->selecting->more_details("WHERE privacy = ? AND time >= ? $order, $zero, $range");
+                    $this->selecting->more_details("WHERE privacy = ? AND time >= ? AND stars > ? $order, $zero, $range, $zero");
                 else:
-                    $this->selecting->more_details("WHERE privacy = ? AND category = ? AND time >= ? $order, $zero, $filter, $range");
+                    $this->selecting->more_details("WHERE privacy = ? AND category = ? AND time >= ? AND stars > ? $order, $zero, $filter, $range, $zero");
                 endif;
 
             elseif($from == "read"):
@@ -355,27 +437,9 @@
 
                 if($fetch_comments['status'] === 1):
                     $comments = $fetch_comments['content'];
-
+ 
                 else:
                     return $fetch_comments;
-                endif;
-
-            elseif($from === "profile"):
-                $more = $this->data['val']['more'];
-
-                // Profile of the user
-                // There would be no token in the url, so i use the one gotten from the cookie
-                if($more === "") $more = $this->user;
-
-                if($filter === "notes"):
-                    $this->selecting->more_details("WHERE privacy = ? AND user = ? $order, $zero, $more");
-
-                elseif($filter === "photos"):
-
-                    // Would return the request here so it doesn't process the rest
-                    // Which is meant for fetching a post
-
-                    
                 endif;
 
             endif;
@@ -390,6 +454,7 @@
             if($action != null) return $action;
 
             $post = $this->selecting->pull();
+
 
             $result = $this->config_data($blocked_users, $post[0], "user", $user);
 

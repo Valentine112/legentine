@@ -1,3 +1,6 @@
+.properties{
+    z-index: 3!important;
+}
 .properties .properties-1{
     position: absolute;
     top: 0;
@@ -7,6 +10,7 @@
     width: 30%;
     height: fit-content;
     margin: auto;
+    z-index: 3;
 }
 .properties-adjust{
     background-color: #fff;

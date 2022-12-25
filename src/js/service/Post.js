@@ -7,7 +7,7 @@ class Post {
     }
 
     fetch_post(from, filter, more) {
-        if(from === "home" || from === "rank" || from === "profile") {
+        if(from === "home" || from === "rank" || from === "profile" || from === "saved") {
             var filter_value
 
             (filter == "all") ? filter_value = "" : filter_value = filter
@@ -27,6 +27,7 @@ class Post {
 
             this.func.request("../request.php", JSON.stringify(data), 'json')
             .then(val => {
+                console.log(val)
                 result  = val
                 
                 if(val.status === 1){
@@ -250,6 +251,36 @@ class Post {
             }
             this.func.notice_box(val)
         })
+    }
+
+    async remove_saved_post(elem) {
+        // First hide the post
+        // Display delete notice and start the animation
+        // Then set a timeout for 5 seconds
+        // If delete notice is clicked within that time, cancel the timeout
+        // Proceed to send the resources for deleting
+
+        var parent = elem.closest(".entity-body"),
+        token = parent.getAttribute("data-token")
+
+        var data = {
+            part: "post",
+            action: "remove_saved_post",
+            val: {
+                token: ""
+            }
+        }
+
+        var delete_notice = document.querySelector(".delete-notice")
+
+        var promise = new Promise(res => {
+            res(
+                delete_notice.setAttribute("data-delete-token", token),
+                call_animation(parent, data)
+            )
+        })
+        await promise
+
     }
 
     react(elem) {

@@ -275,7 +275,7 @@ class PostHTML {
         var save = `<div class="viewer personnal-options" data-action="remove_saved_post">
             <div class="edit-options action">
                 <div>
-                    <img src="src/icon/option-icon/remove.svg" alt="">
+                    <img src="${this.path}src/icon/option-icon/delete.svg" alt="">
                 </div>
                 <div>
                     <span>Remove</span>
