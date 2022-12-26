@@ -27,6 +27,53 @@
             return $this;
         }
 
+        public function fetchFeature(?int $post) : array {
+            // Photo does not belong to user
+            $this->type = "success";
+            $this->status = 1;
+            $this->message = "void";
+
+            $result = [
+                'content' => [],
+                'self' => $this->user
+            ];
+
+            if(is_int($post)):
+                $this->selecting->more_details("WHERE post = ?, $post");
+            else:
+                $this->selecting->more_details("WHERE user = ? OR other = ?, $this->user, $this->user");
+            endif;
+
+            $action = $this->selecting->action('*', 'feature');
+
+            $this->selecting->reset();
+
+            if($action != null) return $action;
+
+            $value = $this->selecting->pull();
+            foreach($value[0] as $val):
+                // Fetch other username
+            
+                $data = [
+                    "id" => $val['user'],
+                    "1" => "1",
+                    "needle" => "username",
+                    "table" => "user"
+                ];
+    
+                $search = Func::searchDb(self::$db, $data);
+                if(!empty($search) || $search != null):
+                    $val['username'] = $search;
+                endif;
+
+                array_push($result['content'], $val);
+            endforeach;
+
+            $this->content = $result;
+
+            return $this->deliver();
+        }
+
         public function request() : array {
             // Photo does not belong to user
             $this->type = "error";
@@ -38,90 +85,96 @@
             $post = $val['post'];
 
             // Check if user is the owner of the post
-            // Because a user cannot feature on his own post
+            // Because a user cannot feature on his own post            
             $data = [
                 "token" => $post,
-                "user" => $this->user,
-                "needle" => "id",
+                "1" => "1",
+                "needle" => "user",
                 "table" => "post"
             ];
 
             $search = Func::searchDb(self::$db, $data);
-            if(!is_int($search)):
-                // User is not the owner, check if post exist
+            if(is_int($search)):
 
-                $data = [
-                    "token" => $post,
-                    "1" => "1",
-                    "needle" => "id",
-                    "table" => "post"
-                ];
+                if($search !== $this->user):
+                    $other = $search;
+                    // User is not the owner, check if post exist
 
-                $search = Func::searchDb(self::$db, $data);
-                if(is_int($search)):
-                    $post = $search;
-                    // Post exist
-
-                    $this->type = "success";
-                    $this->status = 1;
-                    $this->message = "void";
-
-                    // Now check if the user has made the request previously,
-                    // If he has, delete it, else, process it
                     $data = [
-                        "post" => $post,
-                        "user" => $this->user,
+                        "token" => $post,
+                        "1" => "1",
                         "needle" => "id",
-                        "table" => "feature"
+                        "table" => "post"
                     ];
-        
+
                     $search = Func::searchDb(self::$db, $data);
-                    if(!is_int($search)):
-                        // Process the request
+                    if(is_int($search)):
+                        $post = $search;
+                        // Post exist
 
-                        $subject = [
-                            "token",
-                            "post",
-                            "user",
-                            "date",
-                            "time"
+                        $this->type = "success";
+                        $this->status = 1;
+                        $this->message = "void";
+
+                        // Now check if the user has made the request previously,
+                        // If he has, delete it, else, process it
+                        $data = [
+                            "post" => $post,
+                            "user" => $this->user,
+                            "needle" => "id",
+                            "table" => "feature"
                         ];
+            
+                        $search = Func::searchDb(self::$db, $data);
+                        if(!is_int($search)):
+                            // Process the request
 
-                        $items = [
-                            Func::tokenGenerator(),
-                            $post,
-                            $this->user,
-                            Func::dateFormat(),
-                            time()
-                        ];
+                            $subject = [
+                                "token",
+                                "post",
+                                "user",
+                                "other",
+                                "date",
+                                "time"
+                            ];
 
-                        $inserting = new Insert(self::$db, 'feature', $subject, '');
-                        $action = $inserting->push($items, 'siisi');
-                        if($action):
-                            $this->content = "feature";
+                            $items = [
+                                Func::tokenGenerator(),
+                                $post,
+                                $this->user,
+                                $other,
+                                Func::dateFormat(),
+                                time()
+                            ];
+
+                            $inserting = new Insert(self::$db, 'feature', $subject, '');
+                            $action = $inserting->push($items, 'siiisi');
+                            if($action):
+                                $this->content = "feature";
+                            else:
+                                return $action;
+                            endif;
                         else:
-                            return $action;
+                            // Delete the previous request
+
+                            $deleting = new Delete(self::$db, "WHERE id = ?, $search");
+                            $action = $deleting->proceed('feature');
+                            if($action):
+                                $this->content = "unfeature";
+                            else:
+                                return $action;
+                            endif;
                         endif;
+
                     else:
-                        // Delete the previous request
-
-                        $deleting = new Delete(self::$db, "WHERE id = ?, $search");
-                        $action = $deleting->proceed('feature');
-                        if($action):
-                            $this->content = "unfeature";
-                        else:
-                            return $action;
-                        endif;
+                        // Post does not exist
+                        $this->message = "fill";
+                        $this->content = "Post does not exist";
                     endif;
-
                 else:
-                    // Post does not exist
-                    $this->message = "fill";
-                    $this->content = "Post does not exist";
+                    // You cannot feature on your own post
+                    $this->content = "You cannot feature on your own post";
                 endif;
-            else:
-                // You cannot feature on your own post
-                $this->content = "You cannot feature on your own post";
             endif;
 
             return $this->deliver();

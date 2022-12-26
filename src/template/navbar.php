@@ -311,8 +311,8 @@
                                                 <span>Feature <img src="../src/icon/header/drop-down.svg" alt="more" class="dropdown-icon"></span>
     
                                                 <ul id="drop" class="dropdown-item">
-                                                    <li><a href="feature/request">Request</a></li>
-                                                    <li><a href="feature/history">History</a></li>
+                                                    <li><a href="featureRequest">Request</a></li>
+                                                    <li><a href="featureHistory">History</a></li>
                                                     <li>Quiet</li>
                                                 </ul>
                                             </div>

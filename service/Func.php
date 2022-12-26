@@ -115,7 +115,11 @@
             if($action != null) return $action;
             $value = $selecting->pull();
             if($value[1] > 0):
-                return $value[0][0][$needle];
+                if($needle === "*"):
+                    return $value[0][0];
+                else:
+                    return $value[0][0][$needle];
+                endif;
             else:
                 return false;
             endif;

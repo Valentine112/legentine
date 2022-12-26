@@ -14,7 +14,8 @@
     };
 
     use Model\{
-        Comment
+        Comment,
+        Feature
     };
 
     class Post extends Response{
@@ -119,17 +120,17 @@
                     $data = [
                         "user" => $user,
                         "post" => $post,
-                        "needle" => "status",
+                        "needle" => "*",
                         "table" => "feature"
                     ];
     
                     $search = Func::searchDb(self::$db, $data);
 
-                    if(is_int($search)):
-                        $box['more']['featureRequest'] = $search;
+                    if(isset($search['status'])):
+                        $box['more']['feature'] = $search;
                     else:
                         // User hasn't sent a feature request
-                        $box['more']['featureRequest'] = -1;
+                        $box['more']['feature'] = -1;
                     endif;
 
                     // END //
@@ -465,11 +466,25 @@
                     return $fetch_comments;
                 endif;
 
+                // END //
+
+
+                // Fetch the features for the post
+                $fetchFeature = new Feature(self::$db, null, $this->user);
+                $fetchFeature = $fetchFeature->fetchFeature($post);
+
+                if($fetchFeature['status'] === 1):
+                    $feature = $fetchFeature['content'];
+ 
+                else:
+                    return $fetchFeature;
+                endif;
+
+                // END //
+
             endif;
 
-            // Need to work on fetching the comments, not done yet
-            // But first i need to work on creating the comments first
-    
+
 
             $action = $this->selecting->action("*", "post");
             $this->selecting->reset();
@@ -481,7 +496,10 @@
 
             $result = $this->config_data($blocked_users, $post[0], "user", $user);
 
-            if($from === "read") $result[0]['comments'] = $comments;
+            if($from === "read"):
+                $result[0]['comments'] = $comments;
+                $result[0]['feature'] = $feature;
+            endif;
 
 
             $this->type = "success";

@@ -39,6 +39,10 @@
                     </span>
                 </div>
 
+                <div class="feature-content">
+                    <!-- Feature content goes here -->
+                </div>
+
                 <div class="reaction section">
                     <div class="reaction-box reaction-cover">
                         <!-- Reaction goes here -->
@@ -68,6 +72,7 @@
                 </div>
 
                 <div class="feature section">
+                    <a href="" id="composeLink"></a>
                     <div>
                         <button data-action="feature-request">Feature</button>
                     </div>

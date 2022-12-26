@@ -90,12 +90,12 @@
         require "src/page/user/pinned.php";
     })
 
-    ->get('/user/notification/feature/request', function() {
-        require "src/page/user/feature/request.php";
+    ->get('/user/featureRequest', function() {
+        require "src/page/user/featureRequest.php";
     })
 
-    ->get('/user/notification/feature/history', function() {
-        require "src/page/user/feature/history.php";
+    ->get('/user/featureHistory', function() {
+        require "src/page/user/featureHistory.php";
     })
 
     ->get('/user/unlisted', function() {

@@ -204,10 +204,10 @@
 
                                             <ul id="drop" class="dropdown-item feature-dropdown-item">
                                                 <li>
-                                                    <a href="">Request</a>
+                                                    <a href="featureRequest">Request</a>
                                                 </li>
                                                 <li>
-                                                    <a href="">History</a>
+                                                    <a href="featureHistory">History</a>
                                                 </li>
                                                 <li>
                                                     <div>

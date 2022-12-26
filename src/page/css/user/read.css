@@ -46,7 +46,9 @@ body{
     text-align: center;
     font-size: 25px;
     margin-top: 10px;
-    color: #f1f1f1;
+}
+.read .post-header span{
+    color: #ff465b!important;
 }
 .read .post-content{
     text-align: center;
@@ -58,6 +60,27 @@ body{
 .read .post-content span{
     line-height: 40px;
 }
+
+.read .feature-content{
+    text-align: center;
+    margin-top: 3%;
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+}
+.feature-content .pending-feature span{
+    font-style: italic;
+    font-size: 14px;
+}
+.feature-content .composed-feature h1{
+    font-size: 25px;
+    color: #ff465b!important;
+}
+.feature-content .composed-feature span{
+    font-size: 17px;
+    line-height: 40px;
+}
+
 .read .reaction-box .reaction{
     display: none;
 }

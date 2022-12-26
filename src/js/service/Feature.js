@@ -36,7 +36,7 @@ class Feature {
                     // Setting the modifications if the request was sent through a button
 
                     if(elemType == "button"){
-                        elem.innerText = "Cancel"
+                        elem.innerText = "Cancel feature"
                         elem.style.cssText = "background-color: #ff465b; color: #fff";
                     }
                 }

@@ -72,7 +72,7 @@
             if($action != null) return $action;
 
             $value = $this->selecting->pull();
-
+            
 
             // Fetch the comment owner details
             foreach($value[0] as $val):

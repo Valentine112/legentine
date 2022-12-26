@@ -40,6 +40,7 @@ window.addEventListener("load", function() {
                     var post = val.content[0]['post']
                     var more =  val.content[0]['more']
                     var comment = val.content[0]['comments']
+                    var feature = val.content[0]['feature']
 
                     // The post token
                     post_body.setAttribute("data-token", "LT-" + post['token'])
@@ -78,6 +79,50 @@ window.addEventListener("load", function() {
 
                     // Add the reader count here
                     func.request("../request.php", JSON.stringify(data), 'json')
+
+                    // Set the feature Box
+                    feature['content'].forEach(elem => {
+                        if(elem['status'] === 1) {
+                            var type = 0
+                            if(func.stripSpace(elem['content']).length > 0){
+                                type = 1
+                            }
+    
+                            document.querySelector(".feature-content").insertAdjacentHTML('beforeend', featureBox(elem, type))
+                        }
+                    })
+
+                        
+                    var featureElem = document.querySelector("[data-action=feature-request]")
+
+                    // Set for the Feature actions
+                    if(post['user'] != val.content[0]['self']['user']){
+
+                        var feature = more['feature']
+                        if(feature == -1) {
+                            // No request has been sent yet
+    
+                        }else{
+                            var featureStatus = feature['status']
+    
+                            if(featureStatus == 0){
+                                // Requested, but not yet accepted
+    
+                                featureElem.innerText = "Cancel feature"
+                                featureElem.style.cssText = "background-color: #ff465b; color: #fff";
+                            }
+                            else if(featureStatus == 1) {
+                                featureElem.innerText = "Compose"
+                                featureElem.style.cssText = "background-color: dodgerblue; color: #fff";
+                                featureElem.removeAttribute("data-action")
+
+                                document.getElementById("composeLink").appendChild(featureElem)
+                            }
+    
+                        }
+                    }else{
+                        featureElem.remove()
+                    }
                 }
 
                 func.notice_box(val)
@@ -102,5 +147,28 @@ function config_react(data) {
 
             <img src="../src/icon/post-icon/star.svg" alt="" class="reaction star" data-action="react">
         `
+    }
+}
+
+function featureBox(data, type) {
+    var composedFeature = `
+        <div class="composed-feature">
+            <h1>featuring ${data['username']}</h1>
+            <span>
+                <!-- Feature content goes here -->
+                ${data['content']}
+            </span>
+        </div>
+    `
+    var pendingFeature = `
+        <div class="pending-feature">
+            <span>Pending from ${data['username']}...</span>
+        </div>
+    `
+
+    if(type == 0) {
+        return pendingFeature
+    }else if(type == 1) {
+        return composedFeature
     }
 }
