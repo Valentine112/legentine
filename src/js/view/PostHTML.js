@@ -259,18 +259,12 @@ class PostHTML {
             </div>
         </div>`
 
-        var viewer = `<div class="viewer personnal-options">
-            <div class="edit-options action" data-action="save_post">
-                <div>
-                    <img src="${this.path}src/icon/option-icon/save.svg" alt="">
-                </div>
-                <div>
-                    <span>Save</span>
-                </div>
-            </div>
+        var viewer = `
+            <div class="viewer personnal-options">
+                ${this.savedState()}
 
-            ${unlistOption}
-        </div>`
+                ${unlistOption}
+            </div>`
 
         var save = `
         <div class="viewer personnal-options">
@@ -332,6 +326,32 @@ class PostHTML {
             return ""
         }
 
+    }
+
+    savedState() {
+        var saved_state = this.more['saved-state']
+        var status = ""
+        var path = ""
+
+        if(saved_state == 1){
+            status = "Unsave"
+            path = "unsave"
+        }
+        if(saved_state == 0) {
+            status = "Save"
+            path = "save"
+        }
+
+        return `
+            <div class="edit-options action" data-action="save_post">
+                <div>
+                    <img src="${this.path}src/icon/option-icon/${path}.svg" alt="">
+                </div>
+                <div>
+                    <span>${status}</span>
+                </div>
+            </div>
+        `
     }
 
     comment_state() {

@@ -95,6 +95,9 @@
 
                     endif;
 
+                    // END //
+
+
                     // Check if user has saved post
                     $this->selecting->more_details("WHERE post = ? AND user = ?, $post, $user");
                     $action = $this->selecting->action("id", "saved");
@@ -111,6 +114,26 @@
                     endif;
 
                     // END //
+
+                    // Check feature request status
+                    $data = [
+                        "user" => $user,
+                        "post" => $post,
+                        "needle" => "status",
+                        "table" => "feature"
+                    ];
+    
+                    $search = Func::searchDb(self::$db, $data);
+
+                    if(is_int($search)):
+                        $box['more']['featureRequest'] = $search;
+                    else:
+                        // User hasn't sent a feature request
+                        $box['more']['featureRequest'] = -1;
+                    endif;
+
+                    // END //
+
 
                     // Check if its the same person
                     $box['more']['owner'] = $user === $other ? true : false;

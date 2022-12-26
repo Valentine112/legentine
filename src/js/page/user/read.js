@@ -35,6 +35,7 @@ window.addEventListener("load", function() {
             .then(async function(val) {
 
                 if(val.status === 1) {
+                    console.log(val.content)
                     var other = val.content[0]['other']
                     var post = val.content[0]['post']
                     var more =  val.content[0]['more']

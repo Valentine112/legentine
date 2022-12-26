@@ -237,16 +237,21 @@ class Post {
         .then(val => {
             if(val.status === 1){
                 var span = elem.querySelector("span")
+                var img = elem.querySelector("img")
 
                 console.log(elem)
 
                 if(val.content == "Post Saved"){
                     post_body.setAttribute("data-saved-state", 1)
+
                     span.innerText = "Unsave"
+                    img.setAttribute("src", "../src/icon/option-icon/unsave.svg")
 
                 }else if(val.content == "Post Unsaved"){
                     post_body.setAttribute("data-saved-state", 0)
+
                     span.innerText = "Save"
+                    img.setAttribute("src", "../src/icon/option-icon/save.svg")
                 }
             }
             this.func.notice_box(val)
