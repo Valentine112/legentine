@@ -61,7 +61,7 @@
     <?php include "src/template/quick-notice.php"; ?>
     
 </body>
-<script src="../src/js/page/user/pinned.js"></script>
+<script src="../src/js/page/user/saved.js"></script>
 <script src="../src/js/view/Options.js"></script>
 <script src="../src/js/general/general.js"></script>
 <script src="../src/js/general/background.js"></script>

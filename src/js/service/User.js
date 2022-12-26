@@ -71,7 +71,14 @@ class User {
 
         this.func.request("../request.php", JSON.stringify(data), 'json')
         .then(val => {
-            
+            console.log(val)
+            if(val.status === 1) {
+                var content = val.content
+
+                content.forEach(elem => {
+                    document.getElementById("postCover").insertAdjacentHTML("afterbegin", pinBox(elem))
+                })
+            }
         })
     }
 }

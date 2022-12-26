@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../config/config.css">
     <link rel="stylesheet" href="../src/page/css/user/pinned.css">
     <link rel="stylesheet" href="../src/page/css/user/pageHead.css">
-    <title>Setup</title>
+    <title>Pinned</title>
 </head>
 <body>
     <div class="config content">
@@ -46,25 +46,6 @@
                 </header>
 
                 <div id="postCover">
-                    <div class="pinnedUsers">
-                        <div>
-                            <a href="">
-                                <img src="../src/photo/LT-Screenshot_20220323-0349554752 22_09_26898 22_12_24.jpeg" alt="">
-                            </a>
-
-                        </div>
-
-                        <div class="name">
-                            <a href="">
-                                <div>Ngene Valentine</div>
-                                <span>Himself</span>
-                            </a>
-                        </div>
-
-                        <div>
-                            <span>Unpin</span>
-                        </div>
-                    </div>
                     
                 </div>
 
@@ -81,7 +62,7 @@
     <?php include "src/template/quick-notice.php"; ?>
     
 </body>
-<!--<script src="../src/js/page/user/saved.js"></script>-->
+<script src="../src/js/page/user/pinned.js"></script>
 <script src="../src/js/view/Options.js"></script>
 <script src="../src/js/general/general.js"></script>
 <script src="../src/js/general/background.js"></script>

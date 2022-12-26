@@ -942,8 +942,10 @@
         public function fetchPin() : array {
             $result = [
                 "user" => [],
-                "token" => []
+                "pinnedToken" => []
             ];
+
+            $this->content = [];
             // Fetch all the pinned users assoiciated with the user fetching them
             $this->selecting->more_details("WHERE user = ?, $this->user");
             $action = $this->selecting->action('*', 'pin');
@@ -953,7 +955,6 @@
 
             $value = $this->selecting->pull();
             if($value[1] > 0):
-                $result['token'] = $value[0][0]['token'];
                 
                 foreach($value[0] as $val):
                     // Fetch the pinned users info
@@ -968,11 +969,19 @@
         
                     $value1 = $this->selecting->pull();
                     if($value1[1] > 0):
-                        array_push($result['user'], $value);
+                        $result['user'] = $value1[0][0];
                     endif;
+
+                    $result['pinnedToken'] = $value[0][0]['token'];
+
+                    array_push($this->content, $result);
 
                 endforeach;
             endif;
+
+            $this->type = "success";
+            $this->status = 1;
+            $this->message = "void";
 
             return $this->deliver();
         }
