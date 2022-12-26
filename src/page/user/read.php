@@ -69,7 +69,7 @@
 
                 <div class="feature section">
                     <div>
-                        <button>Feature</button>
+                        <button data-action="feature-request">Feature</button>
                     </div>
                 </div>
             </div>

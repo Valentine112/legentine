@@ -68,6 +68,9 @@ document.body.addEventListener("click", async function(e) {
     // Declare the user
     var user = new User()
 
+    // Declare the feature
+    var feature = new Feature()
+
     // Declare the comment
     var comment = new CommentActions()
 
@@ -240,6 +243,11 @@ document.body.addEventListener("click", async function(e) {
         case "delete-reply":
             comment.delete_reply(elem)
 
+            break;
+
+        case "feature-request":
+            feature.request(elem)
+            
             break;
             
         default:

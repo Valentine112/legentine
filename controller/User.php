@@ -2,9 +2,7 @@
     namespace Controller;
 
     use mysqli;
-    use Service\{
-        Response
-    };
+    use Service\Response;
     use Model\User as ModelUser;
     use Config\Authenticate;
 

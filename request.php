@@ -8,7 +8,8 @@
         Login,
         Post,
         User,
-        Comment
+        Comment,
+        Feature
     };
     
     use Service\Response;
