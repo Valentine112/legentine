@@ -46,5 +46,5 @@ window.addEventListener("load", function () {
 
 // Toggle password visibility
 function togglePassword(self) {
-    new Func().togglePassword(self, document.getElementById("password"))
+    new Func().togglePassword(self, document.querySelectorAll(".form"))
 }

@@ -13,6 +13,7 @@ class Reply {
     }
 
     main() {
+        console.log(this.data)
         var element = `
             <div class="replies box entity-body"
             data-token=LT-${this.reply['token']}
@@ -21,7 +22,9 @@ class Reply {
             >
                 <div>
                     <div>
-                        <img src="../src/${this.other['photo']}" alt="">
+                        <a href="profile?token=${this.other['id']}">
+                            <img src="../src/${this.other['photo']}" alt="">
+                        </a>
                     </div>
 
                     <div>

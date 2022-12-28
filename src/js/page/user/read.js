@@ -80,11 +80,12 @@ window.addEventListener("load", function() {
                     // Add the reader count here
                     func.request("../request.php", JSON.stringify(data), 'json')
 
-                    // Set the feature Box
+                    // Set the feature content
                     feature['content'].forEach(elem => {
-                        if(elem['status'] === 1) {
+                        var featureContent = elem['feature']
+                        if(featureContent['status'] === 1) {
                             var type = 0
-                            if(func.stripSpace(elem['content']).length > 0){
+                            if(func.stripSpace(featureContent['content']).length > 0){
                                 type = 1
                             }
     
@@ -151,18 +152,20 @@ function config_react(data) {
 }
 
 function featureBox(data, type) {
+    var feature = data['feature']
+    var other = data['other']
     var composedFeature = `
         <div class="composed-feature">
-            <h1>featuring ${data['username']}</h1>
+            <h1>featuring <a href="profile?token=${other['id']}">${other['username']}</a></h1>
             <span>
                 <!-- Feature content goes here -->
-                ${data['content']}
+                ${feature['content']}
             </span>
         </div>
     `
     var pendingFeature = `
         <div class="pending-feature">
-            <span>Pending from ${data['username']}...</span>
+            <span>Pending from <a href="profile?token=${other['id']}">${other['username']}</a>...</span>
         </div>
     `
 

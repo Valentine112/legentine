@@ -152,7 +152,7 @@
 
 
                 $mention = "@$username";
-                $format = "<a href='profile?id=$mentioned' style='color: #ff465b; text-decoration: none;'>$mention</a>";
+                $format = "<a href='profile?token=$mentioned' style='color: #ff465b; text-decoration: none;'>$mention</a>";
                 $content = str_replace($mention, $format, $content);
             endforeach;
 

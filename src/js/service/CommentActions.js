@@ -158,12 +158,14 @@ class CommentActions {
         reply_box.style.display = "block"
 
         // MODIFYING THE COMMENT BOX FOR THE COMMENT THAT WAS REPLIED TO
+        var personLink = document.getElementById("personLink")
         var comment_body = document.getElementById("reply-comment")
         var photo = document.getElementById("comment-photo")
         var username = document.getElementById("comment-username")
         var content = document.getElementById("comment-content")
         var date = document.getElementById("comment-date")
 
+        personLink.setAttribute("href", "profile?token=" + parent.getAttribute("data-user"))
         comment_body.setAttribute("data-token", "LT-" + comment)
         username.innerText = parent.querySelector(".username").innerText
         content.innerHTML = parent.querySelector(".user-comment").innerHTML

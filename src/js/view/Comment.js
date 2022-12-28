@@ -13,14 +13,16 @@ class Comment {
     }
 
     main() {
+        console.log(this.other)
         var element = `
             <div class="comment-box entity-body"
                 data-token=LT-${this.comment['token']}
                 data-post=${this.comment['post']}
+                data-user=${this.other['id']}
             >
                 <div class="comment-details">
                     <div>
-                        <a href="">
+                        <a href="profile?token=${this.other['id']}">
                             <img src="../src/${this.other['photo']}" alt="" class="comment-img">
                         </a>
                     </div>

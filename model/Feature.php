@@ -41,7 +41,13 @@
             if(is_int($post)):
                 $this->selecting->more_details("WHERE post = ?, $post");
             else:
-                $this->selecting->more_details("WHERE user = ? OR other = ?, $this->user, $this->user");
+                $type = $this->data['val']['type'];
+
+                if($type === "request"):
+                    $this->selecting->more_details("WHERE other = ?, $this->user");
+                elseif($type === "history"):
+                    $this->selecting->more_details("WHERE user = ? OR other = ?, $this->user, $this->user");
+                endif;
             endif;
 
             $action = $this->selecting->action('*', 'feature');
@@ -52,21 +58,38 @@
 
             $value = $this->selecting->pull();
             foreach($value[0] as $val):
-                // Fetch other username
+                $tempResult = [];
+
+                // Fetch other
             
                 $data = [
-                    "id" => $val['user'],
+                    "id" => $val['other'],
                     "1" => "1",
-                    "needle" => "username",
+                    "needle" => "*",
                     "table" => "user"
                 ];
     
                 $search = Func::searchDb(self::$db, $data);
                 if(!empty($search) || $search != null):
-                    $val['username'] = $search;
+                    $tempResult['other'] = $search;
                 endif;
 
-                array_push($result['content'], $val);
+                // Fetch post
+                $data = [
+                    "id" => $val['post'],
+                    "1" => "1",
+                    "needle" => "*",
+                    "table" => "post"
+                ];
+    
+                $search = Func::searchDb(self::$db, $data);
+                if(!empty($search) || $search != null):
+                    $tempResult['post'] = $search;
+                endif;
+
+                $tempResult['feature'] = $val;
+
+                array_push($result['content'], $tempResult);
             endforeach;
 
             $this->content = $result;
@@ -176,6 +199,11 @@
                     $this->content = "You cannot feature on your own post";
                 endif;
             endif;
+
+            return $this->deliver();
+        }
+
+        public function confirmFeature() : array {
 
             return $this->deliver();
         }

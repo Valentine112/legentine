@@ -249,6 +249,11 @@ document.body.addEventListener("click", async function(e) {
             feature.request(elem)
             
             break;
+
+        case "confirm-feature":
+            feature.confirmation(elem)
+
+            break;
             
         default:
             break;

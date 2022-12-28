@@ -164,7 +164,7 @@
             <div class="reply-comment box" id="reply-comment">
                 <div>
                     <div>
-                        <a href="">
+                        <a href="" id="personLink">
                             <img src=" " alt="" id="comment-photo">  
                         </a>
                     </div>

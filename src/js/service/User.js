@@ -82,3 +82,32 @@ class User {
         })
     }
 }
+
+function pinBox(data) {
+    var photo = data['user']['photo'],
+    fullname = data['user']['fullname'],
+    username = data['user']['username'],
+    token = data['pinnedToken']['token']
+
+    return `
+        <div class="pinnedUsers">
+            <div>
+                <a href="">
+                    <img src="../src/${photo}" alt="">
+                </a>
+
+            </div>
+
+            <div class="name">
+                <a href="">
+                    <div>${fullname}</div>
+                    <span>${username}</span>
+                </a>
+            </div>
+
+            <div>
+                <span onclick="unpin(this, '${token}')">Unpin</span>
+            </div>
+        </div>
+    `
+}

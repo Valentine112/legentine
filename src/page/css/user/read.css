@@ -76,6 +76,10 @@ body{
     font-size: 25px;
     color: #ff465b!important;
 }
+.composed-feature h1 a{
+    color: #ff465b!important;
+    text-decoration: none; 
+}
 .feature-content .composed-feature span{
     font-size: 17px;
     line-height: 40px;

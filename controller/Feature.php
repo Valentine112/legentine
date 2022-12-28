@@ -28,8 +28,19 @@
 
                 switch ($data['action']):
 
+                    case "fetchFeature":
+                        $result = $modelFeature->fetchFeature(null);
+
+                        break;
+
                     case "request":
                         $result = $modelFeature->request();
+
+                        break;
+
+                    case "confirmFeature":
+                        $result = $modelFeature->confirmFeature();
+
                         break;
 
                     default:

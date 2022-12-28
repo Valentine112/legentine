@@ -58,9 +58,12 @@ class Func {
     }
 
     togglePassword(action, form) {
+        console.log("hello")
         var elemStatus = ""
 
+        console.log(form)
         Array.from(form).forEach(elem => {
+            console.log(elem)
             var elemType = elem.getAttribute("type")
 
             if(elemType == "password") {

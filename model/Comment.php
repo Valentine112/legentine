@@ -80,7 +80,7 @@
 
                 //Fetching the comment owner details
                 $this->selecting->more_details("WHERE id = ?, $other");
-                $action = $this->selecting->action("fullname, username, photo, rating", "user");
+                $action = $this->selecting->action("*", "user");
                 $this->selecting->reset();
 
                 if($action != null) return $action;
@@ -585,7 +585,7 @@
 
                         // Fetch the replies owner info
                         $this->selecting->more_details("WHERE id = ? LIMIT 1, $this->user");
-                        $action = $this->selecting->action("fullname, username, photo, rating", "user");
+                        $action = $this->selecting->action("*", "user");
                         $this->selecting->reset();
 
                         if($action != null):
@@ -665,7 +665,7 @@
 
                 //Fetching the comment owner details
                 $this->selecting->more_details("WHERE id = ?, $other");
-                $action = $this->selecting->action("fullname, username, photo, rating", "user");
+                $action = $this->selecting->action("*", "user");
                 $this->selecting->reset();
 
                 if($action != null) return $action;
