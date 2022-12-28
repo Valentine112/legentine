@@ -80,12 +80,11 @@
 
     .search-cover .result-section .top-randoms{
         width: 90%;
-        margin: auto;
-        margin-top: 5%;
+        margin: 5% auto;
     }
     .result-section .top-randoms header{
         font-size: 20px;
-        font-family: var(--theme-font-2);
+        font-family: "SourceSansPro";
         font-weight: 800;
         color: #000;
         margin: 0 1%;
@@ -108,41 +107,42 @@
     }
     .top-randoms .people-box .top-fullname{
         color: #000;
-        font-size: 15px;
+        font-size: 16px;
         font-weight: 400;
-        font-family: var(--theme-font-3);
+        font-family: var(--theme-font);
     }
     .top-randoms .people-box .top-username{
         color: grey;
         font-size: 14px;
         font-weight: 400;
-        font-family: var(--theme-font-3);
+        font-family: var(--theme-font);
     }
 
     .top-randoms .top-rated-post{
         margin-top: 15px;
+        margin: 5% auto;
     }
     .top-rated-post .post{
         margin-top: 10px;
+        margin-left: 1%;
     }
     .top-rated-post a{
         color: #000;
         text-decoration: none;
-        margin: 10px 0 10px 0;
-        font-family: var(--theme-font-3);
+        font-family: var(--theme-font);
+        background-color: red;
     }
     .top-rated-post a > div{
-        background-color: rgba(255, 255, 255, 0.4);
         -webkit-backdrop-filter: blur(5px);
         backdrop-filter: blur(5px);
         width: 90%;
         box-shadow: 2px 2px 2px #fff;
         border-radius: 10px;
+        margin: 10px 0;
     }
     .top-rated-post .title{
         font-size: 16px;
         color: #000;
-        font-weight: 600;
         padding: 3px 0;
         border-bottom: 1px inset #f1f1f1;
     }
@@ -162,7 +162,8 @@
         border-bottom: 1px solid #f1f1f1;
         margin-bottom: 5px;
         padding: 5px 0;
-        font-family: var(--theme-font-3);
+        font-family: var(--theme-font);
+        font-size: 16px;
     }
     .result-section .search-result .person{
         padding: 10px 0;
@@ -192,6 +193,9 @@
         border-radius: 50px;
         margin: auto;
         vertical-align: middle;
+    }
+    .search-result .fullname{
+        font-size: 16px;
     }
     .search-result .username{
         font-size: 14px;

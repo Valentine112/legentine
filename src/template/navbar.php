@@ -110,8 +110,16 @@
                 text-align: left;
                 font-family: var(--theme-font);
             }
-            .section-2 .openSearchBox .previews{
-                padding: 15px;
+            .section-2 .openSearchBox .search-previews{
+                padding: 5px;
+            }
+            .openSearchBox .previews .cancel{
+                width: 100%;
+                text-align: right;
+                padding-bottom: 5px;
+                font-size: 15px;
+                cursor: pointer;
+                border-bottom: 1px solid #f1f1f1;
             }
             .recent-toggle{
                 display: none;
@@ -121,18 +129,32 @@
                 width: 100%;
                 justify-content: space-between;
                 align-items: center;
+                margin-top: 10px;
             }
             .recents header > div:last-child{
                 color: var(--theme-color);
             }
             .section-2 .openSearchBox .recent-results{
-                margin: 15px 15px;
+                margin: 20px 15px;
                 font-size: 15px;
             }
             .section-2 .openSearchBox .recent-results > div{
                 padding: 4px;
                 border-bottom: 1px solid #f1f1f1;
                 margin: 4px 0;
+            }
+
+            .openSearchBox .result-box{
+                padding: 5px 0;
+            }
+            .openSearchBox .search-result .fullname{
+                font-family: var(--theme-font);
+                font-size: 16px;
+            }
+            .openSearchBox .search-result .username{
+                font-size: 14px;
+                font-family: var(--theme-font);
+                color: #444;
             }
 
             /* END */
@@ -370,10 +392,14 @@
                         placeholder="Search for people. . ."                     onkeyup="Search(this)"
                         onfocus="focusSearch(this)"
                     />
-
+                    
                     <div class="openSearchBox recent-toggle">
                         <div class="previews">
                             <div class="recents recent-toggle search-previews">
+                                <div class="cancel" onclick="this.closest('.openSearchBox').style.display = 'none'">
+                                    Cancel
+                                </div>
+
                                 <header>
                                     <div>
                                         Recents
@@ -386,10 +412,14 @@
 
                                 <div class="recent-results">
                                     <div>
-                                        <div>Himself</div>
+                                        <a href="search?keyword=Himself">
+                                            <span>Himself</span>
+                                        </a>
                                     </div>
                                     <div>
-                                        <div>Himself</div>
+                                        <a href="search?keyword=Santino">
+                                            <span>Santino</span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -453,6 +483,14 @@
         }, true)
 
         function toggleSearch(self, option) {
+            // Hide the recent and show suggestions
+            document.querySelectorAll(".search-previews").forEach(elem => {
+                elem.style.display = "none"
+            })
+
+            document.querySelector(".top-randoms").style.display = "block"
+
+
             // Showing which search is active when the OpenSaerch is ready
             // This is so that if the page hasn't loaded,
             // The toggling search button wouldn't give off the impression that something is working
