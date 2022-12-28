@@ -12,8 +12,8 @@ function featureBox(data) {
 
     return `
         <div class="featureCover"
-            data-token="LT-${feature['token']}
-            data-feature-token="LT-${feature['token']}
+            data-token="LT-${feature['token']}"
+            data-feature-token="LT-${feature['token']}"
         >
             <div>
                 <a href="profile?token=${other['id']}">${other['username']}</a> 

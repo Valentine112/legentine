@@ -1,32 +1,40 @@
 *{
     font-family: var(--theme-font);
 }
-
-.featureCover{
+.featureBox{
     width: 100%;
+    text-align: center;
+}
+.featureCover{
+    width: 95%;
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 0;
-    margin: 5px 0;
+    margin: 5px auto;
     border-bottom: 1px solid #f1f1f1;
+    flex-wrap: wrap;
 }
 .featureCover > div:first-child{
-    width: 70%;
+    width: 100%;
+    padding: 5px 0;
 }
 .featureCover > div:first-child a{
     color: dodgerblue;
     text-decoration: wavy;
 }
+
 .featureCover > div:last-child{
     text-align: center;
-    width: 29%;
+    width: 100%;
+    padding: 5px 0;
 }
 .featureCover > div:last-child button{
     border: 0px;
     padding: 5px 20px;
     color: #fff;
     cursor: pointer;
+    font-size: 16px;
 }
 .featureCover > div:last-child button:first-child{
     background-color: var(--theme-color-1);
@@ -39,6 +47,12 @@
     .featureBox{
         width: 90%;
         margin: auto;
+    }
+    .featureCover > div:first-child{
+        width: 70%;
+    }
+    .featureCover > div:last-child{
+        width: 29%;
     }
 }
 

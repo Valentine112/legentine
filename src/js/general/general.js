@@ -251,7 +251,7 @@ document.body.addEventListener("click", async function(e) {
             break;
 
         case "confirm-feature":
-            feature.confirmation(elem)
+            feature.confirmFeature(elem)
 
             break;
             

@@ -13,6 +13,9 @@
         Func
     };
 
+    // Other in feature is the person that the request is been sent to
+    // User is the person who made the request to be feature
+
     class Feature extends Response {
 
         private static $db;
@@ -23,6 +26,9 @@
             $this->data = $data;
             $this->selecting = new Select(self::$db);
             $this->user = $user;
+
+            $this->pending = 0;
+            $this->accepted = 1;
 
             return $this;
         }
@@ -44,7 +50,7 @@
                 $type = $this->data['val']['type'];
 
                 if($type === "request"):
-                    $this->selecting->more_details("WHERE other = ?, $this->user");
+                    $this->selecting->more_details("WHERE other = ? AND status <> ?, $this->user, $this->accepted");
                 elseif($type === "history"):
                     $this->selecting->more_details("WHERE user = ? OR other = ?, $this->user, $this->user");
                 endif;
@@ -61,9 +67,8 @@
                 $tempResult = [];
 
                 // Fetch other
-            
                 $data = [
-                    "id" => $val['other'],
+                    "id" => $val['user'],
                     "1" => "1",
                     "needle" => "*",
                     "table" => "user"
@@ -204,6 +209,90 @@
         }
 
         public function confirmFeature() : array {
+            // Photo does not belong to user
+            $this->type = "error";
+            $this->status = 1;
+            $this->message = "fill";
+
+            $val = $this->data['val'];
+
+            $type = $val['type'];
+            $token = $val['token'];
+            
+            self::$db->autocommit(FALSE);
+
+            // Fetch post id
+            $data = [
+                "token" => $token,
+                "1" => "1",
+                "needle" => "post",
+                "table" => "feature"
+            ];
+
+            $post = Func::searchDb(self::$db, $data);
+
+            // Fetch other id
+            $data['needle'] = "user";
+
+            $other = Func::searchDb(self::$db, $data);
+
+            if($type == 0):
+                // Request declined
+                // Delete request
+
+                $deleting = new Delete(self::$db, "WHERE token = ? AND other = ?, $token, $this->user");
+                $action = $deleting->proceed("feature");
+                if($action):
+                    $this->content = "Request delined";
+                else:
+                    return $action;
+                endif;
+
+            elseif($type == 1):
+                // Request accepted
+                $updating = new Update(self::$db, "SET status = ? WHERE other = ? AND token = ?# $this->accepted# $this->user# $token");
+                $action = $updating->mutate('iis', 'feature');
+                if($action):
+                    $this->type = "success";
+                    $this->content = "Request accepted";
+                else:
+                    return $action;
+                endif;
+
+            endif;
+
+            // Save to history
+            if($this->status === 1):
+                $subject = [
+                    "token",
+                    "post",
+                    "user",
+                    "other",
+                    "status",
+                    "date",
+                    "time"
+                ];
+
+                $items = [
+                    Func::tokenGenerator(),
+                    $post,
+                    $this->user,
+                    $other,
+                    $type,
+                    Func::dateFormat(),
+                    time()
+                ];
+
+                $inserting = new Insert(self::$db, "history", $subject, "");
+                $action = $inserting->push($items, 'siiiisi');
+                if($action):
+                    self::$db->autocommit(TRUE);
+                else:
+                    return $action;
+                endif;
+            else:
+
+            endif;
 
             return $this->deliver();
         }

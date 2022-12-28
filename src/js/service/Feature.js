@@ -80,8 +80,34 @@ class Feature {
         })
     }
 
-    confirmation(elem) {
+    confirmFeature(elem) {
         this.func.buttonConfig(elem, 'before')
+        var parent = elem.closest(".featureCover")
+
+        var type = elem.getAttribute("data-type"),
+        token = this.func.removeInitials(parent.getAttribute("data-token"))
+
+        var data = {
+            part: "feature",
+            action: 'confirmFeature',
+            val: {
+                type: type,
+                token: token
+            }
+        }
+
+        this.func.request("../request.php", JSON.stringify(data), 'json')
+        .then(val => {
+            this.func.buttonConfig(elem, 'before')
+
+            console.log(val)
+
+            if(val.status === 1){
+                parent.remove()
+            }
+
+            this.func.notice_box(val)
+        })
     }
 
 }
