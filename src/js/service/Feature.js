@@ -9,7 +9,7 @@ class Feature {
     fetchFeature() {
         var data = {
             part: "feature",
-            action: 'fetchFeature',
+            action: 'fetchRequest',
             val: {
                 type: 'request'
             }
@@ -24,6 +24,29 @@ class Feature {
 
                 content.forEach(elem => {
                     document.getElementById("featureBox").insertAdjacentHTML("beforeend", featureBox(elem))
+                })
+            }
+
+            this.func.notice_box(val)
+        })
+    }
+
+    fetchHistory() {
+        var data = {
+            part: "feature",
+            action: 'fetchHistory',
+            val: {}
+        }
+
+
+        this.func.request("../request.php", JSON.stringify(data), 'json')
+        .then(val => {
+            console.log(val)
+            if(val.status === 1) {
+                var content = val.content['content']
+
+                content.forEach(elem => {
+                    document.getElementById("featureBox").insertAdjacentHTML("beforeend", historyBox(elem, val.content['self']))
                 })
             }
 
@@ -81,6 +104,7 @@ class Feature {
     }
 
     confirmFeature(elem) {
+        console.log(path)
         this.func.buttonConfig(elem, 'before')
         var parent = elem.closest(".featureCover")
 

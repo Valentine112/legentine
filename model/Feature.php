@@ -33,7 +33,7 @@
             return $this;
         }
 
-        public function fetchFeature(?int $post) : array {
+        public function fetchRequest(?int $post) : array {
             // Photo does not belong to user
             $this->type = "success";
             $this->status = 1;
@@ -50,7 +50,7 @@
                 $type = $this->data['val']['type'];
 
                 if($type === "request"):
-                    $this->selecting->more_details("WHERE other = ? AND status <> ?, $this->user, $this->accepted");
+                    $this->selecting->more_details("WHERE other = ? AND status = ?, $this->user, $this->pending");
                 elseif($type === "history"):
                     $this->selecting->more_details("WHERE user = ? OR other = ?, $this->user, $this->user");
                 endif;
@@ -63,6 +63,7 @@
             if($action != null) return $action;
 
             $value = $this->selecting->pull();
+
             foreach($value[0] as $val):
                 $tempResult = [];
 
@@ -93,6 +94,63 @@
                 endif;
 
                 $tempResult['feature'] = $val;
+
+                array_push($result['content'], $tempResult);
+            endforeach;
+
+            $this->content = $result;
+
+            return $this->deliver();
+        }
+
+        public function fetchHistory() : array {
+            // Photo does not belong to user
+            $this->type = "success";
+            $this->status = 1;
+            $this->message = "void";
+
+            $result = [
+                'content' => [],
+                'self' => $this->user
+            ];
+
+            $this->selecting->more_details("WHERE user = ? OR other = ?, $this->user, $this->user");
+            $action = $this->selecting->action('*', 'history');
+            $this->selecting->reset();
+
+            if($action != null) return $action;
+
+            $value = $this->selecting->pull();
+            foreach($value[0] as $val):
+                $tempResult = [];
+
+                // Fetch other
+                $data = [
+                    "id" => $val['other'],
+                    "1" => "1",
+                    "needle" => "*",
+                    "table" => "user"
+                ];
+    
+                $search = Func::searchDb(self::$db, $data);
+                if(!empty($search) || $search != null):
+                    $tempResult['other'] = $search;
+                endif;
+
+                // Fetch post
+                $data = [
+                    "id" => $val['post'],
+                    "1" => "1",
+                    "needle" => "*",
+                    "table" => "post"
+                ];
+    
+                $search = Func::searchDb(self::$db, $data);
+                if(!empty($search) || $search != null):
+                    $tempResult['post'] = $search;
+                endif;
+
+                $tempResult['history'] = $val;
 
                 array_push($result['content'], $tempResult);
             endforeach;
@@ -236,6 +294,11 @@
 
             $other = Func::searchDb(self::$db, $data);
 
+            // Fetch feature id
+            $data['needle'] = "id";
+
+            $feature = Func::searchDb(self::$db, $data);
+
             if($type == 0):
                 // Request declined
                 // Delete request
@@ -265,6 +328,7 @@
             if($this->status === 1):
                 $subject = [
                     "token",
+                    "feature",
                     "post",
                     "user",
                     "other",
@@ -275,6 +339,7 @@
 
                 $items = [
                     Func::tokenGenerator(),
+                    $feature,
                     $post,
                     $this->user,
                     $other,
@@ -286,7 +351,7 @@
                 $inserting = new Insert(self::$db, "history", $subject, "");
                 $action = $inserting->push($items, 'siiiisi');
                 if($action):
-                    self::$db->autocommit(TRUE);
+                    //self::$db->autocommit(TRUE);
                 else:
                     return $action;
                 endif;

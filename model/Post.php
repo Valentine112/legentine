@@ -471,7 +471,7 @@
 
                 // Fetch the features for the post
                 $fetchFeature = new Feature(self::$db, null, $this->user);
-                $fetchFeature = $fetchFeature->fetchFeature($post);
+                $fetchFeature = $fetchFeature->fetchRequest($post);
 
                 if($fetchFeature['status'] === 1):
                     $feature = $fetchFeature['content'];

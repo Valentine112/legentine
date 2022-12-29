@@ -43,6 +43,20 @@
     background-color: rgb(113, 195, 96);
 }
 
+.featureCover > div:last-child .Accepted {
+    color: rgb(113, 195, 96);
+}
+
+.featureCover > div:last-child .Declined {
+    color: var(--theme-color-1);
+}
+
+.featureCover > div:last-child .removeFeature{
+    padding: 5px 5px;
+    background-color: var(--theme-color-1)!important;
+    border-radius: 5px;
+}
+
 @media screen and (min-width: 768px) {
     .featureBox{
         width: 90%;
