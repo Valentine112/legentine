@@ -326,36 +326,62 @@
 
             // Save to history
             if($this->status === 1):
-                $subject = [
-                    "token",
-                    "feature",
-                    "post",
-                    "user",
-                    "other",
-                    "status",
-                    "date",
-                    "time"
-                ];
+                // If request is coming from fetchHistory
+                if(isset($val['feature'])):
+                    $historyFeature = $val['feature'];
 
-                $items = [
-                    Func::tokenGenerator(),
-                    $feature,
-                    $post,
-                    $this->user,
-                    $other,
-                    $type,
-                    Func::dateFormat(),
-                    time()
-                ];
+                    // Check if there is already a history representing that feature and update if there is
 
-                $inserting = new Insert(self::$db, "history", $subject, "");
-                $action = $inserting->push($items, 'siiiisi');
-                if($action):
-                    //self::$db->autocommit(TRUE);
+                    // Fetch post id
+                    $data = [
+                        "feature" => $historyFeature,
+                        "1" => "1",
+                        "needle" => "id",
+                        "table" => "history"
+                    ];
+
+                    $history = Func::searchDb(self::$db, $data);
+                    if(is_int($history)):
+                        $updating = new Update(self::$db, "SET status = ? WHERE id = ?# $type# $history");
+                        $action = $updating->mutate('ii', 'history');
+
+                        if($action):
+                            self::$db->autocommit(TRUE);
+                        else:
+                            return $action;
+                        endif;
+                    endif;
                 else:
-                    return $action;
+                    $subject = [
+                        "token",
+                        "feature",
+                        "post",
+                        "user",
+                        "other",
+                        "status",
+                        "date",
+                        "time"
+                    ];
+
+                    $items = [
+                        Func::tokenGenerator(),
+                        $feature,
+                        $post,
+                        $this->user,
+                        $other,
+                        $type,
+                        Func::dateFormat(),
+                        time()
+                    ];
+
+                    $inserting = new Insert(self::$db, "history", $subject, "");
+                    $action = $inserting->push($items, 'siiiiisi');
+                    if($action):
+                        //self::$db->autocommit(TRUE);
+                    else:
+                        return $action;
+                    endif;
                 endif;
-            else:
 
             endif;
 

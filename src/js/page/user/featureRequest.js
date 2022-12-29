@@ -1,6 +1,6 @@
 window.addEventListener("load", function() {
     var path = new Func().getPath()['main_path']
-    console.log(path)
+
     if(path === "featureRequest"){
         // Fetch the feature request
         new Feature().fetchFeature()
@@ -77,12 +77,13 @@ function historyBox(data, self) {
         <div class="featureCover"
             data-token="LT-${history['token']}"
             data-feature-token="LT-${history['token']}"
+            data-feature="LT-${history['feature']}"
         >
             <div>
                 ${format}
             </div>
 
-            <div>
+            <div class="featureAction">
                 <span class="${status}"> ${status} ${action}</span>
             </div>
         </div>

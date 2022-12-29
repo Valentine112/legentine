@@ -18,7 +18,6 @@ class Feature {
 
         this.func.request("../request.php", JSON.stringify(data), 'json')
         .then(val => {
-            console.log(val)
             if(val.status === 1) {
                 var content = val.content['content']
 
@@ -103,8 +102,10 @@ class Feature {
         })
     }
 
-    confirmFeature(elem) {
+    async confirmFeature(elem) {
+        var path = new Func().getPath()['main_path']
         console.log(path)
+
         this.func.buttonConfig(elem, 'before')
         var parent = elem.closest(".featureCover")
 
@@ -116,9 +117,25 @@ class Feature {
             action: 'confirmFeature',
             val: {
                 type: type,
-                token: token
+                token: token,
             }
         }
+
+        if(path == "featureHistory"){
+            data.val['feature'] = this.func.removeInitials(parent.getAttribute("data-feature"))
+        }
+
+        var delete_notice = document.querySelector(".delete-notice")
+
+        var promise = new Promise(res => {
+            res(
+                delete_notice.setAttribute("data-delete-token", token),
+                call_animation(parent, data)
+            )
+        })
+        await promise
+
+        /*
 
         this.func.request("../request.php", JSON.stringify(data), 'json')
         .then(val => {
@@ -127,11 +144,13 @@ class Feature {
             console.log(val)
 
             if(val.status === 1){
-                parent.remove()
+                if(path == "featureRequest"){
+                    parent.remove()
+                }
             }
 
             this.func.notice_box(val)
-        })
+        })*/
     }
 
 }

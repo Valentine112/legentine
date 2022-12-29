@@ -94,8 +94,11 @@
 
 <script>
     var delete_notice = document.querySelector(".delete-notice")
+    var action = ""
 
     function call_animation(element, data) {
+
+        action = data['action']
 
         // Deleting a previous request directly
         var process = delete_notice.getAttribute("data-process")
@@ -119,7 +122,11 @@
         delete_notice.setAttribute("data-delete-token", element.getAttribute("data-token"))
 
         var delete_animation = document.querySelector(".delete-animation")
-        element.style.display = "none"
+
+        if(data['action'] != "confirmFeature"){
+            // Hide the element if its a post that is to be deleted
+            element.style.display = "none"
+        }
 
         delete_animation.classList.remove("animate")
         // Check if there was a previous request and 
@@ -158,7 +165,11 @@
                     .then(val => {
                         console.log(val)
                         if(val.status === 1){
-                            element.remove()
+                            if(data['action'] != "confirmFeature"){
+                                element.remove()
+                            }else{
+                                element.querySelector(".featureAction").innerHTML = `<span class="Declined"> Declined</span>`
+                            }
                         }
                         new Func().notice_box(val)
                     })
@@ -172,10 +183,17 @@
     function stop_animation(type) {
         var token = delete_notice.getAttribute("data-delete-token")
         var delete_animation = document.querySelector(".delete-animation")
+        var element = document.querySelector("[data-token=" + token + "]")
 
         if(type === "restore"){
-            // Display the post back
-            document.querySelector("[data-token=" + token + "]").style.display = "block"
+
+            if(action != "confirmFeature"){
+                // Display the element back if its a post
+                element.style.display = "block"
+            }else{
+                // Enable the button back
+                new Func().buttonConfig(element.querySelector(".removeFeature"), 'after')
+            }
         }
 
         // Setting the data process to 0, meaning the process has cancelled
