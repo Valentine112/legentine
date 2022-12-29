@@ -388,5 +388,35 @@
             return $this->deliver();
         }
 
+        public function quiet() : array {
+
+            $this->type = "success";
+            $this->status = 1;
+            $this->message = "void";
+
+            // Fetch feature quiet
+            $data = [
+                "id" => $this->user,
+                "1" => "1",
+                "needle" => "quiet",
+                "table" => "user"
+            ];
+
+            $quiet = Func::searchDb(self::$db, $data);
+
+            $quiet === 0 ? $quiet = 1 : $quiet = 0;
+
+            $updating = new Update(self::$db, "SET quiet = ? WHERE id = ?# $quiet# $this->user");
+            $action = $updating->mutate('ii', 'user');
+            
+            if($action):
+                $this->content = $quiet;
+            else:
+                return $action;
+            endif;
+
+            return $this->deliver();
+        }
+
     }
 ?>

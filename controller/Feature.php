@@ -48,6 +48,11 @@
 
                         break;
 
+                    case "quiet":
+                        $result = $modelFeature->quiet();
+
+                        break;
+
                     default:
                     break;
 

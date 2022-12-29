@@ -17,7 +17,7 @@ window.addEventListener("load", function() {
         new Post().fetch_post(path, "", more)
     }
 
-    // Hide the contents loader if there is]
+    // Hide the contents loader if there is
     var contents_loader = document.querySelector(".content-loader")
     if(contents_loader != null) {
         contents_loader.style.display = "none"
@@ -254,7 +254,12 @@ document.body.addEventListener("click", async function(e) {
             feature.confirmFeature(elem)
 
             break;
-            
+
+        case "quiet-feature":
+            feature.quietFeature(elem)
+
+            break;
+
         default:
             break;
     }

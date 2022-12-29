@@ -335,7 +335,7 @@
                                                 <ul id="drop" class="dropdown-item">
                                                     <li><a href="featureRequest">Request</a></li>
                                                     <li><a href="featureHistory">History</a></li>
-                                                    <li>Quiet</li>
+                                                    <li class="quiet" data-action="quiet-feature">Quiet</li>
                                                 </ul>
                                             </div>
                                         </li>

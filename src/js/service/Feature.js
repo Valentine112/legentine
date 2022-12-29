@@ -134,23 +134,27 @@ class Feature {
             )
         })
         await promise
+    }
 
-        /*
+    quietFeature(elem) {
+
+        var data = {
+            part: "feature",
+            action: 'quiet',
+            val: {}
+        }
 
         this.func.request("../request.php", JSON.stringify(data), 'json')
         .then(val => {
-            this.func.buttonConfig(elem, 'before')
-
             console.log(val)
-
-            if(val.status === 1){
-                if(path == "featureRequest"){
-                    parent.remove()
+            if(val.status == 1) {
+                if(val.content == 1){
+                    elem.innerText = "Allow"
+                }else{
+                    elem.innerText = "Quiet"
                 }
             }
-
-            this.func.notice_box(val)
-        })*/
+        })
     }
 
 }

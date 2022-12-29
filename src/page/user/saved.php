@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../src/element/css/properties.css">
     <link rel="stylesheet" href="../config/config.css">
     <link rel="stylesheet" href="../src/page/css/user/pageHead.css">
-    <title>Setup</title>
+    <title>Saved</title>
 </head>
 <body>
     <div class="config content">

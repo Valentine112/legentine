@@ -20,10 +20,26 @@ window.addEventListener("load", () => {
         new Func().request("../request.php", JSON.stringify(data), 'json')
         .then(val => {
 
+            console.log(val)
+
             if(val.status === 1) {
 
                 // Profile on the sidebar menu
                 document.getElementById("sidebarProfile").innerHTML = SidebarProfile(val.content['user'][0])
+
+                // Configure the feature quiet status on the nav and side bar
+                var featureStatus = ""
+                if(val.content['user'][0]['quiet'] == 0){
+                    featureStatus = "Quiet"
+                }else{
+                    featureStatus = "Allow"
+                }
+
+                document.querySelectorAll(".quiet").forEach(elem => {
+                    elem.innerText = featureStatus
+                })
+
+                // END //
 
                 // Create the people
                 val.content['people'].forEach(elem => {

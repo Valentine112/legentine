@@ -211,7 +211,7 @@
                                                 </li>
                                                 <li>
                                                     <div>
-                                                        <span>Quiet</span>
+                                                        <span class="quiet" data-action="quiet-feature">Quiet</span>
                                                     </div>
                                                 </li>
                                             </ul>

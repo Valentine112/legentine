@@ -213,7 +213,7 @@
             // This would be for the sidebar menu
 
             $this->selecting->more_details("WHERE id = ?, $this->user");
-            $action = $this->selecting->action("id, fullname, username, photo", "user");
+            $action = $this->selecting->action("*", "user");
             $this->selecting->reset();
 
             if($action != null) return $action;
@@ -227,7 +227,7 @@
 
             $this->selecting->more_details("WHERE id <> ? AND rating >= ? ORDER BY RAND() LIMIT $people, $self->user, $ratingMargin");
 
-            $action = $this->selecting->action("id, fullname, username, photo", "user");
+            $action = $this->selecting->action("*", "user");
             $self->selecting->reset();
 
             if($action != null) return $action;
