@@ -346,7 +346,7 @@
                                     <header>Configure</header>
                                     <hr>
                                     <ul>
-                                        <li><a href="">Password</a></li>
+                                        <li><a href="setup#changePassword">Password</a></li>
                                         <li><a href="unlisted">Unlisted</a></li>
                                     </ul>
                                 </div>

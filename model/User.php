@@ -116,6 +116,40 @@
             return $this->deliver();
         }
 
+        public function fetchUnlisted() : array {
+            $this->status = 1;
+            $this->type = "success";
+            $this->message = "void";
+
+            // Fetch unlisted
+            $zero = 0;
+
+            $result = [];
+
+            $this->selecting->more_details("WHERE user = ? AND other <> ?, $this->user, $zero");
+            $action = $this->selecting->action('*', "blocked_users");
+            $this->selecting->reset();
+
+            if($action != null) return $action;
+
+            $value = $this->selecting->pull();
+            foreach($value[0] as $val):
+                $this->data['val']['user'] = $val['other'];
+
+                $fetchingUser = $this->fetchUser();
+                if($fetchingUser['status'] === 1):
+                    array_push($result, $fetchingUser['content'][0]);
+
+                else:
+                    return $fetchingUser;
+                endif;
+            endforeach;
+
+            $this->content = $result;
+
+            return $this->deliver();
+        }
+
         public function unlist() : array {
             $other = $this->data['val']['user'];
 
@@ -137,7 +171,7 @@
                     // Proceed to list the user back
 
                     $unlisted = $search;
-                    $deleting = new Delete(self::$db, "WHERE id = ?, $unlisted");
+                    $deleting = new Delete(self::$db, "WHERE id = ? AND user = ?, $unlisted, $this->user");
                     $action = $deleting->proceed("blocked_users");
 
                     if($action):

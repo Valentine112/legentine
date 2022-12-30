@@ -26,6 +26,11 @@
 
                 switch($data['action']):
 
+                    case 'fetchUnlisted':
+                        $result = $modelUser->fetchUnlisted();
+
+                        break;
+
                     case 'unlist':
                         $result = $modelUser->unlist();
 

@@ -18,43 +18,6 @@
             margin: auto;
             font-family: var(--theme-font);
         }
-        .feedback-successful{
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(255, 255, 255, 1);
-            z-index: 2;
-            display: none;
-        }
-        .feedback-control{
-            text-align: center;
-        }
-        .feedback-control img{
-            height: 150px;
-            width: 150px;
-            margin: auto;
-        }
-        .feedback-control span{
-            font-size: xx-large;
-            color: #444;
-        }
-        .feedback-continue{
-            position: absolute;
-            bottom: 3%;
-            left: 0;
-            right: 0;
-            width: fit-content;
-            margin: auto;
-            text-align: center;
-            cursor: pointer;
-        }
-        .feedback-continue p{
-            padding: 5px;
-            border: 1px solid #444;
-            border-radius: 5px;
-        }
         .sub-container{
             position: absolute;
             top: 0;
@@ -106,15 +69,6 @@
 </head>
 <body>
     <div class="container">
-        <div class="feedback-successful">
-            <div class="feedback-control sub-container">
-                <img src="icons/checked.png" alt=""><br>
-                <span>We really appreciate this</span>
-            </div>
-            <div class="feedback-continue" onclick="history.back()">
-                <p>Continue</p>
-            </div>
-        </div>
         <div class="sub-container">
             <header>
                 Feedback
@@ -123,11 +77,13 @@
                 Tell us how you feel about our website and what you think needs improvement
             </p>
             <div class="form">
-                <span class="response">Something went wrong . . . try again later</span><br>
                 <textarea id="text" cols="70" rows="10" placeholder="At least 20 characters"></textarea><br>
-                <button onclick="send(this)">Send</button>
+                <button data-action="send-feedback">Send</button>
             </div>
         </div>
     </div>
+
+    <!-- Include the notice box here -->
+    <?php include "src/template/quick-notice.php"; ?>
 </body>
 </html>

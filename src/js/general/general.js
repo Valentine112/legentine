@@ -75,6 +75,16 @@ document.body.addEventListener("click", async function(e) {
     var comment = new CommentActions()
 
     switch (action) {
+        case "unlist_user":
+            user.unlist_user(elem)
+
+            break;
+        
+        case "send-feedback":
+            user.sendFeedback(elem)
+
+            break;
+            
         case "category":
             var path = func.getPath()['main_path']
 
@@ -189,11 +199,6 @@ document.body.addEventListener("click", async function(e) {
 
         case "react":
             post.react(elem)
-
-            break;
-
-        case "unlist_user":
-            user.unlist_user(elem)
 
             break;
 

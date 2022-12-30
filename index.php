@@ -44,7 +44,7 @@
     })
 
     ->get('/about', function() {
-        require "src/page/about.html";
+        require "src/page/about.php";
     })
 
 

@@ -226,7 +226,7 @@
                                 <header>Configure</header>
                                 <ul class="first-list">
                                     <li>
-                                        <a href="">
+                                        <a href="setup#changePassword">
                                             <img src="../src/icon/sidebar-icon/lock.svg" alt="">
                                             &emsp;
                                             Password

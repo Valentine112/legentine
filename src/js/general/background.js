@@ -20,8 +20,6 @@ window.addEventListener("load", () => {
         new Func().request("../request.php", JSON.stringify(data), 'json')
         .then(val => {
 
-            console.log(val)
-
             if(val.status === 1) {
 
                 // Profile on the sidebar menu

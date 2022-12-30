@@ -3,7 +3,30 @@ class User {
     constructor() {
         this.func = new Func()
 
+        this.path = this.func.getPath()['main_path']
         return this
+    }
+
+    fetchUnlisted() {
+        var data = {
+            part: "user",
+            action: 'fetchUnlisted',
+            val: {}
+        }
+
+
+
+        this.func.request("../request.php", JSON.stringify(data), 'json')
+        .then(val => {
+            console.log(val)
+
+            if(val.status === 1) {
+                val.content.forEach(elem => {
+                    document.querySelector(".unlistedBox").insertAdjacentHTML("beforeend", unlistedBox(elem))
+                })
+            }
+
+        })
     }
 
     unlist_user(elem) {
@@ -27,6 +50,11 @@ class User {
                         elem.remove()
                     })
                     
+                }
+
+                // Remove the blocked user
+                if(val.content === "Listed" && this.path === "unlisted") {
+                    document.querySelector("[data-user=LT-" + user + "]").remove()
                 }
             }
 
@@ -79,6 +107,20 @@ class User {
                     document.getElementById("postCover").insertAdjacentHTML("afterbegin", pinBox(elem))
                 })
             }
+        })
+    }
+
+    sendFeedback(elem) {
+        var data = {
+            part: "user",
+            action: 'sendFeedback',
+            val: {}
+        }
+
+        this.func.request("../request.php", JSON.stringify(data), 'json')
+        .then(val => {
+            console.log(val)
+            this.func.notice_box(val)
         })
     }
 }

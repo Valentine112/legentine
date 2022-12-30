@@ -59,7 +59,7 @@
                 <span class="username-info" id="usernameInfo"></span>
             </div>
 
-            <div class="password mainSub" data-type="password">
+            <div class="password mainSub" data-type="password" id="changePassword">
                 <h4>Change Password</h4>
 
                 <div class="form">
