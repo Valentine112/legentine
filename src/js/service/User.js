@@ -110,18 +110,25 @@ class User {
         })
     }
 
-    sendFeedback(elem) {
-        var data = {
-            part: "user",
-            action: 'sendFeedback',
-            val: {}
-        }
+    sendFeedback(elem, feedback) {
+        if(this.func.stripSpace(feedback.value).length >= 20) {
 
-        this.func.request("../request.php", JSON.stringify(data), 'json')
-        .then(val => {
-            console.log(val)
-            this.func.notice_box(val)
-        })
+            var data = {
+                part: "user",
+                action: 'sendFeedback',
+                val: {
+                    feedback: feedback.value
+                }
+            }
+    
+            this.func.request("../request.php", JSON.stringify(data), 'json')
+            .then(val => {
+                console.log(val)
+                this.func.notice_box(val)
+            })
+        }else{
+            feedback.focus()
+        }
     }
 }
 

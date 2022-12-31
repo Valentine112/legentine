@@ -1020,6 +1020,42 @@
             return $this->deliver();
         }
 
+        public function sendFeedback() : array {
+            // Declaring the success message first
+            $this->type = "success";
+            $this->status = 1;
+            $this->message = "fill";
+
+
+            $val = $this->data['val'];
+            $feedback = $val['feedback'];
+
+            $subject = [
+                "user",
+                "feedback",
+                "date",
+                "time"
+            ];
+
+            $items = [
+                $this->user,
+                $feedback,
+                Func::dateFormat(),
+                time()
+            ];
+
+            $inserting = new Insert(self::$db, 'feedback', $subject, "");
+            $action = $inserting->push($items, 'issi');
+            if($action):
+                $this->content = "Success";
+            else:
+                return $action;
+            endif;
+
+
+            return $this->deliver();
+        }
+
 
     }
 ?>

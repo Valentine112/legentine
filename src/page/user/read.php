@@ -120,4 +120,5 @@
 </body>
 <script src="../src/js/page/user/read.js"></script>
 <script src="../src/js/general/general.js"></script>
+<script src="../src/js/general/background.js"></script>
 </html>

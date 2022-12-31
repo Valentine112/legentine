@@ -77,7 +77,7 @@
                 Tell us how you feel about our website and what you think needs improvement
             </p>
             <div class="form">
-                <textarea id="text" cols="70" rows="10" placeholder="At least 20 characters"></textarea><br>
+                <textarea id="feedbackContent" cols="70" rows="10" placeholder="At least 20 characters"></textarea><br>
                 <button data-action="send-feedback">Send</button>
             </div>
         </div>
@@ -86,4 +86,6 @@
     <!-- Include the notice box here -->
     <?php include "src/template/quick-notice.php"; ?>
 </body>
+<script src="../src/js/general/general.js"></script>
+<script src="../src/js/general/background.js"></script>
 </html>

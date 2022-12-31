@@ -81,10 +81,11 @@ document.body.addEventListener("click", async function(e) {
             break;
         
         case "send-feedback":
-            user.sendFeedback(elem)
+            var feedback = document.getElementById("feedbackContent")
+            user.sendFeedback(elem, feedback)
 
             break;
-            
+
         case "category":
             var path = func.getPath()['main_path']
 

@@ -1,0 +1,66 @@
+*{
+    box-sizing: content-box;
+    font-family: var(--theme-font);
+    color: #fff;
+}
+hr{
+    width: 75%;
+    height: 1px;
+    border: 0;
+    background-color: #f1f1f1;
+}
+body{
+    background: linear-gradient(145deg, #444, #000);
+}
+
+.privateAccess section{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: fit-content;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+.privateAccess .form > div:last-child{
+    margin-top: 5%;
+}
+.privateAccess .form input[type="number"] {
+    background-color: transparent;
+    border: 0;
+    outline: none;
+    width: 90%;
+    padding: 5px;
+    text-align: center;
+    font-size: 25px;
+}
+.privateAccess .form input[type="password"] {
+    background-color: transparent;
+    border: 0;
+    outline: none;
+    width: 90%;
+    padding: 5px;
+    text-align: center;
+    font-size: 25px;
+}
+.privateAccess .form button{
+    color: #fff;
+    padding: 5px 30px;
+    background: linear-gradient(145deg, #5e5e5e, #444);
+    border: 0;
+    font-size: 16px;
+}
+
+@media screen and (min-width: 768px) {
+    .privateAccess section{
+        width: 40%;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .privateAccess section{
+        width: 40%;
+    }
+}

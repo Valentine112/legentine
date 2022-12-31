@@ -78,8 +78,8 @@
         require "src/page/user/setup.php";
     })
 
-    ->get('/user/private', function() {
-        require "src/page/user/private.php";
+    ->get('/user/privateAccess', function() {
+        require "src/page/user/privateAccess.php";
     })
 
     ->get('/user/saved', function() {

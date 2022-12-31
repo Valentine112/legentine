@@ -95,6 +95,11 @@
                         $result = $modelUser->fetchPin();
 
                         break;
+
+                    case "sendFeedback":
+                        $result = $modelUser->sendFeedback();
+
+                        break;
                     
                     default:
 

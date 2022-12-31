@@ -114,4 +114,6 @@
     </div>
 </body>
 <script src="../src/js/page/user/search.js"></script>
+<script src="../src/js/general/general.js"></script>
+<script src="../src/js/general/background.js"></script>
 </html>

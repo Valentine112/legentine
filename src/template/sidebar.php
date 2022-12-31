@@ -147,7 +147,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="private">
+                                        <a href="privateAccess">
                                             <img src="../src/icon/sidebar-icon/lock.svg" alt="">
                                             &emsp;
                                             <span>Private</span>

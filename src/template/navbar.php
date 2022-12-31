@@ -310,7 +310,7 @@
                                     <hr>
                                     <ul>
                                         <li><a href="">Chat</a></li>
-                                        <li><a href="private">Private</a></li>
+                                        <li><a href="privateAccess">Private</a></li>
                                     </ul>
                                 </div>
     
