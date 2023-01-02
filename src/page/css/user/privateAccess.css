@@ -53,6 +53,13 @@ body{
     font-size: 16px;
 }
 
+.privateAccess .footer{
+    margin-top: 5%;
+}
+.privateAccess .footer span{
+    color: var(--theme-color)!important;
+}
+
 @media screen and (min-width: 768px) {
     .privateAccess section{
         width: 40%;

@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="config">
-        <div class="privateAccess">
+        <div class="privateAccess" id="privateAccess">
 
             <!--<section class="login">
                 <div class="header">
