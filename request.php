@@ -9,7 +9,8 @@
         Post,
         User,
         Comment,
-        Feature
+        Feature,
+        Personal
     };
     
     use Service\Response;
@@ -45,6 +46,11 @@
     $request->is_post(
         'feature',
         [Feature::class, 'main']
+    );
+
+    $request->is_post(
+        'personal',
+        [Personal::class, 'main']
     );
     
     print_r(Response::sendJSON($request->listen()));

@@ -58,6 +58,7 @@ body{
 }
 .privateAccess .footer span{
     color: var(--theme-color)!important;
+    cursor: pointer;
 }
 
 @media screen and (min-width: 768px) {

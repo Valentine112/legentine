@@ -98,6 +98,10 @@
         require "src/page/user/featureHistory.php";
     })
 
+    ->get('/user/privatePost', function() {
+        require "src/page/user/privatePost.php";
+    })
+
     ->get('/user/unlisted', function() {
         require "src/page/user/unlisted.php";
     })

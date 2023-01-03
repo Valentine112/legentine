@@ -22,6 +22,7 @@ function unpin(self, other) {
                 self.closest('.pinnedUsers').remove()
             }
         }
+        new Func().notice_box(val)
     })
 }
 
