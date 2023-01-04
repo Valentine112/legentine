@@ -151,7 +151,7 @@ class Options {
                     </a>
                 </div>
 
-                <div class="edit-options action" data-action="delete_post">
+                <div class="edit-options action" data-action="delete-entity">
                     <div>
                         <img src="${this.path}src/icon/option-icon/delete.svg" alt="">
                     </div>

@@ -290,7 +290,7 @@ class PostHTML {
                 </a>
             </div>
 
-            <div class="edit-options action" data-action="delete_post">
+            <div class="edit-options action" data-action="delete-entity">
                 <div>
                     <img src="${this.path}src/icon/option-icon/delete.svg" alt="">
                 </div>
@@ -319,7 +319,7 @@ class PostHTML {
             return save
 
         }
-        else if(this.from === "private"){
+        else if(this.from === "privatePost"){
             return privatePost
 
         }else{
