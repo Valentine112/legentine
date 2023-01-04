@@ -51,7 +51,7 @@
 
             // Check if the blocked is empty and assign properly
 
-            $blocked = !empty($blocked) ? $blocked[0] : $blocked;
+            $blocked = !empty($blocked) ? $blocked[0] : [];
 
             foreach ($items as $item):
                 
@@ -483,8 +483,6 @@
                 // END //
 
             endif;
-
-
 
             $action = $this->selecting->action("*", "post");
             $this->selecting->reset();

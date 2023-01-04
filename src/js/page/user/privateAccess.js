@@ -38,7 +38,7 @@ function privateBox(data) {
             </div>
             <div class="form">
                 <div>
-                    <input type="password" placeholder="..." autofocus id="pin">
+                    <input type="password" placeholder="..." autofocus id="pin" class="inputForm">
                 </div>
 
                 <div>
@@ -59,7 +59,11 @@ function privateBox(data) {
             </div>
             <div class="form">
                 <div>
-                    <input type="number" placeholder="..." autofocus id="pin">
+                    <input type="password" placeholder="Account password" autofocus id="password" class="inputForm">
+                </div>
+
+                <div>
+                    <input type="number" placeholder="..." autofocus id="pin" class="inputForm">
                 </div>
 
                 <div>
@@ -77,16 +81,19 @@ function privateBox(data) {
             </div>
             <div class="form">
                 <div>
-                    <input type="password" placeholder="Account password" autofocus id="password">
+                    <input type="password" placeholder="Account password" autofocus id="password" class="inputForm">
                 </div>
 
                 <div>
-                    <input type="number" placeholder="New Pin" id="pin">
+                    <input type="number" placeholder="New Pin" id="pin" class="inputForm">
                 </div>
 
                 <div>
                     <button onclick="submitPrivate(this)" data-type="forgot">Submit</button>
                 </div>
+            </div>
+            <div class="footer">
+                <span onclick="switchLogin(this)">Login</span>
             </div>
         </section>
     `
@@ -108,11 +115,22 @@ function privateBox(data) {
     }
 }
 
-
+// Switch the page to forgot from the login part
 function switchForgot(self) {
     self.closest(".section").remove()
 
     document.getElementById("privateAccess").innerHTML = privateBox("forgot")
+
+    document.querySelectorAll(".inputForm")[0].focus()
+}
+
+// Switch the page to login from the forgot section
+function switchLogin(self) {
+    self.closest(".section").remove()
+
+    document.getElementById("privateAccess").innerHTML = privateBox("login")
+
+    document.querySelectorAll(".inputForm")[0].focus()
 }
 
 function submitPrivate(self) {
@@ -134,6 +152,7 @@ function submitPrivate(self) {
 
         if(type == "create") {
             data.action = "create"
+            data.val['password'] = parent.querySelector("#password").value
         }
 
         if(type == "login") {

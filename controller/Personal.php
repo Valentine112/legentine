@@ -31,6 +31,21 @@
 
                         break;
 
+                    case 'login':
+                        $result = $modelPersonal->login();
+
+                        break;
+                    
+                    case 'forgot':
+                        $result = $modelPersonal->forgot();
+
+                        break;
+
+                    case 'fetch':
+                        $result = $modelPersonal->fetch();
+
+                        break;
+
                     default:
 
                         break;

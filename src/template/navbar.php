@@ -478,7 +478,14 @@
                 }) 
             }
 
-            // Display the search menu
+
+        // Replacing the black dropdown icon with a white one if the page is privatePost
+
+        if(last_path == "privatePost") {
+            document.querySelectorAll(".dropdown-icon").forEach(elem => {
+                elem.src = "./src/icon/header/drop-down-alt.svg"
+            })
+        }
 
         }, true)
 

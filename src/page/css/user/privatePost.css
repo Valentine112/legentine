@@ -1,0 +1,9 @@
+.navbar{
+    background: linear-gradient(145deg, #444, #000);
+}
+.navbar .large-navbar a, .navbar .large-navbar span, .navbar .large-navbar li{
+    color: #fff!important;
+}
+.navbar .large-navbar #more #more-drop{
+    background: linear-gradient(145deg, #444, #000)!important;
+}
