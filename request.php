@@ -10,9 +10,10 @@
         User,
         Comment,
         Feature,
-        Personal
+        Personal,
+        Notification
     };
-    
+
     use Service\Response;
 
     $db = new Database;
@@ -51,6 +52,11 @@
     $request->is_post(
         'personal',
         [Personal::class, 'main']
+    );
+
+    $request->is_post(
+        'notification',
+        [Notification::class, 'main']
     );
     
     print_r(Response::sendJSON($request->listen()));

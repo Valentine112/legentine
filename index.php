@@ -90,6 +90,10 @@
         require "src/page/user/pinned.php";
     })
 
+    ->get('/user/notification', function() {
+        require "src/page/user/notification.php";
+    })
+
     ->get('/user/featureRequest', function() {
         require "src/page/user/featureRequest.php";
     })

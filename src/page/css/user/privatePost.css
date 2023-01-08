@@ -7,3 +7,21 @@
 .navbar .large-navbar #more #more-drop{
     background: linear-gradient(145deg, #444, #000)!important;
 }
+
+
+.sidebar-list{
+    background: linear-gradient(145deg, #444, #000)!important;
+}
+.sidebar .sidebar-items{
+    font-family: var(--theme-font)!important;
+}
+.sidebar-items .profile a{
+    color: #fff!important;
+}
+.sidebar .sidebar-items ul li a{
+    color: #fff!important;
+}
+.sidebar .sidebar-items ul li span{
+    color: #fff!important;
+    font-family: var(--theme-font)!important;
+}

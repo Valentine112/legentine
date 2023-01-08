@@ -199,6 +199,22 @@
                     $action = $updating->mutate('ii', 'post');
                     if($action):
 
+                        // Fetch the post owner id
+                        $data = [
+                            "id" => $post,
+                            "1" => "1",
+                            "needle" => "user",
+                            "table" => "post"
+                        ];
+        
+                        $search = Func::searchDb(self::$db, $data);
+
+                        $post_owner = 0;
+
+                        if(is_int($search)):
+                            $post_owner = $search;
+                        endif;
+
                         // Fetch the comment owner info
                         $this->selecting->more_details("WHERE id = ? LIMIT 1, $this->user");
                         $action = $this->selecting->action("fullname, username, photo, rating", "user");
@@ -210,21 +226,20 @@
 
                         $other_user = $this->selecting->pull()[0][0];
 
+                        // Save as notification
                         $data = [
-                            "id" => $post,
-                            "1" => "1",
-                            "needle" => "user",
-                            "table" => "post"
+                            "element" => $comment,
+                            "user" => $this->user,
+                            "other" => $post_owner,
+                            "type" => "comment",
+                            "parent" => $post
                         ];
-        
-                        // Fetch the post owner id
-                        $search = Func::searchDb(self::$db, $data);
 
-                        $post_owner = 0;
+                        $save = Notification::saveNotification(self::$db, $data, 'iiisissi');
 
-                        if(is_int($search)):
-                            $post_owner = $search;
-                        endif;
+                        if(!$save) return $save;
+
+                        // Sort and arrange the result
 
                         $items[3] = Func::mention(self::$db, $items[3], ['comment' => $comment]);
 
@@ -604,6 +619,19 @@
                         endif;
 
                         $post_owner = $this->selecting->pull()[0][0]['user'];
+
+                        // Save as notification
+                        $data = [
+                            "element" => $comment,
+                            "user" => $this->user,
+                            "other" => $post_owner,
+                            "type" => "comment",
+                            "parent" => $post
+                        ];
+
+                        $save = Notification::saveNotification(self::$db, $data, 'iiisissi');
+
+                        // Sorting and arranging the results
 
                         $items[4] = Func::mention(self::$db, $items[4], ['reply' => $reply]);
 

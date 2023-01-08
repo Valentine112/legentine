@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="../src/element/css/options.css">
     <link rel="stylesheet" href="../src/element/css/properties.css">
     <link rel="stylesheet" href="../config/config.css">
+    <link rel="stylesheet" href="../src/page/css/user/notification.css">
     <link rel="stylesheet" href="../src/page/css/user/pageHead.css">
-    <link rel="stylesheet" href="../src/page/css/user/privatePost.css">
-    <title>Private</title>
+    <title>Notification</title>
 </head>
 <body>
     <div class="config content">
@@ -30,14 +30,19 @@
                 // Include search here
                 include "src/template/search.php";
 
+                // Include the notice box here
+                include "src/template/quick-notice.php";
+
+                // Include the delete notice here
+                include "src/template/delete-notice.php";
             ?>
         </div>
 
-        <div class="savedHead">
+        <div class="pinnedHead">
             <div class="article-content post-controller box">
 
                 <header class="pageHead">
-                    <h2>Private Post</h2>
+                    <h2>Notification</h2>
                 </header>
 
                 <div id="postCover">
@@ -53,16 +58,11 @@
 
     </div>
 
-    <?php 
-        // Include the notice box here
-        include "src/template/quick-notice.php"; 
-        
-        // Include the delete notice here
-        include "src/template/delete-notice.php";
-    ?>
+    <!-- Include the notice box here -->
+    <?php include "src/template/quick-notice.php"; ?>
     
 </body>
-<script src="../src/js/page/user/privatePost.js"></script>
+<script src="../src/js/page/user/notification.js"></script>
 <script src="../src/js/view/Options.js"></script>
 <script src="../src/js/general/general.js"></script>
 <script src="../src/js/general/background.js"></script>

@@ -185,7 +185,7 @@
                                 <header>Notification</header>
                                 <ul class="first-list">
                                     <li>
-                                        <a href="">
+                                        <a href="notification">
                                             <img src="../src/icon/sidebar-icon/notification.svg" alt="">
                                             &emsp;
                                             <span>Notification</span>

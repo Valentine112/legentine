@@ -5,12 +5,9 @@
     use Service\{
         Response,
         Func,
-        Upload
     };
 
     use Query\{
-        Delete,
-        Insert,
         Select,
         Update
     };

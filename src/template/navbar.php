@@ -483,7 +483,7 @@
 
         if(last_path == "privatePost") {
             document.querySelectorAll(".dropdown-icon").forEach(elem => {
-                elem.src = "./src/icon/header/drop-down-alt.svg"
+                elem.src = "../src/icon/header/drop-down-alt.svg"
             })
         }
 
