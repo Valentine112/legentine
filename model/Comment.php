@@ -235,7 +235,7 @@
                             "parent" => $post
                         ];
 
-                        $save = Notification::saveNotification(self::$db, $data, 'iiisissi');
+                        $save = Notification::saveNotification(self::$db, $data, 'iiissssi');
 
                         if(!$save) return $save;
 
@@ -303,6 +303,26 @@
 
             endif;
 
+            // Fetch post owner
+            $data = [
+                "token" => $post,
+                "1" => "1",
+                "needle" => "user",
+                "table" => "post"
+            ];
+
+            $postOwner = Func::searchDb(self::$db, $data);
+
+            // Fetch post id
+            $data = [
+                "token" => $post,
+                "1" => "1",
+                "needle" => "id",
+                "table" => "post"
+            ];
+
+            $postId = Func::searchDb(self::$db, $data);
+
             // Validate if the user has authority to edit the comment
             if($authority):
                 $comment = $permission['comment'];
@@ -325,6 +345,8 @@
 
                         if($removed_mention):
                             // Check if the users are valid and fetch their id
+                            $arr = [];
+
                             foreach($mentions as $mention):
     
                                 $this->selecting->more_details("WHERE username = ?, $mention");
@@ -334,6 +356,8 @@
                                 if($action != null) return $action;
     
                                 if($this->selecting->pull()[1] > 0):
+                                    array_push($arr, 1);
+
                                     $other = $this->selecting->pull()[0][0]['id'];
 
                                     // Check if mention does not exist to determine wether to add one
@@ -358,6 +382,7 @@
                                         ];
 
                                         $search = Func::searchDb(self::$db, $data);
+
                                         if(is_int($search)) $post = $search;
 
                                         $comment_str = "comment";
@@ -386,6 +411,23 @@
                                         $inserting = new Insert(self::$db, "mentions", $subject1, "");
                                         $action = $inserting->push($items1, "siiiissi");
 
+                                        // save the new mention notification here
+
+                                        $data = [
+                                            "element" => $comment,
+                                            "user" => $this->user,
+                                            "other" => $other,
+                                            "type" => "mention",
+                                            "parent" => $post,
+                                            "more" => "comment"
+                                        ];
+                
+                                        $save = Notification::saveNotification(self::$db, $data, 'iiisisssi');
+
+                                        if(!$save) return $save;
+                                        // END //
+
+
                                         if(!$action):
                                             return $action;
                                         endif;
@@ -393,9 +435,44 @@
                                     endif;
                                 else:
                                     $this->content = "Mentioned person does not exist";
+
                                 endif;
                                 
                             endforeach;
+
+                            // There are no mentions or valid mentions
+                            // Save the notification as comment rather than mention
+
+                            if(!in_array(1, $arr)):
+                                // Save as notification
+                                $data = [
+                                    "element" => $comment,
+                                    "user" => $this->user,
+                                    "other" => $postOwner,
+                                    "type" => "comment",
+                                    "parent" => $postId
+                                ];
+
+                                $save = Notification::saveNotification(self::$db, $data, 'iiissssi');
+
+                                if(!$save): return $save; endif;
+
+                            else:
+                                // Delete the previous comment that was saved as notification
+                                $commentStr = "comment";
+
+                                $data = [
+                                    "type" => $commentStr,
+                                    "element" => $comment,
+                                    "user" => $this->user 
+                                ];
+
+                                $action = Notification::deleteNotification(self::$db, $data);
+
+                                if(!$action) return $action;
+
+                            endif;
+
                         else:
                             $this->content = $removed_mention;
     
@@ -487,14 +564,36 @@
                             if($deleting->proceed("mentions")):
                                 $deleting->end();
 
-                                // Commit the database to true if everything is set
-                                self::$db->autocommit(true);
+                                // Delete comment notification
+                                $data = [
+                                    "type" => "comment",
+                                    "element" => $comment,
+                                    "user" => $this->user
+                                ];
 
-                                // If everything i set, commit to true and send a positive response
-                                $this->type = "success";
-                                $this->status = 1;
-                                $this->message = "void";
-                                $this->content = $val['token'];
+                                $action = Notification::deleteNotification(self::$db, $data);
+
+                                if($action):
+                                    $data['type'] = "mention";
+
+                                    $action = Notification::deleteNotification(self::$db, $data);
+
+                                    if($action):
+
+                                        // Commit the database to true if everything is set
+                                        self::$db->autocommit(true);
+
+                                        // If everything i set, commit to true and send a positive response
+                                        $this->type = "success";
+                                        $this->status = 1;
+                                        $this->message = "void";
+                                        $this->content = $val['token'];
+                                    else:
+                                        return $action;
+                                    endif;
+                                else:
+                                    return $action;
+                                endif;
 
                             endif;
                         endif;
@@ -599,37 +698,46 @@
                     if($action):
 
                         // Fetch the replies owner info
-                        $this->selecting->more_details("WHERE id = ? LIMIT 1, $this->user");
-                        $action = $this->selecting->action("*", "user");
-                        $this->selecting->reset();
-
-                        if($action != null):
-                            return $action;
-                        endif;
-
-                        $reply_owner = $this->selecting->pull()[0][0];
+                        $data = [
+                            "id" => $this->user,
+                            "1" => "1",
+                            "needle" => "*",
+                            "table" => "user"
+                        ];
+            
+                        $reply_owner = Func::searchDb(self::$db, $data);
 
                         // Fetch the post owner id
-                        $this->selecting->more_details("WHERE id = ? LIMIT 1, $post");
-                        $action = $this->selecting->action("user", "post");
-                        $this->selecting->reset();
+                        $data = [
+                            "id" => $post,
+                            "1" => "1",
+                            "needle" => "user",
+                            "table" => "post"
+                        ];
+            
+                        $post_owner = Func::searchDb(self::$db, $data);
 
-                        if($action != null):
-                            return $action;
-                        endif;
-
-                        $post_owner = $this->selecting->pull()[0][0]['user'];
+                        // Fetch comment owner
+                        $data = [
+                            "id" => $comment,
+                            "1" => "1",
+                            "needle" => "user",
+                            "table" => "comments"
+                        ];
+            
+                        $commentOwner = Func::searchDb(self::$db, $data);
 
                         // Save as notification
                         $data = [
-                            "element" => $comment,
+                            "element" => $reply,
                             "user" => $this->user,
-                            "other" => $post_owner,
-                            "type" => "comment",
-                            "parent" => $post
+                            "other" => $commentOwner,
+                            "type" => "reply",
+                            "parent" => $post,
+                            "more" => $comment
                         ];
 
-                        $save = Notification::saveNotification(self::$db, $data, 'iiisissi');
+                        $save = Notification::saveNotification(self::$db, $data, 'iiisisssi');
 
                         // Sorting and arranging the results
 
@@ -1050,6 +1158,11 @@
                         // Proceeding to delete the old mention
                         $deleting = new Delete(self::$db, "WHERE $key = ? AND other = ?, $val, $other");
                         $result = $deleting->proceed("mentions");
+
+                        // Deleting the mention notification also
+                        $deleting = new Delete(self::$db, "WHERE element = ? AND other = ?, $val, $other");
+                        $result = $deleting->proceed("notification");
+
                     endif;
 
                 endforeach;
@@ -1110,7 +1223,32 @@
                     $action = $inserting->push($items, "siiiiissi");
                     $inserting->reset();
 
-                    if(!$action) return $action;
+                    if(!$action):
+                        return $action;
+                    else:
+                        // Check wether the mention was in reply or comments
+
+                        $element = 0;
+                        if($key[1] == "comment"):
+                            $element = $value[1];
+                        elseif($key[1] == "reply"):
+                            $element = $value[2];
+                        endif;
+
+                        // Save as notification
+                        $data = [
+                            "element" => $element,
+                            "user" => $this->user,
+                            "other" => $other,
+                            "type" => "mention",
+                            "parent" => $value[0],
+                            "more" => $key[1]
+                        ];
+
+                        $save = Notification::saveNotification(self::$db, $data, 'iiisisssi');
+
+                        if(!$save) return $save;
+                    endif;
                 endif;
 
             endforeach;

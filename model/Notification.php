@@ -61,13 +61,34 @@
             $data["date"] = FUnc::dateFormat();
             $data["time"] = time();
 
-            print_r($data);
-
             $keys = array_keys($data);
             $value = array_values($data);
 
-            $inserting = new Insert($db, "notification", $keys, "");
-            $action = $inserting->push($value, $type);
+            // First delete any previous notification that matches this one
+
+            $deleting = self::deleteNotification($db, $data);
+            if($deleting):
+                $inserting = new Insert($db, "notification", $keys, "");
+                $action = $inserting->push($value, $type);
+                if($action):
+                    return TRUE;
+                else:
+                    return $action;
+                endif;
+            else:
+                return $deleting;
+            endif;
+        }
+
+        public static function deleteNotification(mysqli $db, array $data) : bool|array {
+
+            $notificationType = $data["type"];
+            $element = $data["element"];
+            $user = $data["user"];
+
+            $deleting = new Delete($db, "WHERE type = ? AND element = ? AND user = ?, $notificationType, $element, $user");
+            $action = $deleting->proceed("notification");
+
             if($action):
                 return TRUE;
             else:
