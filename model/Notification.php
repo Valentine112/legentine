@@ -3,7 +3,12 @@
 
     /**
      * The comment, reply, mention, and top post would be treated as notifications
+     * The person receiving the notification would be saved as other
+     * While the person creating the notification would be saved as user
+     * 
+     * Comment->save_mentions is already saving the mentions notification for either comments or reply
      */
+
     use mysqli;
     use Service\{
         Response,
@@ -85,8 +90,18 @@
             $notificationType = $data["type"];
             $element = $data["element"];
             $user = $data["user"];
+            $elementType = $data['elementType'];
 
-            $deleting = new Delete($db, "WHERE type = ? AND element = ? AND user = ?, $notificationType, $element, $user");
+            if(!isset($data['other'])):
+                $otherStr = "1";
+                $other = "1";
+            else:
+                $otherStr = "other";
+                $other = $data['other'];
+            endif;
+
+
+            $deleting = new Delete($db, "WHERE type = ? AND element = ? AND user = ? AND elementType = ? AND $otherStr = ?, $notificationType, $element, $user, $elementType, $other");
             $action = $deleting->proceed("notification");
 
             if($action):

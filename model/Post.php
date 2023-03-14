@@ -745,8 +745,10 @@
 
             return $this->deliver();
         }
+
         public function react() : array {
             $token = $this->data['val']['token'];
+            $status = -1;
             
             $data = [
                 'token' => $token,
@@ -757,6 +759,17 @@
             if($value[1] > 0):
                 $post = $value[0][0]['id'];
 
+                // Fetch post owner id
+                $data = [
+                    "post" => $post,
+                    "1" => "1",
+                    "needle" => "user",
+                    "table" => "post"
+                ];
+
+                $other = Func::searchDb(self::$db, $data);
+
+                // Check if its already been liked
                 $data = [
                     "post" => $post,
                     "user" => $this->user,
@@ -764,7 +777,6 @@
                     "table" => "star"
                 ];
 
-                // Check if its already been liked
                 $search = Func::searchDb(self::$db, $data);
 
                 // Turn off the database until every transaction is completed
@@ -785,6 +797,8 @@
                             "type" => "unstar",
                             "count" => 0
                         ];
+
+                        $status = 0;
                     
                     else:
                         return $action;
@@ -822,6 +836,8 @@
                             "type" => "star",
                             "count" => 0
                         ];
+
+                        $status = 1;
                         
                     else:
                         return $action;

@@ -126,9 +126,9 @@
         }
 
         public static function mention(mysqli $db, string $content, array $data) {
+            $status = 1;
             $key = array_keys($data)[0];
             $val = array_values($data)[0];
-
 
             $selecting = new Select($db);
             $selecting->more_details("WHERE $key = ?, $val");
@@ -150,10 +150,10 @@
     
                 $username = $selecting->pull()[0][0]['username'];
 
-
                 $mention = "@$username";
                 $format = "<a href='profile?token=$mentioned' style='color: #ff465b; text-decoration: none;'>$mention</a>";
                 $content = str_replace($mention, $format, $content);
+
             endforeach;
 
             return $content;
