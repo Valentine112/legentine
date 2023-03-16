@@ -22,6 +22,8 @@ window.addEventListener("load", async function () {
         if(val.status === 1) {
             var content = val.content
 
+            console.log(content)
+
             var profile = new Profile(content)
 
             content.forEach((elem, ind) => {

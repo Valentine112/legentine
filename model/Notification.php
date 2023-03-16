@@ -87,6 +87,10 @@
 
         public static function deleteNotification(mysqli $db, array $data) : bool|array {
 
+            // Deleting with the type, element, user, elementType and other
+            // All this attributes are very important and must be met
+            // It ensures that the particular element is deleted
+
             $notificationType = $data["type"];
             $element = $data["element"];
             $user = $data["user"];
@@ -99,7 +103,6 @@
                 $otherStr = "other";
                 $other = $data['other'];
             endif;
-
 
             $deleting = new Delete($db, "WHERE type = ? AND element = ? AND user = ? AND elementType = ? AND $otherStr = ?, $notificationType, $element, $user, $elementType, $other");
             $action = $deleting->proceed("notification");

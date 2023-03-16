@@ -188,9 +188,11 @@
                     $mentions = $val['mentions'];
 
                     $arr = [
+                        "type" => "comment",
                         "post" => $post,
                         "comment" => $comment,
-                        "reply" => 0
+                        "reply" => 0,
+                        "more" => 0
                     ];
 
                     // Save mentions here
@@ -704,10 +706,14 @@
                     // Insert mentions if there are any
                     $mentions = $val['mentions'];
 
+                    // The "more" key in this object would be used when trying to find the element
+
                     $arr = [
+                        "type" => "reply",
                         "post" => $post,
+                        "comment" => $comment,
                         "reply" => $reply,
-                        "comment" => $comment
+                        "more" => $comment
                     ];
 
                     // Save mentions attached to the reply
@@ -1314,6 +1320,7 @@
         }
 
         public function save_mentions(array $mentions, array $data) {
+
             $key = array_keys($data);
             $value = array_values($data);
 
@@ -1323,6 +1330,7 @@
 
             foreach($mentions as $mention):
 
+                // Check if the mention is valid
                 $arr = [
                     "username" => $mention,
                     "1" => "1",
@@ -1333,13 +1341,14 @@
                 $search = Func::searchDb(self::$db, $arr);
 
                 if(is_int($search)):
+
                     $other = $search;
 
                     $subject = [
                         "token",
-                        $key[0],
-                        $key[1],
-                        $key[2],
+                        "post",
+                        "comment",
+                        "reply",
                         "user",
                         "other",
                         "type",
@@ -1349,12 +1358,12 @@
                     
                     $items = [
                         Func::tokenGenerator(),
-                        $value[0],
-                        $value[1],
-                        $value[2],
+                        $data['post'],
+                        $data['comment'],
+                        $data['reply'],
                         $this->user,
                         $other,
-                        $key[1],
+                        $data['type'],
                         $date,
                         $time
                     ];
@@ -1370,24 +1379,24 @@
                         // Check wether the mention was in reply or comments
 
                         $element = 0;
-                        if($key[1] == "comment"):
-                            $element = $value[1];
-                        elseif($key[1] == "reply"):
-                            $element = $value[1];
+                        if($data['type'] === "comment"):
+                            $element = $data['comment'];
+                        elseif($data['type'] === "reply"):
+                            $element = $data['reply'];
                         endif;
 
                         // Save as notification
-                        $data = [
+                        $arr = [
                             "element" => $element,
-                            "elementType" => $key[1],
+                            "elementType" => $data['type'],
                             "user" => $this->user,
                             "other" => $other,
                             "type" => "mention",
-                            "parent" => $value[0],
-                            "more" => $key[1]
+                            "parent" => $data['post'],
+                            "more" => $data['more']
                         ];
 
-                        $save = Notification::saveNotification(self::$db, $data, 'isiisisssi');
+                        $save = Notification::saveNotification(self::$db, $arr, 'isiisisssi');
 
                         if(!$save) return $save;
                     endif;

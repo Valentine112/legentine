@@ -125,12 +125,33 @@
     width: 80%;
 }
 .userInfoSub > div:nth-child(4){
+    margin-top: 10px;
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.userInfoSub > div:nth-child(4) img{
+    height: 20px;
+    width: 15px;
+    vertical-align: bottom;
+}
+.userInfoSub .raters{
+    vertical-align: top;
+    display: inline-block;
+}
+.userInfoSub > div:nth-child(4) > div:first-child{
     color: grey;
     background-color: yellow;
     width: fit-content;
     padding: 3px 15px;
-    margin-top: 10px;
 }
+.userInfoSub > div:nth-child(4) > div:last-child{
+    color: grey;
+    background-color: #f1f1f1;
+    width: fit-content;
+    padding: 3px 15px;
+}
+
 .userInfoSub .other{
     margin-top: 15px;
     display: flex;

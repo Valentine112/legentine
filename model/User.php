@@ -83,8 +83,10 @@
                     if($action !== null) return $action;
                     $fetch = $this->selecting->pull();
 
+                    // sum of all the ratings
                     $summedRating = $fetch[0][0]["SUM(rate)"] === null ? 0 : $fetch[0][0]["SUM(rate)"];
 
+                    // Total count of the ratings
                     $totalRating = $fetch[0][0]["COUNT(id)"] === null ? 0 : $fetch[0][0]["COUNT(id)"];
 
                     $box['more']['summedRating'] = $summedRating;

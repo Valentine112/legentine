@@ -8,6 +8,7 @@ class Profile {
 
     main(ind) {
         var person = this.data[ind]['person']
+        var more = this.data[ind]['more']
 
         var element = `
             <div class="profileSub config">
@@ -42,6 +43,13 @@ class Profile {
                         <div>
                             <span>Stars - </span>
                             <span class="rating" id="ratingNumber">${parseFloat(person['rating'].toFixed(1))}</span>
+                        </div>
+
+                        <div>
+                            &ensp;
+                            <img src="../src/icon/profile/raters.svg" alt="" class="raters" data-type="raters" data-action="pin">
+
+                            <span class="raters" id="raters"> - ${more['totalRating']}</span>
                         </div>
                     </div>
 
