@@ -40,20 +40,65 @@
             $this->type = "success";
             $this->message = "void";
 
-            $result = [
-                "mentions" => "",
-                "comments" => "",
-                "tops" => ""
-            ];
+            $result = [];
 
-            // Fetch mentions first
-            $this->selecting->more_details("WHERE user = ?, $this->user");
-            $action = $this->selecting->action("*", "mentions");
+            // Fetch notification
+            $this->selecting->more_details("WHERE other = ?, $this->user");
+            $action = $this->selecting->action("*", "notification");
             if($action != null) return $action;
 
             $value = $this->selecting->pull();
 
-            $result['mentions'] = $value[0];
+            foreach($value[0] as $noti):
+
+                // Fetch the parent post
+                $data = [
+                    "id" => $noti["parent"],
+                    "1" => "1",
+                    "needle" => "*",
+                    "table" => "post"
+                ];
+
+                $post = Func::searchDb(self::$db, $data);
+
+                // END
+
+                // Fetch the other
+                $data["id"] = $noti['user'];
+                $data['table'] = "user";
+
+                $user = Func::searchDb(self::$db, $data);
+
+                // END
+
+                // Fetch the content, wether reply or comment
+                $data['id'] = $noti['element'];
+
+                // Set the appropriate table
+                if($noti['elementType'] === "comment"):
+                    $data["table"] = "comments";
+
+                elseif($noti['elementType'] === "reply"):
+                    $data["table"] = "replies";
+                
+                endif;
+
+                $content = Func::searchDb(self::$db, $data);
+
+                // END
+
+
+                $arr = [
+                    "notification" => $noti,
+                    "content" => $content,
+                    "self" => $this->user,
+                    "post" => $post,
+                    "other" => $user
+                ];
+
+                array_push($result, $arr);
+
+            endforeach;
 
             $this->content = $result;
 

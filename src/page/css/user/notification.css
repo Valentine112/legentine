@@ -1,0 +1,77 @@
+.notification{
+    font-family: var(--theme-font);
+}
+.notification #postCover{
+    width: 98%;
+    margin: auto;
+}
+.notification #postCOver .seen{
+    opacity: 0.6;
+}
+.notification .notificationBox{
+    width: 100%;
+    padding: 5px;
+    border-bottom: 1px solid #f1f1f1;
+    margin: 5px;
+}
+.notificationBox a{
+    width: 100%;
+    display: block;
+    color: #000;
+}
+.notification .notificationSub{
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.notification .notificationSub > div{
+
+}
+.notification .notificationSub > div:first-child{
+    width: 15%;
+    text-align: center;
+}
+.notification .notificationSub > div:last-child{
+    width: 80%;
+}
+.notification .notificationSub img{
+    height: 25px;
+    width: 25px;
+    border-radius: 50px;
+    margin: auto;
+}
+.notificationSub > div:last-child .comment{
+    color: dodgerblue;
+}
+.notificationSub > div:last-child .reply{
+    color: orange;
+}
+.notificationSub > div:last-child .mention{
+    color: var(--theme-color);
+}
+.notificationSub small{
+    color: grey;
+}
+
+@media screen and (min-width: 768px) {
+    .notification #postCover{
+        margin: auto;
+        width: 80%;
+    }
+
+    .notification .notificationSub > div:first-child{
+        width: 10%;
+    }
+    .notification .notificationSub > div:last-child{
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .notification #postCover{
+        margin: auto;
+        width: 60%;
+    }
+}
+

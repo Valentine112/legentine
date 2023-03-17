@@ -38,7 +38,7 @@
             ?>
         </div>
 
-        <div class="pinnedHead">
+        <div class="notification">
             <div class="article-content post-controller box">
 
                 <header class="pageHead">
@@ -46,7 +46,7 @@
                 </header>
 
                 <div id="postCover">
-                    
+                    <!-- NOTIFICATION GOES HERE -->
                 </div>
 
                 <div class="content-loader">
