@@ -97,7 +97,7 @@
             return $exist;
         }
 
-        public static function searchDb(mysqli $db, $data) {
+        public static function searchDb(mysqli $db, array $data, string $expression) {
             $keys = array_keys($data);
             $values = array_values($data);
 
@@ -109,7 +109,7 @@
             $table = $data['table'];
 
             $selecting = new Select($db);
-            $selecting->more_details("WHERE $key = ? AND $key1 = ?, $val, $val1");
+            $selecting->more_details("WHERE $key = ? $expression $key1 = ?, $val, $val1");
             $action = $selecting->action($needle, $table);
 
             if($action != null) return $action;

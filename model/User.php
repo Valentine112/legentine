@@ -100,7 +100,7 @@
                         "table" => "ratings"
                     ];
     
-                    $search = Func::searchDb(self::$db, $data);
+                    $search = Func::searchDb(self::$db, $data, "AND");
 
                     $box['more']['rated'] = is_int($search) ? $search : "";
 
@@ -166,7 +166,7 @@
                     "table" => "blocked_users"
                 ];
 
-                $search = Func::searchDb(self::$db, $data);
+                $search = Func::searchDb(self::$db, $data, "AND");
 
                 if(is_int($search)):
                     // User has already been unlisted
@@ -445,7 +445,7 @@
                         "table" => "ratings"
                     ];
     
-                    $search = Func::searchDb(self::$db, $data);
+                    $search = Func::searchDb(self::$db, $data, "AND");
 
                     if(!is_int($search)):
                         // Create a new rating
@@ -550,7 +550,7 @@
                     "table" => "pin"
                 ];
 
-                $search = Func::searchDb(self::$db, $data);
+                $search = Func::searchDb(self::$db, $data, "AND");
 
                 $this->type = "success";
                 $this->status = 1;
@@ -783,7 +783,7 @@
                 "table" => "gallery"
             ];
 
-            $search = Func::searchDb(self::$db, $data);
+            $search = Func::searchDb(self::$db, $data, "AND");
 
             if(is_int($search)):
                 $deleting = new Delete(self::$db, "WHERE id = ?, $search");
@@ -852,7 +852,7 @@
                 "table" => "user"
             ];
 
-            $search = Func::searchDb(self::$db, $data);
+            $search = Func::searchDb(self::$db, $data, "AND");
 
             if(is_int($search)):
                 $timeLimit = ((3600 * 24) * 14);
@@ -872,7 +872,7 @@
                             "table" => "user"
                         ];
             
-                        $search = Func::searchDb(self::$db, $data);
+                        $search = Func::searchDb(self::$db, $data, "AND");
 
                         if(is_int($search)):
                             $this->message = "fill";
@@ -929,7 +929,7 @@
                 "table" => "user"
             ];
 
-            $search = Func::searchDb(self::$db, $data);
+            $search = Func::searchDb(self::$db, $data, "AND");
 
             if(!empty($search) || $search !== null):
                 // Check if old password is correct

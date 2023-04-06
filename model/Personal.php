@@ -34,7 +34,7 @@
                 "table" => "user"
             ];
 
-            $search = Func::searchDb(self::$db, $data);
+            $search = Func::searchDb(self::$db, $data, "AND");
 
             if(!empty($search)):
                 if(password_verify($param, $search)):

@@ -1,0 +1,1115 @@
+    /*$setup = [
+        [
+            "title" => "After the Sea-Ship",
+            "category" => "Poem",
+            "desc" => "AFTER the Sea-Ship--after the whistling winds;
+            After the white-gray sails, taut to their spars and ropes,
+            Below, a myriad, myriad waves, hastening, lifting up their necks,
+            Tending in ceaseless flow toward the track of the ship:
+            Waves of the ocean, bubbling and gurgling, blithely prying,
+            Waves, undulating waves--liquid, uneven, emulous waves,
+            Toward that whirling current, laughing and buoyant, with curves,
+            Where the great Vessel, sailing and tacking, displaced the surface ..."
+        ],
+        [
+            "title" => "The Return",
+            "category" => "Poem",
+            "desc" => "See, they return; ah, see the tentative
+            Movements, and the slow feet,
+            The trouble in the pace and the uncertain
+            Wavering!
+            
+            See, they return, one, and by one,
+            With fear, as half-awakened;
+            As if the snow should hesitate
+            And murmur in the wind,
+            and half turn back;
+            These were the \"Wing'd-with-Awe\",
+            inviolable."
+        ],
+        [
+            "title" => "i carry your heart with me",
+            "category" => "Poem",
+            "desc" => "i carry your heart with me (i carry it in
+            my heart) i am never without it (anywhere
+            i go you go, my dear; and whatever is done
+            by only me is your doing, my darling)
+            i fear
+            
+            no fate (for you are my fate, my sweet) i want
+            no world (for beautiful you are my world, my true)
+            and it's you are whatever a moon has always meant
+            and whatever a sun will always sing is you ..."
+        ],
+        [
+            "title" => "Mirror",
+            "category" => "Poem",
+            "desc" => "I am silver and exact. I have no preconceptions.
+            Whatever I see I swallow immediately
+            Just as it is, unmisted by love or dislike.
+            I am not cruel, only truthful‚
+            The eye of a little god, four-cornered.
+            Most of the time I meditate on the opposite wall.
+            It is pink, with speckles. I have looked at it so long
+            I think it is part of my heart. But it flickers.
+            Faces and darkness separate us over and over."
+        ],
+        [
+            "title" => "The Waste Land",
+            "category" => "Poem",
+            "desc" => "April is the cruellest month, breeding
+            Lilacs out of the dead land, mixing
+            Memory and desire, stirring
+            Dull roots with spring rain.
+            Winter kept us warm, covering
+            Earth in forgetful snow, feeding
+            A little life with dried tubers.
+            Summer surprised us, coming over the Starnbergersee
+            With a shower of rain; we stopped in the colonnade,
+            And went on in sunlight, into the Hofgarten,
+            And drank coffee, and talked for an hour.
+            Bin gar keine Russin, stamm’ aus Litauen, echt deutsch.
+            And when we were children, staying at the arch-duke’s,
+            My cousin’s, he took me out on a sled,
+            And I was frightened. He said, Marie,
+            Marie, hold on tight. And down we went.
+            In the mountains, there you feel free.
+            I read, much of the night, and go south in the winter."
+        ],
+        [
+            "title" => "Little Shelter Cat",
+            "category" => "Poem",
+            "desc" => "I walked into the shelter and looked around.
+            Out of all the homeless kitties, you stood out like a beacon.
+            I picked you up, and you purred and snuggled sweetly in my arms.
+            It was like we had always known each other, always been together.
+            I filled out the form, made the donation, and took you home.
+            You're a little shelter cat no more. You're mine."
+        ],
+        [
+            "title" => "City of Potholes",
+            "category" => "Poem",
+            "desc" => "Zig-zagging down the road
+            Trying not to stray over the center line
+            Or hit a curb
+            Or break an axle
+            Or flatten a tire
+            Or wind up in the next surprise sinkhole.
+            Driving in Toledo is not a sport
+            For the timid or the sane or the under-insured."
+        ],
+        [
+            "title" => "An Ode to Coffee",
+            "category" => "Poem",
+            "desc" => "Beautiful brown liquid steaming in my cup,
+            Becoming a muddy river as I stir in the cream.
+            The aroma that gives me courage,
+            The flavor that tastes like hope for a better day,
+            And the energy that renews my will to live.
+            Tomorrow morning we'll do it all again my friend."
+        ],
+        [
+            "title" => "I go extra",
+            "category" => "Rap",
+            "desc" => "am h20 but not water/ h20 in alphabetical order
+            call me your brother from another mother guilty of murder
+            i kill rhymes and lyrics in no particular order
+            you're the waiter am the guest take my order
+            no need to bother/ i take the number one spot grand commander
+            flow like river Niger to the Niger delta/ you're good that's true but am better
+            i got the bread the butter and the cup of water
+            you're the shit packer chilling in the gutter
+            you got HND i got F.E.N.D.I
+            fully endowed no dulling impressive
+            did i impress you or did i oppress you
+            swagger so large that i got to compress you"
+        ],
+        [
+            "title" => "Jesus is watching",
+            "category" => "Comedy",
+            "desc" => "Late one night a burglar broke into a house and while he was sneaking around he heard a voice say, 'Jesus is watching you.' He looked around and saw nothing. He kept on creeping and again heard, 'Jesus is watching you.' In a dark corner, he saw a cage with a parrot inside. The burglar asked the parrot, 'Was it you who said Jesus is watching me' The parrot replied, 'Yes.' Relieved, the burglar asked, 'What is your name?' The parrot said, 'Clarence.' The burglar said, 'That's a stupid name for a parrot. What idiot named you Clarence?' The parrot answered, 'The same idiot that named the rottweiler Jesús.'"
+        ],
+        [
+            "title" => "Genius or Idiot?",
+            "category" => "Comedy",
+            "desc" => "A proud and confident genius makes a bet with an idiot. The genius says, 'Hey idiot, every question I ask you that you don't know the answer, you have to give me $5. And if you ask me a question and I can't answer yours I will give you $5,000.' The idiot says, 'Okay.' The genius then asks, 'How many continents are there in the world?' The idiot doesn't know and hands over the $5. The idiot says, 'Now me ask: what animal stands with two legs but sleeps with three?' The genius tries and searches very hard for the answer but gives up and hands over the $5000. The genius says, 'Dang it, I lost. By the way, what was the answer to your question?' The idiot hands over $5."
+        ],
+        [
+            "title" => "Howl",
+            "category" => "Poem",
+            "desc" => "I saw the best minds of my generation destroyed by madness, starving hysterical naked,
+            dragging themselves through the negro streets at dawn looking for an angry fix,
+            angelheaded hipsters burning for the ancient heavenly connection to the starry dynamo in the machinery of night,
+            who poverty and tatters and hollow-eyed and high sat up smoking in the supernatural darkness of cold-water flats floating across the tops of cities contemplating jazz,
+            who bared their brains to Heaven under the El and saw Mohammedan angels staggering on tenement roofs illuminated ..."
+        ],
+        [
+            "title" => "Harlem",
+            "category" => "Poem",
+            "desc" => "What happens to a dream deferred?
+
+            Does it dry up
+            like a raisin in the sun?
+            Or fester like a sore—
+            And then run?
+            Does it stink like rotten meat?
+            Or crust and sugar over—
+            like a syrupy sweet?
+            
+            Maybe it just sags
+            like a heavy load.
+            
+            Or does it explode?"
+        ],
+        [
+            "title" => "I am the king",
+            "category" => "Rap",
+            "desc" => "Am a bad rhymer
+            Mixing rhymes and money is a bad matter
+            Go getter if you like her better tell her
+            Am on a river bank with a wet teller
+            That’s the way I like her she’s my cute banker
+            Am stuck on her like a permanent marker
+            Don’t mark her she’s my baby boo don’t shyke her
+            I like her though she dey too vex e no matter
+            Pour me pure water shack holy water
+            When you don high you go fall for gutter
+            I no be aje butter I no like butter
+            Find me fresh bread oya now put bama
+            ============================
+            When pepper rest
+            We go touch fine girls for breast
+            Am never behind I stay abreast
+            Never to rest until I become the best
+            Nobody go fit test me
+            Na me myself dey test me
+            Your babe dey trip see now she don dey text me
+            No need to dey beef me
+            Step up your game no need to dey face me
+            Love me or hate me you no go fit stop me
+            I love my flows and my flows are so loving
+            My rhymes they keep coming
+            Like the tears in my enemies eye
+            They never run dry
+            Am the best am the most fly
+            The child of the most high
+            No grass can make you high like the most high
+            I see the redness in your eye but why
+            When your pocket don dry
+            Like water in the desert you are absent
+            Am the water in the seas am present
+            Your freshness one percent
+            Am a fresh boy hundred percent
+            I live in present tense
+            You are stuck in past tense
+            No wonder you are that tense
+            Like bad grammar you lack tenses
+            You fail like bad business with no chances"
+        ],
+        [
+            "title" => "This is me",
+            "category" => "Rap",
+            "desc" => "Am the black gold so black you can never know am that gold
+            your character so curve my charisma so bold
+            you're stone cold but not Steve Austin got much freshness from within me bursting
+            you lusting too bad for you am out here loving
+            ever ready ever fly that's my motto
+            am living large like i won the Lagos lotto
+            fresh like a baby bottom snap my photo
+            i got more gifts than Santa in the grotto
+            am cruising in Ferrari&range rover you're driving motor
+            with super fly rhymes and dope lyrics i got the game finito
+            i make you start over and still run you over
+            like you're in kindergarten and my PhD thesis just over
+            my cup runs over you're furious you're boiling over
+            you're taking cover while am taking over
+            cant race in a bicycle with a range rover
+            this rap is not over better move over
+            am getting over the overs in this rap praise Jehovah
+            "
+        ],
+        [
+            "title" => "My peace",
+            "category" => "Rap",
+            "desc" => "The fairy drops deep as does my shoe.
+            I never chuckle, 'cause to chuckle is the girlfriend of view.
+            Beyond the walls of men, life is defined.
+            I think of muppets when I'm in a Devon state of mind.
+            
+            Hope the pursue got some purview.
+            My view don't like no dirty hew.
+            Run up to the blue and get the eschew.
+            
+            In a Devon state of mind.
+            What more could you ask for? The crazy fairy?
+            You complain about volume.
+            I gotta love it though - somebody still speaks for the contemporary.
+            
+            I'm rappin' to the mouse,
+            And I'm gonna move your warehouse.
+            
+            Mild, smooth, crazy, like a knight
+            Boy, I tell you, I thought you were a right.
+            
+            I can't take the volume, can't take the banana.
+            I woulda tried to skip I guess I got no americana.
+            
+            I'm rappin' to the warehouse,
+            And I'm gonna move your mouse.
+            
+            Yea, yaz, in a Devon state of mind.
+            
+            When I was young my girlfriend had a contemporary.
+            I waz kicked out without no ancillary.
+            I never thought I'd see that itinerary.
+            Ain't a soul alive that could take my girlfriend's arbitrary.
+            
+            A quiet teddy bear is quite the everywhere.
+            
+            Thinking of muppets. Yaz, thinking of muppets (muppets)."
+        ],
+        [
+            "title" => "10 minutes big",
+            "category" => "Song",
+            "desc" => "Are you free? Answer, answer
+            or are you locked up waiting for me
+            Are you free? Answer, answer
+            or do you fight to hold the key
+            but when no one's praying for you
+            I am out looking for escapes
+            or ways
+            away
+            
+            (Chorus)
+            Waiting, whining, lying, crying, trying, flying, dying
+            no no. stop, stop, stop
+            Waiting, whining, lying, crying, trying, flying, dying
+            no no. stop, stop, stop
+            We're waiting, I'm whining, they're lying, you're crying,
+            no no. stop, stop, stop
+            Almost trying, always flying, never never never dying
+            
+            I can hear you
+            Just scream louder
+            I can hear you
+            a little closer
+            fight your way
+            fight the step that's blocking you
+            
+            (Chorus)
+            Waiting, whining, lying, crying, trying, flying, dying
+            no no. stop, stop, stop
+            Waiting, whining, lying, crying, trying, flying, dying
+            no no. stop, stop, stop
+            We're waiting, I'm whining, they're lying, you're crying,
+            no no. stop, stop, stop
+            Almost trying, always flying, never never never dying
+            
+            Are you free? Answer, answer
+            or are you locked up waiting for me
+            Are you free? Answer, answer
+            
+            Cheat me down now
+            Cheat me down now
+            Cheat me down now
+            Cheat me down now
+            Cheat me down now
+            Cheat me down now"
+        ],
+        [
+            "title" => "We're Done",
+            "category" => "Song",
+            "desc" => "You don’t know who I am
+            Don’t even try to pretend
+            Because this is the end,
+            The end of us
+            
+            I tried to make it work
+            But you were always at work
+            Or at least that’s what you told me
+            Please believe me, you begged
+            
+            But it wasn’t just that
+            There were a million little issues
+            And I shouldn’t have to take it
+            I know better for myself
+            
+            Oh baby I’m leaving
+            I will miss you, will you miss me?
+            I have to go now
+            I can’t stay, you don’t need to wait
+            Cause I though you were the one
+            But we just ran out of luck
+            And when you see me someday
+            Don’t bother stand in my way
+            Cause we’re done
+            The race was run, it’s over, we’re done
+            
+            We didn’t really bond
+            This isn’t what I want
+            But we have to be strong
+            Pack it up, please just leave
+            
+            This isn’t who you are
+            All you did was change
+            Get out of my way
+            If you don’t leave, I will
+            
+            "
+        ],
+        [
+            "title" => "We're Done 2",
+            "category" => "Song",
+            "desc" => "But it wasn’t just that
+            There were a million little issues
+            And I shouldn’t have to take it
+            I know better for myself
+            
+            Oh baby I’m leaving
+            I will miss you, will you miss me?
+            I have to go now
+            I can’t stay, you don’t need to wait
+            Cause I though you were the one
+            But we just ran out of luck
+            And when you see me someday
+            Don’t bother stand in my way
+            Cause we’re done
+            The race was run, it’s over, we’re done
+            
+            When you see me, in 6 months time
+            Down at the coffee shop
+            I’ll say I’m sorry, I’ve got no time, for you
+            Don’t even try, to talk to me
+            You had your chance to talk, you blew it, good bye
+            
+            The race was run, we are done
+            It’s no longer fun
+            What ever happened, to the magic
+            The spark
+            I guess it’s gone, it wasn’t really there
+            For long
+            
+            But it wasn’t just that
+            There were a million little issues
+            And I shouldn’t have to take it
+            I know better for myself
+            
+            Oh baby I’m leaving
+            I will miss you, will you miss me?
+            I have to go now
+            I can’t stay, you don’t need to wait
+            Cause I though you were the one
+            But we just ran out of luck
+            And when you see me someday
+            Don’t bother stand in my way
+            Cause we’re done
+            The race was run, it’s over, we’re done
+            
+            The race was run, we are done
+            It’s no longer fun
+            What ever happened, to the magic
+            The spark
+            I guess it’s gone, it wasn’t really there
+            For long"
+        ],
+        [
+            "title" => "To Love Again",
+            "category" => "Song",
+            "desc" => "You shy away, when I come close
+            To afraid, of affection
+            Let me in, so I can see
+            The damage done, I’ll set you free
+            
+            And I don’t know how someone could do this to you
+            It hurts me just to see you cry on the ground
+            I know that I can love you and help you through
+            
+            Just open, just open you heart
+            Just feel it, feel it in your heart
+            
+            Cause from the start I have loved you
+            Always loved you baby
+            But you were taken and he broke you
+            Always loved you baby
+            Now I have a chance, to get you now
+            Just take chance, and let me show you how
+            To love again
+            To love agai-i-in, To love agai-i-in
+            To love again
+            
+            Your too afraid, that I might hurt you
+            But I’m nothing, like him oh no
+            Just gimme a chance, to take a look
+            Give me a moment, let me in
+            
+            And when I look into your face I see beauty
+            And I don’t understand how he could’ve broke you
+            All I wanna ever do is help you get through
+            
+            Just open, just open you heart
+            Just feel it, feel it in your heart"
+        ],
+        [
+            "title" => "Not in it",
+            "category" => "Song",
+            "desc" => "Cause from the start I have loved you
+            Always loved you baby
+            But you were taken and he broke you
+            Always loved you baby
+            Now I have a chance, to get you now
+            Just take chance, and let me show you how
+            To love again
+            To love agai-i-in, To love agai-i-in
+            To love again
+            
+            Your too afraid, that I might hurt you
+            But I’m nothing, like him oh no
+            Just gimme a chance, to take a look
+            Give me a moment, let me in
+            
+            And when I look into your face I see beauty
+            And I don’t understand how he could’ve broke you
+            All I wanna ever do is help you get through
+            
+            Just open, just open you heart
+            Just feel it, feel it in your heart
+            
+            Cause from the start I have loved you
+            Always loved you baby
+            But you were taken and he broke you
+            Always loved you baby
+            Now I have a chance, to get you now
+            Just take chance, and let me show you how
+            To love again
+            To love agai-i-in, To love agai-i-in
+            To love again"
+        ],
+        [
+            "title" => "To love again 3",
+            "category" => "Song",
+            "desc" => "I feel you opening up
+            It just took a little luck
+            I feel you coming closer
+            Running away from his poster
+            What he did to you was bad
+            But I am here and you are glad
+            Cause I can hold you
+            Oh I can hold you
+            
+            Cause from the start I have loved you
+            Always loved you baby
+            But you were taken and he broke you
+            Always loved you baby
+            Now I have a chance, to get you now
+            Just take chance, and let me show you how
+            To love again
+            To love agai-i-in, To love agai-i-in
+            To love again
+            
+            Just open, just open you heart
+            Just feel it, feel it in your heart"
+        ],
+        [
+            "title" => "Just talk to me",
+            "category" => "Song",
+            "desc" => "I don’t know, what you feeling
+            I don’t care, who your being
+            all i know, is that you seem upset
+            
+            I try to, i try to help you
+            No answer, yeah i get nothing
+            Baby let, baby let me help you
+            
+            I know that you beautiful
+            I know that your wonderful
+            But i know that you need he-ellp…..
+            
+            He’s pretty much gone
+            He wasn’t here for long
+            And you know that i love you
+            But he’s gone
+            And i am here for you
+            I can be there too
+            Always there for yo-o-oh
+            And you can have your way
+            With nothing else to say
+            But it will come out some
+            So lets control the blast
+            Won’t the suffering the last
+            Just talk to me
+            
+            I don’t know, why he left
+            Made a mistake, he’ll never forgot
+            I know, you’re be upset
+            But you are better then the rest
+            
+            I know that your pretty
+            I know your amazing
+            But i can tell you need a little help"
+        ],
+        [
+            "title" => "Never forget you II",
+            "category" => "Song",
+            "desc" => "He’s pretty much gone
+            He wasn’t here for long
+            And you know that i love you
+            But he’s gone
+            And i am here for you
+            I can be there too
+            Always there for yo-o-oh
+            And you can have your way
+            With nothing else to say
+            But it will come out some way
+            So lets control the blast
+            Won’t the suffering the last
+            Just talk to me
+            
+            Your pretty, your smart
+            Your cute, your laugh
+            Your smile, your face
+            Your eyes, your love
+            
+            He make a mistake
+            By leaving you here
+            But worked out for me
+            Cause i met you
+            I won’t ever forget you
+            
+            "
+        ],
+        [
+            "title" => "You make me happy",
+            "category" => "Song",
+            "desc" => "Girl, what you do to me
+            Love me tenderly
+            Comes to you so naturally, so naturally
+            
+            Babe, your the one
+            The one for me to love
+            I can never have enough, have enough
+            
+            Because sometimes, we all fall
+            We don’t know, what hit us at all
+            And sometimes, we all see the
+            Dark side,
+            But we won’t let it ruin our lives
+            
+            Cause it’s the smile, the laugh, the jokes the cries
+            Won’t give our love a reason to die
+            It’s the way you, hold your, head up high
+            Even when it’s all so bad
+            And I know that you wouldn’t leave
+            You wouldn’t leave me
+            Because we all know you make me happy
+            You make me happy
+            Happy happy
+            You make me happy
+            Happy happy
+            You make me happy
+            Happy happy
+            You make me happy
+            Happy happy happy happy"
+        ],
+        [
+            "title" => "Hold us together",
+            "category" => "Song",
+            "desc" => "Love, holds us together
+            Through any whether
+            Through any storm, any storm
+            
+            Your laugh, so loud
+            Makes me proud
+            To be with you, to be with you
+            
+            Because sometimes, we all need
+            A shoulder to cry on,
+            And sometimes we all need Love
+            Cause it’s the smile, the laugh, the jokes the cries
+            Won’t give our love a reason to die
+            It’s the way you, hold your, head up high
+            Even when it’s all so bad"
+        ],
+        [
+            "title" => "Front line",
+            "category" => "Song",
+            "desc" => "The fight of your life
+            Are you gonna live or die?
+            There’s nothing that I can change
+            It’s could be the end
+            Why would I pretend?
+            There’s nothing that I can do
+            
+            Cause baby I put all my defences
+            Try get you break them down
+            And I fire in the air
+            hoping that you’d care
+            Oh yeah
+            
+            I’m on the front line, front line
+            Front, front line of love
+            Don’t know what your doing to me
+            I can’t see, can’t see
+            See see the end
+            If its even upcoming
+            Cause i can’t, don’t wanna,
+            D-d-d-don’t wanna see-e-e
+            What you doing to me
+            Doing to me, doing to me
+            Doing to me
+            I’m on the front line of love
+            
+            Is what I’m doing enough?
+            Why you gotta act so touch
+            Are you playing hard to get?
+            Your the one that I see
+            Put you ahead of me
+            Won’t leave you alone"
+        ],
+        [
+            "title" => "Defence",
+            "category" => "Song",
+            "desc" => "Cause baby I put all my defences
+            Try get you break them down
+            And I fire in the air
+            hoping that you’d care
+            Oh yeah
+            
+            I’m on the front line, front line
+            Front, front line of love
+            Don’t know what your doing to me
+            I can’t see, can’t see
+            See see the end
+            If its even upcoming
+            Cause i can’t, don’t wanna,
+            D-d-d-don’t wanna see-e-e
+            What you doing to me
+            Doing to me, doing to me
+            Doing to me
+            I’m on the front line of love
+            
+            Bang the gun was fired
+            Grenades flying in the air
+            Pull the pin like you don’t care
+            Like you don’t care
+            
+            Shots flying everywhere
+            Amo in my pocket oh yeah
+            Oh yeahhhhhhhhhhh
+            
+            The fight of you life
+            Will you live or die
+            Will you live or dieeeee
+            Cause baby I put all my defences
+            Try get you break them down
+            And I fire in the air
+            hoping that you’d care
+            Oh yeah
+            
+            "
+        ],
+        [
+            "title" => "Why did you leave me",
+            "category" => "Song",
+            "desc" => "Nothin feels natural anymore
+            Not same, with you now
+            Nothin feels the same anymore
+            Just a hole, inside my soul
+            But I’m holding for the moment where you come back to me
+            And I’m holding for the moment where you come clean
+            C’mon tell me
+            C’mon tell me
+            
+            Why did you leave me?
+            Couldn’t you see me?
+            Is it because I’m too good you
+            Is it because I’m in love with you
+            Why did you spring that on me?
+            Things haven’t been rough lately
+            I’ve always loved you baby
+            Is it cause I’m fat? Tall? Short or ugly?
+            Is it cause you met somebody else
+            Is it cause I’m fat? Tall? Short or ugly?
+            No one can love you the way I do
+            Why did you leave me?
+            
+            Go ahead and leave I don’t care
+            I dont mind, go to hell
+            I thought we were perfect together
+            Never mind, it’s now or never
+            But I don’t care what you think
+            I know I am beautiful
+            I know I am beautiful
+            But…
+            
+            Why did you leave me?
+            Couldn’t you see me?
+            Is it because I’m too good you
+            Is it because I’m in love with you
+            Why did you spring that on me?
+            Things haven’t been rough lately
+            I’ve always loved you baby
+            Is it cause I’m fat? Tall? Short or ugly?
+            Is it cause you met somebody else
+            Is it cause I’m fat? Tall? Short or ugly?
+            No one can love you the way I do
+            Why did you leave me?"
+        ],
+        [
+            "title" => "Believe",
+            "category" => "Song",
+            "desc" => "I don’t wanna love, if it ain’t you
+            I don’t wanna soar, if you don’t too
+            I don’t wanna leave, if you don’t
+            I cannot move, if you don’t
+            
+            I don’t wanna change, for the worse
+            I don’t wanna live, without you girl
+            I don’t wanna fight, without you
+            By my side
+            I’mma tell you your precious tonight
+            
+            Me and you baby girl
+            We can take on the world
+            Ain’t nobody tell us it can’t work
+            Me and you on a high
+            Always with you by your side
+            I will never ever leave
+            All you need to do, is believe
+            
+            I can’t live, without you baby
+            I can’t smile, if I don’t have you
+            I can’t laugh, I you don’t joke
+            And I am happy, when you are
+            
+            I don’t wanna sing, if you don’t listen
+            I can’t scream, if you can’t hear
+            I don’t wanna kiss, if you don’t feel it
+            I don’t wanna hug, I you don’t mean it
+            I’mma tell you your precious tonight
+            
+            Me and you baby girl
+            We can take on the world
+            Ain’t nobody tell us it can’t work
+            Me and you on a high
+            Always with you by your side
+            I will never ever leave
+            Me and you together now
+            Jumping together in the crowd
+            All you need to do, is believe"
+        ],
+        [
+            "title" => "It can't work",
+            "category" => "Song",
+            "desc" => "I’m in love with a girl
+            We can tour the world
+            We can love day and night
+            We can kiss low or high
+            We can dance through the night
+            We can run till we’re outta sight
+            We can kiss will the sun rises
+            Or until it sets again
+            I’ll love you till the world ends
+            Or till the moon becomes cheese
+            Will you please?
+            Join me
+            
+            I don’t wanna live, without you baby
+            I don’t wanna live, all alone
+            
+            I’mma tell you your precious tonight
+            
+            Me and you baby girl
+            We can take on the world
+            Ain’t nobody tell us it can’t work
+            Me and you on a high
+            Always with you by your side
+            I will never ever leave
+            Me and you together now
+            Jumping together in the crowd
+            All you need to do, is believe
+            Finally together now
+            All we did was believe
+            
+            Me and you baby girl
+            We can take on the world
+            Ain’t nobody tell us it can’t work"
+        ],
+        [
+            "title" => "Mine baby",
+            "category" => "Song",
+            "desc" => "Your sitting there, all alone
+            So distant, I should know
+            I understand what your going through
+            And I recommend, you get someone to help you
+            I could that someone,
+            And you can be my number one girl
+            And I can treat you right
+            We can be burning bright, alright
+            
+            So girl, I’m here, right now
+            Let me love you
+            And girl, I’m here, right now
+            So come a little closer, baby
+            I know I can be your man
+            I don’t care about where you been
+            I just wanna see you smiling
+            Can you be mine again?
+            Can you be mine again?
+            Mine again
+            
+            So let me, bring you out
+            Of your, little shell
+            I don’t why your doing this to yourself
+            Why your so blocked of to everybody else
+            
+            So girl, I’m here, right now
+            Let me love you
+            And girl, I’m here, right now
+            So come a little closer, baby
+            I know I can be your man
+            I don’t care about where you been
+            I just wanna see you smiling
+            Can you be mine again?
+            Can you be mine again?
+            Mine again
+            
+            Forget those damn sappy break up songs
+            The ones that always say that the men are wrong
+            I know that I was a little stupid back then
+            But that shouldn’t color your opinion of me
+            And now I’m a great guy, flying in the sky
+            You should know, that I’ve changed
+            I’m much better then those dark days
+            Drinking and smoking
+            But I’ve quit now and sober
+            Yeah I changed so much lately
+            
+            Which is why you should come back to me
+            Baby"
+        ],
+        [
+            "title" => "One more time",
+            "category" => "Song",
+            "desc" => "So girl, I’m here, right now
+            Let me love you
+            And girl, I’m here, right now
+            So come a little closer, baby
+            I know I can be your man
+            I don’t care about where you been
+            I just wanna see you smiling
+            Can you be mine again?
+            Can you be mine again?
+            Mine again
+            
+            Mine, mine, mine, mine, mine, mine, mine
+            Again
+            M-m-m-mine again
+            M-m-m-mine again
+            I know I can be your man
+            I don’t care about where you been
+            I just wanna see you smiling
+            Can you be mine again?
+            Can you be mine again?
+            Mine again
+            Can you be mine again?"
+        ],
+        [
+            "title" => "Here for you",
+            "category" => "Song",
+            "desc" => "I am here, to protect you
+            From the outside world
+            Whatever you say, know its mine
+            And I’m here today
+            Want a hug? Want a kiss?
+            You know I’ll be here for this
+            Be here for this
+            You know I’m always near
+            
+            I guarantee it’ll all be alright
+            You can take my hand, or you can take my mic
+            Nothin that you know is so far away
+            I guarantee that I am here today
+            
+            I am here for you, let me be you inspiration
+            I am here for you, all across every nation
+            Every day, every second, every place
+            I’ll make sure that you got a smile on your face, on your face, today
+            
+            There is no need, to disappear
+            From the earth we live in
+            It is ours, I can’t give it to you
+            Neither can I mars
+            Let’s leave, let’s escape
+            Let’s go on a holiday
+            A holiday
+            Let’s take your mind of it
+            
+            I guarantee we can have some fun
+            We can check right in, or we can
+            Go for a run
+            Nothin that you know is so far away
+            I guarantee that I am here today
+            
+            I am here for you, let me be you inspiration
+            I am here for you, all across every nation
+            Every day, every second, every place
+            I’ll make sure that you got a smile on your face, on your face, today
+            
+            This is it
+            Look at your smile
+            Every day
+            We can run a mile
+            All we needed
+            Was a getaway
+            To make you try to forget,
+            Try to forget, the whole darn world
+            That whole darn world
+            Those evil girls (and guys) haha!
+            
+            I am here for you, let me be you inspiration
+            I am here for you, all across every nation
+            Every day, every second, every place
+            I’ll make sure that you got a smile on your face, on your face, today
+            
+            I am here for you, let me be you inspiration
+            Every day, every second, every place
+            I am here for you, all across every nation
+            Every day, every second, every place
+            
+            Oh oh oh
+            Let me be your inspiration
+            
+            "
+        ],
+        [
+            "title" => "Free Verse",
+            "category" => "Poem",
+            "desc" => "I now delight
+            In spite
+            Of the might
+            And the right
+            Of classic tradition,
+            In writing
+            And reciting
+            Straight ahead,
+            Without let or omission,
+            
+            In any little time
+            That runs in my head;
+            Because, I’ve said,
+            My rhymes no longer shall stand arrayed
+            Like Prussian soldiers on parade
+            That march,
+            Stiff as starch,
+            Foot to foot,
+            Boot to boot,
+            Blade to blade"
+        ],
+        [
+            "title" => "Ode to Birth or Rosebuds",
+            "category" => "Poem",
+            "desc" => "Sometimes I need to reach—deep like taproots
+            Burrowing through the darkness of hardpan dirt—
+            
+            I would want to establish strength; root-like,
+            anchored in the hopes of solidity.
+            
+            Forsake the contamination of instability.
+            Prove I’m the poet of each line of prose.
+            
+            Who needs the weakness of low self-esteem
+            when your fingers can grip the heart ..."
+        ],
+        [
+            "title" => "Fog",
+            "category" => "Poem",
+            "desc" => "The fog comes
+            on little cat feet.
+            
+            It sits looking
+            over harbor and city
+            on silent haunches
+            and then moves on."
+        ],
+        [
+            "title" => "Teacher",
+            "category" => "Comedy",
+            "desc" => "Teacher: 'Kids, what does the chicken give you?'
+            Student: 'Meat!'
+            Teacher: 'Very good! Now what does the pig give you?'
+            Student: 'Bacon!'
+            Teacher: 'Great! And what does the fat cow give you?'
+            Student: 'Homework!'"
+        ],
+        [
+            "title" => "Dad",
+            "category" => "Comedy",
+            "desc" => "A child asked his father, 'How were people born?' So his father said, 'Adam and Eve made babies, then their babies became adults and made babies, and so on.' The child then went to his mother, asked her the same question and she told him, 'We were monkeys then we evolved to become like we are now.' The child ran back to his father and said, 'You lied to me!' His father replied, 'No, your mom was talking about her side of the family.'"
+        ],
+        [
+            "title" => "Future would tell",
+            "category" => "Comedy",
+            "desc" => "Kid 1: 'Hey, I bet you're still a virgin.'
+            Kid 2: 'Yeah, I was a virgin until last night .'
+            Kid 1: 'As if.'
+            Kid 2: 'Yeah, just ask your sister.'
+            Kid 1: 'I don't have a sister.'
+            Kid 2: 'You will in about nine months.'
+            
+            "
+        ],
+        [
+            "title" => "Cat",
+            "category" => "Comedy",
+            "desc" => "Teacher: 'If I gave you 2 cats and another 2 cats and another 2, how many would you have?'
+            Johnny: 'Seven.'
+            Teacher: 'No, listen carefully... If I gave you two cats, and another two cats and another two, how many would you have?'
+            Johnny: 'Seven.'
+            Teacher: 'Let me put it to you differently. If I gave you two apples, and another two apples and another two, how many would you have?'
+            Johnny: 'Six.'
+            Teacher: 'Good. Now if I gave you two cats, and another two cats and another two, how many would you have?'
+            Johnny: 'Seven!'
+            Teacher: 'Johnny, where in the heck do you get seven from?!'
+            Johnny: 'Because I've already got a freaking cat!'"
+        ],
+        [
+            "title" => "Duck",
+            "category" => "Comedy",
+            "desc" => "Q: What did the duck say when he bought lipstick?
+            A: 'Put it on my bill.'"
+        ],
+        [
+            "title" => "Blonde and Redhead",
+            "category" => "Comedy",
+            "desc" => "A blonde and a redhead have a ranch. They have just lost their bull. The women need to buy another, but only have $500. The redhead tells the blonde, 'I will go to the market and see if I can find one for under that amount. If I can, I will send you a telegram.' She goes to the market and finds one for $499. Having only one dollar left, she goes to the telegraph office and finds out that it costs one dollar per word. She is stumped on how to tell the blonde to bring the truck and trailer. Finally, she tells the telegraph operator to send the word 'comfortable.' Skeptical, the operator asks, 'How will she know to come with the trailer from just that word?' The redhead replies, 'She's a blonde so she reads slow: 'Come for ta bull.''"
+        ],
+        [
+            "title" => "Beans",
+            "category" => "Comedy",
+            "desc" => "A teacher asked her students to use the word 'beans' in a sentence. 'My father grows beans,' said one girl. 'My mother cooks beans,' said a boy. A third student spoke up, 'We are all human beans.'"
+        ],
+        [
+            "title" => "Job interview",
+            "category" => "Comedy",
+            "desc" => "Reaching the end of a job interview, the Human Resources Officer asks a young engineer fresh out of the Massachusetts Institute of Technology, 'And what starting salary are you looking for?' The engineer replies, 'In the region of $125,000 a year, depending on the benefits package.' The interviewer inquires, 'Well, what would you say to a package of five weeks vacation, 14 paid holidays, full medical and dental, company matching retirement fund to 50% of salary, and a company car leased every two years, say, a red Corvette?' The engineer sits up straight and says, 'Wow! Are you kidding?' The interviewer replies, 'Yeah, but you started it.'
+
+            "
+        ],
+        [
+            "title" => "Make a wish",
+            "category" => "Comedy",
+            "desc" => "A bus full of ugly people had a head on collision with a truck. When they died, God granted all of them one wish. The first person said, 'I want to be gorgeous.' God snapped his fingers and it happened. The second person said the same thing and God did the same thing. This want on and on throughout the group. God noticed the last man in line was laughing hysterically. By the time God got to the last ten people, the last man was laughing and rolling on the ground. When the man's turn came, he laughed and said, 'I wish they were all ugly again.'"
+        ]
+    ];
+
+    file_put_contents('post.json', json_encode($setup));*/
+
+
+    /**
+     * https://www.song-lyrics-generator.org.uk/    SOME RAPS
+     * https://www.lyrics.cat/   SOME RAPS
+     * https://examples.yourdictionary.com/    MOST POEMS
+     * http://gistandrhymes.com/   SOME RAPS
+     * https://unusedlyricsfree.wordpress.com/  WHERE I GOT MOST OF MY SONGS FROM
+     * http://www.laughfactory.com/  WHERE I GO MY JOKES FROM
+    */

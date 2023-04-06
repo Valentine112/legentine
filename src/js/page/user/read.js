@@ -18,6 +18,7 @@ window.addEventListener("load", function() {
 
     
     if(!func.isEmpty(param['parameter'])) {
+        // Fetching the post
         if(param['parameter']['token'] != null) {
             // Fetch post content
 
@@ -129,6 +130,20 @@ window.addEventListener("load", function() {
                 func.notice_box(val)
             
             })
+
+            // Transversing via parameters passed in the url
+            console.log(param)
+            var comment = param['parameter']['comment']
+
+            // If the transverse is just to a comment
+            console.log(param['parameter']['reply'])
+            if(param['parameter']['reply'] == null) {
+                var commentElem = document.querySelector("[data-token=LT-" + comment + "]")
+                commentElem.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                })
+            }
 
 
         }

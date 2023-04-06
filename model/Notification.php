@@ -59,7 +59,7 @@
                     "table" => "post"
                 ];
 
-                $post = Func::searchDb(self::$db, $data);
+                $post = Func::searchDb(self::$db, $data, "AND");
 
                 // END
 
@@ -67,7 +67,7 @@
                 $data["id"] = $noti['user'];
                 $data['table'] = "user";
 
-                $user = Func::searchDb(self::$db, $data);
+                $user = Func::searchDb(self::$db, $data, "AND");
 
                 // END
 
@@ -83,7 +83,7 @@
                 
                 endif;
 
-                $content = Func::searchDb(self::$db, $data);
+                $content = Func::searchDb(self::$db, $data, "AND");
 
                 // END
 

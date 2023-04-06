@@ -75,7 +75,7 @@
                     "table" => "user"
                 ];
     
-                $search = Func::searchDb(self::$db, $data);
+                $search = Func::searchDb(self::$db, $data, "AND");
                 if(!empty($search) || $search != null):
                     $tempResult['other'] = $search;
                 endif;
@@ -88,7 +88,7 @@
                     "table" => "post"
                 ];
     
-                $search = Func::searchDb(self::$db, $data);
+                $search = Func::searchDb(self::$db, $data, "AND");
                 if(!empty($search) || $search != null):
                     $tempResult['post'] = $search;
                 endif;
@@ -132,7 +132,7 @@
                     "table" => "user"
                 ];
     
-                $search = Func::searchDb(self::$db, $data);
+                $search = Func::searchDb(self::$db, $data, "AND");
                 if(!empty($search) || $search != null):
                     $tempResult['other'] = $search;
                 endif;
@@ -145,7 +145,7 @@
                     "table" => "post"
                 ];
     
-                $search = Func::searchDb(self::$db, $data);
+                $search = Func::searchDb(self::$db, $data, "AND");
                 if(!empty($search) || $search != null):
                     $tempResult['post'] = $search;
                 endif;
@@ -179,7 +179,7 @@
                 "table" => "post"
             ];
 
-            $search = Func::searchDb(self::$db, $data);
+            $search = Func::searchDb(self::$db, $data, "AND");
             if(is_int($search)):
 
                 if($search !== $this->user):
@@ -193,7 +193,7 @@
                         "table" => "post"
                     ];
 
-                    $search = Func::searchDb(self::$db, $data);
+                    $search = Func::searchDb(self::$db, $data, "AND");
                     if(is_int($search)):
                         $post = $search;
                         // Post exist
@@ -211,7 +211,7 @@
                             "table" => "feature"
                         ];
             
-                        $search = Func::searchDb(self::$db, $data);
+                        $search = Func::searchDb(self::$db, $data, "AND");
                         if(!is_int($search)):
                             // Process the request
 
@@ -287,17 +287,17 @@
                 "table" => "feature"
             ];
 
-            $post = Func::searchDb(self::$db, $data);
+            $post = Func::searchDb(self::$db, $data, "AND");
 
             // Fetch other id
             $data['needle'] = "user";
 
-            $other = Func::searchDb(self::$db, $data);
+            $other = Func::searchDb(self::$db, $data, "AND");
 
             // Fetch feature id
             $data['needle'] = "id";
 
-            $feature = Func::searchDb(self::$db, $data);
+            $feature = Func::searchDb(self::$db, $data, "AND");
 
             if($type == 0):
                 // Request declined
@@ -340,7 +340,7 @@
                         "table" => "history"
                     ];
 
-                    $history = Func::searchDb(self::$db, $data);
+                    $history = Func::searchDb(self::$db, $data, "AND");
                     if(is_int($history)):
                         $updating = new Update(self::$db, "SET status = ? WHERE id = ?# $type# $history");
                         $action = $updating->mutate('ii', 'history');
@@ -402,7 +402,7 @@
                 "table" => "user"
             ];
 
-            $quiet = Func::searchDb(self::$db, $data);
+            $quiet = Func::searchDb(self::$db, $data, "AND");
 
             $quiet === 0 ? $quiet = 1 : $quiet = 0;
 

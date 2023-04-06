@@ -13,7 +13,6 @@ class Comment {
     }
 
     main() {
-        console.log(this.other)
         var element = `
             <div class="comment-box entity-body"
                 data-token=LT-${this.comment['token']}
@@ -51,7 +50,7 @@ class Comment {
 
                 <div class="comment-options">
                     <div>
-                        <span data-action="reply-comment">Reply - ${this.comment['replies']}</span>
+                        <span id="replyAction" data-action="reply-comment">Reply - ${this.comment['replies']}</span>
                     </div>
                     `
                     +

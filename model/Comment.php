@@ -42,13 +42,13 @@
                 "table" => "comments"
             ];
 
-            $search = Func::searchDb(self::$db, $data);
+            $search = Func::searchDb(self::$db, $data, "AND");
 
             // Check if user is the owner of the post
             $data['token'] = $post;
             $data['table'] = "post";
 
-            $search1 = Func::searchDb(self::$db, $data);
+            $search1 = Func::searchDb(self::$db, $data, "AND");
 
             if(is_int($search)):
                 $authority['comment'] = $search;
@@ -211,7 +211,7 @@
                             "table" => "post"
                         ];
         
-                        $search = Func::searchDb(self::$db, $data);
+                        $search = Func::searchDb(self::$db, $data, "AND");
 
                         $post_owner = 0;
 
@@ -320,7 +320,7 @@
                 "table" => "post"
             ];
 
-            $postOwner = Func::searchDb(self::$db, $data);
+            $postOwner = Func::searchDb(self::$db, $data, "AND");
 
             // Fetch post id
             $data = [
@@ -330,7 +330,7 @@
                 "table" => "post"
             ];
 
-            $postId = Func::searchDb(self::$db, $data);
+            $postId = Func::searchDb(self::$db, $data, "AND");
 
             // Validate if the user has authority to edit the comment
             if($authority):
@@ -377,7 +377,7 @@
                                         "table" => "mentions"
                                     ];
                         
-                                    $search = Func::searchDb(self::$db, $data);
+                                    $search = Func::searchDb(self::$db, $data, "AND");
     
                                     // If it doesn't exist, proceed to add this one
                                     if(!$search):
@@ -390,7 +390,7 @@
                                             "table" => "post"
                                         ];
 
-                                        $search = Func::searchDb(self::$db, $data);
+                                        $search = Func::searchDb(self::$db, $data, "AND");
 
                                         if(is_int($search)) $post = $search;
 
@@ -554,7 +554,7 @@
                     "needle" => "id",
                     "table" => "comments"
                 ];
-                $search = Func::searchDb(self::$db, $data);
+                $search = Func::searchDb(self::$db, $data, "AND");
                 if(is_int($search)) $permission['comment'] = $search;
 
                 $authority = true;
@@ -732,7 +732,7 @@
                             "table" => "user"
                         ];
             
-                        $reply_owner = Func::searchDb(self::$db, $data);
+                        $reply_owner = Func::searchDb(self::$db, $data, "AND");
 
                         // Fetch the post owner id
                         $data = [
@@ -742,7 +742,7 @@
                             "table" => "post"
                         ];
             
-                        $post_owner = Func::searchDb(self::$db, $data);
+                        $post_owner = Func::searchDb(self::$db, $data, "AND");
 
                         // Fetch comment owner
                         $data = [
@@ -752,7 +752,7 @@
                             "table" => "comments"
                         ];
             
-                        $commentOwner = Func::searchDb(self::$db, $data);
+                        $commentOwner = Func::searchDb(self::$db, $data, "AND");
 
                         // Do not save if comment owner is reply owner
                         if($commentOwner !== $this->user):
@@ -902,13 +902,13 @@
             ];
 
             // Check if user is the owner of the reply
-            $search = Func::searchDb(self::$db, $data);
+            $search = Func::searchDb(self::$db, $data, "AND");
 
             // Check if user is the owner of the post
             $data['token'] = $val['post'];
             $data['table'] = "post";
 
-            $search1 = Func::searchDb(self::$db, $data);
+            $search1 = Func::searchDb(self::$db, $data, "AND");
 
             // It exists, meaning the user is the owner of the reply
             if(is_int($search)):
@@ -944,7 +944,7 @@
                     "table" => "replies"
                 ];
 
-                $search = Func::searchDb(self::$db, $data);
+                $search = Func::searchDb(self::$db, $data, "AND");
 
                 self::$db->autocommit(false);
 
@@ -1056,7 +1056,7 @@
             ];
 
             // Check if user is the owner of the reply
-            $search = Func::searchDb(self::$db, $data);
+            $search = Func::searchDb(self::$db, $data, "AND");
 
             if(is_int($search)):
 
@@ -1069,7 +1069,7 @@
                     "needle" => "comment",
                     "table" => "replies"
                 ];
-                $comment = Func::searchDb(self::$db, $data);
+                $comment = Func::searchDb(self::$db, $data, "AND");
 
                 if(strlen(trim($content)) > 0):
 
@@ -1095,7 +1095,7 @@
                                 "table" => "user"
                             ];
                 
-                            $search = Func::searchDb(self::$db, $data);
+                            $search = Func::searchDb(self::$db, $data, "AND");
 
                             if(is_int($search)):
                                 array_push($arr, 1);
@@ -1115,7 +1115,7 @@
                                     "table" => "mentions"
                                 ];
                     
-                                $search = Func::searchDb(self::$db, $data);
+                                $search = Func::searchDb(self::$db, $data, "AND");
 
                                 // If it doesn't exist, proceed to add this one
                                 if(!$search):
@@ -1128,7 +1128,7 @@
                                         "table" => "post"
                                     ];
                                     
-                                    $search = Func::searchDb(self::$db, $data);
+                                    $search = Func::searchDb(self::$db, $data, "AND");
 
                                     if(is_int($search)) $post = $search;
                                     
@@ -1208,7 +1208,7 @@
                                 "table" => "replies"
                             ];
 
-                            $replyOwner = Func::searchDb(self::$db, $data);
+                            $replyOwner = Func::searchDb(self::$db, $data, "AND");
 
                             if($replyOwner !== $this->user):
                                 // Save as notification
@@ -1294,7 +1294,7 @@
                         "table" => "user" 
                     ];
 
-                    $search = Func::searchDb(self::$db, $data);
+                    $search = Func::searchDb(self::$db, $data, "AND");
                     if(is_string($search)) $mentioned = $search;
 
                     // If the mentioned from the database does not exist with the new mention
@@ -1338,7 +1338,7 @@
                     "table" => "user"
                 ];
 
-                $search = Func::searchDb(self::$db, $arr);
+                $search = Func::searchDb(self::$db, $arr, "AND");
 
                 if(is_int($search)):
 

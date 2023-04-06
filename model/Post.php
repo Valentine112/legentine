@@ -124,7 +124,7 @@
                         "table" => "feature"
                     ];
     
-                    $search = Func::searchDb(self::$db, $data);
+                    $search = Func::searchDb(self::$db, $data, "AND");
 
                     if(isset($search['status'])):
                         $box['more']['feature'] = $search;
@@ -636,7 +636,7 @@
                 ];
 
                 // Check if post has been saved before
-                $search = Func::searchDb(self::$db, $data);
+                $search = Func::searchDb(self::$db, $data, "AND");
 
                 // Post has been saved before so proceed to remove
                 if(is_int($search)):
@@ -712,7 +712,7 @@
                 "table" => "post"
             ];
 
-            $search = Func::searchDb(self::$db, $data);
+            $search = Func::searchDb(self::$db, $data, "AND");
 
             if(is_int($search)):
                 // Delete the post from saved table
@@ -767,7 +767,7 @@
                     "table" => "post"
                 ];
 
-                $other = Func::searchDb(self::$db, $data);
+                $other = Func::searchDb(self::$db, $data, "AND");
 
                 // Check if its already been liked
                 $data = [
@@ -777,7 +777,7 @@
                     "table" => "star"
                 ];
 
-                $search = Func::searchDb(self::$db, $data);
+                $search = Func::searchDb(self::$db, $data, "AND");
 
                 // Turn off the database until every transaction is completed
                 self::$db->autocommit(false);
@@ -902,7 +902,7 @@
             ];
 
             // Check if user already read post
-            $search = Func::searchDb(self::$db, $data);
+            $search = Func::searchDb(self::$db, $data, "AND");
 
             if(!$search):
 
