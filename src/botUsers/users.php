@@ -16,8 +16,8 @@
     $users = file_get_contents('users.json');
     // Decode it from json format to an object
     $users = json_decode($users);
-
-    // Turned on the database, because the items would need to be inserted before proceeding to the next stage
+    
+    // Turning off the database untila process is fully completed
     $db->autocommit(FALSE);
     
     $subject = ["token", "fullname", "username", "email", "password", "timesLogged", "date", "time", "photo"];
@@ -62,15 +62,17 @@
 
         $search = Func::searchDb($db, $data, "OR");
         if(!is_int($search)):
-
+            // Saving the data in the user table
             $inserting->bind_param('sssssisis', ...$values);
             if($inserting->execute()):
 
+                // Fetch the userid which would later be used to save in the logins table
                 $userid = Func::searchDb($db, $data, "AND");
 
                 $subject = ["user", "token", "device", "ip", "time"];
                 $items = [$userid, Func::tokenGenerator(), Func::deviceInfo()[0], Func::deviceInfo()[1], time()];
 
+                // Saving the user in the logins table, to register this device and IP
                 $inserting1 = new Insert($db, "logins", $subject, "");
                 $action = $inserting1->push($items, 'isssi');
                 if($action):
@@ -81,7 +83,6 @@
 
             endif;
         endif;
-        //print_r($inserting);
     }
 
 ?>

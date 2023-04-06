@@ -1,4 +1,7 @@
 <?php
+    ini_set('display_errors', 1);
+    require '../../vendor/autoload.php';
+    
     use Config\Database;
     use Service\Func;
     use Query\{
@@ -10,10 +13,6 @@
      * Creating bot post
      * And inserting them in to the database
      */
-
-    //include "../php/connect.php";
-    //include "../php/query.php";
-    //require("../php/func.php");
 
     $result = [];
     $empty = [];
