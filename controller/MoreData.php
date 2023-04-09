@@ -32,6 +32,10 @@
                         $result = $modelMoreData->morePost();
                         break;
 
+                    case "profile":
+                        $result = $modelMoreData->profile();
+                        break;
+
                 endswitch;
             else:
                 $this->type = "warning";

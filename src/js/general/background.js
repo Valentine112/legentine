@@ -97,12 +97,20 @@ window.addEventListener("load", () => {
                     var filter = document.querySelector(".category").querySelector(".active")
                     filter = filter.getAttribute("value");
 
-                    (filter == "all") ? more = "" : more = filter
+                    filter == "all" ? more = "" : more = filter
 
                     break;
 
                 case "profile":
+                    
+                    action = "profile"
+                    // Get the current category
+                    var filter = document.querySelector(".headerSectionSub").querySelector(".active")
 
+                    filter = filter.getAttribute("data-type")
+                    console.log(filter)
+
+                    filter == "all" ? more = "" : more = filter
                     break;
             
                 default:
@@ -111,7 +119,7 @@ window.addEventListener("load", () => {
 
             var data = {
                 part: "moreData",
-                action: "more_post",
+                action: action,
                 val: {
                     filter: last_element_token,
                     more: more

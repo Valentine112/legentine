@@ -10,7 +10,7 @@ class Post {
         if(from === "home" || from === "rank" || from === "profile" || from === "saved") {
             var filter_value
 
-            (filter == "all") ? filter_value = "" : filter_value = filter
+            filter == "all" ? filter_value = "" : filter_value = filter
 
             var result = ""
 

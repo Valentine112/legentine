@@ -86,6 +86,35 @@
 
         }
 
+        public function profile() : array {
+            $this->type = "success";
+            $this->status = 1;
+            $this->message = "void";
+
+            $filter = $this->data['val']['filter'];
+            $more = $this->data['val']['more'];
+
+            if($more === "photos"):
+                // Search last photo ID
+                $data = [
+                    "token" => $filter,
+                    "1" => "1",
+                    "needle" => "id",
+                    "table" => "gallery"
+                ];
+
+                $photo = Func::searchDb(self::$db, $data, "AND");
+                if(is_int($photo)):
+                    
+                endif;
+
+            elseif($more === "notes"):
+
+            endif;
+
+            return $this->deliver();
+        }
+
     }
 
 ?>
