@@ -46,7 +46,7 @@
             $password = $this->data['password'];
 
             // Check if the user exist
-            $this->selecting->more_details("WHERE email = ? OR username = ?, $user, $user");
+            $this->selecting->more_details("WHERE email = ? OR username = ?# $user# $user");
             $action = $this->selecting->action("email, id, password", "user");
             $this->selecting->reset();
 
@@ -97,7 +97,7 @@
             $email = $data['email'];
             $token = Func::tokenGenerator();
 
-            $this->selecting->more_details("WHERE user = ?, $user");
+            $this->selecting->more_details("WHERE user = ?# $user");
             $action = $this->selecting->action("token, device", "logins");
             $this->selecting->reset();
 
@@ -263,7 +263,7 @@
             $user_form = $this->data['user'];
 
             // Check if the user exist
-            $this->selecting->more_details("WHERE email = ? OR username = ?, $user_form, $user_form");
+            $this->selecting->more_details("WHERE email = ? OR username = ?# $user_form# $user_form");
             $action = $this->selecting->action("id, email", "user");
             $this->selecting->reset();
 

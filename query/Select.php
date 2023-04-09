@@ -22,7 +22,7 @@
 
         public function process() {
             if($this->more != "" && strlen(trim($this->more)) > 0) {
-                $more_split = explode(',', $this->more);
+                $more_split = explode('#', $this->more);
                 $this->more1 = $more_split[0];
                 $more_len = count($more_split);
 
@@ -39,9 +39,10 @@
 
         public function action(string $select_what, string $where) : ?array {
             $this->process();
-            
-            $more_split = explode(',', $this->more);
+
+            $more_split = explode('#', $this->more);
             $more_ = $this->more1;
+
             $value = [];
             $confirm = $this->connect->prepare("SELECT $select_what FROM $where $more_");
             if(count($more_split) > 1) {

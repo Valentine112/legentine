@@ -22,8 +22,6 @@ window.addEventListener("load", async function () {
         if(val.status === 1) {
             var content = val.content
 
-            console.log(content)
-
             var profile = new Profile(content)
 
             content.forEach((elem, ind) => {
@@ -344,7 +342,7 @@ function photoBox(data) {
             <div class="multiple">${count}</div>
             <img
                 src=" "
-                class="lazy-load-image"
+                class="lazy-load-image entity-body"
                 data-image="../src/${photo}"
                 data-src="${result['photo']}"
                 data-token="LT-${result['token']}"

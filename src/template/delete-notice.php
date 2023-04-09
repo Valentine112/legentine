@@ -156,14 +156,11 @@
                     // Send the data to the server for processing
                     data['val']['token'] = token
 
-                    console.log(data)
-
                     // reset the animation after all the data has been gotten
                     stop_animation("")
 
                     new Func().request("../request.php", JSON.stringify(data), 'json')
                     .then(val => {
-                        console.log(val)
                         if(val.status === 1){
                             if(data['action'] != "confirmFeature"){
                                 element.remove()

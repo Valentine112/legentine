@@ -20,7 +20,6 @@ window.addEventListener("load", async function () {var func = new Func()
 
     func.request("../request.php", JSON.stringify(data), 'json')
     .then(val => {
-        console.log(val)
         result  = val
                 
         if(val.status === 1){

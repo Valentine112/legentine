@@ -43,7 +43,7 @@
             $result = [];
 
             // Fetch notification
-            $this->selecting->more_details("WHERE other = ?, $this->user");
+            $this->selecting->more_details("WHERE other = ?# $this->user");
             $action = $this->selecting->action("*", "notification");
             if($action != null) return $action;
 

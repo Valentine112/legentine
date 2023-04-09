@@ -42,8 +42,6 @@
         // Resetting the items array for storing the users data to empty
         $items = [];
     }
-
-    $selecting = new Select($db);
     
     // Preparing to insert the data
     $inserting = $db->prepare("INSERT INTO user (token, fullname, username, email, password, timesLogged, date, time, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ");

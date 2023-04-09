@@ -42,7 +42,7 @@
 
             if($user === "") $user = $this->user;
 
-            $this->selecting->more_details("WHERE id = ?, $user");
+            $this->selecting->more_details("WHERE id = ?# $user");
             $action = $this->selecting->action("*", "user");
             $this->selecting->reset();
 
@@ -54,9 +54,10 @@
 
                 $person = $val['id'];
 
+                // Viewing another person's profile
                 if($this->user !== $person):
                     // Check pinned
-                    $this->selecting->more_details("WHERE user = ? AND other = ?, $this->user, $person");
+                    $this->selecting->more_details("WHERE user = ? AND other = ?# $this->user# $person");
                     $action = $this->selecting->action("token", "pin");
                     $this->selecting->reset();
 
@@ -66,7 +67,7 @@
                     $box['more']['pinned'] = $fetch[1] > 0 ? true : false;
 
                     // Check Listed
-                    $this->selecting->more_details("WHERE user = ? AND other = ?, $this->user, $person");
+                    $this->selecting->more_details("WHERE user = ? AND other = ?# $this->user# $person");
                     $action = $this->selecting->action("token", "blocked_users");
                     $this->selecting->reset();
 
@@ -75,23 +76,6 @@
 
                     $box['more']['listed'] = $fetch[1] > 0 ? true : false;
 
-                    // Fetching user summedRating and totalRating
-                    $this->selecting->more_details("WHERE other = ?, $person");
-                    $action = $this->selecting->action("SUM(rate), COUNT(id)", "ratings");
-                    $this->selecting->reset();
-
-                    if($action !== null) return $action;
-                    $fetch = $this->selecting->pull();
-
-                    // sum of all the ratings
-                    $summedRating = $fetch[0][0]["SUM(rate)"] === null ? 0 : $fetch[0][0]["SUM(rate)"];
-
-                    // Total count of the ratings
-                    $totalRating = $fetch[0][0]["COUNT(id)"] === null ? 0 : $fetch[0][0]["COUNT(id)"];
-
-                    $box['more']['summedRating'] = $summedRating;
-                    $box['more']['totalRating'] = $totalRating;
-
                     // Check if user has rated
                     $data = [
                         "user" => $this->user,
@@ -99,14 +83,37 @@
                         "needle" => "rate",
                         "table" => "ratings"
                     ];
-    
+
                     $search = Func::searchDb(self::$db, $data, "AND");
 
                     $box['more']['rated'] = is_int($search) ? $search : "";
 
                 endif;
+                
+                // END
+
+                // Viewing your profile or another person's profile
+
+                // Fetching user summedRating and totalRating
+                $this->selecting->more_details("WHERE other = ?# $person");
+                $action = $this->selecting->action("SUM(rate), COUNT(id)", "ratings");
+                $this->selecting->reset();
+
+                if($action !== null) return $action;
+                $fetch = $this->selecting->pull();
+
+                // sum of all the ratings
+                $summedRating = $fetch[0][0]["SUM(rate)"] === null ? 0 : $fetch[0][0]["SUM(rate)"];
+
+                // Total count of the ratings
+                $totalRating = $fetch[0][0]["COUNT(id)"] === null ? 0 : $fetch[0][0]["COUNT(id)"];
+
+                $box['more']['summedRating'] = $summedRating;
+                $box['more']['totalRating'] = $totalRating;
 
                 array_push($result, $box);
+
+                // END
             endforeach;
 
             
@@ -128,7 +135,7 @@
 
             $result = [];
 
-            $this->selecting->more_details("WHERE user = ? AND other <> ?, $this->user, $zero");
+            $this->selecting->more_details("WHERE user = ? AND other <> ?# $this->user# $zero");
             $action = $this->selecting->action('*', "blocked_users");
             $this->selecting->reset();
 
@@ -248,7 +255,7 @@
             // Using this opportunity to also fetch the user logged in
             // This would be for the sidebar menu
 
-            $this->selecting->more_details("WHERE id = ?, $this->user");
+            $this->selecting->more_details("WHERE id = ?# $this->user");
             $action = $this->selecting->action("*", "user");
             $this->selecting->reset();
 
@@ -261,7 +268,7 @@
             (int) $ratingMargin = 4;
             (int) $people = 4;
 
-            $this->selecting->more_details("WHERE id <> ? AND rating >= ? ORDER BY RAND() LIMIT $people, $self->user, $ratingMargin");
+            $this->selecting->more_details("WHERE id <> ? AND rating >= ? ORDER BY RAND() LIMIT $people# $self->user# $ratingMargin");
 
             $action = $this->selecting->action("*", "user");
             $self->selecting->reset();
@@ -272,7 +279,7 @@
 
             // Select some top starred post apart from my post
             (int) $starMargin = 1;
-            $this->selecting->more_details("WHERE user <> ? AND stars >= ? ORDER BY RAND() LIMIT 4, $this->user, $starMargin");
+            $this->selecting->more_details("WHERE user <> ? AND stars >= ? ORDER BY RAND() LIMIT 4# $this->user# $starMargin");
             $action = $this->selecting->action("token, title, content", "post");
             $this->selecting->reset();
 
@@ -281,7 +288,7 @@
             $result['post'] = $this->selecting->pull()[0];
 
             // Fetch the recent searches from this user
-            $this->selecting->more_details("WHERE user = ? ORDER BY id DESC LIMIT 10, $this->user");
+            $this->selecting->more_details("WHERE user = ? ORDER BY id DESC LIMIT 10# $this->user");
             $action = $this->selecting->action("token, username", "recent");
             $this->selecting->reset();
 
@@ -311,7 +318,7 @@
             function searchPeopleExp(object $self, string $contentRegExp, int $limit) : array {
                 $result = [];
 
-                $self->selecting->more_details("WHERE fullname LIKE ? OR username LIKE ? AND id <> ? LIMIT $limit, $contentRegExp, $contentRegExp, $self->user");
+                $self->selecting->more_details("WHERE fullname LIKE ? OR username LIKE ? AND id <> ? LIMIT $limit# $contentRegExp# $contentRegExp# $self->user");
 
                 $action = $self->selecting->action("id, fullname, username, photo", "user");
                 $self->selecting->reset();
@@ -331,7 +338,7 @@
 
             function searchPostExp(object $self, string $contentRegExp, int $limit) : array {
                 $result = [];
-                $self->selecting->more_details("WHERE title LIKE ? LIMIT $limit, $contentRegExp");
+                $self->selecting->more_details("WHERE title LIKE ? LIMIT $limit# $contentRegExp");
 
                 $action = $self->selecting->action("token, title, content", "post");
                 $self->selecting->reset();
@@ -484,7 +491,7 @@
                     if($action):
                         // Calculate the current ratings and update in user table
                         // First select and sum all the ratings from this user
-                        $this->selecting->more_details("WHERE other = ?, $other");
+                        $this->selecting->more_details("WHERE other = ?# $other");
                         $action = $this->selecting->action("SUM(rate), COUNT(id)", "ratings");
                         $this->selecting->reset();
 
@@ -747,7 +754,7 @@
                 "more" => []
             ];
 
-            $this->selecting->more_details("WHERE user = ?, $person");
+            $this->selecting->more_details("WHERE user = ?# $person");
             $action = $this->selecting->action("*", "gallery");
             $this->selecting->reset();
 
@@ -983,7 +990,7 @@
 
             $this->content = [];
             // Fetch all the pinned users assoiciated with the user fetching them
-            $this->selecting->more_details("WHERE user = ?, $this->user");
+            $this->selecting->more_details("WHERE user = ?# $this->user");
             $action = $this->selecting->action('*', 'pin');
             $this->selecting->reset();
             
@@ -996,7 +1003,7 @@
                     // Fetch the pinned users info
                     $other = $val['other'];
 
-                    $this->selecting->more_details("WHERE id = ?, $other");
+                    $this->selecting->more_details("WHERE id = ?# $other");
                     $this->selecting->action('*', 'user');
 
                     $this->selecting->reset();

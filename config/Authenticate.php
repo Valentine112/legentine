@@ -19,7 +19,7 @@
 
                 // Check if the token actually exist
                 $selecting = new Select(new Database);
-                $selecting->more_details("WHERE token = ?, $sessionToken");
+                $selecting->more_details("WHERE token = ?# $sessionToken");
                 $action = $selecting->action("user", "logins");
 
                 if($action != null):

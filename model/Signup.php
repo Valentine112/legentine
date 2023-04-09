@@ -76,7 +76,7 @@
                 $username = $this->data['username'];
                 $email = $this->data['email'];
 
-                $this->selecting->more_details("WHERE username = ?, $username");
+                $this->selecting->more_details("WHERE username = ?# $username");
                 $action = $this->selecting->action("username", "user");
                 $this->selecting->reset();
 
@@ -86,7 +86,7 @@
                     return $action;
                 }
 
-                $this->selecting->more_details("WHERE email = ?, $email");
+                $this->selecting->more_details("WHERE email = ?# $email");
                 $action = $this->selecting->action("email", "user");
                 $this->selecting->reset();
 

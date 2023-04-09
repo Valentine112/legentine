@@ -1,7 +1,7 @@
 <?php
     ini_set('display_errors', 1);
     require '../../vendor/autoload.php';
-    
+
     use Config\Database;
     use Service\Func;
     use Query\{
@@ -14,6 +14,7 @@
      * And inserting them in to the database
      */
 
+    $db = new Database;
     $result = [];
     $empty = [];
     $exist = [];
@@ -26,49 +27,61 @@
     $post_len = count($posts);
 
     // Fetch user id
-    $selecting = new Select($connect);
+    $selecting = new Select($db);
+
     $selecting->more_details("");
-    $selecting->process();
-    $values = $selecting->pull("id", "register");
-    $selecting->reset();
+    $action = $selecting->action("id", "user");
+    if($action != null) return $action;
+
+    $values = $selecting->pull();
 
     if($values[1] > 0) {
         $id = $values[0];
     }
+    $users = $values[0];
+    $user_length = $values[1];
 
+    // Got the maximum and minimum user id to randomly pick from them
     $min_id = min($values[0]);
     $max_id = max($values[0]);
 
-    $connect->autocommit(FALSE);
+    // Turned of the database until the whole process is completed
+    $db->autocommit(FALSE);
+
     for($i = 0; $i < $post_len;) {
-        $rand_post = random_int(0, 45);
+        // Get a random number between the 0 and the total length of the post
+        // This random number would be used as an index to fetch a random post from the object
+        $rand_post_index = random_int(0, ($post_len - 1));
+
+        // Created a random number between 0 and the total length of users
+        // This number would be used as the index to access users from the array randomnly
+        $rand_user_index = random_int(0, ($user_length - 1));
 
         $subject = ["user", "token", "title", "content", "category", "comments_blocked", "privacy", "date", "time"];
 
-        if(!in_array($rand_post, $exist)){
-            $post = json_decode(json_encode($posts[$rand_post]), true);
-            array_push($exist, $rand_post);
+        // Make sure the random number has not been picked before
+        if(!in_array($rand_post_index, $exist)):
+            // Decoded the object to an array format and picked a random post using the random number generated
+            $post = json_decode(json_encode($posts[$rand_post_index]), true);
+            array_push($exist, $rand_post_index);
 
-            $rand_id = random_int($min_id['id'], $max_id['id']);
-            $rand = bin2hex(random_bytes(64));
-            $title = $post['title'];
-            $composed = $post['desc'];
-            $genre = $post['category'];
-            $block_digits = (int) 0;
-            $digit = (int) 0;
-            $date = Date("d/m/y h:i:sa");
-            $time = time();
+            // Initiated our values
+            // Fetching a random user from the array of users
+            $rand_user = $users[$rand_user_index]['id'];
+            $zero = (int) 0;
 
-            $values = [$rand_id, $rand, $title, $composed, $genre, $block_digits, $digit, $date, $time];
+            $values = [$rand_user, Func::tokenGenerator(), $post['title'], $post['desc'], $post['category'], $zero, $zero, Func::dateFormat(), time()];
 
-            $inserting = new Insert($connect, "home_page", $subject, "");
-            $inserting->create_ques();
-            $inserting->push($values, 'issssiisi');
-            $inserting->reset();
+            // Proceeded to insert the data into the data base
+            $inserting = new Insert($db, "post", $subject, "");
+            $action = $inserting->push($values, 'issssiisi');
+            if(!$action) return $action;
 
             $i++;
-        }
-        //$connect->autocommit(TRUE);
+        endif;
+
+        // Turning on the database when the whole process is complete and error free
+        //$db->autocommit(TRUE);
     }
 
 

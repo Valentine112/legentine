@@ -211,7 +211,7 @@
                 <div class="post-add-info">
                     <?php
                         $selecting = new Select($connect);
-                        $selecting->more_details("WHERE postid = ?, $person_postid");
+                        $selecting->more_details("WHERE postid = ?# $person_postid");
                         $selecting->process();
 
                         $readers = $selecting->pull("date", "readers")[1];

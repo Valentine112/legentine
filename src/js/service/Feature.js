@@ -40,7 +40,6 @@ class Feature {
 
         this.func.request("../request.php", JSON.stringify(data), 'json')
         .then(val => {
-            console.log(val)
             if(val.status === 1) {
                 var content = val.content['content']
 
@@ -104,7 +103,6 @@ class Feature {
 
     async confirmFeature(elem) {
         var path = new Func().getPath()['main_path']
-        console.log(path)
 
         this.func.buttonConfig(elem, 'before')
         var parent = elem.closest(".featureCover")
@@ -146,7 +144,6 @@ class Feature {
 
         this.func.request("../request.php", JSON.stringify(data), 'json')
         .then(val => {
-            console.log(val)
             if(val.status == 1) {
                 if(val.content == 1){
                     elem.innerText = "Allow"

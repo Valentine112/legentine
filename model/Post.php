@@ -34,6 +34,12 @@
 
         public function config_data(array|string $blocked, array $items, string $key, ?int $user) : array {
 
+            /**
+             * An empty $blocked string would always be passed
+             * The sorting based on blocked users would be done directly in the sql query
+             * And not this way, this process reduces the number of data
+             */
+
             // Fetch the necessary about post owner
             // Since i would be looping through the post here
             // Then i would fetch the post owner details here
@@ -67,7 +73,7 @@
                     $other = $item['user'];
                     $post = $item['id'];
 
-                    $this->selecting->more_details("WHERE id = ? LIMIT 1, $other");
+                    $this->selecting->more_details("WHERE id = ? LIMIT 1# $other");
                     $action = $this->selecting->action("fullname, username, photo, rating", "user");
                     $this->selecting->reset();
 
@@ -78,7 +84,7 @@
                     $other_user = $this->selecting->pull()[0][0];
 
                     // Check if post has been liked by user
-                    $this->selecting->more_details("WHERE post = ? AND user = ?, $post, $user");
+                    $this->selecting->more_details("WHERE post = ? AND user = ?# $post# $user");
                     $action = $this->selecting->action("user", "star");
                     $this->selecting->reset();
 
@@ -100,7 +106,7 @@
 
 
                     // Check if user has saved post
-                    $this->selecting->more_details("WHERE post = ? AND user = ?, $post, $user");
+                    $this->selecting->more_details("WHERE post = ? AND user = ?# $post# $user");
                     $action = $this->selecting->action("id", "saved");
                     $this->selecting->reset();
     
@@ -155,7 +161,7 @@
         public function check_ownership(string $token, string $item) : array {
 
             // Check if the post is valid and user is the owner of the post
-            $this->selecting->more_details("WHERE token = ? AND user = ?, $token, $this->user");
+            $this->selecting->more_details("WHERE token = ? AND user = ?# $token# $this->user");
             $action = $this->selecting->action($item, "post");
             $this->selecting->reset();
 
@@ -172,7 +178,7 @@
 
             $selecting = new Select(self::$db);
 
-            $selecting->more_details("WHERE token = ? LIMIT 1, $token");
+            $selecting->more_details("WHERE token = ? LIMIT 1# $token");
             $action = $selecting->action("id", $table);
             $selecting->reset();
 
@@ -275,7 +281,6 @@
             (string) $order = "";
             (int) $user = 0;
             (int) $zero = 0;
-            $blocked_users = [];
 
             // Determine the order based on the page the request was sent from
             if($from === "rank"):
@@ -296,19 +301,9 @@
                      * This would only work here
                      */
 
-                    // Get all the users that has been blocked by this user first
-                    $this->selecting->more_details("WHERE user = ?, $user");
-                    $action = $this->selecting->action("other", "blocked_users");
-                    $this->selecting->reset();
-
-                    if($action != null):
-                        return $action;
-                    endif;
-
-                    $blocked_users = $this->selecting->pull();
+                    $blocked_query = Func::blockedUsers(self::$db, $user)[0];$blocked_result = Func::blockedUsers(self::$db, $user)[1];
 
                 endif;
-
                 /**
                  * Fetching post from pages that requires the user to be logged in
                  * Pages ---- Session
@@ -320,7 +315,7 @@
                 if($from == "session"):
                     $token = $filter['token'];
 
-                    $this->selecting->more_details("WHERE token = ?, $token");
+                    $this->selecting->more_details("WHERE token = ?# $token");
                 endif;
 
                 if($from === "profile"):
@@ -331,7 +326,7 @@
                     if($more === "") $more = $this->user;
 
                     if($filter === "notes"):
-                        $this->selecting->more_details("WHERE privacy = ? AND user = ? $order, $zero, $more");
+                        $this->selecting->more_details("WHERE privacy = ? AND user = ? $order# $zero# $more");
 
                     endif;
 
@@ -339,7 +334,7 @@
 
                 if($from === "saved"):
                     // First fetch all the post from the saved pointing to this user
-                    $this->selecting->more_details("WHERE user = ?, $this->user");
+                    $this->selecting->more_details("WHERE user = ?# $this->user");
                     $action = $this->selecting->action('*', 'saved');
                     $this->selecting->reset();
 
@@ -358,7 +353,7 @@
                         // Fetch the post that has been saved by this user
                         $post = $saved['post'];
 
-                        $this->selecting->more_details("WHERE id = ?, $post");
+                        $this->selecting->more_details("WHERE id = ?# $post");
                         $action = $this->selecting->action('*', 'post');
                         $this->selecting->reset();
 
@@ -376,9 +371,7 @@
 
                     endforeach;
 
-                    $blocked_users = [];
-
-                    $result = $this->config_data($blocked_users, $tempResult[0], "user", $user);
+                    $result = $this->config_data([], $tempResult[0], "user", $user);
 
                     $this->type = "success";
                     $this->status = 1;
@@ -386,13 +379,11 @@
                     $this->content = $result;
         
                     return $this->deliver();
-
-                    //print_r($tempResult);
                 endif;
 
             else:
                 // If user is not logged in
-                $this->selecting->more_details("WHERE privacy = ? $order, $zero");
+                $this->selecting->more_details("WHERE privacy = ? $order# $zero");
 
             endif;
 
@@ -409,9 +400,11 @@
             
             if($from == "home"):
                 if($filter === ""):
-                    $this->selecting->more_details("WHERE privacy = ? $order, $zero");
+                    $this->selecting->more_details("WHERE privacy = ? $blocked_query $order# $zero# $blocked_result");
+
                 else:
-                    $this->selecting->more_details("WHERE privacy = ? AND category = ? $order, $zero, $filter");
+                    $this->selecting->more_details("WHERE privacy = ? AND category = ? $blocked_query $order# $zero# $filter# $blocked_result");
+
                 endif;
 
             elseif($from == "rank"):
@@ -436,15 +429,17 @@
                 $range = time() - $time_range;
 
                 if($filter === ""):
-                    $this->selecting->more_details("WHERE privacy = ? AND time >= ? AND stars > ? $order, $zero, $range, $zero");
+                    $this->selecting->more_details("WHERE privacy = ? AND time >= ? AND stars > ? $blocked_query $order# $zero# $range# $zero# $blocked_result");
+
                 else:
-                    $this->selecting->more_details("WHERE privacy = ? AND category = ? AND time >= ? AND stars > ? $order, $zero, $filter, $range, $zero");
+                    $this->selecting->more_details("WHERE privacy = ? AND category = ? AND time >= ? AND stars > ? $blocked_query $order# $zero# $filter# $range# $zero# $blocked_result");
+
                 endif;
 
             elseif($from == "read"):
                 $token = $filter['token'];
 
-                $this->selecting->more_details("WHERE token = ?, $token");
+                $this->selecting->more_details("WHERE token = ?# $token");
 
                 // Fetching the comments for the post
                 $data = [
@@ -492,7 +487,7 @@
             $post = $this->selecting->pull();
 
 
-            $result = $this->config_data($blocked_users, $post[0], "user", $user);
+            $result = $this->config_data([], $post[0], "user", $user);
 
             if($from === "read"):
                 $result[0]['comments'] = $comments;
@@ -761,7 +756,7 @@
 
                 // Fetch post owner id
                 $data = [
-                    "post" => $post,
+                    "id" => $post,
                     "1" => "1",
                     "needle" => "user",
                     "table" => "post"
@@ -850,7 +845,7 @@
                 // Then send it back as a value for count key in content
 
                 // Get the total number of likes
-                $this->selecting->more_details("WHERE post = ?, $post");
+                $this->selecting->more_details("WHERE post = ?# $post");
                 $action = $this->selecting->action("id", "star");
                 $this->selecting->reset();
 

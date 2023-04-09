@@ -45,14 +45,14 @@
             ];
 
             if(is_int($post)):
-                $this->selecting->more_details("WHERE post = ?, $post");
+                $this->selecting->more_details("WHERE post = ?# $post");
             else:
                 $type = $this->data['val']['type'];
 
                 if($type === "request"):
-                    $this->selecting->more_details("WHERE other = ? AND status = ?, $this->user, $this->pending");
+                    $this->selecting->more_details("WHERE other = ? AND status = ?# $this->user# $this->pending");
                 elseif($type === "history"):
-                    $this->selecting->more_details("WHERE user = ? OR other = ?, $this->user, $this->user");
+                    $this->selecting->more_details("WHERE user = ? OR other = ?# $this->user# $this->user");
                 endif;
             endif;
 
@@ -114,7 +114,7 @@
                 'self' => $this->user
             ];
 
-            $this->selecting->more_details("WHERE user = ? OR other = ?, $this->user, $this->user");
+            $this->selecting->more_details("WHERE user = ? OR other = ?# $this->user# $this->user");
             $action = $this->selecting->action('*', 'history');
             $this->selecting->reset();
 

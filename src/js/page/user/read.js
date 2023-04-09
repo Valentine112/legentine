@@ -36,7 +36,6 @@ window.addEventListener("load", function() {
             .then(async function(val) {
 
                 if(val.status === 1) {
-                    console.log(val.content)
                     var other = val.content[0]['other']
                     var post = val.content[0]['post']
                     var more =  val.content[0]['more']
@@ -132,11 +131,9 @@ window.addEventListener("load", function() {
             })
 
             // Transversing via parameters passed in the url
-            console.log(param)
             var comment = param['parameter']['comment']
 
             // If the transverse is just to a comment
-            console.log(param['parameter']['reply'])
             if(param['parameter']['reply'] == null) {
                 var commentElem = document.querySelector("[data-token=LT-" + comment + "]")
                 commentElem.scrollIntoView({

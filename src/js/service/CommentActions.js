@@ -315,7 +315,6 @@ class CommentActions {
 
             this.func.request("../request.php", JSON.stringify(data), 'json')
             .then(async function(val) {
-                console.log(val)
 
                 // Revert everything back to how it was
                 self.cancel_edit(elem.closest(".cancel-box").querySelector(".cancel-edit"), "create-reply")

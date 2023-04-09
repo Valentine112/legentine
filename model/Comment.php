@@ -65,7 +65,7 @@
         public function fetch_comment($post) : array {
             $result = [];
 
-            $this->selecting->more_details("WHERE post = ? LIMIT 20, $post");
+            $this->selecting->more_details("WHERE post = ? LIMIT 20# $post");
             $action = $this->selecting->action("*", "comments");
             $this->selecting->reset();
 
@@ -79,7 +79,7 @@
                 $other = $val['user'];
 
                 //Fetching the comment owner details
-                $this->selecting->more_details("WHERE id = ?, $other");
+                $this->selecting->more_details("WHERE id = ?# $other");
                 $action = $this->selecting->action("*", "user");
                 $this->selecting->reset();
 
@@ -88,7 +88,7 @@
                 $other_val = $this->selecting->pull()[0][0];
 
                 // Fetch the post owner id
-                $this->selecting->more_details("WHERE id = ? LIMIT 1, $post");
+                $this->selecting->more_details("WHERE id = ? LIMIT 1# $post");
                 $action = $this->selecting->action("user", "post");
                 $this->selecting->reset();
 
@@ -238,7 +238,7 @@
                         endif;
 
                         // Fetch the comment owner info
-                        $this->selecting->more_details("WHERE id = ? LIMIT 1, $this->user");
+                        $this->selecting->more_details("WHERE id = ? LIMIT 1# $this->user");
                         $action = $this->selecting->action("fullname, username, photo, rating", "user");
                         $this->selecting->reset();
 
@@ -358,7 +358,7 @@
 
                             foreach($mentions as $mention):
     
-                                $this->selecting->more_details("WHERE username = ?, $mention");
+                                $this->selecting->more_details("WHERE username = ?# $mention");
                                 $action = $this->selecting->action("id", "user");
                                 $this->selecting->reset();
 
@@ -820,7 +820,7 @@
 
             $comment = $post->fetchId($item)[0][0]['id'];
 
-            $this->selecting->more_details("WHERE comment = ? LIMIT 20, $comment");
+            $this->selecting->more_details("WHERE comment = ? LIMIT 20# $comment");
             $action = $this->selecting->action("*", "replies");
             $this->selecting->reset();
 
@@ -833,7 +833,7 @@
                 $other = $val['user'];
 
                 //Fetching the comment owner details
-                $this->selecting->more_details("WHERE id = ?, $other");
+                $this->selecting->more_details("WHERE id = ?# $other");
                 $action = $this->selecting->action("*", "user");
                 $this->selecting->reset();
 
@@ -844,7 +844,7 @@
                 $post = $val['post'];
 
                 // Fetch the post owner id
-                $this->selecting->more_details("WHERE id = ? LIMIT 1, $post");
+                $this->selecting->more_details("WHERE id = ? LIMIT 1# $post");
                 $action = $this->selecting->action("user", "post");
                 $this->selecting->reset();
 
@@ -921,7 +921,7 @@
                 $reply = $val['reply'];
 
                 // Fetch the reply id
-                $this->selecting->more_details("WHERE token = ?, $reply");
+                $this->selecting->more_details("WHERE token = ?# $reply");
                 $action = $this->selecting->action("id", "replies");
                 $this->selecting->reset();
 
@@ -1275,7 +1275,7 @@
             // Then check if there is anyone missing from the new mentions
             // If there is, delete that one
 
-            $this->selecting->more_details("WHERE $key = ?, $val");
+            $this->selecting->more_details("WHERE $key = ?# $val");
             $action = $this->selecting->action("other", "mentions");
             $this->selecting->reset();
 

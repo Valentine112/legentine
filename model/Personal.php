@@ -116,7 +116,7 @@
         public function fetch() : array {
             (int) $one = 1;
 
-            $this->selecting->more_details("WHERE privacy = ? AND user = ?, $one, $this->user");
+            $this->selecting->more_details("WHERE privacy = ? AND user = ?# $one# $this->user");
 
             $action = $this->selecting->action("*", "post");
             $this->selecting->reset();

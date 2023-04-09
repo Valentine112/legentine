@@ -24,10 +24,8 @@ class Post {
                 }
             }
 
-
             this.func.request("../request.php", JSON.stringify(data), 'json')
             .then(val => {
-                console.log(val)
                 result  = val
                 
                 if(val.status === 1){
@@ -238,8 +236,6 @@ class Post {
             if(val.status === 1){
                 var span = elem.querySelector("span")
                 var img = elem.querySelector("img")
-
-                console.log(elem)
 
                 if(val.content == "Post Saved"){
                     post_body.setAttribute("data-saved-state", 1)

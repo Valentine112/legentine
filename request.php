@@ -11,7 +11,8 @@
         Comment,
         Feature,
         Personal,
-        Notification
+        Notification,
+        MoreData
     };
 
     use Service\Response;
@@ -57,6 +58,12 @@
     $request->is_post(
         'notification',
         [Notification::class, 'main']
+    );
+
+
+    $request->is_post(
+        'moreData',
+        [MoreData::class, 'main']
     );
     
     print_r(Response::sendJSON($request->listen()));

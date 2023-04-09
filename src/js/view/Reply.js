@@ -13,7 +13,6 @@ class Reply {
     }
 
     main() {
-        console.log(this.data)
         var element = `
             <div class="replies box entity-body"
             data-token=LT-${this.reply['token']}

@@ -109,7 +109,7 @@
             $table = $data['table'];
 
             $selecting = new Select($db);
-            $selecting->more_details("WHERE $key = ? $expression $key1 = ?, $val, $val1");
+            $selecting->more_details("WHERE $key = ? $expression $key1 = ?# $val# $val1");
             $action = $selecting->action($needle, $table);
 
             if($action != null) return $action;
@@ -131,7 +131,7 @@
             $val = array_values($data)[0];
 
             $selecting = new Select($db);
-            $selecting->more_details("WHERE $key = ?, $val");
+            $selecting->more_details("WHERE $key = ?# $val");
             $action = $selecting->action("other", "mentions");
             $selecting->reset();
 
@@ -142,7 +142,7 @@
             foreach($value as $other):
                 $mentioned = $other['other'];
                 // Get the username of person
-                $selecting->more_details("WHERE id = ?, $mentioned");
+                $selecting->more_details("WHERE id = ?# $mentioned");
                 $selecting->action("username", "user");
                 $selecting->reset();
 
@@ -157,6 +157,39 @@
             endforeach;
 
             return $content;
+        }
+
+        public static function blockedUsers(mysqli $db, int $user) : array {
+            $selecting = new Select($db);
+
+            // Get all the users that has been blocked by this user first
+            $selecting->more_details("WHERE user = ?# $user");
+            $action = $selecting->action("other", "blocked_users");
+            $selecting->reset();
+
+            if($action != null):
+                return $action;
+            endif;
+
+            $blocked_users = $selecting->pull();
+            $blocked_result = [];
+
+            // Get all the blocked users and add them to an array
+            if($blocked_users[1] > 0):
+                foreach($blocked_users[0] as $blocked):
+                    array_push($blocked_result, $blocked['other']);
+                endforeach;
+            endif;
+
+            // Join all the blocked result with the hash as a divider
+            $blocked_result = implode("#", $blocked_result);
+
+            // Create a question mark parameter for the query
+            $param = array_fill(1, $blocked_users[1], "?");
+            $param = implode(",", $param);
+            $blocked_query = "AND user NOT IN ($param)";
+
+            return [$blocked_query, $blocked_result];
         }
 
     }

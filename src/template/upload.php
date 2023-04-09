@@ -389,7 +389,6 @@
 
                         if(content["type"] == "uploadPicture") {
                             var result = content['content']
-                            console.log(result)
 
                             document.getElementById("loadingBackground").remove()
 

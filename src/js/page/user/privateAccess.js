@@ -13,7 +13,6 @@ window.addEventListener("load", async function () {
 
     new Func().request("../request.php", JSON.stringify(data), 'json')
     .then(async val => {
-        console.log(val)
         if(val.status === 1) {
             data = val.content[0];
 
@@ -167,7 +166,6 @@ function submitPrivate(self) {
             
         new Func().request("../request.php", JSON.stringify(data), 'json')
         .then(val => {
-            console.log(val)
 
             if(val.status === 1) {
                 window.location = "privatePost"
