@@ -754,7 +754,7 @@
                 "more" => []
             ];
 
-            $this->selecting->more_details("WHERE user = ?# $person");
+            $this->selecting->more_details("WHERE user = ? ORDER BY ID DESC LIMIT 2# $person");
             $action = $this->selecting->action("*", "gallery");
             $this->selecting->reset();
 

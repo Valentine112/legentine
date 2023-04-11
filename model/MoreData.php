@@ -2,6 +2,7 @@
     namespace Model;
 
     use mysqli;
+    use Config\Authenticate;
     use Model\Post;
     use Query\{
         Delete,
@@ -32,17 +33,18 @@
         }
 
         public function morePost() : array {
-            // Photo does not belong to user
             $this->type = "success";
             $this->status = 1;
             $this->message = "void";
 
+            $result = [];
+            $lastElement = $this->data['val']['lastElement'];
             $filter = $this->data['val']['filter'];
-            $more = $this->data['val']['more'];
+            (int) $zero = 0;
 
             // Fetch post id
             $data = [
-                "token" => $filter,
+                "token" => $lastElement,
                 "1" => "1",
                 "needle" => "id",
                 "table" => "post"
@@ -54,11 +56,11 @@
                 $blocked_query = Func::blockedUsers(self::$db, $this->user)[0];$blocked_result = Func::blockedUsers(self::$db, $this->user)[1];
 
                 // Fetch post whose id is greater than the last post id
-                if($more === ""):
-                    $this->selecting->more_details("WHERE id < ? $blocked_query ORDER BY id DESC LIMIT 20# $post# $blocked_result");
+                if($filter === ""):
+                    $this->selecting->more_details("WHERE id < ? AND privacy = ? $blocked_query ORDER BY id DESC LIMIT 20# $post# $zero# $blocked_result");
 
                 else:
-                    $this->selecting->more_details("WHERE id < ? AND category = ? $blocked_query ORDER BY id DESC LIMIT 20# $post# $more# $blocked_result");
+                    $this->selecting->more_details("WHERE id < ? AND privacy = ? AND category = ? $blocked_query ORDER BY id DESC LIMIT 20# $post# $zero# $filter# $blocked_result");
 
                 endif;
 
@@ -91,13 +93,18 @@
             $this->status = 1;
             $this->message = "void";
 
-            $filter = $this->data['val']['filter'];
-            $more = $this->data['val']['more'];
+            $result = [];
 
-            if($more === "photos"):
+            $lastElement = $this->data['val']['lastElement'];
+            $filter = $this->data['val']['filter'];
+            $person = $this->data['val']['more'];
+
+            if($person === "") $person = $this->user;
+
+            if($filter === "photos"):
                 // Search last photo ID
                 $data = [
-                    "token" => $filter,
+                    "token" => $lastElement,
                     "1" => "1",
                     "needle" => "id",
                     "table" => "gallery"
@@ -105,14 +112,90 @@
 
                 $photo = Func::searchDb(self::$db, $data, "AND");
                 if(is_int($photo)):
-                    
+                    //print_r($photo);
+                    $this->selecting->more_details("WHERE id < ? AND user = ? ORDER BY id DESC LIMIT 20# $photo# $person");
+                    $action = $this->selecting->action("*", "gallery");
+                    $this->selecting->reset();
+
+                    if($action != null) return $action;
+        
+                    $value = $this->selecting->pull()[0];
+                    foreach($value as $val):
+                        $arr['content'] = $val;
+                        $arr['self'] = $this->user;
+                        $arr['section'] = "photos";
+        
+                        array_push($result, $arr);
+                    endforeach;
                 endif;
 
-            elseif($more === "notes"):
+            elseif($filter === "notes"):
+                // Fetch post id
+                $data = [
+                    "token" => $lastElement,
+                    "1" => "1",
+                    "needle" => "id",
+                    "table" => "post"
+                ];
+    
+                $post = Func::searchDb(self::$db, $data, "AND");
+                if(is_int($post)):
+                    $this->selecting->more_details("WHERE id < ? AND user = ? ORDER BY id DESC LIMIT 20# $post# $person");
 
+                    $action = $this->selecting->action("*", "post");
+                    $this->selecting->reset();
+    
+                    if($action != null) return $action;
+    
+                    $data = $this->selecting->pull();
+    
+                    // Configure the data using Post config_data method
+                    // This would arrange and sort the data properly
+                    
+                    $result = (new Post(self::$db, null, ""))->config_data([], $data[0], "user", $this->user);
+                endif;
             endif;
 
+            $this->content = $result;
+
             return $this->deliver();
+        }
+
+        public function saved() : array {
+            $this->type = "success";
+            $this->status = 1;
+            $this->message = "void";
+
+            $result = [];
+            $lastElement = $this->data['val']['lastElement'];
+
+            // Fetch post id
+            $data = [
+                "token" => $lastElement,
+                "1" => "1",
+                "needle" => "id",
+                "table" => "saved"
+            ];
+
+            $saved = Func::searchDb(self::$db, $data, "AND");
+            if(is_int($saved)):
+
+                $data = [
+                    "val" => [
+                        "filter" => $saved,
+                        "from" => "saved",
+                        "query" => "AND id < ?",
+                        "new" => 1
+                    ]
+                ];
+
+                return (new Post(self::$db, $data, $this->user))->fetch_post(Authenticate::check_user());
+                
+            else:
+                return $saved;
+            endif;
+
+            //return $this->deliver();
         }
 
     }

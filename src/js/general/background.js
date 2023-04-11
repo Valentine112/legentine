@@ -4,6 +4,7 @@ window.addEventListener("load", () => {
 
     var pathObj = func.getPath()
     var path = pathObj['main_path']
+    var param = pathObj['parameter']['token'] != null ? pathObj['parameter']['token'] : ""
 
     // ------------------LOAD SEARCH PREVIEW----------------------- //
 
@@ -77,75 +78,127 @@ window.addEventListener("load", () => {
     // Load the new elements once the user reaches the bottom of the page
     window.addEventListener("scroll", function() {
 
-        if(window.scrollY + window.innerHeight >= document.body.scrollHeight) {
-            // Fetch all the elements on the page
-            var elements = document.querySelectorAll(".entity-body"),
-            // Get the last element on the page
-            last_element = elements[elements.length - 1],
-            // Get the token from the last element and remove the initials
-            last_element_token = func.removeInitials(last_element.getAttribute("data-token"))
+        // List of valid paths to perform this action
+        // This is to reduce the uneccessary running in the background
+        var validPaths = ["home", "profile", "saved"]
 
-            // Create the data in regards to the type of content to fetch
-            // Configure based on the page
-            var action = ""
-            var more = ""
-            switch (path) {
-                case "home":
+        if(validPaths.includes(path)){
+            // Check if user has reachd the bottom of the page
+            if(window.scrollY + window.innerHeight >= document.body.scrollHeight) {
+                // Fetch all the elements on the page
+                var elements = document.querySelectorAll(".entity-body"),
+                // Get the last element on the page
+                last_element = elements[elements.length - 1],
+                // Get the token from the last element and remove the initials
+                last_element_token = func.removeInitials(last_element.getAttribute("data-token"))
 
-                    action = "more_post"
-                    // Get the current category
-                    var filter = document.querySelector(".category").querySelector(".active")
-                    filter = filter.getAttribute("value");
+                // Create the data in regards to the type of content to fetch
+                // Configure based on the page
+                var action = ""
+                var more = ""
+                var filter = ""
+                switch (path) {
+                    case "home":
 
-                    filter == "all" ? more = "" : more = filter
+                        action = "more_post"
+                        // Get the current category
+                        var category = document.querySelector(".category").querySelector(".active")
+                        category = category.getAttribute("value");
 
-                    break;
+                        category == "all" ? filter = "" : filter = category
 
-                case "profile":
-                    
-                    action = "profile"
-                    // Get the current category
-                    var filter = document.querySelector(".headerSectionSub").querySelector(".active")
+                        break;
 
-                    filter = filter.getAttribute("data-type")
-                    console.log(filter)
-
-                    filter == "all" ? more = "" : more = filter
-                    break;
-            
-                default:
-                    break;
-            }
-
-            var data = {
-                part: "moreData",
-                action: action,
-                val: {
-                    filter: last_element_token,
-                    more: more
-                }
-            }
-
-
-            new Func().request("../request.php", JSON.stringify(data), 'json')
-            .then(val => {
-
-                if(val.status == 1) {
-                    if(path == "home") {
-                        var content = val.content
-                        var postCover = document.getElementById("postCover")
+                    case "profile":
                         
-                        content.forEach(elem => {
-                            var token = elem['post']['token'];
+                        action = "profile"
+                        // Get the current category
+                        var category = document.querySelector(".headerSectionSub").querySelector(".active")
 
-                            if(document.querySelector("[data-token=LT-" + token + "]") == null) {
-                                var post = new PostHTML(elem, path, "../")
-                                postCover.insertAdjacentHTML("beforeend", post.main())
-                            }
-                        })
+                        category = category.getAttribute("data-type")
+
+                        // Setting the category, either notes or photos
+                        category == "all" ? filter = "" : filter = category
+
+                        // Passing the person's id
+                        more = param
+                        break;
+
+                    case "saved":
+
+                        action = "saved";
+
+                        break;
+                
+                    default:
+                        break;
+                }
+
+                var data = {
+                    part: "moreData",
+                    action: action,
+                    val: {
+                        lastElement: last_element_token,
+                        filter: filter,
+                        more: more
                     }
                 }
-            })
+
+
+                new Func().request("../request.php", JSON.stringify(data), 'json')
+                .then(val => {
+
+                    console.log(val)
+                    if(val.status == 1) {
+                        // If there is not item, content would return null
+
+                        var content = val.content
+
+                        if(content.length > 0) {
+                            if(path == "home") {
+                                var postCover = document.getElementById("postCover")
+                                content.forEach(elem => {
+                                    var token = elem['post']['token'];
+        
+                                    if(document.querySelector("[data-token=LT-" + token + "]") == null) {
+                                        var post = new PostHTML(elem, path, "../")
+                                        postCover.insertAdjacentHTML("beforeend", post.main())
+                                    }
+                                })
+                            }
+        
+                            if(path == "profile") {
+
+                                // Get the container that would hold the newer elements
+                                if(filter == "notes") {
+                                    var container = document.getElementById("postCover")
+                                }
+                                else if(filter == "photos") {
+                                    var container = document.getElementById("photoSub")
+                                }
+
+                                content.forEach(elem => {
+                                    // Get the skeleton of the element
+                                    if(filter == "notes") {
+                                        var elementBox = new PostHTML(elem, path, "../").main()
+                                        var token = elem['post']['token']
+                                    }
+                                    else if(filter == "photos") {
+                                        var elementBox = photoBox(elem)
+                                        var token = elem['content']['token']
+                                    }
+
+                                    if(document.querySelector("[data-token=LT-" + token + "]") == null) {
+                                        container.insertAdjacentHTML("beforeend", elementBox)
+                                    }
+                                })
+                            }
+                        }
+                    }
+
+                    func.notice_box(val)
+                })
+            }
         }
     })
 

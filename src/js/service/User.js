@@ -79,7 +79,7 @@ class User {
 
                 var content = val.content
                 content.forEach(elem => {
-                    photoSub.insertAdjacentHTML("afterbegin", photoBox(elem))
+                    photoSub.insertAdjacentHTML("beforeend", photoBox(elem))
                 })
             }
 

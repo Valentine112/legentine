@@ -14,6 +14,8 @@ class PostHTML {
 
     main() {
         var photo = this.other['photo']
+        var savedToken = ""
+        if(this.from == "saved") savedToken = this.more['savedToken']
 
         var element = `
             <div class="post-body box lazy-load-element entity-body" 
@@ -34,6 +36,7 @@ class PostHTML {
             data-delete-part="post",
             data-delete-action="delete_post",
             data-delete-attr="data-delete-token"
+            data-saved-token="LT-${savedToken}"
             >
                 <div class="post-assist box">
                     <div class="post-sub box">

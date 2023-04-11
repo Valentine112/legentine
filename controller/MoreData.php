@@ -36,6 +36,10 @@
                         $result = $modelMoreData->profile();
                         break;
 
+                    case "saved":
+                        $result = $modelMoreData->saved();
+                        break;
+
                 endswitch;
             else:
                 $this->type = "warning";
