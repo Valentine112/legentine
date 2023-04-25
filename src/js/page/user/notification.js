@@ -71,7 +71,7 @@ class notificationBox {
 
         switch (this.notification['type']) {
             case "comment":
-                result.message = ` <span ${this.other['username']} class="comment">commented</span> "${this.contentFormat()}" on your post "${this.post['title']}" `
+                result.message = ` ${this.other['username']} <span class="comment">commented</span> "${this.contentFormat()}" on your post "${this.post['title']}" `
 
                 break;
 

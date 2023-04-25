@@ -303,7 +303,7 @@
                                 <header>Account</header>
                                 <ul class="first-list">
                                     <li>
-                                        <a href="">
+                                        <a href="../login">
                                             <img src="../src/icon/sidebar-icon/logout.svg" alt="">
                                             &emsp;
                                             <span>Log out</span>

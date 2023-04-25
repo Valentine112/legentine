@@ -377,7 +377,7 @@
                 </div>
 
                 <div>
-                    <a href="">
+                    <a href="../login?action=logout">
                         <span>Logout</span>
                     </a>
                 </div>

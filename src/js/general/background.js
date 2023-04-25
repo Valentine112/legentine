@@ -97,6 +97,7 @@ window.addEventListener("load", () => {
                 var action = ""
                 var more = ""
                 var filter = ""
+
                 switch (path) {
                     case "home":
 
@@ -125,6 +126,8 @@ window.addEventListener("load", () => {
                         break;
 
                     case "saved":
+                        // The saved post should have its own token from the post token
+                        last_element_token = func.removeInitials(last_element.getAttribute("data-saved-token"))
 
                         action = "saved";
 
@@ -148,13 +151,13 @@ window.addEventListener("load", () => {
                 new Func().request("../request.php", JSON.stringify(data), 'json')
                 .then(val => {
 
-                    console.log(val)
                     if(val.status == 1) {
                         // If there is not item, content would return null
 
                         var content = val.content
 
-                        if(content.length > 0) {
+                        console.log(content)
+                        if(!new Func().isEmpty(content)) {
                             if(path == "home") {
                                 var postCover = document.getElementById("postCover")
                                 content.forEach(elem => {
@@ -190,6 +193,21 @@ window.addEventListener("load", () => {
 
                                     if(document.querySelector("[data-token=LT-" + token + "]") == null) {
                                         container.insertAdjacentHTML("beforeend", elementBox)
+                                    }
+                                })
+                            }
+
+                            if(path == "saved") {
+                                console.log("saved")
+                                var postCover = document.getElementById("postCover")
+
+                                content.forEach(elem => {
+                                    var token = elem['more']['savedToken'];
+
+        
+                                    if(document.querySelector("[data-saved-token=LT-" + token + "]") == null) {
+                                        var post = new PostHTML(elem, path, "../")
+                                        postCover.insertAdjacentHTML("beforeend", post.main())
                                     }
                                 })
                             }

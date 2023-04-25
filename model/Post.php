@@ -130,7 +130,7 @@
                 // END //
 
                 // If page is from Saved, get the saved token
-                if($from === "Saved"):
+                if($from === "saved"):
                     $data = [
                         "user" => $user,
                         "post" => $post,
@@ -287,7 +287,7 @@
             if($from === "rank"):
                 $order = "ORDER BY stars DESC LIMIT 15";
             else:
-                $order = "ORDER BY id DESC LIMIT 2";
+                $order = "ORDER BY id DESC LIMIT 20";
             endif;
 
             // Verify that user is logged in
@@ -303,6 +303,8 @@
                      */
 
                     $blocked_query = Func::blockedUsers(self::$db, $user)[0];$blocked_result = Func::blockedUsers(self::$db, $user)[1];
+
+                    
 
                 endif;
                 /**
@@ -339,13 +341,16 @@
                     $query = "";
                     $queryParam = "";
 
+                    // If isset 'new', this means that the data is been sent from moreData
+                    // If so, we modify the data
+
                     if(isset($this->data['val']['new'])):
                         $query = $this->data['val']['query'];
                         $queryParam = "# ".$this->data['val']['filter'];
                     endif;
 
                     // First fetch all the post from the saved pointing to this user
-                    $this->selecting->more_details("WHERE user = ? $query $order# $this->user.''.$queryParam");
+                    $this->selecting->more_details("WHERE user = ? $query $order# $this->user"."$queryParam");
                     $action = $this->selecting->action('*', 'saved');
                     $this->selecting->reset();
 

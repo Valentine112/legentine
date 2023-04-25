@@ -173,21 +173,27 @@
 
             $blocked_users = $selecting->pull();
             $blocked_result = [];
+            $blocked_query = "";
 
             // Get all the blocked users and add them to an array
             if($blocked_users[1] > 0):
                 foreach($blocked_users[0] as $blocked):
                     array_push($blocked_result, $blocked['other']);
                 endforeach;
+
+                // Join all the blocked result with the hash as a divider
+                $blocked_result = implode("#", $blocked_result);
+
+                // Create a question mark parameter for the query
+                $param = array_fill(1, $blocked_users[1], "?");
+                $param = implode(",", $param);
+                $blocked_query = "AND user NOT IN ($param)";
+            else:
+                
+                $blocked_query = "AND user NOT IN (?)";
+                $blocked_result = " ";
             endif;
 
-            // Join all the blocked result with the hash as a divider
-            $blocked_result = implode("#", $blocked_result);
-
-            // Create a question mark parameter for the query
-            $param = array_fill(1, $blocked_users[1], "?");
-            $param = implode(",", $param);
-            $blocked_query = "AND user NOT IN ($param)";
 
             return [$blocked_query, $blocked_result];
         }

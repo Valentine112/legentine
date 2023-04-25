@@ -63,5 +63,12 @@
 
     // Check if file is empty
 
+    //echo $_SERVER['REQUEST_URI'];
+    // Log user out
+    if($_SERVER['REQUEST_URI'] === "/login?action=logout"):
+        setcookie("token", "", time() - 3600, "/", "", FALSE, TRUE);
+    endif;
+
+    //print_r($_COOKIE);
 
 ?>

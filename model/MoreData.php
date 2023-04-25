@@ -169,7 +169,7 @@
             $result = [];
             $lastElement = $this->data['val']['lastElement'];
 
-            // Fetch post id
+            // Fetch saved id
             $data = [
                 "token" => $lastElement,
                 "1" => "1",
@@ -189,13 +189,15 @@
                     ]
                 ];
 
-                return (new Post(self::$db, $data, $this->user))->fetch_post(Authenticate::check_user());
-                
+                $result = (new Post(self::$db, $data, $this->user))->fetch_post(Authenticate::check_user());
+
             else:
                 return $saved;
             endif;
 
-            //return $this->deliver();
+            $this->content = $result['content'];
+
+            return $this->deliver();
         }
 
     }
