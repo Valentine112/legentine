@@ -3,6 +3,7 @@
     <script src="../src/js/view/PostHTML.js"></script>
     <script src="../src/js/view/Properties.js"></script>
     <script src="../src/js/view/Profile.js"></script>
+    <script src="../src/js/view/Notification.js"></script>
     <?php 
         use Src\Config\Head; 
         Head::tags(); 

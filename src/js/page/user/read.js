@@ -1,4 +1,4 @@
-window.addEventListener("load", function() {
+window.addEventListener("load", async function() {
     var post_photo = this.document.querySelector(".photo img")
     var post_body = this.document.querySelector(".post-body")
     var username = this.document.querySelector(".post-username")
@@ -61,10 +61,14 @@ window.addEventListener("load", function() {
                     // Date
                     date.innerText = func.timeFormatting(post['date'])
 
-                    // Comments
-                    comment.forEach(elem => {
-                        comment_box = new Comment(elem)
-                        document.querySelector(".comment-content").insertAdjacentHTML("afterbegin", comment_box.main())
+                    var promise = new Promise(res => {
+                        res(
+                            // Comments
+                            comment.forEach(elem => {
+                                comment_box = new Comment(elem)
+                                document.querySelector(".comment-content").insertAdjacentHTML("afterbegin", comment_box.main())
+                            })
+                        )
                     })
 
                     // Add reader
@@ -127,21 +131,54 @@ window.addEventListener("load", function() {
                 }
 
                 func.notice_box(val)
+
+                // Transversing from notification section
+                // Fetch the type first and match the functions
+                // ---------------------------------------
+
+                await promise
+                if(param['parameter']['type'] != null) {
+                    var elemType = param['parameter']['type']
+
+                    var comment = param['parameter']['comment']
+                    var commentElem = document.querySelector("[data-token=LT-" + comment + "]")
+
+                    if(elemType === "comment") {
+                        // Transversing via parameters passed in the url
+                        commentElem.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        })
+                    }
+
+                    if(elemType === "reply") {
+                        // Transversing via parameters passed in the url
+                        var elem = commentElem.querySelector("#replyAction")
+                        var reply = param['parameter']['reply']
+
+                        // Triggering the reply action
+                        // Since the element to be transvered to is a reply and not a comment
+                        var promise = new Promise((res) => {
+                            res(new CommentActions().reply_comment(elem))
+                        })
+
+                        // Proceeding to scroll to the reply after the reply box has been displayed
+                        // Using promise to wait for the reply box to be popped up
+                        // Making sure that everything is ready before requesting for the reply element
+
+                        await promise
+                        setTimeout(() => {
+                            document.querySelector("[data-token=LT-" + reply + "]").scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            })
+                        }, 1000)
+
+                    }
+
+                }
             
             })
-
-            // Transversing via parameters passed in the url
-            var comment = param['parameter']['comment']
-
-            // If the transverse is just to a comment
-            if(param['parameter']['reply'] == null) {
-                var commentElem = document.querySelector("[data-token=LT-" + comment + "]")
-                commentElem.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                })
-            }
-
 
         }
     }

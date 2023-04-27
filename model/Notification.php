@@ -85,6 +85,19 @@
 
                 $content = Func::searchDb(self::$db, $data, "AND");
 
+                // Fetch the comment token using the comment id
+                if($noti['elementType'] === "reply"):
+                    $data = [
+                        "id" => $content['comment'],
+                        "1" => "1",
+                        "needle" => "token",
+                        "table" => "comments"
+                    ];
+
+                    $content['comment'] = Func::searchDb(self::$db, $data, "AND");
+
+                endif;
+
                 // END
 
 
