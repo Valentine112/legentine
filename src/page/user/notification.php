@@ -50,6 +50,7 @@
                     <!-- NOTIFICATION GOES HERE -->
                 </div>
 
+                <br><br><br><br><br><br><br><br><br>
                 <div class="content-loader">
                     <div></div>
                 </div>

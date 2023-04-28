@@ -40,6 +40,10 @@
                         $result = $modelMoreData->saved();
                         break;
 
+                    case "notification":
+                        $result = $modelMoreData->notification();
+                        break;
+
                 endswitch;
             else:
                 $this->type = "warning";

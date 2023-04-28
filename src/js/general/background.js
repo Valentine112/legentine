@@ -80,7 +80,7 @@ window.addEventListener("load", () => {
 
         // List of valid paths to perform this action
         // This is to reduce the uneccessary running in the background
-        var validPaths = ["home", "profile", "saved"]
+        var validPaths = ["home", "profile", "saved", "notification"]
 
         if(validPaths.includes(path)){
             // Check if user has reachd the bottom of the page
@@ -132,6 +132,12 @@ window.addEventListener("load", () => {
                         action = "saved";
 
                         break;
+
+                    case "notification":
+                        // Setting the action to notification
+                        action = "notification"
+                        
+                        break;
                 
                     default:
                         break;
@@ -154,12 +160,13 @@ window.addEventListener("load", () => {
                     if(val.status == 1) {
                         // If there is not item, content would return null
 
+                        var postCover = document.getElementById("postCover")
+
                         var content = val.content
 
                         console.log(content)
                         if(!new Func().isEmpty(content)) {
                             if(path == "home") {
-                                var postCover = document.getElementById("postCover")
                                 content.forEach(elem => {
                                     var token = elem['post']['token'];
         
@@ -198,9 +205,6 @@ window.addEventListener("load", () => {
                             }
 
                             if(path == "saved") {
-                                console.log("saved")
-                                var postCover = document.getElementById("postCover")
-
                                 content.forEach(elem => {
                                     var token = elem['more']['savedToken'];
 
@@ -208,6 +212,16 @@ window.addEventListener("load", () => {
                                     if(document.querySelector("[data-saved-token=LT-" + token + "]") == null) {
                                         var post = new PostHTML(elem, path, "../")
                                         postCover.insertAdjacentHTML("beforeend", post.main())
+                                    }
+                                })
+                            }
+
+                            if(path == "notification") {
+                                content.forEach(elem => {
+                                    if(document.querySelector("[data-token=LT-" + elem['notification']['token'] + "]") == null) {
+
+                                        var notification = new Notification(elem)
+                                        document.getElementById("postCover").insertAdjacentHTML("beforeend", notification.main())
                                     }
                                 })
                             }

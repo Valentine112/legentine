@@ -182,7 +182,7 @@
 
                 $data = [
                     "val" => [
-                        "filter" => $saved,
+                        "value" => $saved,
                         "from" => "saved",
                         "query" => "AND id < ?",
                         "new" => 1
@@ -198,6 +198,43 @@
             $this->content = $result['content'];
 
             return $this->deliver();
+        }
+
+        public function notification() : array {
+            $this->type = "success";
+            $this->status = 1;
+            $this->message = "void";
+
+            $result = [];
+            $lastElement = $this->data['val']['lastElement'];
+
+            // Fetch saved id
+            $data = [
+                "token" => $lastElement,
+                "1" => "1",
+                "needle" => "id",
+                "table" => "notification"
+            ];
+
+            $notification = Func::searchDb(self::$db, $data, "AND");
+
+            if(is_int($notification)):
+                $data = [
+                    "filter" => $notification,
+                    "query" => "AND id < ?",
+                    "from" => "notification",
+                    "new" => 1
+                ];
+
+                $fetchNotification = new Notification(self::$db, [], $this->user);
+                $this->content = $fetchNotification->fetchNotification($data)['content'];
+
+            else:
+                return $notification;
+            endif;
+
+            return $this->deliver();
+
         }
 
     }

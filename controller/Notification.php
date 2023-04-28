@@ -29,7 +29,7 @@
                 switch ($data['action']):
 
                     case "fetchNotification":
-                        $result = $modelNotification->fetchNotification();
+                        $result = $modelNotification->fetchNotification(null);
 
                         break;
 

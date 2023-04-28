@@ -34,7 +34,7 @@
             $this->user = $user;
         }
 
-        public function fetchNotification() : array {
+        public function fetchNotification(?array $filter) : array {
 
             $this->status = 1;
             $this->type = "success";
@@ -42,8 +42,19 @@
 
             $result = [];
 
+            $filterQuery = "";
+            $filterValue = "";
+
+            // The checks if the notification are been fetched from controller
+            // Or fetch directly from another source
+            if($filter !== null):
+                $filterQuery = $filter["query"];
+                $filterValue = "# ".$filter["filter"];
+
+            endif;
+
             // Fetch notification
-            $this->selecting->more_details("WHERE other = ?# $this->user");
+            $this->selecting->more_details("WHERE other = ? $filterQuery ORDER BY id DESC LIMIT 1# $this->user"."$filterValue");
             $action = $this->selecting->action("*", "notification");
             if($action != null) return $action;
 

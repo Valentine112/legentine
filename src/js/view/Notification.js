@@ -9,7 +9,10 @@ class Notification {
 
     main() {
         return `
-            <div class="notificationBox ${this.process()['status']}">
+            <div 
+            class="notificationBox entity-body ${this.process()['status']}"
+            data-token="LT-${this.notification['token']}"
+            >
                 <a href="${this.process()['path']}">
                     <div class="notificationSub">
                         <div>

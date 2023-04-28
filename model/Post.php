@@ -346,7 +346,7 @@
 
                     if(isset($this->data['val']['new'])):
                         $query = $this->data['val']['query'];
-                        $queryParam = "# ".$this->data['val']['filter'];
+                        $queryParam = "# ".$this->data['val']['value'];
                     endif;
 
                     // First fetch all the post from the saved pointing to this user
