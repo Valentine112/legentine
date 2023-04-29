@@ -53,32 +53,18 @@
             $post = Func::searchDb(self::$db, $data, "AND");
             if(is_int($post)):
 
-                $blocked_query = Func::blockedUsers(self::$db, $this->user)[0];$blocked_result = Func::blockedUsers(self::$db, $this->user)[1];
+                $data = [
+                    "val" => [
+                        "value" => $post,
+                        "from" => "home",
+                        "filter" => $filter,
+                        "query" => "AND id < ?",
+                        "new" => 1
+                    ]
+                ];
 
-                // Fetch post whose id is greater than the last post id
-                if($filter === ""):
-                    $this->selecting->more_details("WHERE id < ? AND privacy = ? $blocked_query ORDER BY id DESC LIMIT 20# $post# $zero# $blocked_result");
-
-                else:
-                    $this->selecting->more_details("WHERE id < ? AND privacy = ? AND category = ? $blocked_query ORDER BY id DESC LIMIT 20# $post# $zero# $filter# $blocked_result");
-
-                endif;
-
-                $action = $this->selecting->action("*", "post");
-                $this->selecting->reset();
-
-                if($action != null) return $action;
-
-                $data = $this->selecting->pull();
-
-                // Configure the data using Post config_data method
-                // This would arrange and sort the data properly
-                
-                $result = (new Post(self::$db, null, ""))->config_data([], $data[0], "user", $this->user);
-
-                $this->content = $result;
-    
-                return $this->deliver();
+                $post = new Post(self::$db, $data, $this->user);
+                $this->content = $post->fetch_post(Authenticate::check_user())['content'];
 
             else:
                 return $post;
@@ -112,8 +98,22 @@
 
                 $photo = Func::searchDb(self::$db, $data, "AND");
                 if(is_int($photo)):
-                    //print_r($photo);
-                    $this->selecting->more_details("WHERE id < ? AND user = ? ORDER BY id DESC LIMIT 20# $photo# $person");
+
+
+                    $data = [
+                        "val" => [
+                            "value" => $photo,
+                            "from" => "profile",
+                            "user" => $person,
+                            "query" => "AND id < ?",
+                            "new" => 1
+                        ]
+                    ];
+
+                    $user = new User(self::$db, $data, $this->user);
+                    $result = $user->fetchPhotos(Authenticate::check_user())['content'];
+
+                    /*$this->selecting->more_details("WHERE id < ? AND user = ? ORDER BY id DESC LIMIT 20# $photo# $person");
                     $action = $this->selecting->action("*", "gallery");
                     $this->selecting->reset();
 
@@ -126,10 +126,11 @@
                         $arr['section'] = "photos";
         
                         array_push($result, $arr);
-                    endforeach;
+                    endforeach;*/
                 endif;
 
             elseif($filter === "notes"):
+
                 // Fetch post id
                 $data = [
                     "token" => $lastElement,
@@ -140,19 +141,21 @@
     
                 $post = Func::searchDb(self::$db, $data, "AND");
                 if(is_int($post)):
-                    $this->selecting->more_details("WHERE id < ? AND user = ? ORDER BY id DESC LIMIT 20# $post# $person");
 
-                    $action = $this->selecting->action("*", "post");
-                    $this->selecting->reset();
+                    $data = [
+                        "val" => [
+                            "value" => $post,
+                            "from" => "profile",
+                            "filter" => $filter,
+                            "more" => $person,
+                            "query" => "AND id < ?",
+                            "new" => 1
+                        ]
+                    ];
     
-                    if($action != null) return $action;
-    
-                    $data = $this->selecting->pull();
-    
-                    // Configure the data using Post config_data method
-                    // This would arrange and sort the data properly
-                    
-                    $result = (new Post(self::$db, null, ""))->config_data([], $data[0], "user", $this->user);
+                    $post = new Post(self::$db, $data, $this->user);
+                    $result = $post->fetch_post(Authenticate::check_user())['content'];
+
                 endif;
             endif;
 
@@ -185,7 +188,8 @@
                         "value" => $saved,
                         "from" => "saved",
                         "query" => "AND id < ?",
-                        "new" => 1
+                        "new" => 1,
+                        "filter" => ""
                     ]
                 ];
 
@@ -235,6 +239,42 @@
 
             return $this->deliver();
 
+        }
+
+        public function privatePost() : array {
+            $this->type = "success";
+            $this->status = 1;
+            $this->message = "void";
+
+            $result = [];
+            $lastElement = $this->data['val']['lastElement'];
+            (int) $zero = 0;
+
+            // Fetch post id
+            $data = [
+                "token" => $lastElement,
+                "1" => "1",
+                "needle" => "id",
+                "table" => "post"
+            ];
+
+
+            $post = Func::searchDb(self::$db, $data, "AND");
+            if(is_int($post)):
+                $data = [
+                    "filter" => $post,
+                    "query" => "AND id < ?",
+                    "from" => "post",
+                    "new" => 1
+                ];
+
+                $personal = new Personal(self::$db, [], $this->user);
+                $this->content = $personal->fetch($data)['content'];
+            else:
+                return $post;
+            endif;
+
+            return $this->deliver();
         }
 
     }

@@ -54,7 +54,7 @@
             endif;
 
             // Fetch notification
-            $this->selecting->more_details("WHERE other = ? $filterQuery ORDER BY id DESC LIMIT 1# $this->user"."$filterValue");
+            $this->selecting->more_details("WHERE other = ? $filterQuery ORDER BY id DESC LIMIT 20# $this->user"."$filterValue");
             $action = $this->selecting->action("*", "notification");
             if($action != null) return $action;
 

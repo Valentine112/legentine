@@ -287,7 +287,7 @@
             if($from === "rank"):
                 $order = "ORDER BY stars DESC LIMIT 15";
             else:
-                $order = "ORDER BY id DESC LIMIT 20";
+                $order = "ORDER BY id DESC LIMIT 2";
             endif;
 
             // Verify that user is logged in
@@ -303,9 +303,6 @@
                      */
 
                     $blocked_query = Func::blockedUsers(self::$db, $user)[0];$blocked_result = Func::blockedUsers(self::$db, $user)[1];
-
-                    
-
                 endif;
                 /**
                  * Fetching post from pages that requires the user to be logged in
@@ -328,8 +325,23 @@
                     // There would be no token in the url, so i use the one gotten from the cookie
                     if($more === "") $more = $this->user;
 
+                    // Configuring the data to be able to fetch depending on the pages its been pulled from
+
+                    $query = "";
+                    $queryParam = "";
+
+                    // If isset 'new', this means that the data is been sent from moreData
+                    // If so, we modify the data
+
+                    if(isset($this->data['val']['new'])):
+                        $query = $this->data['val']['query'];
+                        $queryParam = "# ".$this->data['val']['value'];
+
+                    endif;
+                    
+
                     if($filter === "notes"):
-                        $this->selecting->more_details("WHERE privacy = ? AND user = ? $order# $zero# $more");
+                        $this->selecting->more_details("WHERE privacy = ? AND user = ? $query $order# $zero# $more"."$queryParam");
 
                     endif;
 
@@ -415,11 +427,26 @@
              */
             
             if($from == "home"):
+                // Configuring the data to be able to fetch depending on the pages its been pulled from
+
+                $query = "";
+                $queryParam = "";
+
+                // If isset 'new', this means that the data is been sent from moreData
+                // If so, we modify the data
+
+                if(isset($this->data['val']['new'])):
+                    $query = $this->data['val']['query'];
+                    $queryParam = "# ".$this->data['val']['value'];
+                    $filter = $this->data['val']['filter'];
+
+                endif;
+
                 if($filter === ""):
-                    $this->selecting->more_details("WHERE privacy = ? $blocked_query $order# $zero# $blocked_result");
+                    $this->selecting->more_details("WHERE privacy = ? $blocked_query  $query $order# $zero# $blocked_result"."$queryParam");
 
                 else:
-                    $this->selecting->more_details("WHERE privacy = ? AND category = ? $blocked_query $order# $zero# $filter# $blocked_result");
+                    $this->selecting->more_details("WHERE privacy = ? AND category = ? $blocked_query $query $order# $zero# $filter# $blocked_result"."$queryParam");
 
                 endif;
 

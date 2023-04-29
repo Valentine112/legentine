@@ -80,7 +80,7 @@ window.addEventListener("load", () => {
 
         // List of valid paths to perform this action
         // This is to reduce the uneccessary running in the background
-        var validPaths = ["home", "profile", "saved", "notification"]
+        var validPaths = ["home", "profile", "saved", "notification", "privatePost"]
 
         if(validPaths.includes(path)){
             // Check if user has reachd the bottom of the page
@@ -137,6 +137,12 @@ window.addEventListener("load", () => {
                         // Setting the action to notification
                         action = "notification"
                         
+                        break;
+                    
+                    case "privatePost":
+                        // Setting the action to privatePost
+                        action = "privatePost"
+
                         break;
                 
                     default:
@@ -209,7 +215,7 @@ window.addEventListener("load", () => {
                                     var token = elem['more']['savedToken'];
 
         
-                                    if(document.querySelector("[data-saved-token=LT-" + token + "]") == null) {
+                                    if(document.querySelector(`[data-saved-token=LT-${token}]`) == null) {
                                         var post = new PostHTML(elem, path, "../")
                                         postCover.insertAdjacentHTML("beforeend", post.main())
                                     }
@@ -218,13 +224,25 @@ window.addEventListener("load", () => {
 
                             if(path == "notification") {
                                 content.forEach(elem => {
-                                    if(document.querySelector("[data-token=LT-" + elem['notification']['token'] + "]") == null) {
+                                    if(document.querySelector(`[data-token=LT-${elem['notification']['token']}]`) == null) {
 
                                         var notification = new Notification(elem)
                                         document.getElementById("postCover").insertAdjacentHTML("beforeend", notification.main())
                                     }
                                 })
                             }
+
+                            if(path == "privatePost") {
+                                content.forEach(elem => {
+                                    var token = elem['post']['token'];
+        
+                                    if(document.querySelector("[data-token=LT-" + token + "]") == null) {
+                                        var post = new PostHTML(elem, path, "../")
+                                        postCover.insertAdjacentHTML("beforeend", post.main())
+                                    }
+                                })
+                            }
+
                         }
                     }
 

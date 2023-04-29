@@ -44,6 +44,10 @@
                         $result = $modelMoreData->notification();
                         break;
 
+                    case "privatePost":
+                        $result = $modelMoreData->privatePost();
+                        break;
+
                 endswitch;
             else:
                 $this->type = "warning";

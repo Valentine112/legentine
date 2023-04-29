@@ -754,7 +754,23 @@
                 "more" => []
             ];
 
-            $this->selecting->more_details("WHERE user = ? ORDER BY ID DESC LIMIT 2# $person");
+            // Configuring the data to be able to fetch depending on the pages its been pulled from
+
+            $query = "";
+            $queryParam = "";
+
+            // If isset 'new', this means that the data is been sent from moreData
+            // If so, we modify the data
+
+            if(isset($this->data['val']['new'])):
+                $query = $this->data['val']['query'];
+                $queryParam = "# ".$this->data['val']['value'];
+
+            endif;
+
+            // ---------------- //
+
+            $this->selecting->more_details("WHERE user = ? $query ORDER BY ID DESC LIMIT 2# $person"."$queryParam");
             $action = $this->selecting->action("*", "gallery");
             $this->selecting->reset();
 

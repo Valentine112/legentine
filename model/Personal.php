@@ -113,10 +113,21 @@
             return $this->create();
         }
 
-        public function fetch() : array {
+        public function fetch(?array $filter) : array {
             (int) $one = 1;
 
-            $this->selecting->more_details("WHERE privacy = ? AND user = ?# $one# $this->user");
+            $filterQuery = "";
+            $filterValue = "";
+
+            // The checks if the notification are been fetched from controller
+            // Or fetch directly from another source
+            if($filter !== null):
+                $filterQuery = $filter["query"];
+                $filterValue = "# ".$filter["filter"];
+
+            endif;
+
+            $this->selecting->more_details("WHERE privacy = ? AND user = ? $filterQuery ORDER BY id DESC LIMIT 2# $one# $this->user"."$filterValue");
 
             $action = $this->selecting->action("*", "post");
             $this->selecting->reset();

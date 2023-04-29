@@ -42,7 +42,7 @@
                         break;
 
                     case 'fetch':
-                        $result = $modelPersonal->fetch();
+                        $result = $modelPersonal->fetch(null);
 
                         break;
 
