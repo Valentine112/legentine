@@ -39,6 +39,8 @@
             $this->status = 1;
             $this->message = "void";
 
+            $order = "ORDER BY id DESC LIMIT 1";
+
             $result = [
                 'content' => [],
                 'self' => $this->user
@@ -49,10 +51,26 @@
             else:
                 $type = $this->data['val']['type'];
 
+                // Configuring the data to be able to fetch depending on the pages its been pulled from
+
+                $query = "";
+                $queryParam = "";
+
+                // If isset 'new', this means that the data is been sent from moreData
+                // If so, we modify the data
+
+                if(isset($this->data['val']['new'])):
+                    $query = $this->data['val']['query'];
+                    $queryParam = "# ".$this->data['val']['value'];
+
+                endif;
+
                 if($type === "request"):
-                    $this->selecting->more_details("WHERE other = ? AND status = ?# $this->user# $this->pending");
+                    $this->selecting->more_details("WHERE other = ? AND status = ? $query $order# $this->user# $this->pending"."$queryParam");
+
                 elseif($type === "history"):
-                    $this->selecting->more_details("WHERE user = ? OR other = ?# $this->user# $this->user");
+                    $this->selecting->more_details("WHERE user = ? OR other = ? $order# $this->user# $this->user");
+
                 endif;
             endif;
 
@@ -109,12 +127,29 @@
             $this->status = 1;
             $this->message = "void";
 
+            $order = "ORDER BY id DESC LIMIT 1";
+
             $result = [
                 'content' => [],
                 'self' => $this->user
             ];
 
-            $this->selecting->more_details("WHERE user = ? OR other = ?# $this->user# $this->user");
+            // Configuring the data to be able to fetch depending on the pages its been pulled from
+
+            $query = "";
+            $queryParam = "";
+
+            // If isset 'new', this means that the data is been sent from moreData
+            // If so, we modify the data
+
+            if(isset($this->data['val']['new'])):
+                $query = $this->data['val']['query'];
+                $queryParam = "# ".$this->data['val']['value'];
+
+            endif;
+
+            $this->selecting->more_details("WHERE user = ? OR other = ? $query $order# $this->user# $this->user"."$queryParam");
+            
             $action = $this->selecting->action('*', 'history');
             $this->selecting->reset();
 

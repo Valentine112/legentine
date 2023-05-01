@@ -48,6 +48,14 @@
                         $result = $modelMoreData->privatePost();
                         break;
 
+                    case "featureRequest":
+                        $result = $modelMoreData->featureRequest();
+                        break;
+
+                    case "featureHistory":
+                        $result = $modelMoreData->featureHistory();
+                        break;
+
                 endswitch;
             else:
                 $this->type = "warning";

@@ -389,8 +389,10 @@
                         type="search"  
                         id="search" 
                         autocomplete="off" 
-                        placeholder="Search for people. . ."                     onkeyup="Search(this)"
-                        onfocus="focusSearch(this)"
+                        placeholder="Find post and people. . ."
+                        aria-placeholder="Search for post and people"
+                        onkeyup="Search(this)"
+                        onclick="focusSearch(this)"
                     />
                     
                     <div class="openSearchBox recent-toggle">

@@ -80,7 +80,7 @@ window.addEventListener("load", () => {
 
         // List of valid paths to perform this action
         // This is to reduce the uneccessary running in the background
-        var validPaths = ["home", "profile", "saved", "notification", "privatePost"]
+        var validPaths = ["home", "profile", "saved", "notification", "privatePost", "featureRequest", "featureHistory"]
 
         if(validPaths.includes(path)){
             // Check if user has reachd the bottom of the page
@@ -142,6 +142,18 @@ window.addEventListener("load", () => {
                     case "privatePost":
                         // Setting the action to privatePost
                         action = "privatePost"
+
+                        break;
+
+                    case "featureRequest":
+                        // Setting the action to featureRequest
+                        action = "featureRequest"
+
+                        break;
+
+                    case "featureHistory":
+                        // Setting the action to featureHistory
+                        action = "featureHistory"
 
                         break;
                 
@@ -243,6 +255,30 @@ window.addEventListener("load", () => {
                                 })
                             }
 
+                            if(path == "featureRequest") {
+                                var features = content['content']
+
+                                features.forEach(elem => {
+                                    var token = elem['feature']['token']
+                                    
+                                    if(document.querySelector("[data-token=LT-" + token + "]") == null) {
+                                        document.getElementById("featureBox").insertAdjacentHTML("beforeend", featureBox(elem))
+                                    }
+                                })
+                            }
+
+                            if(path == "featureHistory") {
+                                var history = content['content']
+
+                                history.forEach(elem => {
+                                    var token = elem['history']['token']
+                                    
+                                    if(document.querySelector("[data-token=LT-" + token + "]") == null) {
+                                        document.getElementById("featureBox").insertAdjacentHTML("beforeend", historyBox(elem, val.content['self']))
+                                    }
+                                })
+                            }
+
                         }
                     }
 
@@ -251,6 +287,8 @@ window.addEventListener("load", () => {
             }
         }
     })
+
+    // ------------------------------ END ------------------------ //
 
 
 

@@ -113,20 +113,6 @@
                     $user = new User(self::$db, $data, $this->user);
                     $result = $user->fetchPhotos(Authenticate::check_user())['content'];
 
-                    /*$this->selecting->more_details("WHERE id < ? AND user = ? ORDER BY id DESC LIMIT 20# $photo# $person");
-                    $action = $this->selecting->action("*", "gallery");
-                    $this->selecting->reset();
-
-                    if($action != null) return $action;
-        
-                    $value = $this->selecting->pull()[0];
-                    foreach($value as $val):
-                        $arr['content'] = $val;
-                        $arr['self'] = $this->user;
-                        $arr['section'] = "photos";
-        
-                        array_push($result, $arr);
-                    endforeach;*/
                 endif;
 
             elseif($filter === "notes"):
@@ -272,6 +258,81 @@
                 $this->content = $personal->fetch($data)['content'];
             else:
                 return $post;
+            endif;
+
+            return $this->deliver();
+        }
+
+        public function featureRequest() : array {
+            $this->type = "success";
+            $this->status = 1;
+            $this->message = "void";
+
+            $lastElement = $this->data['val']['lastElement'];
+
+            // Fetch post id
+            $data = [
+                "token" => $lastElement,
+                "1" => "1",
+                "needle" => "id",
+                "table" => "feature"
+            ];
+
+            $feature = Func::searchDb(self::$db, $data, "AND");
+            if(is_int($feature)):
+                $data = [
+                    "val" => [
+                        "value" => $feature,
+                        "query" => "AND id < ?",
+                        "type" => "request",
+                        "from" => "featureRequest",
+                        "new" => 1
+                    ]
+                ];
+
+                $featureModel = new Feature(self::$db, $data, $this->user);
+                $this->content = $featureModel->fetchRequest(null)['content'];
+
+            else:
+                return $feature;
+            endif;
+
+            return $this->deliver();
+        }
+
+        public function featureHistory() : array {
+            $this->type = "success";
+            $this->status = 1;
+            $this->message = "void";
+
+            $lastElement = $this->data['val']['lastElement'];
+
+            // Fetch post id
+            $data = [
+                "token" => $lastElement,
+                "1" => "1",
+                "needle" => "id",
+                "table" => "history"
+            ];
+
+            $history = Func::searchDb(self::$db, $data, "AND");
+
+            if(is_int($history)):
+                $data = [
+                    "val" => [
+                        "value" => $history,
+                        "query" => "AND id < ?",
+                        "type" => "request",
+                        "from" => "featureHistory",
+                        "new" => 1
+                    ]
+                ];
+
+                $featureModel = new Feature(self::$db, $data, $this->user);
+                $this->content = $featureModel->fetchHistory()['content'];
+
+            else:
+                return $feature;
             endif;
 
             return $this->deliver();

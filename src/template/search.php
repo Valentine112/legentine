@@ -218,7 +218,7 @@
                             placeholder="Find post and people"
                             aria-placeholder="Search for post and people"
                             onkeyup="Search(this)"
-                            onfocus="focusSearch(this)"
+                            onclick="focusSearch(this)"
                             id="searchInput"
                         >
                     </form>
@@ -300,7 +300,11 @@
             elem.style.display = "none"
         })
 
+        // Hide the recent searches also, since the inbuilt clear in search doesn't do anything
+
         if(new Func().stripSpace(self.value).length < 1){
+            document.getElementById("search-result").innerHTML = ""
+            
             var recentSearch = document.querySelectorAll(".recent-toggle")
             recentSearch.forEach(elem => {
                 elem.style.display = "block"
@@ -311,6 +315,7 @@
     // Show the previews for the small device here
     function Search(self) {
         var searchResult = self.closest(".search-parent").querySelector(".search-result")
+        //searchResult.style.display = "block"
 
         var searchValue = new Func().stripSpace(self.value)
 

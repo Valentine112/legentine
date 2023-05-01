@@ -18,7 +18,7 @@ function featureBox(data) {
     post = data['post']
 
     return `
-        <div class="featureCover"
+        <div class="featureCover entity-body"
             data-token="LT-${feature['token']}"
             data-feature-token="LT-${feature['token']}"
         >
@@ -74,7 +74,7 @@ function historyBox(data, self) {
     }
 
     return `
-        <div class="featureCover"
+        <div class="featureCover entity-body"
             data-token="LT-${history['token']}"
             data-feature-token="LT-${history['token']}"
             data-feature="LT-${history['feature']}"
