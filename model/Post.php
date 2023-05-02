@@ -287,7 +287,7 @@
             if($from === "rank"):
                 $order = "ORDER BY stars DESC LIMIT 15";
             else:
-                $order = "ORDER BY id DESC LIMIT 2";
+                $order = "ORDER BY id DESC LIMIT 20";
             endif;
 
             // Verify that user is logged in

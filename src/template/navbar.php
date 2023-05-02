@@ -49,6 +49,48 @@
 
         /* Setting active links ends */
 
+        /* Notification starts */
+
+        .notification-pop{
+            position: fixed;
+            top: 6%;
+            right: 3%;
+            width: fit-content;
+            height: fit-content;
+            z-index: 5;
+        }
+
+        .notification-pop .notification-bar{
+            border-radius: 50px;
+            cursor: pointer;
+        }
+        .notification-bar img{
+            width: 30px;
+            height: 30px;
+            animation: bounce 2s ease-in infinite;
+        }
+        @keyframes bounce{
+            70% { 
+                transform:translateY(0%); 
+            }
+            80% { 
+                transform:translateY(-15%) 
+            }; 
+        }
+
+        .notification-section{
+            
+        }
+        .notification-section > div{
+            margin: 5px 0;
+        }
+        .notification-section a{
+            color: #000;
+            font-family: var(--theme-font);
+        }
+
+        /* END */
+
         @media screen and (max-width: 767px) {
             .nav-links .active{
                 display: block!important;
@@ -221,6 +263,11 @@
                 cursor: pointer;
                 color: #292a2c;
             }
+
+            .notification-pop{
+                top: 14%;
+            }
+
         }
 
         @media screen and (min-width: 992px) {
@@ -243,6 +290,23 @@
 
     </style>
 </head>
+    <!-- Notification -->
+    <div class="notification-pop">
+        <div>
+            <div class="notification-bar">
+                <img src="../src/icon/notification/bell.svg" alt="">
+            </div>
+            <div class="notification-section">
+                <div>
+                    <a href="">Feature</a>
+                </div>
+                <div>
+                    <a href="">Post</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <nav class="navbar config">
 
         <div class="small small-navbar">
