@@ -183,7 +183,7 @@
             endif;
         }
 
-        public function liveNotification(int $user) {
+        public function liveNotification() {
             /**
              * The items that are identified are those with a status of 0
              * The signals are sent to NOTIFCATION & FEATURE
@@ -201,7 +201,7 @@
 
             // --------- Notification ----------- //
             $data = [
-                "other" => $user,
+                "other" => $this->user,
                 "status" => 0,
                 "needle" => "id",
                 "table" => "notification" 

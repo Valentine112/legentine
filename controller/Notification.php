@@ -33,6 +33,11 @@
 
                         break;
 
+                    case "liveNotification":
+                        $result = $modelNotification->liveNotification();
+
+                        break;
+
                     default:
                     break;
 
