@@ -50,25 +50,32 @@
         /* Setting active links ends */
 
         /* Notification starts */
-
+        /*
         .notification-pop{
             position: fixed;
             top: 6%;
             right: 3%;
-            width: fit-content;
+            width: 150px;
             height: fit-content;
             z-index: 5;
+            display: none;
         }
 
         .notification-pop .notification-bar{
-            border-radius: 50px;
             cursor: pointer;
+            text-align: right;
+            position: relative;
+            width: 100%;
+        }
+        .notification-bar:hover .tooltip-text{
+            visibility: visible;
         }
         .notification-bar img{
             width: 30px;
             height: 30px;
             animation: bounce 2s ease-in infinite;
         }
+
         @keyframes bounce{
             70% { 
                 transform:translateY(0%); 
@@ -78,17 +85,50 @@
             }; 
         }
 
-        .notification-section{
-            
+        .tooltip-text{
+            visibility: hidden;
+            position: absolute;
+            top: 100%;
+            z-index: 1;
+            width: 100%;
+            background-color: #f5f5f5;
+            padding: 5px 0;
+            width: 100%;
+            border-radius: 5px;
         }
-        .notification-section > div{
-            margin: 5px 0;
-        }
-        .notification-section a{
-            color: #000;
-            font-family: var(--theme-font);
+        .tooltip-text::after{
+            content: "";
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent #f1f1f1 transparent;
         }
 
+        .tooltip-text > div{
+            margin: 5px 0;
+            text-align: left;
+            padding: 0 7px;
+        }
+        .tooltip-text .active{
+            color: var(--theme-color);
+        }
+        .tooltip-text a{
+            color: #444;
+            font-family: var(--theme-font);
+            font-size: 14px;
+            display: inline-block;
+            width: 100%;
+            padding: 3px 0;
+        }
+        .tooltip-text hr{
+            border: 1px solid #f7f7f7;
+            height: 0px;
+            width: 80%;
+            margin: auto;
+        }
+        */
         /* END */
 
         @media screen and (max-width: 767px) {
@@ -98,6 +138,9 @@
 
             .navbar .non-active{
                 display: none;
+            }
+            .notification-pop{
+                right: 6%;
             }
         }
 
@@ -291,21 +334,23 @@
     </style>
 </head>
     <!-- Notification -->
-    <div class="notification-pop">
+    <!--<div class="notification-pop">
         <div>
-            <div class="notification-bar">
+            <div class="notification-bar tooltip">
                 <img src="../src/icon/notification/bell.svg" alt="">
-            </div>
-            <div class="notification-section">
-                <div>
-                    <a href="">Feature</a>
-                </div>
-                <div>
-                    <a href="">Post</a>
+
+                <div class="notification-section tooltip-text">
+                    <div>
+                        <a href="featureRequest">Feature</a>
+                    </div>
+                    <hr>
+                    <div>
+                        <a href="notification">Post</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <nav class="navbar config">
 

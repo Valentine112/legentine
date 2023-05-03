@@ -87,7 +87,7 @@ window.addEventListener("load", async function() {
                     // Set the feature content
                     feature['content'].forEach(elem => {
                         var featureContent = elem['feature']
-                        if(featureContent['status'] === 1) {
+                        if(featureContent['response'] === 1) {
                             var type = 0
                             if(func.stripSpace(featureContent['content']).length > 0){
                                 type = 1
@@ -108,7 +108,7 @@ window.addEventListener("load", async function() {
                             // No request has been sent yet
     
                         }else{
-                            var featureStatus = feature['status']
+                            var featureStatus = feature['respone']
     
                             if(featureStatus == 0){
                                 // Requested, but not yet accepted

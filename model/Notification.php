@@ -183,4 +183,42 @@
             endif;
         }
 
+        public function liveNotification(int $user) {
+            /**
+             * The items that are identified are those with a status of 0
+             * The signals are sent to NOTIFCATION & FEATURE
+            */
+
+            $result = [
+                "notification" => [
+                    "status" => ""
+                ],
+
+                "feature" => [
+                    "status" => ""
+                ]
+            ];
+
+            // --------- Notification ----------- //
+            $data = [
+                "other" => $user,
+                "status" => 0,
+                "needle" => "id",
+                "table" => "notification" 
+            ];
+
+            $notification = Func::searchDb(self::$db, $data, "AND");
+
+            is_int($notification) ? $result['notfication']['status'] = 1 : $result['notfication']['status'] = 0;
+
+            // --------- Feature ----------- //
+            $data['table'] = "feature";
+
+            $feature = Func::searchDb(self::$db, $data, "AND");
+
+            is_int($feature) ? $result['feature']['status'] = 1 : $result['feature']['status'] = 0;
+
+            return $this->deliver();
+        }
+
     }

@@ -66,7 +66,7 @@
                 endif;
 
                 if($type === "request"):
-                    $this->selecting->more_details("WHERE other = ? AND status = ? $query $order# $this->user# $this->pending"."$queryParam");
+                    $this->selecting->more_details("WHERE other = ? AND response = ? $query $order# $this->user# $this->pending"."$queryParam");
 
                 elseif($type === "history"):
                     $this->selecting->more_details("WHERE user = ? OR other = ? $order# $this->user# $this->user");
@@ -348,7 +348,7 @@
 
             elseif($type == 1):
                 // Request accepted
-                $updating = new Update(self::$db, "SET status = ? WHERE other = ? AND token = ?# $this->accepted# $this->user# $token");
+                $updating = new Update(self::$db, "SET response = ? WHERE other = ? AND token = ?# $this->accepted# $this->user# $token");
                 $action = $updating->mutate('iis', 'feature');
                 if($action):
                     $this->type = "success";
@@ -377,7 +377,7 @@
 
                     $history = Func::searchDb(self::$db, $data, "AND");
                     if(is_int($history)):
-                        $updating = new Update(self::$db, "SET status = ? WHERE id = ?# $type# $history");
+                        $updating = new Update(self::$db, "SET response = ? WHERE id = ?# $type# $history");
                         $action = $updating->mutate('ii', 'history');
 
                         if($action):
@@ -393,7 +393,7 @@
                         "post",
                         "user",
                         "other",
-                        "status",
+                        "response",
                         "date",
                         "time"
                     ];
