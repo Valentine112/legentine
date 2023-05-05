@@ -21,12 +21,26 @@
             ];
         }
 
-        public static function sendJSON(array|string $data) : string {
+        public static function sendJSON(array|string $data) : string|false {
             /**
              * Method to send data as JSON format
              * --- Adding along the right headers
              */
             return json_encode($data);
+        }
+
+        public static function sendEventSource(int $delay,) {
+
+            echo "event: user\n";
+            echo "data: ".json_encode($this->result)."";
+            echo PHP_EOL.PHP_EOL;
+
+            if(connection_aborted()) exit();
+
+            ob_end_flush();
+            flush();
+
+            sleep($delay);
         }
     }
 ?>

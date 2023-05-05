@@ -292,7 +292,25 @@ window.addEventListener("load", () => {
 
 
     // -------------- INDICATE NEW NOTIFICATION ---------------------- //
+    var data = {
+        part: "live",
+        action: "notification",
+        val: {
 
+        }
+    }
+
+    var eventSource = new EventSource("../request2.php?part=live&action=notification", {
+        withCredentials: true
+    })
+
+    eventSource.onmessage = (ev) => {
+        console.log(ev.data)
+    }
+
+    eventSource.addEventListener("user", (ev) => {
+        console.log(JSON.parse(ev.data))
+    })
 
 
 })

@@ -30,7 +30,7 @@
         public function is_post(string $action, callable|array $callback) : array|false {
 
             // Check if the request method is post
-            if(isset($_POST) || strtoupper($_SERVER["REQUEST_METHOD"]) === "POST"):
+            if(strtoupper($_SERVER["REQUEST_METHOD"]) === "POST"):
                 // Make sure Content-type is application/json
                 $contentType = ($_SERVER['CONTENT_TYPE']) ?? '';
 
@@ -125,20 +125,22 @@
             return $this->deliver();
         }
 
-        public function is_get() : string|false {
-            // Check if the request method is post
-            if(isset($_GET) || strtoupper($_SERVER['REQUEST_METHOD']) === "GET"):
+        public function is_get(string $action, callable|array $callback) : array|false {
+            // Check if the request method is get
+            if(strtoupper($_SERVER['REQUEST_METHOD']) === "GET"):
+                //print_r(($_SERVER));
                 $value = explode("&", $_SERVER['QUERY_STRING']);
                 //$value = explode("=", $value);
-                
-                $this->data = Func::cleanData($value, 'string');
+                //$value = json_decode(file_get_contents("php://input"), true);
+
+                //$this->data = Func::cleanData($value, 'string');
 
                 $this->status = 1;
                 $this->message = "void";
                 $this->content = $this->data;
 
                 // Storing the allowed actions that a user can perform
-                //$this->save_route('post', $action, $callback);
+                $this->save_route('get', $action, $callback);
             else:
                 return false;
             endif;

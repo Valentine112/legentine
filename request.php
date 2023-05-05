@@ -60,11 +60,16 @@
         [Notification::class, 'main']
     );
 
-
     $request->is_post(
         'moreData',
         [MoreData::class, 'main']
     );
+
+    $request->is_get(
+        'live',
+        [Live::class, 'main']
+    );
+    
     
     print_r(Response::sendJSON($request->listen()));
 
