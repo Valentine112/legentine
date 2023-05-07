@@ -294,13 +294,13 @@ window.addEventListener("load", () => {
     // -------------- INDICATE NEW NOTIFICATION ---------------------- //
     var data = {
         part: "live",
-        action: "notification",
+        action: "liveNotification",
         val: {
 
         }
     }
 
-    var eventSource = new EventSource("../request2.php?part=live&action=notification", {
+    var eventSource = new EventSource("../eventSourceRequest.php?part=live&action=liveNotification", {
         withCredentials: true
     })
 

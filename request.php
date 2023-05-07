@@ -1,4 +1,7 @@
 <?php
+    header('Access-Control-Allow-Headers: Content-Type');
+    header('Content-Type: application/json');
+
     require "config/config.php";
 
     use Config\Database;

@@ -126,24 +126,15 @@
         }
 
         public function is_get(string $action, callable|array $callback) : array|false {
-            // Check if the request method is get
             if(strtoupper($_SERVER['REQUEST_METHOD']) === "GET"):
-                //print_r(($_SERVER));
-                $value = explode("&", $_SERVER['QUERY_STRING']);
-                //$value = explode("=", $value);
-                //$value = json_decode(file_get_contents("php://input"), true);
+                foreach($_GET as $ind => $val):
+                    $_GET[$ind] = Func::cleanData($val, 'string');
+                endforeach;
 
-                //$this->data = Func::cleanData($value, 'string');
-
-                $this->status = 1;
-                $this->message = "void";
-                $this->content = $this->data;
-
-                // Storing the allowed actions that a user can perform
-                $this->save_route('get', $action, $callback);
-            else:
-                return false;
+                $this->data = $_GET;
             endif;
+
+            $this->save_route('get', $action, $callback);
 
             return $this->deliver();
         }

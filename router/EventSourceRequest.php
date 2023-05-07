@@ -16,7 +16,7 @@
 
     use mysqli;
 
-    class Request2 extends Response{
+    class EventSourceRequest{
 
         private array $data;
         private array $actions;
@@ -36,7 +36,6 @@
         }
 
         public function is_get(string $action, callable|array $callback) {
-            $result = "";
             if(strtoupper($_SERVER['REQUEST_METHOD']) === "GET"):
                 foreach($_GET as $ind => $val):
                     $_GET[$ind] = Func::cleanData($val, 'string');
@@ -45,7 +44,7 @@
                 $this->data = $_GET;
             endif;
 
-            $this->save_route('post', $action, $callback);
+            $this->save_route('get', $action, $callback);
 
         }
         
@@ -67,11 +66,9 @@
                 
             endif;
 
-
         }
 
         public function send(int $delay) {
-/*
             echo "event: user\n";
             echo "data: ".json_encode($this->result)."";
             echo PHP_EOL.PHP_EOL;
@@ -81,7 +78,7 @@
             ob_end_flush();
             flush();
 
-            sleep($delay);*/
+            sleep($delay);
         }
 
     }

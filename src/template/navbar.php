@@ -50,15 +50,15 @@
         /* Setting active links ends */
 
         /* Notification starts */
-        /*
+        
         .notification-pop{
             position: fixed;
-            top: 6%;
+            top: 5%;
             right: 3%;
             width: 150px;
             height: fit-content;
             z-index: 5;
-            display: none;
+            display: ;
         }
 
         .notification-pop .notification-bar{
@@ -67,10 +67,23 @@
             position: relative;
             width: 100%;
         }
+        .notification-bar .notification-toggle{
+            background-color: var(--theme-color);
+            text-align: center;
+            color: #fff;
+            letter-spacing: 4px;
+            font-weight: 600;
+            font-size: 20px;
+            font-family: var(--theme-font);
+            width: 100px;
+            padding: 4px;
+            height: 0;
+            border-radius: 30px;
+        }
         .notification-bar:hover .tooltip-text{
             visibility: visible;
         }
-        .notification-bar img{
+        /*.notification-bar img{
             width: 30px;
             height: 30px;
             animation: bounce 2s ease-in infinite;
@@ -83,7 +96,7 @@
             80% { 
                 transform:translateY(-15%) 
             }; 
-        }
+        }*/
 
         .tooltip-text{
             visibility: hidden;
@@ -128,7 +141,7 @@
             width: 80%;
             margin: auto;
         }
-        */
+        
         /* END */
 
         @media screen and (max-width: 767px) {
@@ -308,7 +321,7 @@
             }
 
             .notification-pop{
-                top: 14%;
+                top: 12%;
             }
 
         }
@@ -334,10 +347,13 @@
     </style>
 </head>
     <!-- Notification -->
-    <!--<div class="notification-pop">
+    <div class="notification-pop">
         <div>
             <div class="notification-bar tooltip">
-                <img src="../src/icon/notification/bell.svg" alt="">
+                <!--<img src="../src/icon/notification/bell.svg" alt="">-->
+                <div class="notification-toggle">
+                    <span>...</span>
+                </div>
 
                 <div class="notification-section tooltip-text">
                     <div>
@@ -350,7 +366,7 @@
                 </div>
             </div>
         </div>
-    </div>-->
+    </div>
 
     <nav class="navbar config">
 
@@ -410,7 +426,7 @@
 
                 <div id="more" class="dropdown-host" tabindex="0">
                     <div>
-                        <span>More <img src="../src/icon/header/drop-down.svg" alt="more" class="dropdown-icon"></span>
+                        <span class="nav-more">More <img src="../src/icon/header/drop-down.svg" alt="more" class="dropdown-icon"></span>
     
                         <div id="more-drop" class="dropdown-item">
                             <div>

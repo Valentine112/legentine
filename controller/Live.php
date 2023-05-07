@@ -4,6 +4,7 @@
     use mysqli;
     use Service\Response;
     use Config\Authenticate;
+    use Model\Notification as ModelNotification;
 
     class Live extends Response {
 
@@ -18,7 +19,35 @@
 
             (array) $result = [];
 
-            return $this->deliver();
+            $modelNotification = new ModelNotification(self::$db, $data, USER['content']);
+
+            // Logged in activities
+            // Check if user is logged in
+            if(USER['type'] === 2):
+
+                switch ($data['action']):
+
+                    case "liveNotification":
+                        $result = $modelNotification->liveNotification();
+
+                        break;
+
+                    default:
+                        break;
+
+                endswitch;
+            else:
+                $this->type = "warning";
+                $this->status = 0;
+                $this->message = "fill";
+                $this->content = USER['content'];
+
+                $result = $this->deliver();
+
+            endif;
+
+            return $result;
+
         }
     }
 
