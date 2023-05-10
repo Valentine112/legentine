@@ -26,6 +26,16 @@
 
                 switch($data['action']):
 
+                    case 'userIdentification':
+                        $this->type = "success";
+                        $this->status = 1;
+                        $this->message = "void";
+                        $this->content = USER['content'];
+                        
+                        $result = $this->deliver();
+
+                        break;
+
                     case 'fetchUnlisted':
                         $result = $modelUser->fetchUnlisted();
 

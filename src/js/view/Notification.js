@@ -69,7 +69,7 @@ class Notification {
 
         // Process the status of the notification here
 
-        if(this.notification['status'] == 1) {
+        if(this.notification['status'] == 2) {
             result.status = "seen"
         }
 

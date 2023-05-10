@@ -1,4 +1,10 @@
 <?php
+    /**
+     * 0 Means the user hasn't seen the notification
+     * 1 means the user has seen the notification but not viewd it
+     * 2 means the user has seen the notification and viewed it
+     */
+    
     namespace Controller;
 
     use mysqli;

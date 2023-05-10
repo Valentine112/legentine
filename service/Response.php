@@ -7,6 +7,7 @@
         public $type;
         public $message;
         public $content;
+        public $more;
 
         public function deliver() : array {
 
@@ -15,6 +16,7 @@
                 "status" => $this->status,
                 "message" => $this->message,
                 "content" => $this->content,
+                "more" => $this->more,
                 "time" => time()
             ];
         }

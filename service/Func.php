@@ -198,6 +198,15 @@
             return [$blocked_query, $blocked_result];
         }
 
+        public static function array_column_recursive(array $haystack, $needle) : array {
+            $found = [];
+            array_walk_recursive($haystack, function($value, $key) use (&$found, $needle) {
+                if($key == $needle) $found[] = $value;
+            });
+
+            return $found;
+        }
+
     }
 
 ?>

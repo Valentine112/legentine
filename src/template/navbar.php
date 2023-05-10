@@ -50,96 +50,108 @@
         /* Setting active links ends */
 
         /* Notification starts */
-        
-        .notification-pop{
-            position: fixed;
-            top: 5%;
-            right: 3%;
-            width: 150px;
-            height: fit-content;
-            z-index: 5;
-            display: ;
+        .live-notification{
+            display: block;
         }
 
-        .notification-pop .notification-bar{
-            cursor: pointer;
-            text-align: right;
-            position: relative;
-            width: 100%;
-        }
-        .notification-bar .notification-toggle{
-            background-color: var(--theme-color);
+        .notification-bar{
+            position: fixed;
+            top: 4%;
+            left: 0;
+            right: 0;
+            margin: auto;
+            z-index: 4;
             text-align: center;
+            display: none;
+        }
+        .notification-toggle span{
+            background-color: rgba(0, 0, 0, 0.5);
+            text-align: center;
+            padding: 2px 15px 7px 18px;
             color: #fff;
+            font-family: var(--theme-font-2);
             letter-spacing: 4px;
             font-weight: 600;
-            font-size: 20px;
-            font-family: var(--theme-font);
-            width: 100px;
-            padding: 4px;
-            height: 0;
             border-radius: 30px;
-        }
-        .notification-bar:hover .tooltip-text{
-            visibility: visible;
-        }
-        /*.notification-bar img{
-            width: 30px;
-            height: 30px;
-            animation: bounce 2s ease-in infinite;
+            cursor: pointer;
         }
 
-        @keyframes bounce{
-            70% { 
-                transform:translateY(0%); 
-            }
-            80% { 
-                transform:translateY(-15%) 
-            }; 
-        }*/
-
-        .tooltip-text{
-            visibility: hidden;
-            position: absolute;
-            top: 100%;
-            z-index: 1;
-            width: 100%;
-            background-color: #f5f5f5;
-            padding: 5px 0;
-            width: 100%;
-            border-radius: 5px;
-        }
-        .tooltip-text::after{
-            content: "";
-            position: absolute;
-            bottom: 100%;
+        .notification-section{
+            position: fixed;
+            top: 4%;
+            left: 0;
             right: 0;
-            border-width: 5px;
-            border-style: solid;
-            border-color: transparent transparent #f1f1f1 transparent;
+            width: 100%;
+            margin: auto;
+            background-color: #f9f9f9;
+            z-index: 4;
+            display: none;
+        }
+        .notification-blur{
+            z-index: 4;
+        }
+        .notification-cover{
+            position: absolute;
+            top: 5%;
+            left: 0;
+            right: 0;
+            z-index: 4;
+            width: 90%;
+            height: fit-content;
+            max-height: 90vh;
+            margin: auto;
+        }
+        .notification-cover{
+            width: 90%;
+            height: 80vh;
+            overflow-y: auto;
+            margin: auto;
+            background-color: #f1f1f1;
+            border: 2px solid #fff;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-family: var(--theme-font);
+        }
+        .notification-cover header{
+            margin: 5px 0;
+            font-size: 15px;
+            color: #5e5e5e;
+        }
+        .notification-cover .notification-box{
+            margin: 15px 0;
+        }
+        .notification-cover .notifications{
+            margin: 6px 0;
+            border-bottom: 1px solid #f9f9f9;
+            width: 100%;
+            padding: 8px 0;
+            background-color: #fff;
+        }
+        .notifications a{
+            display: block;
+            width: 100%;
+            display: inline-flex;
+            justify-content: space-evenly;
+            align-items: baseline;
+            color: #000;
+        }
+        .notifications .notification-text{
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow-x: hidden;
+            width: 85%;
+        }
+        .notifications .notification-date{
+            width: 12%;
+            font-size: 14px;
+            color: #5e5e5e;
+            display: inline-block;
+            vertical-align: text-bottom;
+            text-align: right;
         }
 
-        .tooltip-text > div{
-            margin: 5px 0;
-            text-align: left;
-            padding: 0 7px;
-        }
-        .tooltip-text .active{
-            color: var(--theme-color);
-        }
-        .tooltip-text a{
-            color: #444;
-            font-family: var(--theme-font);
-            font-size: 14px;
-            display: inline-block;
-            width: 100%;
-            padding: 3px 0;
-        }
-        .tooltip-text hr{
-            border: 1px solid #f7f7f7;
-            height: 0px;
-            width: 80%;
-            margin: auto;
+        .notification-box .notification-feature{
+            background-color: #e9e9e9;
         }
         
         /* END */
@@ -151,9 +163,6 @@
 
             .navbar .non-active{
                 display: none;
-            }
-            .notification-pop{
-                right: 6%;
             }
         }
 
@@ -320,8 +329,11 @@
                 color: #292a2c;
             }
 
-            .notification-pop{
-                top: 12%;
+            .notification-bar{
+                top: 17%;
+            }
+            .notification-cover{
+                width: 65%;
             }
 
         }
@@ -342,30 +354,39 @@
             .navbar .large-navbar #more #more-drop ul li{
                 padding: 10px 0 10px 0;
             }
+
+            .notification-cover{
+                width: 50%;
+            }
         }
 
     </style>
 </head>
     <!-- Notification -->
-    <div class="notification-pop">
-        <div>
-            <div class="notification-bar tooltip">
-                <!--<img src="../src/icon/notification/bell.svg" alt="">-->
-                <div class="notification-toggle">
-                    <span>...</span>
-                </div>
+    <div class="live-notification">
+        <div class="notification-bar">
+            <div class="notification-toggle">
+                <span onclick="showNotificationPreview(this)">...</span>
+            </div>
+        </div>
 
-                <div class="notification-section tooltip-text">
-                    <div>
-                        <a href="featureRequest">Feature</a>
-                    </div>
-                    <hr>
-                    <div>
-                        <a href="notification">Post</a>
+        <div class="notification-section">
+            <div class="notification-blur config-background-blur" onclick="notificationPreview(this)"></div>
+            <div class="notification-cover">
+                <header>Recent notifications</header>
+                <div class="notification-box">
+                    <div class="notifications">
+                        <a href="">
+                        <div class="notification-text">
+                            Himself commented on your post What's this Like what do you know little peasant Himself commented on your post 
+                        </div>
+                        <div class="notification-date">9:58pm</div>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <nav class="navbar config">
@@ -643,5 +664,16 @@
                     search.style.display = "none"
                 }
             }
+        }
+
+        // Show the live notification preview
+        function showNotificationPreview(self) {
+            document.querySelector(".notification-section").style.display = "block"
+        }
+
+        // Hide the notification preview and also the button to activate it
+        function notificationPreview(self) {
+            document.querySelector(".notification-bar").style.display = "none"
+            self.closest(".notification-section").style.display = "none"
         }
     </script>

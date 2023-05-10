@@ -117,7 +117,12 @@
                     "content" => $content,
                     "self" => $this->user,
                     "post" => $post,
-                    "other" => $user
+                    "other" => $user,
+                    "type" => "notification",
+                    "sortMethod" => [
+                        "sortTime" => $noti['time'],
+                        "sortDate" => $noti['date']
+                    ]
                 ];
 
                 array_push($result, $arr);
@@ -189,38 +194,56 @@
             $this->message = "void";
             /**
              * The items that are identified are those with a status of 0
+             * The duration is 24 hours
              * The signals are sent to NOTIFCATION & FEATURE
             */
 
-            $result = [
-                "notification" => [
-                    "status" => ""
-                ],
+            $duration = time() - time();
+            $zero = 0;
 
-                "feature" => [
-                    "status" => ""
-                ]
-            ];
+            $result = [];
 
             // --------- Notification ----------- //
             $data = [
-                "other" => $this->user,
-                "status" => 0,
-                "needle" => "id",
-                "table" => "notification" 
+                "filter" => $zero."# ".$duration,
+                "query" => "AND status = ? AND time >= ?",
+                "from" => "notification",
+                "new" => 1
             ];
 
-            $notification = Func::searchDb(self::$db, $data, "AND");
+            $result = $this->fetchNotification($data)['content'];
 
-            is_int($notification) ? $result['notification']['status'] = 1 : $result['notification']['status'] = 0;
+            $data = [
+                "val" => [
+                    "value" => $zero."# ".$duration,
+                    "query" => "AND status = ? AND time >= ?",
+                    "from" => "notification",
+                    "type" => "request",
+                    "new" => 1
+                ]
+            ];
 
-            // --------- Feature ----------- //
-            $data['table'] = "feature";
+            $feature = new Feature(self::$db, $data, $this->user);
 
-            $feature = Func::searchDb(self::$db, $data, "AND");
+            // Joining the feature and notifications together for sorting
+            array_push($result, ...$feature->fetchRequest(null)['content']['content']);
 
-            is_int($feature) ? $result['feature']['status'] = 1 : $result['feature']['status'] = 0;
+            // Preventing errors when accessing keys that does not exist
+            if(count($result) > 0):
+                // Sorted them in a descending order using their time
+                // This ensures that the newest is at the top
+                $key_values = Func::array_column_recursive($result, "sortTime");
+                array_multisort($key_values, SORT_DESC, $result);
 
+                // Trim them, making sure that they don't extend 20
+                $resultCount = count($result);
+                if($resultCount > 20)
+                    $trim = -($resultCount - 20);
+                    $result = array_slice($result, 0, $trim);
+
+            endif;
+
+            $this->more = $this->user;
             $this->content = $result;
 
             return $this->deliver();

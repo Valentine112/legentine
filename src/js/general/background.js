@@ -1,10 +1,24 @@
 window.addEventListener("load", () => {
 
+    var userIdentification = ""
+
     var func = new Func()
 
     var pathObj = func.getPath()
     var path = pathObj['main_path']
     var param = pathObj['parameter']['token'] != null ? pathObj['parameter']['token'] : ""
+
+    // ------------------FETCH USER ---------------------//
+    var data = {
+        part: "user",
+        action: 'userIdentification',
+        val: {}
+    }
+
+    new Func().request("../request.php", JSON.stringify(data), 'json')
+    .then(val => {
+        userIdentification = val
+    })
 
     // ------------------LOAD SEARCH PREVIEW----------------------- //
 
@@ -292,23 +306,13 @@ window.addEventListener("load", () => {
 
 
     // -------------- INDICATE NEW NOTIFICATION ---------------------- //
-    var data = {
-        part: "live",
-        action: "liveNotification",
-        val: {
 
-        }
-    }
-
+    console.log(userIdentification)
     var eventSource = new EventSource("../eventSourceRequest.php?part=live&action=liveNotification", {
         withCredentials: true
     })
 
-    eventSource.onmessage = (ev) => {
-        console.log(ev.data)
-    }
-
-    eventSource.addEventListener("user", (ev) => {
+    eventSource.addEventListener(`LT-${user}`, (ev) => {
         console.log(JSON.parse(ev.data))
     })
 

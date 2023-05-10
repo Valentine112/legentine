@@ -22,8 +22,7 @@
         private array $actions;
         private static $db;
 
-        function __construct(mysqli $db)
-        {
+        function __construct(mysqli $db){
             $this->result = "";
             self::$db = $db;
 
@@ -69,7 +68,9 @@
         }
 
         public function send(int $delay) {
-            echo "event: user\n";
+            $more = $this->result['more'];
+
+            echo "event: LT-$more\n";
             echo "data: ".json_encode($this->result)."";
             echo PHP_EOL.PHP_EOL;
 

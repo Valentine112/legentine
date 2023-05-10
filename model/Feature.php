@@ -46,9 +46,12 @@
                 'self' => $this->user
             ];
 
+            // Check wether all the features are fetched or the features relating to a particular post
             if(is_int($post)):
+                // The feature relating to a particular post is fetched
                 $this->selecting->more_details("WHERE post = ?# $post");
             else:
+                // All the features are fetched
                 $type = $this->data['val']['type'];
 
                 // Configuring the data to be able to fetch depending on the pages its been pulled from
@@ -112,6 +115,15 @@
                 endif;
 
                 $tempResult['feature'] = $val;
+                $tempResult['type'] = "feature";
+
+                // creating this speciifcally to sort the notification and feature when mixed together
+                // The main aim is that the keys are the same when accessing the time or date
+
+                $tempResult['sortMethod'] = [
+                    "sortTime" => $val['time'],
+                    "sortDate" => $val['date']
+                ];
 
                 array_push($result['content'], $tempResult);
             endforeach;
@@ -196,7 +208,6 @@
         }
 
         public function request() : array {
-            // Photo does not belong to user
             $this->type = "error";
             $this->status = 0;
             $this->message = "void";
