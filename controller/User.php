@@ -2,7 +2,10 @@
     namespace Controller;
 
     use mysqli;
-    use Service\Response;
+    use Service\{
+        Response,
+        Func
+    };
     use Model\User as ModelUser;
     use Config\Authenticate;
 
@@ -27,11 +30,12 @@
                 switch($data['action']):
 
                     case 'userIdentification':
+                        
                         $this->type = "success";
                         $this->status = 1;
                         $this->message = "void";
                         $this->content = USER['content'];
-                        
+
                         $result = $this->deliver();
 
                         break;

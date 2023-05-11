@@ -59,11 +59,13 @@
             top: 4%;
             left: 0;
             right: 0;
+            width: fit-content;
             margin: auto;
             z-index: 4;
             text-align: center;
             display: none;
         }
+
         .notification-toggle span{
             background-color: rgba(0, 0, 0, 0.5);
             text-align: center;

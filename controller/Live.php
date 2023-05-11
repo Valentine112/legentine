@@ -2,7 +2,10 @@
     namespace Controller;
 
     use mysqli;
-    use Service\Response;
+    use Service\{
+        Response,
+        Func
+    };
     use Config\Authenticate;
     use Model\Notification as ModelNotification;
 
@@ -28,7 +31,37 @@
                 switch ($data['action']):
 
                     case "liveNotification":
-                        $result = $modelNotification->liveNotification();
+                        // Check if quiet mode is on for the user
+                        // If it's 1, do not fetch the live notifications
+                        // Else proceed to fetch them
+                        $data = [
+                            "id" => USER['content'],
+                            "1" => "1",
+                            "needle" => "quiet",
+                            "table" => "user"
+                        ];
+
+                        $quiet = Func::searchDb(self::$db, $data, "AND");
+  
+                        // Check if the query was successful
+                        if(is_int($quiet)):
+                            // If zero, meaning notifications can pop
+                            if($quiet === 0):
+                                $result = $modelNotification->liveNotification();
+                            else:
+                                // Else notifications should be paused
+
+                                $this->type = "success";
+                                $this->status = 1;
+                                $this->message = "void";
+                                $this->content = [];
+                                $this->more = USER['content'];
+
+                                $result = $this->deliver();
+                            endif;
+                        else:
+                            $result = $quiet;
+                        endif;
 
                         break;
 
@@ -41,6 +74,7 @@
                 $this->status = 0;
                 $this->message = "fill";
                 $this->content = USER['content'];
+                $this->more = USER['content'];
 
                 $result = $this->deliver();
 

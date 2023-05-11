@@ -8,18 +8,6 @@ window.addEventListener("load", () => {
     var path = pathObj['main_path']
     var param = pathObj['parameter']['token'] != null ? pathObj['parameter']['token'] : ""
 
-    // ------------------FETCH USER ---------------------//
-    var data = {
-        part: "user",
-        action: 'userIdentification',
-        val: {}
-    }
-
-    new Func().request("../request.php", JSON.stringify(data), 'json')
-    .then(val => {
-        userIdentification = val
-    })
-
     // ------------------LOAD SEARCH PREVIEW----------------------- //
 
     // Load the search preview
@@ -29,7 +17,6 @@ window.addEventListener("load", () => {
         var people = search.querySelector(".people")
         var post = search.querySelector(".post")
         var recentSearches = document.querySelector(".recent-searches")
-
 
         var data = {
             part: "user",
@@ -305,16 +292,49 @@ window.addEventListener("load", () => {
     // ------------------------------ END ------------------------ //
 
 
-    // -------------- INDICATE NEW NOTIFICATION ---------------------- //
+    // --------------INDICATE NEW NOTIFICATION ---------------------- //
 
-    console.log(userIdentification)
-    var eventSource = new EventSource("../eventSourceRequest.php?part=live&action=liveNotification", {
-        withCredentials: true
-    })
+    // Called this outside, so that it would only have to fine the element once
+    var notificationBar = document.querySelector(".notification-bar")
+    var notificationBox = document.querySelector(".notification-box")
 
-    eventSource.addEventListener(`LT-${user}`, (ev) => {
-        console.log(JSON.parse(ev.data))
-    })
+    async function newNotification() {
+
+        // Fetch user id first
+        var data = {
+            part: "user",
+            action: 'userIdentification',
+            val: {}
+        }
+
+        await new Func().request("../request.php", JSON.stringify(data), 'json')
+        .then(val => {
+            userIdentification = val.content
+        })
+
+
+        var eventSource = new EventSource("../eventSourceRequest.php?part=live&action=liveNotification", {
+            withCredentials: true
+        })
+
+        eventSource.addEventListener(`LT-${userIdentification}`, (ev) => {
+            var result = JSON.parse(ev.data)['content']
+
+            console.log(result)
+            // Check if its not empty
+            if(result.length > 0) {
+                // Empty the notification box first
+                result.forEach(val => {
+
+                })
+                notificationBar.style.display = "block"
+            }
+        })
+    }
+
+    newNotification()
+
+    // --------------END --------------- //
 
 
 })
@@ -340,4 +360,34 @@ function SidebarProfile(data) {
     `
 
     return element
+}
+
+function LiveNotification(data) {
+    // Link
+    var link = ""
+    var time = new Date(data['sortMethod']['sortDate']).toLocaleDateString('en-us', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+    })
+
+    if(data['type'] == "feature") {
+        link = `featureRequest?token=${data['feature']['token']}`
+    }
+    else if(data['type'] == "notification") {
+        link = `notification?token=${data['notification']['token']}`
+    }
+
+    var result = `
+        <div class="notifications">
+            <a href="${link}">
+            <div class="notification-text">
+                
+            </div>
+            <div class="notification-date">${time}</div>
+            </a>
+        </div>
+    `
+
+    return result
 }
