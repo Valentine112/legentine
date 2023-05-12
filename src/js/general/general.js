@@ -74,6 +74,9 @@ document.body.addEventListener("click", async function(e) {
     // Declare the comment
     var comment = new CommentActions()
 
+    // Declare the notification
+    var notification = new Notifications()
+
     switch (action) {
         case "unlist_user":
             user.unlist_user(elem)
@@ -264,6 +267,10 @@ document.body.addEventListener("click", async function(e) {
         case "quiet-feature":
             feature.quietFeature(elem)
 
+            break;
+
+        case "seen-notification":
+            alert(1)
             break;
 
         default:

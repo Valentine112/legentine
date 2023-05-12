@@ -213,6 +213,15 @@
 
             $result = $this->fetchNotification($data)['content'];
 
+            echo "event: LT-$this->user\n";
+            echo "data: ".json_encode("hello")."";
+            echo PHP_EOL.PHP_EOL;
+
+            if(connection_aborted()) exit();
+
+            ob_end_flush();
+            flush();
+
             $data = [
                 "val" => [
                     "value" => $zero."# ".$duration,

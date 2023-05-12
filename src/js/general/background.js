@@ -295,6 +295,7 @@ window.addEventListener("load", () => {
     // --------------INDICATE NEW NOTIFICATION ---------------------- //
 
     // Called this outside, so that it would only have to fine the element once
+    var liveNotification = document.querySelector(".live-notification")
     var notificationBar = document.querySelector(".notification-bar")
     var notificationBox = document.querySelector(".notification-box")
 
@@ -318,15 +319,41 @@ window.addEventListener("load", () => {
         })
 
         eventSource.addEventListener(`LT-${userIdentification}`, (ev) => {
+            console.log(ev.data)
             var result = JSON.parse(ev.data)['content']
 
             console.log(result)
+
+            var count = 0
             // Check if its not empty
             if(result.length > 0) {
                 // Empty the notification box first
+                notificationBox.innerHTML = ""
                 result.forEach(val => {
+                    var token = ""
+                    // Getting the token for the element
+                    if(data['type'] == "feature"){
+                        token = data['feature']['token']
+                    }else if(data['type'] == "notification") {
+                        token = data['notification']['token']
+                    }
 
+                    // Counting how many elements to pop when the loop is done
+                    if(liveNotification.querySelector("[data-token=LT-" + token + "]") == null) {
+                        // Check if the number of notifications has exceeded 20, then increment the count to trim them
+
+                        if(notificationBox.querySelectorAll(".notifications").length >= 20) count++
+
+                        notificationBox.insertAdjacentHTML('beforeend', LiveNotification(val))
+                    }
                 })
+
+                // Proceed to remove the extra elements
+                for (let i = 0; i < count; i++) {
+                    var notificationChild = notificationBox.querySelectorAll(".notifications")
+                    console.log(notificationChild)
+                    notificationBox.removeChild(notificationChild[notificationChild.length - 1])       
+                }
                 notificationBar.style.display = "block"
             }
         })
@@ -365,26 +392,79 @@ function SidebarProfile(data) {
 function LiveNotification(data) {
     // Link
     var link = ""
-    var time = new Date(data['sortMethod']['sortDate']).toLocaleDateString('en-us', {
+    var time = new Date(data['sortMethod']['sortDate']).toLocaleTimeString('en-us', {
         hour: '2-digit',
         minute: '2-digit',
         hour12: true
     })
+    
+    var token = ""
+    var message = ""
 
     if(data['type'] == "feature") {
         link = `featureRequest?token=${data['feature']['token']}`
-    }
-    else if(data['type'] == "notification") {
-        link = `notification?token=${data['notification']['token']}`
+        token = data['feature']['token']
+
+        message = `${data['other']['username']}
+            made a request to be <span class="feature">featured</span> on your 
+            ${data['post']['category'].toLowerCase()}, 
+            "${data['post']['title']}"
+            `
     }
 
-    var result = `
-        <div class="notifications">
-            <a href="${link}">
-            <div class="notification-text">
+    else if(data['type'] == "notification") {
+
+        // Formatting the right link based on the elementType
+        if(data['notification']['elementType'] == "comment") {
+            link = `read?type=comment&token=${data['post']['token']}&comment=${data['content']['token']}`
+        }
+        else if(data['notification']['elementType'] == "reply") {
+            link = `read?type=reply&token=${data['post']['token']}&comment=${data['content']['comment']}&reply=${data['content']['token']}`
+        }
+
+
+        token = data['notification']['token']
+
+        // Trimming the length of the content for the notification
+        var content = data['content']['content']
+        if(new Func().stripSpace(content).length > 15) {
+            content = content.substr('0, 15') + "..."
+        }
+    
+        // Text formatting
+        switch (data['notification']['type']) {
+            case "comment":
+                message = ` ${data['other']['username']} <span class="comment">commented</span> "${content}" on your post "${data['post']['title']}" `
+
+                break;
+
+            case "reply":
+                message = `${data['other']['username']} <span class="reply">replied</span> with "${content}" on your comment`
+
+                break;
+
+            case "mention":
+                message = `${data['other']['username']} <span class="mention">mentioned</span> you "${content}" `
                 
-            </div>
-            <div class="notification-date">${time}</div>
+                break;
+        
+            default:
+                break;
+        }
+    }
+
+
+    var result = `
+        <div 
+            class="notifications"
+            data-token="LT-${token}"
+            data-action="seen-notification"
+        >
+            <a href="${link}">
+                <div class="notification-text">
+                    ${message}
+                </div>
+                <div class="notification-date">${time}</div>
             </a>
         </div>
     `

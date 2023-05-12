@@ -155,6 +155,18 @@
         .notification-box .notification-feature{
             background-color: #e9e9e9;
         }
+        .live-notification .feature{
+            color: limegreen;
+        }
+        .live-notification .comment{
+            color: dodgerblue;
+        }
+        .live-notification .reply{
+            color: orange;
+        }
+        .live-notification .mention{
+            color: var(--theme-color);
+        }
         
         /* END */
 
@@ -377,14 +389,7 @@
             <div class="notification-cover">
                 <header>Recent notifications</header>
                 <div class="notification-box">
-                    <div class="notifications">
-                        <a href="">
-                        <div class="notification-text">
-                            Himself commented on your post What's this Like what do you know little peasant Himself commented on your post 
-                        </div>
-                        <div class="notification-date">9:58pm</div>
-                        </a>
-                    </div>
+                    <!-- Notification comes here -->
                 </div>
             </div>
         </div>
