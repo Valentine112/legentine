@@ -44,6 +44,11 @@
 
                         break;
 
+                    case 'seen':
+                        $result = $modelNotification->changeStatus(1);
+
+                        break;
+
                     default:
                     break;
 

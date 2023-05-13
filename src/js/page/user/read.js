@@ -108,7 +108,7 @@ window.addEventListener("load", async function() {
                             // No request has been sent yet
     
                         }else{
-                            var featureStatus = feature['respone']
+                            var featureStatus = feature['response']
     
                             if(featureStatus == 0){
                                 // Requested, but not yet accepted

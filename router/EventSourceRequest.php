@@ -68,7 +68,7 @@
         }
 
         public function send(int $delay) {
-            /*$more = $this->result['more'];
+            $more = $this->result['more'];
 
             echo "event: LT-$more\n";
             echo "data: ".json_encode($this->result)."";
@@ -79,7 +79,7 @@
             ob_end_flush();
             flush();
 
-            sleep($delay);*/
+            sleep($delay);
         }
 
     }

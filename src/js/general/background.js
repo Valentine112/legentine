@@ -319,10 +319,7 @@ window.addEventListener("load", () => {
         })
 
         eventSource.addEventListener(`LT-${userIdentification}`, (ev) => {
-            console.log(ev.data)
             var result = JSON.parse(ev.data)['content']
-
-            console.log(result)
 
             var count = 0
             // Check if its not empty
@@ -458,6 +455,7 @@ function LiveNotification(data) {
         <div 
             class="notifications"
             data-token="LT-${token}"
+            data-type="${data['type']}"
             data-action="seen-notification"
         >
             <a href="${link}">

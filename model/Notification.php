@@ -213,15 +213,6 @@
 
             $result = $this->fetchNotification($data)['content'];
 
-            echo "event: LT-$this->user\n";
-            echo "data: ".json_encode("hello")."";
-            echo PHP_EOL.PHP_EOL;
-
-            if(connection_aborted()) exit();
-
-            ob_end_flush();
-            flush();
-
             $data = [
                 "val" => [
                     "value" => $zero."# ".$duration,
@@ -256,6 +247,45 @@
             $this->content = $result;
 
             return $this->deliver();
+        }
+
+        public function changeStatus(?int $filter) : array {
+
+            $this->status = 1;
+            $this->type = "success";
+            $this->message = "void";
+
+            $val = $this->data['val'];
+
+            $result = [];
+
+            // The checks if the notification are been fetched from controller
+            // Or fetch directly from another source
+            if($filter !== null):
+                // First sort the data by their table
+                // So we update one table after the other
+                usort($val['box'], function($a, $b) {
+                    return strcmp($a['type'], $b['type']);
+                });
+
+                foreach($val['box'] as $item):
+                    $token = $item['token'];
+                    $table = $item['type'];
+
+                    $updating = new Update(self::$db, "SET status = ? WHERE token = ?# $filter# $token");
+                    $action = $updating->mutate('is', $table);
+
+                    if(!$action) return $action;
+                endforeach;
+
+            endif;
+            
+
+            // Update the status to seen // Seen is 1, View is 2
+            //$update = new Update(self::$db, "SET ");
+
+            return $this->deliver();
+
         }
 
     }

@@ -43,26 +43,10 @@
                         $value = $value ?? [];
 
                         if(is_array($value)):
-                            foreach($value as $key => $val):
+                            array_walk_recursive($value, function(&$val, $key) {
+                                $val = Func::cleanData($val, 'string');
+                            });
 
-                                // Check is value is array
-                                if(is_array($val)):
-                                    foreach($val as $key1 => $val1):
-                                        if(is_array($val1)):
-                                            foreach($val1 as $key2 => $val2):
-                                                $value[$key][$key2] = Func::cleanData($val2, 'string');
-                                            endforeach;
-                                            
-                                        else:
-                                            $value[$key][$key1] = Func::cleanData($val1, 'string');
-                                        endif;
-
-                                    endforeach;
-                                else:
-                                    // Collect and clean the data gotten from the client
-                                    $value[$key] = Func::cleanData($val, 'string');
-                                endif;
-                            endforeach;
                         else:
                             $value = Func::cleanData($value, 'string');
                         endif;
@@ -93,13 +77,9 @@
                             endforeach;
 
                             // Clean the file
-                            foreach($_FILES as $key => $val):
-                                foreach($val as $key1 => $val1):
-                                    foreach($val1 as $key2 => $val2):
-                                        $_FILES[$key][$key1][$key2] = Func::cleanData($val2, 'string');
-                                    endforeach;
-                                endforeach;
-                            endforeach;
+                            array_walk_recursive($_FILES, function(&$val, $key) {
+                                $val = Func::cleanData($val, 'string');
+                            });
 
                             $data['val'] = [
                                 "files" => $_FILES['files'],

@@ -57,8 +57,7 @@
         .notification-bar{
             position: fixed;
             top: 4%;
-            left: 0;
-            right: 0;
+            right: 4%;
             width: fit-content;
             margin: auto;
             z-index: 4;
@@ -108,8 +107,7 @@
             height: 80vh;
             overflow-y: auto;
             margin: auto;
-            background-color: #f1f1f1;
-            border: 2px solid #fff;
+            background-color: #fff;
             border-radius: 5px;
             padding: 5px 10px;
             font-family: var(--theme-font);
@@ -124,10 +122,9 @@
         }
         .notification-cover .notifications{
             margin: 6px 0;
-            border-bottom: 1px solid #f9f9f9;
+            border-bottom: 1px solid #f1f1f1;
             width: 100%;
-            padding: 8px 0;
-            background-color: #fff;
+            padding: 12px 0;
         }
         .notifications a{
             display: block;
@@ -136,6 +133,7 @@
             justify-content: space-evenly;
             align-items: baseline;
             color: #000;
+            text-decoration: none;
         }
         .notifications .notification-text{
             text-overflow: ellipsis;
@@ -177,6 +175,12 @@
 
             .navbar .non-active{
                 display: none;
+            }
+            .notifications .notification-text{
+                width: 80%;
+            }
+            .notifications .notification-date{
+                width: 18%;
             }
         }
 
@@ -674,8 +678,35 @@
         }
 
         // Show the live notification preview
-        function showNotificationPreview(self) {
+        async function showNotificationPreview(self) {
             document.querySelector(".notification-section").style.display = "block"
+
+            // Proceed to save all of them as seen, but not viewed
+            var notifications = document.querySelectorAll(".notifications")
+            // Add all the token and type to an object and send to the server
+            var box = []
+            notifications.forEach(elem => {
+                var token = new Func().removeInitials(elem.getAttribute("data-token"))
+                var type = elem.getAttribute("data-type")
+                var arr = {
+                    "type": type,
+                    "token": token
+                }
+                box.push(arr)
+            })
+             
+            var data = {
+                part: "notification",
+                action: 'seen',
+                val: {
+                    box
+                }
+            }
+
+            await new Func().request("../request.php", JSON.stringify(data), 'json')
+            .then(val => {
+                console.log(val)
+            })
         }
 
         // Hide the notification preview and also the button to activate it

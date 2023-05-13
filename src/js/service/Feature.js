@@ -76,7 +76,7 @@ class Feature {
 
         this.func.request("../request.php", JSON.stringify(data), 'json')
         .then(val => {
-            this.func.buttonConfig(elem, 'before')
+            this.func.buttonConfig(elem, 'after')
             if(val.status === 1) {
                 if(val.content === "feature") {
                     // Setting the modifications if the request was sent through a button
