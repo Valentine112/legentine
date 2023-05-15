@@ -10,6 +10,20 @@ window.addEventListener("load", function() {
         new Feature().fetchHistory()
     }
 
+
+    // Set the status of all the users notification to be 1, which is seen
+    var data = {
+        part: "notification",
+        action: 'seen',
+        val: {
+            content: "",
+            filter: false,
+            table: "feature"
+        }
+    }
+
+    new Func().request("../request.php", JSON.stringify(data), 'json')
+
 })
 
 function featureBox(data) {

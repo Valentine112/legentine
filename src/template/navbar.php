@@ -699,7 +699,8 @@
                 part: "notification",
                 action: 'seen',
                 val: {
-                    box
+                    content: box,
+                    filter: true
                 }
             }
 

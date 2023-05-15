@@ -31,4 +31,17 @@ window.addEventListener("load", async function () {
 
         new Func().notice_box(val)
     })
+
+    // Set the status of all the users notification to be 1, which is seen
+    var data = {
+        part: "notification",
+        action: 'seen',
+        val: {
+            content: "",
+            filter: false,
+            table: "notification"
+        }
+    }
+
+    func.request("../request.php", JSON.stringify(data), 'json')
 })

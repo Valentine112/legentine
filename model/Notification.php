@@ -258,31 +258,37 @@
             $val = $this->data['val'];
 
             $result = [];
+            (int) $zero = 0;
 
-            // The checks if the notification are been fetched from controller
-            // Or fetch directly from another source
-            if($filter !== null):
+            // When a particular one needs to be updated and not just all
+            if($val['filter']):
                 // First sort the data by their table
                 // So we update one table after the other
-                usort($val['box'], function($a, $b) {
+                usort($val['content'], function($a, $b) {
                     return strcmp($a['type'], $b['type']);
                 });
 
-                foreach($val['box'] as $item):
+                foreach($val['content'] as $item):
                     $token = $item['token'];
                     $table = $item['type'];
 
-                    $updating = new Update(self::$db, "SET status = ? WHERE token = ?# $filter# $token");
-                    $action = $updating->mutate('is', $table);
+                    $updating = new Update(self::$db, "SET status = ? WHERE token = ? AND other = ?# $filter# $token# $this->user");
+                    $action = $updating->mutate('isi', $table);
 
                     if(!$action) return $action;
                 endforeach;
 
+            else:
+                $table = $val['table'];
+
+                $updating = new Update(self::$db, "SET status = ? WHERE other = ? AND status = ?# $filter# $this->user# $zero");
+                $action = $updating->mutate('iii', $table);
+
+                if(!$action) return $action;
             endif;
             
 
             // Update the status to seen // Seen is 1, View is 2
-            //$update = new Update(self::$db, "SET ");
 
             return $this->deliver();
 
