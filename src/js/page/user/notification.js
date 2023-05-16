@@ -25,7 +25,7 @@ window.addEventListener("load", async function () {
 
             content.forEach(elem => {
                 var notification = new Notification(elem)
-                document.getElementById("postCover").insertAdjacentHTML("beforeend", notification.main())
+                document.getElementById("comments-notification").insertAdjacentHTML("beforeend", notification.main())
             })
         }
 

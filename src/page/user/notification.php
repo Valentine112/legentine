@@ -48,6 +48,71 @@
 
                 <div id="postCover">
                     <!-- NOTIFICATION GOES HERE -->
+
+                    <div class="post-notification">
+                        <header>Tops</header>
+                        <div class="post-notification-cover">
+                            <div>
+                                <span>Your post gahjhbh <span class="title">"Hello there"</span> is among the top <span class="song category">Song</span> <span class="section">"this week"</span></span>
+                            </div>
+
+                            <div>
+                                Your post <span class="title">"Hello there"</span> is among the top <span class="song category">Song</span> <span class="section">"this week"</span>
+                            </div>
+
+                            <div>
+                                Your post <span class="title">"Hello there"</span> is among the top <span class="song category">Song</span> <span class="section">"this week"</span>
+                            </div>
+                            <div>
+                                Your post <span class="title">"Hello there"</span> is among the top <span class="song category">Song</span> <span class="section">"this week"</span>
+                            </div>
+
+                            <div>
+                                Your post <span class="title">"Hello there"</span> is among the top <span class="song category">Song</span> <span class="section">"this week"</span>
+                            </div>
+
+                            <div>
+                                Your post <span class="title">"Hello there"</span> is among the top <span class="song category">Song</span> <span class="section">"this week"</span>
+                            </div>
+                            <div>
+                                Your post <span class="title">"Hello there"</span> is among the top <span class="song category">Song</span> <span class="section">"this week"</span>
+                            </div>
+
+                            <div>
+                                Your post <span class="title">"Hello there"</span> is among the top <span class="song category">Song</span> <span class="section">"this week"</span>
+                            </div>
+
+                            <div>
+                                Your post <span class="title">"Hello there"</span> is among the top <span class="song category">Song</span> <span class="section">"this week"</span>
+                            </div>
+                            <div>
+                                Your post <span class="title">"Hello there"</span> is among the top <span class="song category">Song</span> <span class="section">"this week"</span>
+                            </div>
+
+                            <div>
+                                Your post <span class="title">"Hello there"</span> is among the top <span class="song category">Song</span> <span class="section">"this week"</span>
+                            </div>
+
+                            <div>
+                                Your post <span class="title">"Hello there"</span> is among the top <span class="song category">Song</span> <span class="section">"this week"</span>
+                            </div>
+                            <div>
+                                Your post <span class="title">"Hello there"</span> is among the top <span class="song category">Song</span> <span class="section">"this week"</span>
+                            </div>
+
+                            <div>
+                                Your post <span class="title">"Hello there"</span> is among the top <span class="song category">Song</span> <span class="section">"this week"</span>
+                            </div>
+
+                            <div>
+                                Your post <span class="title">"Hello there"</span> is among the top <span class="song category">Song</span> <span class="section">"this week"</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="comments-notification" id="comments-notification">
+
+                    </div>
                 </div>
 
                 <div class="content-loader">

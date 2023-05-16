@@ -81,7 +81,7 @@ window.addEventListener("load", () => {
 
         // List of valid paths to perform this action
         // This is to reduce the uneccessary running in the background
-        var validPaths = ["home", "profile", "saved", "notification", "privatePost", "featureRequest", "featureHistory"]
+        var validPaths = ["home", "profile", "saved", "notification", "privatePost", "featureRequest", "featureHistory", "read"]
 
         if(validPaths.includes(path)){
             // Check if user has reachd the bottom of the page
@@ -240,7 +240,7 @@ window.addEventListener("load", () => {
                                     if(document.querySelector(`[data-token=LT-${elem['notification']['token']}]`) == null) {
 
                                         var notification = new Notification(elem)
-                                        document.getElementById("postCover").insertAdjacentHTML("beforeend", notification.main())
+                                        document.getElementById("comments-notification").insertAdjacentHTML("beforeend", notification.main())
                                     }
                                 })
                             }

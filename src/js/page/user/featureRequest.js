@@ -11,7 +11,7 @@ window.addEventListener("load", function() {
     }
 
 
-    // Set the status of all the users notification to be 1, which is seen
+    // Set the status of all the users featureRequest to be 1, which is seen
     var data = {
         part: "notification",
         action: 'seen',
