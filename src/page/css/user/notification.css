@@ -10,6 +10,7 @@
     margin: auto;
     margin-bottom: 10px;
     width: 98%;
+    display: none;
 }
 .post-notification header{
     font-size: 22px;
@@ -21,15 +22,17 @@
 }
 .post-notification-cover > div{
     display: inline-block;
+    white-space: normal;
+    width: 100%;
 }
 .notification #postCOver .seen{
     opacity: 0.6;
 }
 .notification .notificationBox{
     width: 95%;
-    padding: 5px;
+    padding: 5px 0px;
     border-bottom: 1px solid #f1f1f1;
-    margin: 5px;
+    margin: 5px 0px;
 }
 .notificationBox a{
     width: 100%;
@@ -71,7 +74,7 @@
 @media screen and (max-width: 767px) {
     .post-notification-cover > div{
         background-color: gold;
-        padding: 15px 10px;
+        padding: 12px 10px;
         margin: 0 4px;
         box-shadow: 2px 2px 2px #f5f5f5;
         border: 2px solid #f1f1f1;
@@ -117,13 +120,12 @@
         margin: 5px 0;
     }
     .post-notification-cover > div{
+        text-align: left;
         display: block;
         margin: 5px 0;
         border-bottom: 1px solid #f1f1f1;
         padding: 10px 0;
         width: 98%;
-        overflow-x: scroll;
-        white-space: nowrap;
     }
     .post-notification-cover .category{
         font-weight: 600;

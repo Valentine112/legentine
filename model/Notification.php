@@ -294,4 +294,58 @@
 
         }
 
+        public function tops() : array {
+            /** 
+             * Check the tops based on SECTION AND TIME
+             * SECTION - Rap, Song, Poem, Comedy, Story, All
+             * TIME - All time & Weekly
+             * ------------------ Logic -----------------
+             * Store the sections in an array, then loop through each of them
+             * Fetch the top 15 most liked post on that section for that week, and next for all time
+             * The ordering should be based on likes and time
+             * Then proceed to save the results in an array with the necessary keys and values to identify them particularly
+            */
+
+            $result = [];
+            $sections = ["Rap", "Song", "Poem", "Comedy", "Story", "All"];
+            $allTime = 0;
+            $one = "1";
+            $week = time() - (((60 * 60) * 24) * 7);
+
+            foreach($sections as $section):
+                // Check the section
+                $category = "category = ? AND";
+                $types = 'si';
+                $values = [$section, $allTime];
+
+                if($section == "All")
+                    $category = "1 = ? AND";
+                    $values = [$one, $allTime];
+
+                $query = "SELECT * FROM post WHERE $category time >= ? ORDER BY stars DESC LIMIT 15";
+                
+                $selecting = self::$db->prepare($query);
+
+                // Checking for the all time
+                $selecting->bind_param($types, ...$values);
+                $selecting->execute();
+                $a = $selecting->get_result();
+
+                // Checking for weekly now
+                $values[1] = $week;
+                $selecting->bind_param($types, ...$values);
+                $selecting->execute();
+                $b = $selecting->get_result();
+
+
+                $all = $a->fetch_all(MYSQLI_ASSOC);
+                $weekly = $b->fetch_all(MYSQLI_ASSOC);
+
+                $this->content[] = [$all, $weekly];
+
+            endforeach;
+
+            return $this->deliver();
+        }
+
     }

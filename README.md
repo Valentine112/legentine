@@ -1,7 +1,6 @@
 # Legentine
 A reflection site
 
---- Currently on background feature
-# Having thoughts on removing the pop up feature
-# Seems like it would be more of an annoiyance than a beneficial function
-# The featur request would be sent as a notification
+# Currently on the notifications about top users
+Fetching the tops on the category is having some issues
+File - Model/Notifications - Method - tops

@@ -705,9 +705,6 @@
             }
 
             await new Func().request("../request.php", JSON.stringify(data), 'json')
-            .then(val => {
-                console.log(val)
-            })
         }
 
         // Hide the notification preview and also the button to activate it

@@ -53,7 +53,7 @@
                         <header>Tops</header>
                         <div class="post-notification-cover">
                             <div>
-                                <span>Your post gahjhbh <span class="title">"Hello there"</span> is among the top <span class="song category">Song</span> <span class="section">"this week"</span></span>
+                                <span>Your post hshs shshss shsjsj <span class="title">"Hello there"</span> is among the top <span class="song category">Song</span> <span class="section">"this week"</span></span>
                             </div>
 
                             <div>

@@ -49,6 +49,16 @@
 
                         break;
 
+                    case 'view':
+                        $result = $modelNotification->changeStatus(2);
+
+                        break;
+
+                    case 'tops':
+                        $result = $modelNotification->tops();
+
+                        break;
+
                     default:
                     break;
 

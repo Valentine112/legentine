@@ -13,7 +13,11 @@ class Notification {
             class="notificationBox entity-body ${this.process()['status']}"
             data-token="LT-${this.notification['token']}"
             >
-                <a href="${this.process()['path']}">
+                <a 
+                href="${this.process()['path']}" 
+                data-action="view-notification"
+                class="action"
+                >
                     <div class="notificationSub">
                         <div>
                             <img src=" " class="lazy-load-image" data-image="${"../src/" + this.other['photo']}" alt="">

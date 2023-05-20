@@ -269,8 +269,8 @@ document.body.addEventListener("click", async function(e) {
 
             break;
 
-        case "seen-notification":
-            alert(1)
+        case "view-notification":
+            notification.viewNotification(elem)
             break;
 
         default:
