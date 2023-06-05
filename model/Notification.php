@@ -308,21 +308,25 @@
 
             $result = [];
             $sections = ["Rap", "Song", "Poem", "Comedy", "Story", "All"];
-            $allTime = 0;
+            (int) $allTime = 0;
+            (int) $zero = 0;
             $one = "1";
             $week = time() - (((60 * 60) * 24) * 7);
 
             foreach($sections as $section):
                 // Check the section
+                // First pre define the values
                 $category = "category = ? AND";
-                $types = 'si';
-                $values = [$section, $allTime];
+                $types = 'sii';
+                $values = [$section, $allTime, $zero];
 
-                if($section == "All")
+                // Modify the value is the section is ALL
+                if($section == "All"):
                     $category = "1 = ? AND";
-                    $values = [$one, $allTime];
+                    $values = [$one, $allTime, $zero];
+                endif;
 
-                $query = "SELECT * FROM post WHERE $category time >= ? ORDER BY stars DESC LIMIT 15";
+                $query = "SELECT * FROM post WHERE $category time >= ? AND stars > ? ORDER BY stars DESC LIMIT 15";
                 
                 $selecting = self::$db->prepare($query);
 
@@ -341,10 +345,65 @@
                 $all = $a->fetch_all(MYSQLI_ASSOC);
                 $weekly = $b->fetch_all(MYSQLI_ASSOC);
 
-                $this->content[] = [$all, $weekly];
+                // Loop through each of them and verify if the user post is among
+                // Then add some extra keys to the object for more identification
+
+                // Looping through all first
+                foreach($all as $a):
+                    if(!empty($a)):
+                        // Check if the ID belongs to the user
+
+                        if($a['user'] === $this->user):
+                            $arr = [
+                                "post" => $a,
+                                "section" => $section,
+                                "type" => "General",
+                                "sortMethod" => [
+                                    "sortTime" => $a['time'],
+                                    "sortDate" => $a['date']
+                                ]
+                            ];
+
+                            array_push($result, $arr);
+
+                        endif;
+                    endif;
+
+                endforeach;
+
+                // Looping through weekly next
+                foreach($weekly as $b):
+                    if(!empty($a)):
+                        // Check if the ID belongs to the user
+
+                        if($a['user'] === $this->user):
+                            $arr = [
+                                "post" => $a,
+                                "section" => $section,
+                                "type" => "Weekly",
+                                "sortMethod" => [
+                                    "sortTime" => $a['time'],
+                                    "sortDate" => $a['date']
+                                ]
+                            ];
+
+                            array_push($result, $arr);
+
+                        endif;
+                    endif;
+                endforeach;
+
+                // Sort the contents
+                $key_values = Func::array_column_recursive($result, "stars");
+                array_multisort($key_values, SORT_DESC, $result);
+
+                $this->content = $result;
 
             endforeach;
 
+            // Setting the more to the user ID when trying to fetch from eventSource
+            $this->more = $this->user;
+            
             return $this->deliver();
         }
 

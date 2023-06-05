@@ -1,6 +1,10 @@
 <?php
     namespace Controller;
 
+    header('Cache-Control: no-store');
+    header('Content-Type: text/event-stream');
+
+
     use mysqli;
     use Service\{
         Response,
@@ -63,6 +67,11 @@
                             $result = $quiet;
                         endif;
 
+                        break;
+
+                    case "liveTops":
+                        $result = $modelNotification->tops();
+                        
                         break;
 
                     default:

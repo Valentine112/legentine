@@ -56,6 +56,10 @@
                         $result = $modelMoreData->featureHistory();
                         break;
 
+                    case "read":
+                        $result = $modelMoreData->comments();
+                        break;
+
                 endswitch;
             else:
                 $this->type = "warning";

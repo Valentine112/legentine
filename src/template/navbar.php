@@ -38,6 +38,19 @@
             font-size: 19px;
         }
 
+        .tops{
+            position: relative;
+        }
+        .tops .notify-tops{
+            position: absolute;
+            right: 20%;
+            width: 5px;
+            height: 5px;
+            border-radius: 50px;
+            background-color: var(--theme-color);
+            display: none;
+        }
+
         /* Setting the active for large screen links */
 
         .navbar .large-navbar .active{
@@ -181,6 +194,9 @@
             }
             .notifications .notification-date{
                 width: 18%;
+            }
+            .tops .notify-tops{
+                right: 0px;
             }
         }
 
@@ -417,7 +433,8 @@
                 </a>
             </div>
                 
-            <div>
+            <div class="tops">
+                <div class="notify-tops"></div>
                 <a href="rank" class="nav-links rank">
                     <img src="../src/icon/header/plain-icon/star.svg" alt="tops" class="config-icon-1 ori-icon">
 
@@ -450,7 +467,8 @@
                     </a>
                 </div>
 
-                <div>
+                <div class="tops">
+                    <div class="notify-tops"></div>
                     <a href="rank" data-href="rank" class="nav-links rank">
                         <span>Top</span>
                     </a>

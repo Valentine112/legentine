@@ -338,6 +338,44 @@
             return $this->deliver();
         }
 
+        public function comments() : array {
+            $this->type = "success";
+            $this->status = 1;
+            $this->message = "void";
+
+            $lastElement = $this->data['val']['lastElement'];
+
+            // Fetch comment id
+            $data = [
+                "token" => $lastElement,
+                "1" => "1",
+                "needle" => "id",
+                "table" => "comments"
+            ];
+
+            $comment = Func::searchDb(self::$db, $data, "AND");
+
+            if(is_int($comment)):
+                $data = [
+                    "val" => [
+                        "value" => $history,
+                        "query" => "AND id < ?",
+                        "type" => "request",
+                        "from" => "featureHistory",
+                        "new" => 1
+                    ]
+                ];
+
+                $featureModel = new Comment(self::$db, $data, $this->user);
+                $this->content = $featureModel->fetchHistory()['content'];
+
+            else:
+                return $feature;
+            endif;
+
+            return $this->deliver();
+        }
+
     }
 
 ?>

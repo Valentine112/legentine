@@ -157,6 +157,12 @@ window.addEventListener("load", () => {
                         action = "featureHistory"
 
                         break;
+
+                    case "read":
+                        // Setting the action to read
+                        action = "read"
+
+                        break;
                 
                     default:
                         break;
@@ -175,14 +181,12 @@ window.addEventListener("load", () => {
 
                 new Func().request("../request.php", JSON.stringify(data), 'json')
                 .then(val => {
-
                     if(val.status == 1) {
                         // If there is not item, content would return null
 
                         var postCover = document.getElementById("postCover")
 
                         var content = val.content
-
                         console.log(content)
                         if(!new Func().isEmpty(content)) {
                             if(path == "home") {
@@ -302,6 +306,7 @@ window.addEventListener("load", () => {
     async function newNotification() {
 
         // Fetch user id first
+        // This would be used to fetch specific only notifications
         var data = {
             part: "user",
             action: 'userIdentification',
@@ -313,12 +318,14 @@ window.addEventListener("load", () => {
             userIdentification = val.content
         })
 
+        // -------------- LIVE NOTIFICATIONS --------------- //
 
-        var eventSource = new EventSource("../eventSourceRequest.php?part=live&action=liveNotification", {
+        // Proceed to get the live notifications
+        var liveNotification = new EventSource("../eventSourceRequest.php?part=live&action=liveNotification", {
             withCredentials: true
         })
 
-        eventSource.addEventListener(`LT-${userIdentification}`, (ev) => {
+        liveNotification.addEventListener(`LT-${userIdentification}`, (ev) => {
             var result = JSON.parse(ev.data)['content']
 
             var count = 0
@@ -352,6 +359,30 @@ window.addEventListener("load", () => {
                     notificationBox.removeChild(notificationChild[notificationChild.length - 1])       
                 }
                 notificationBar.style.display = "block"
+            }
+        })
+
+        // ---------------- LIVE TOPS ---------------- //
+
+        // Get the live tops notification
+        var notifyTops = document.querySelectorAll(".notify-tops")
+
+        var liveTops = new EventSource("../eventSourceRequest.php?part=live&action=liveTops", {
+            withCredentials: true
+        })
+
+        liveTops.addEventListener(`LT-${userIdentification}`, (ev) => {
+            var result = JSON.parse(ev.data)['content']
+            console.log(result)
+            
+            if(result.length > 0) {
+                notifyTops.forEach(elem => {
+                    elem.style.display = "block"
+                })
+            }else{
+                notifyTops.forEach(elem => {
+                    elem.style.display = "none"
+                })
             }
         })
     }
