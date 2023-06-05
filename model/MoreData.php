@@ -338,12 +338,13 @@
             return $this->deliver();
         }
 
-        public function comments() : array {
+        public function comment() : array|bool {
             $this->type = "success";
             $this->status = 1;
             $this->message = "void";
 
             $lastElement = $this->data['val']['lastElement'];
+            $post = $this->data['val']['more'];
 
             // Fetch comment id
             $data = [
@@ -355,25 +356,86 @@
 
             $comment = Func::searchDb(self::$db, $data, "AND");
 
-            if(is_int($comment)):
-                $data = [
-                    "val" => [
-                        "value" => $history,
-                        "query" => "AND id < ?",
-                        "type" => "request",
-                        "from" => "featureHistory",
-                        "new" => 1
-                    ]
-                ];
+            // Fetch post id
+            $data['token'] = $post;
+            $data['table'] = "post";
+            $post = Func::searchDb(self::$db, $data, "AND");
 
-                $featureModel = new Comment(self::$db, $data, $this->user);
-                $this->content = $featureModel->fetchHistory()['content'];
+            // Check if post is int
+            // If it's not, it means that the post does not exist
+            if(is_int($post)):
+                if(is_int($comment)):
+                    $data = [
+                        "val" => [
+                            "value" => $comment,
+                            "query" => "AND id < ?",
+                            "type" => "request",
+                            "from" => "read",
+                            "new" => 1
+                        ]
+                    ];
 
+                    $commentModel = new Comment(self::$db, $data, $this->user);
+                    $this->content = $commentModel->fetch_comment($post, $data)['content'];
+
+                else:
+                    return $comment;
+                endif;
             else:
-                return $feature;
+                return $post;
             endif;
 
             return $this->deliver();
+        }
+
+        public function reply() : array|bool {
+            $this->type = "success";
+            $this->status = 1;
+            $this->message = "void";
+
+            $lastElement = $this->data['val']['lastElement'];
+            $commentToken = $this->data['val']['more'];
+
+            // Fetch reply id
+            $data = [
+                "token" => $lastElement,
+                "1" => "1",
+                "needle" => "id",
+                "table" => "replies"
+            ];
+
+            $reply = Func::searchDb(self::$db, $data, "AND");
+
+            // Fetch comment id
+            $data['token'] = $commentToken;
+            $data['table'] = "comments";
+
+            $comment = Func::searchDb(self::$db, $data, "AND");
+
+            if(is_int($comment)):
+                if(is_int($reply)):
+                    $data = [
+                        "val" => [
+                            "value" => $reply,
+                            "query" => "AND id < ?",
+                            "comment" => $commentToken,
+                            "type" => "request",
+                            "from" => "read",
+                            "new" => 1
+                        ]
+                    ];
+
+                    $commentModel = new Comment(self::$db, $data, $this->user);
+                    $this->content = $commentModel->fetch_reply($data)['content'];
+                else:
+                    return $reply;
+                endif;
+            else:
+                return $comment;
+            endif;
+
+            return $this->deliver();
+
         }
 
     }

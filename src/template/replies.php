@@ -6,9 +6,16 @@
         bottom: 0;
         left: 0;
         right: 0;
+        height: 100vh;
         margin: auto;
-        padding: 20px;
+        overflow-y: unset;
         display: none;
+    }
+    .reply .reply-sub{
+        height: inherit;
+        overflow-y: auto;
+        padding: 15px;
+        background-color: red;
     }
 
     .reply .more span{
@@ -47,7 +54,7 @@
         width: 10%;
     }
     .main-reply .box > div:first-child > div:last-child{
-        width: 89%;
+        width: 87%;
     }
 
     .box .reply-username span{
@@ -66,6 +73,8 @@
     }
     .replies{
         margin: 10px 0 10px 0;
+        border-bottom: 1px solid #444;
+        padding: 3px 0;
     }
     .reply .reply-options > div{
         display: inline-block;
@@ -78,9 +87,15 @@
         cursor: pointer;
     }
 
+    .spaceBelow{
+        height: 0vh;
+        width: 1px;
+        background-color: red;
+    }
+
     /* reply input */
     .reply .reply-input{
-        position: absolute;
+        position: fixed;
         left: 0;
         right: 0;
         bottom: 2%;
@@ -130,6 +145,12 @@
         border: 0;
         user-select: none;
     }
+
+    @media screen and (max-width: 767px) {
+        .reply .reply-input{
+            bottom: 5%;
+        }
+    }
     @media screen and (min-width: 768px) {
         .reply{
             top: unset;
@@ -149,7 +170,7 @@
 </style>
 
 <div class="main-content reply config">
-    <div>
+    <div class="reply-sub">
         <div class="more">
             <div>
                 <span onclick="this.closest('.reply').style.display = 'none'">Close</span>
@@ -193,20 +214,24 @@
             <div class="reply-cover">
             <!-- REPLIES GOES HERE -->
             </div>
+        </div>
 
-            <div class="reply-input cancel-box">
-                <div>
-                    <span id="cancel-edit-reply" class="cancel-edit" onclick="new CommentActions().cancel_edit(this, 'create-reply')">Cancel</span>
-                </div>
+        <div class="spaceBelow">
 
-                <div class="reply-holder">
-                    <div>
-                        <div class="reply-value input-value" contenteditable="true" data-placeholder="reply. . ." id="reply-value"></div>
-                    </div>
-                    <div>
-                        <button data-action="create-reply" id="send" class="send-reply">Send</button>
-                    </div>
-                </div>
+        </div>
+    </div>
+
+    <div class="reply-input cancel-box">
+        <div>
+            <span id="cancel-edit-reply" class="cancel-edit" onclick="new CommentActions().cancel_edit(this, 'create-reply')">Cancel</span>
+        </div>
+
+        <div class="reply-holder">
+            <div>
+                <div class="reply-value input-value" contenteditable="true" data-placeholder="reply. . ." id="reply-value"></div>
+            </div>
+            <div>
+                <button data-action="create-reply" id="send" class="send-reply">Send</button>
             </div>
         </div>
     </div>

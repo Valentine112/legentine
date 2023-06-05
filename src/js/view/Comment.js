@@ -14,7 +14,7 @@ class Comment {
 
     main() {
         var element = `
-            <div class="comment-box entity-body"
+            <div class="comment-box entity-body comment-entity"
                 data-token=LT-${this.comment['token']}
                 data-post=${this.comment['post']}
                 data-user=${this.other['id']}

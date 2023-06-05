@@ -62,17 +62,28 @@
 
         }
 
-        public function fetch_comment($post) : array {
+        public function fetch_comment($post, ?array $filter) : array {
             $result = [];
 
-            $this->selecting->more_details("WHERE post = ? LIMIT 20# $post");
+            $filterQuery = "";
+            $filterValue = "";
+
+            // The checks if the notification are been fetched from controller
+            // Or fetch directly from another source
+            if($filter !== null):
+                $filterQuery = $filter['val']["query"];
+                $filterValue = "# ".$filter['val']["value"];
+
+            endif;
+
+            $this->selecting->more_details("WHERE post = ? $filterQuery ORDER BY id DESC LIMIT 20# $post"."$filterValue");
             $action = $this->selecting->action("*", "comments");
             $this->selecting->reset();
 
             if($action != null) return $action;
 
             $value = $this->selecting->pull();
-            
+
 
             // Fetch the comment owner details
             foreach($value[0] as $val):
@@ -806,21 +817,32 @@
             return $this->deliver();
         }
 
-        public function fetch_reply() : array {
+        public function fetch_reply(?array $filter) : array {
             $val = $this->data['val'];
             $result = [];
+
+            $filterQuery = "";
+            $filterValue = "";
+
+            // The checks if the notification are been fetched from controller
+            // Or fetch directly from another source
+            if($filter !== null):
+                $filterQuery = $filter['val']["query"];
+                $filterValue = "# ".$filter['val']["value"];
+
+            endif;
 
             $item = [
                 "token" => $val['comment'],
                 "table" => "comments"
             ];
 
-            // Fetch post first
+            // Fetch comment using the post fetchId method
             $post = new Post(self::$db, null, "");
 
             $comment = $post->fetchId($item)[0][0]['id'];
 
-            $this->selecting->more_details("WHERE comment = ? LIMIT 20# $comment");
+            $this->selecting->more_details("WHERE comment = ? $filterQuery ORDER BY id DESC LIMIT 5# $comment"."$filterValue");
             $action = $this->selecting->action("*", "replies");
             $this->selecting->reset();
 

@@ -66,7 +66,7 @@ window.addEventListener("load", async function() {
                             // Comments
                             comment.forEach(elem => {
                                 comment_box = new Comment(elem)
-                                document.querySelector(".comment-content").insertAdjacentHTML("afterbegin", comment_box.main())
+                                document.querySelector(".comment-content").insertAdjacentHTML("beforeend", comment_box.main())
                             })
                         )
                     })
@@ -178,6 +178,56 @@ window.addEventListener("load", async function() {
 
                 }
             
+            })
+
+            // --------------- REPLY SCROLL, MoreData -------------- //
+
+            var replySub = document.querySelector(".reply-sub")
+            replySub.addEventListener("scroll", function() {
+
+                if(replySub.scrollTop + replySub.clientHeight >= replySub.scrollHeight - 20) {
+
+                    var elements = document.querySelectorAll(".reply-entity"),
+                    // Get the last comment on the page
+                    last_element = elements[elements.length - 1],
+                    // Get the token from the last comment and remove the initials
+                    last_element_token = func.removeInitials(last_element.getAttribute("data-token"))
+
+                    // Fetch the comment to which holds the replies
+                    var replyComment = document.getElementById("reply-comment")
+                    commentToken = func.removeInitials(replyComment.getAttribute("data-token"))
+
+                    var data = {
+                        part: "moreData",
+                        action: "reply",
+                        val: {
+                            lastElement: last_element_token,
+                            filter: "",
+                            more: commentToken
+                        }
+                    }
+
+                    new Func().request("../request.php", JSON.stringify(data), 'json')
+                    .then(val => {
+                        if(val.status == 1) {
+                            console.log(val.content)
+                            var content = val.content
+                            var reply_cover = document.querySelector(".reply-cover")
+                            content.forEach(elem => {
+                                var token = elem['reply']['token']
+
+                                if(document.querySelector(`[data-token=LT-${token}]`) == null) {
+                                    val.content.forEach(elem => {
+                                        var reply = new Reply(elem)
+                    
+                                        reply_cover.insertAdjacentHTML("beforeend", reply.main())
+                                    })
+                                }
+                            })
+                        }
+                    })
+
+                }
             })
 
         }

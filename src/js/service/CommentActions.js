@@ -196,7 +196,7 @@ class CommentActions {
                 val.content.forEach(elem => {
                     var reply = new Reply(elem)
 
-                    reply_cover.insertAdjacentHTML("afterbegin", reply.main())
+                    reply_cover.insertAdjacentHTML("beforeend", reply.main())
                 })
             }
 

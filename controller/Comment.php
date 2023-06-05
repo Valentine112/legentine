@@ -42,7 +42,7 @@
                         break;
 
                     case "fetch_reply":
-                        $result =  $modelComment->fetch_reply();
+                        $result =  $modelComment->fetch_reply(null);
 
                         break;
 

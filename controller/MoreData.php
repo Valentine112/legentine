@@ -56,8 +56,12 @@
                         $result = $modelMoreData->featureHistory();
                         break;
 
-                    case "read":
-                        $result = $modelMoreData->comments();
+                    case "comment":
+                        $result = $modelMoreData->comment();
+                        break;
+
+                    case "reply":
+                        $result = $modelMoreData->reply();
                         break;
 
                 endswitch;

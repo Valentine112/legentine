@@ -160,8 +160,20 @@ window.addEventListener("load", () => {
 
                     case "read":
                         // Setting the action to read
-                        action = "read"
+                        action = "comment"
 
+                        // Particularly done, since more than one entity exist on the read page
+                        // Post, comment, reply
+
+                        var elements = document.querySelectorAll(".comment-entity"),
+                        // Get the last comment on the page
+                        last_element = elements[elements.length - 1],
+                        // Get the token from the last comment and remove the initials
+                        last_element_token = func.removeInitials(last_element.getAttribute("data-token"))
+
+                        // Fetch the post to which the comment belongs to
+                        // Assign it to the more variable
+                        more = param
                         break;
                 
                     default:
@@ -187,7 +199,6 @@ window.addEventListener("load", () => {
                         var postCover = document.getElementById("postCover")
 
                         var content = val.content
-                        console.log(content)
                         if(!new Func().isEmpty(content)) {
                             if(path == "home") {
                                 content.forEach(elem => {
@@ -284,6 +295,20 @@ window.addEventListener("load", () => {
                                 })
                             }
 
+                            if(path == "read" && action == "comment") {
+                                var commentContent = document.querySelector(".comment-content")
+                                
+                                content.forEach(elem => {
+                                    var token = elem['comment']['token']
+
+                                    if(document.querySelector(`[data-token=LT-${token}]`) == null) {
+                                        let comment_box = new Comment(elem)
+
+                                        commentContent.insertAdjacentHTML("beforeend", comment_box.main())
+                                    }
+                                })
+                            }
+
                         }
                     }
 
@@ -299,7 +324,7 @@ window.addEventListener("load", () => {
     // --------------INDICATE NEW NOTIFICATION ---------------------- //
 
     // Called this outside, so that it would only have to fine the element once
-    var liveNotification = document.querySelector(".live-notification")
+    //var liveNotification = document.querySelector(".live-notification")
     var notificationBar = document.querySelector(".notification-bar")
     var notificationBox = document.querySelector(".notification-box")
 
@@ -373,7 +398,6 @@ window.addEventListener("load", () => {
 
         liveTops.addEventListener(`LT-${userIdentification}`, (ev) => {
             var result = JSON.parse(ev.data)['content']
-            console.log(result)
             
             if(result.length > 0) {
                 notifyTops.forEach(elem => {
