@@ -8,14 +8,14 @@
         right: 0;
         height: 100vh;
         margin: auto;
-        overflow-y: unset;
         display: none;
+        z-index: 2;
     }
     .reply .reply-sub{
         height: inherit;
-        overflow-y: auto;
         padding: 15px;
-        background-color: red;
+        margin-bottom: 15%;
+        overflow-y: auto;
     }
 
     .reply .more span{
@@ -95,7 +95,7 @@
 
     /* reply input */
     .reply .reply-input{
-        position: fixed;
+        position: absolute;
         left: 0;
         right: 0;
         bottom: 2%;
@@ -173,7 +173,7 @@
     <div class="reply-sub">
         <div class="more">
             <div>
-                <span onclick="this.closest('.reply').style.display = 'none'">Close</span>
+                <span onclick="closeReply(this)">Close</span>
             </div>
 
             <div class="small">
@@ -236,3 +236,10 @@
         </div>
     </div>
 </div>
+
+<script>
+    function closeReply(self) {
+        document.getElementById("readBody").style.overflowY = "auto"
+        self.closest('.reply').style.display = 'none'
+    }
+</script>

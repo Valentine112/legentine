@@ -10,7 +10,7 @@
     <script src="../src/js/view/Reply.js"></script>
     <title>Read</title>
 </head>
-<body>
+<body id="readBody">
     <div class="read post-body config">
         <div class="content-loader">
             <div></div>

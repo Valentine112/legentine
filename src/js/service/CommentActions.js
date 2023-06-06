@@ -155,7 +155,21 @@ class CommentActions {
         reply_box.setAttribute("data-reply-token", token)
         reply_box.setAttribute("data-post-token", post)
 
+        // Display the reply box here
         reply_box.style.display = "block"
+        // Hide the scoll of the body so it doesn't affect the scroll of the reply box
+        // This should only be done if the reply is covering the whole screen
+        // And this happens only for the small screens
+        // To make sure this is accurate on what we want, we check the height of the reply to see if it covers the screen
+        // passed it as int to remove the px for accurate comparison
+
+        // Get the reply height
+        var replyHeight = parseInt(getComputedStyle(reply_box).getPropertyValue("height"))
+        // Get the window height
+        var bodyHeight = parseInt(window.innerHeight)
+
+        if(replyHeight == bodyHeight)
+            document.getElementById("readBody").style.overflowY = "hidden"
 
         // MODIFYING THE COMMENT BOX FOR THE COMMENT THAT WAS REPLIED TO
         var personLink = document.getElementById("personLink")

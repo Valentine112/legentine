@@ -842,7 +842,7 @@
 
             $comment = $post->fetchId($item)[0][0]['id'];
 
-            $this->selecting->more_details("WHERE comment = ? $filterQuery ORDER BY id DESC LIMIT 5# $comment"."$filterValue");
+            $this->selecting->more_details("WHERE comment = ? $filterQuery ORDER BY id DESC LIMIT 8# $comment"."$filterValue");
             $action = $this->selecting->action("*", "replies");
             $this->selecting->reset();
 
