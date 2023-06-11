@@ -10,7 +10,7 @@ hr{
     background-color: #f1f1f1;
 }
 body{
-    background: linear-gradient(145deg, #444, #000);
+    background: linear-gradient(145deg, #000, #444);
 }
 .config .content-loader{
     background-color: rgba(0, 0, 0, 0.4);

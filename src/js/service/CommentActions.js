@@ -169,7 +169,7 @@ class CommentActions {
         var bodyHeight = parseInt(window.innerHeight)
 
         if(replyHeight == bodyHeight)
-            document.getElementById("readBody").style.overflowY = "hidden"
+            document.body.style.overflowY = "hidden"
 
         // MODIFYING THE COMMENT BOX FOR THE COMMENT THAT WAS REPLIED TO
         var personLink = document.getElementById("personLink")

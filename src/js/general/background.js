@@ -77,7 +77,7 @@ window.addEventListener("load", () => {
     // --------------LOAD NEW ELEMENT ONCE USER REACHES THE BOTTOM-------------//
 
     // Load the new elements once the user reaches the bottom of the page
-    window.addEventListener("scroll", function() {
+    window.addEventListener("scroll", function(e) {
 
         // List of valid paths to perform this action
         // This is to reduce the uneccessary running in the background
@@ -315,6 +315,14 @@ window.addEventListener("load", () => {
                     func.notice_box(val)
                 })
             }
+        }
+
+        // Disable the window scroll if reply box is visible
+        var replyBody = document.querySelector(".reply")
+        console.log(getComputedStyle(replyBody).getPropertyValue("display"))
+
+        if(getComputedStyle(replyBody).getPropertyValue("display") == "block") {
+            e.preventDefault()
         }
     })
 

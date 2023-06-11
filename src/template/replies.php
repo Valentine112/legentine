@@ -1,6 +1,5 @@
 <style>
     .reply{
-        background: linear-gradient(145deg, #444, #000);
         position: fixed;
         top: 0;
         bottom: 0;
@@ -12,10 +11,13 @@
         z-index: 2;
     }
     .reply .reply-sub{
+        background: linear-gradient(145deg, #444, #000);
         height: inherit;
         padding: 15px;
-        margin-bottom: 15%;
         overflow-y: auto;
+    }
+    .reply-sub .main-reply{
+        margin-bottom: 30%;
     }
 
     .reply .more span{
@@ -150,6 +152,11 @@
         .reply .reply-input{
             bottom: 5%;
         }
+        .reply .reply-sub{
+            height: 80vh;
+            top: unset;
+            bottom: 0;
+        }
     }
     @media screen and (min-width: 768px) {
         .reply{
@@ -239,7 +246,7 @@
 
 <script>
     function closeReply(self) {
-        document.getElementById("readBody").style.overflowY = "auto"
+        document.body.style.overflowY = "hidden"
         self.closest('.reply').style.display = 'none'
     }
 </script>
