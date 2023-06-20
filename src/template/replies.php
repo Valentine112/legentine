@@ -5,16 +5,22 @@
         bottom: 0;
         left: 0;
         right: 0;
-        height: 100vh;
         margin: auto;
         display: none;
         z-index: 2;
     }
     .reply .reply-sub{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 90vh;
         background: linear-gradient(145deg, #444, #000);
         height: inherit;
         padding: 15px;
         overflow-y: auto;
+        z-index: 3;
     }
     .reply-sub .main-reply{
         margin-bottom: 30%;
@@ -159,7 +165,7 @@
         }
     }
     @media screen and (min-width: 768px) {
-        .reply{
+        .reply .reply-sub{
             top: unset;
             left: unset;
             height: 70vh;
@@ -168,7 +174,7 @@
     }
 
     @media screen and (min-width: 992px) {
-        .reply{
+        .reply .reply-sub{
             width: 35%;
             border-top-left-radius: 20px;
             border-top-right-radius: 20px;
@@ -177,6 +183,7 @@
 </style>
 
 <div class="main-content reply config">
+    <div class="config-background-blur blur-bg"></div>
     <div class="reply-sub">
         <div class="more">
             <div>
