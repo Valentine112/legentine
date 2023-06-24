@@ -103,9 +103,8 @@
 
     /* reply input */
     .reply .reply-input{
-        position: absolute;
-        left: 0;
-        right: 0;
+        position: fixed;
+        right: 1%;
         bottom: 2%;
         margin: auto;
         width: 100%;
@@ -156,7 +155,8 @@
 
     @media screen and (max-width: 767px) {
         .reply .reply-input{
-            bottom: 5%;
+            bottom: 2%;
+            width: 99%;
         }
         .reply .reply-sub{
             height: 80vh;
@@ -165,6 +165,9 @@
         }
     }
     @media screen and (min-width: 768px) {
+        .reply .reply-input{
+            width: 49%;
+        }
         .reply .reply-sub{
             top: unset;
             left: unset;
@@ -174,6 +177,9 @@
     }
 
     @media screen and (min-width: 992px) {
+        .reply .reply-input{
+            width: 34%;
+        }
         .reply .reply-sub{
             width: 35%;
             border-top-left-radius: 20px;
@@ -183,7 +189,7 @@
 </style>
 
 <div class="main-content reply config">
-    <div class="config-background-blur blur-bg"></div>
+    <div class="config-background-blur blur-bg" onclick="closeReply(this)"></div>
     <div class="reply-sub">
         <div class="more">
             <div>
@@ -232,6 +238,21 @@
 
         <div class="spaceBelow">
 
+        </div>
+
+        <div class="reply-input cancel-box">
+            <div>
+                <span id="cancel-edit-reply" class="cancel-edit" onclick="new CommentActions().cancel_edit(this, 'create-reply')">Cancel</span>
+            </div>
+
+            <div class="reply-holder">
+                <div>
+                    <div class="reply-value input-value" contenteditable="true" data-placeholder="reply. . ." id="reply-value"></div>
+                </div>
+                <div>
+                    <button data-action="create-reply" id="send" class="send-reply">Send</button>
+                </div>
+            </div>
         </div>
     </div>
 

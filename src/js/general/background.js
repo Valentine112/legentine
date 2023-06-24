@@ -376,7 +376,7 @@ window.addEventListener("load", () => {
                     }
 
                     // Counting how many elements to pop when the loop is done
-                    if(liveNotification.querySelector("[data-token=LT-" + token + "]") == null) {
+                    if(notificationBox.querySelector("[data-token=LT-" + token + "]") == null) {
                         // Check if the number of notifications has exceeded 20, then increment the count to trim them
 
                         if(notificationBox.querySelectorAll(".notifications").length >= 20) count++
