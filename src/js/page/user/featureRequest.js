@@ -55,6 +55,7 @@ function featureBox(data) {
 }
 
 function historyBox(data, self) {
+    console.log(data)
     var history = data['history'],
     other = data['other'],
     post = data['post']
@@ -77,7 +78,7 @@ function historyBox(data, self) {
         `
     }
 
-    if(history['status'] == 1) {
+    if(history['response'] == 1) {
         status = "Accepted"
 
         if(self == history['user']){

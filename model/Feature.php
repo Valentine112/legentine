@@ -349,6 +349,20 @@
                 // Request declined
                 // Delete request
 
+                // Process request from History also
+                // Convert the feature Id to token so it can also work here
+                // Fetch post id
+                if(isset($val['feature'])):
+                    $data = [
+                        "id" => $val['feature'],
+                        "1" => "1",
+                        "needle" => "token",
+                        "table" => "feature"
+                    ];
+
+                    $token = Func::searchDb(self::$db, $data, "AND");
+                endif;
+
                 $deleting = new Delete(self::$db, "WHERE token = ? AND other = ?, $token, $this->user");
                 $action = $deleting->proceed("feature");
                 if($action):
@@ -370,8 +384,11 @@
 
             endif;
 
-            // Save to history
+            // Confirming that every previous transaction was successful and proceeding
+            //Save to history
+
             if($this->status === 1):
+
                 // If request is coming from fetchHistory
                 if(isset($val['feature'])):
                     $historyFeature = $val['feature'];
@@ -388,15 +405,16 @@
 
                     $history = Func::searchDb(self::$db, $data, "AND");
                     if(is_int($history)):
-                        $updating = new Update(self::$db, "SET response = ? WHERE id = ?# $type# $history");
-                        $action = $updating->mutate('ii', 'history');
 
+                        $updating = new Update(self::$db, "SET response = ? WHERE id = ? AND user = ?# $type# $history# $this->user");
+                        $action = $updating->mutate('iii', 'history');
                         if($action):
                             self::$db->autocommit(TRUE);
                         else:
                             return $action;
                         endif;
                     endif;
+
                 else:
                     $subject = [
                         "token",
@@ -423,7 +441,7 @@
                     $inserting = new Insert(self::$db, "history", $subject, "");
                     $action = $inserting->push($items, 'siiiiisi');
                     if($action):
-                        //self::$db->autocommit(TRUE);
+                        self::$db->autocommit(TRUE);
                     else:
                         return $action;
                     endif;

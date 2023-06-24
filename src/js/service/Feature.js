@@ -123,6 +123,20 @@ class Feature {
             data.val['feature'] = this.func.removeInitials(parent.getAttribute("data-feature"))
         }
 
+        this.func.request("../request.php", JSON.stringify(data), 'json')
+        .then(val => {
+            if(val.status === 1){
+                console.log(val)
+                parent.remove()
+            }
+
+            new Func().notice_box(val)
+        })
+
+        /**
+         * This method is if there is need to delay the action incase the user chnages his/her mind
+         * For now that wouldn't be necessary
+
         var delete_notice = document.querySelector(".delete-notice")
 
         var promise = new Promise(res => {
@@ -132,6 +146,7 @@ class Feature {
             )
         })
         await promise
+        */
     }
 
     quietFeature(elem) {
