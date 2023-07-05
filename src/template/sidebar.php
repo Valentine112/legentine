@@ -139,10 +139,10 @@
                                 <ul class="first-list">
 
                                     <li>
-                                        <a href="">
+                                        <a href="#">
                                             <img src="../src/icon/sidebar-icon/chat.svg" alt="">
                                             &emsp;
-                                            <span>Chat</span>
+                                            <span>Chat...</span>
                                         </a>
                                     </li>
 
@@ -209,13 +209,15 @@
                                                 <li>
                                                     <a href="featureHistory">History</a>
                                                 </li>
-                                                <li>
-                                                    <div>
-                                                        <span class="quiet" data-action="quiet-feature">Quiet</span>
-                                                    </div>
-                                                </li>
                                             </ul>
                                         </div> 
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <img src="../src/icon/sidebar-icon/snooze.svg" alt="">
+                                            &emsp;
+                                            <span class="quiet" data-action="quiet-feature">Quiet</span>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
@@ -234,7 +236,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="">
+                                        <a href="unlisted">
                                             <img src="../src/icon/sidebar-icon/unlist.svg" alt="">
                                             &emsp;
                                             Unlist

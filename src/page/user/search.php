@@ -42,6 +42,7 @@
         }
         .search-result .result-box{
             border-bottom: 1px solid #f1f1f1;
+            margin-top: 15px;
             margin-bottom: 5px;
             padding: 5px 0;
             font-family: var(--theme-font-3);

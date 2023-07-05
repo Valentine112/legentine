@@ -95,12 +95,6 @@
         cursor: pointer;
     }
 
-    .spaceBelow{
-        height: 0vh;
-        width: 1px;
-        background-color: red;
-    }
-
     /* reply input */
     .reply .reply-input{
         position: fixed;
@@ -236,10 +230,6 @@
             </div>
         </div>
 
-        <div class="spaceBelow">
-
-        </div>
-
         <div class="reply-input cancel-box">
             <div>
                 <span id="cancel-edit-reply" class="cancel-edit" onclick="new CommentActions().cancel_edit(this, 'create-reply')">Cancel</span>
@@ -274,7 +264,6 @@
 
 <script>
     function closeReply(self) {
-        document.body.style.overflowY = "hidden"
         self.closest('.reply').style.display = 'none'
     }
 </script>

@@ -58,7 +58,7 @@
     <div class="action" data-action="category" value="story">
         <span>Story</span>
     </div>
-    <div class="action" data-action="category" value="art">
+    <!--<div class="action" data-action="category" value="art">
         <span>Art</span>
-    </div>
+    </div>-->
 </div>

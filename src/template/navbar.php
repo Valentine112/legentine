@@ -112,7 +112,7 @@
             z-index: 4;
             width: 90%;
             height: fit-content;
-            max-height: 90vh;
+            max-height: 60vh;
             margin: auto;
         }
         .notification-cover{
@@ -484,7 +484,7 @@
                                     <header>General</header>
                                     <hr>
                                     <ul>
-                                        <li><a href="">Chat</a></li>
+                                        <li><a href="#">Chat...</a></li>
                                         <li><a href="privateAccess">Private</a></li>
                                     </ul>
                                 </div>
@@ -510,10 +510,10 @@
                                                 <ul id="drop" class="dropdown-item">
                                                     <li><a href="featureRequest">Request</a></li>
                                                     <li><a href="featureHistory">History</a></li>
-                                                    <li class="quiet" data-action="quiet-feature">Quiet</li>
                                                 </ul>
                                             </div>
                                         </li>
+                                        <li class="quiet" data-action="quiet-feature">Quiet</li>
                                     </ul>
                                 </div>
     

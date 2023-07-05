@@ -84,7 +84,7 @@
     }
     .result-section .top-randoms header{
         font-size: 20px;
-        font-family: "SourceSansPro";
+        font-family: "SourceSansPro", sans-serif;
         font-weight: 800;
         color: #000;
         margin: 0 1%;
@@ -100,8 +100,8 @@
         margin: 8px 1%;
     }
     .top-randoms .people-box img{
-        height: 150px;
-        width: 100%;
+        height: 100px;
+        width: 100px;
         border-radius: 5px;
         object-fit: cover;
     }
@@ -281,9 +281,9 @@
                         <img src="" alt="">
                     </div>
                     <div>
-                        <span class="fullname post-title">Ngene Valentine</span>
+                        <span class="fullname post-title"></span>
                         <br>
-                        <span class="username">Himself</span>
+                        <span class="username"></span>
                     </div>
                 </div>
             </a>

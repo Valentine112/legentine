@@ -19,11 +19,11 @@
                 // Include the navbar here
                 include "src/template/navbar.php";
 
-                // Include the category section here
-                include "src/template/category.php"; 
-
                 // Include sidebar here
                 include "src/template/sidebar.php";
+
+                // Include the category section here
+                include "src/template/category.php"; 
 
                 // Include search here
                 include "src/template/search.php";

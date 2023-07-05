@@ -32,6 +32,7 @@
     border-radius: 50px;
 }
 .unlistedCover .name{
+    padding-left: 10px;
     font-size: 16px;
     text-align: left;
 }

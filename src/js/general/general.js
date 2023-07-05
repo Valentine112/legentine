@@ -29,7 +29,7 @@ window.addEventListener("load", function() {
             new Func().intersect_show_image("data-image", "src", 0.75, ".lazy-load-image")
         }
 
-    }, 2000)
+    }, 1000)
 
 })
 

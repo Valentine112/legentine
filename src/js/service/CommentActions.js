@@ -163,14 +163,6 @@ class CommentActions {
         // To make sure this is accurate on what we want, we check the height of the reply to see if it covers the screen
         // passed it as int to remove the px for accurate comparison
 
-        // Get the reply height
-        var replyHeight = parseInt(getComputedStyle(reply_box).getPropertyValue("height"))
-        // Get the window height
-        var bodyHeight = parseInt(window.innerHeight)
-
-        if(replyHeight == bodyHeight)
-            document.body.style.overflowY = "hidden"
-
         // MODIFYING THE COMMENT BOX FOR THE COMMENT THAT WAS REPLIED TO
         var personLink = document.getElementById("personLink")
         var comment_body = document.getElementById("reply-comment")
