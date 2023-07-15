@@ -1,4 +1,5 @@
 # Legentine
-A reflection site
+A reflection social media website
 
-# Fetching more comments
+Built using Object-Oriented PHP as the backend
+Along side pure HTML, pure CSS and Vanilla Javascript as the frontend
