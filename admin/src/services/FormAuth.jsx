@@ -1,16 +1,8 @@
-import { useState } from "react"
 import { ResponseFormat } from "./ResponseFormat"
 
-interface AuthData {
-    value: string | number,
-    auth: string
-}
-
 class FormAuth extends ResponseFormat {
-    data: any
-    required?: Array<any>|null
 
-    constructor(data: object, required?: Array<any>|null) {
+    constructor(data, required) {
         super()
 
         // Required signifies the cases that are needed
@@ -34,13 +26,13 @@ class FormAuth extends ResponseFormat {
                 // Sort the list
                 this.required.forEach(element => {
 
-                    if(!this.data[element as keyof typeof this.data])
+                    if(!this.data[element])
                         var obj = {
                             value: "",
                             auth: element
                         }
 
-                        this.data[element as keyof typeof this.data] = obj
+                        this.data[element] = obj
                 })
             
             res(this.data)
@@ -58,8 +50,8 @@ class FormAuth extends ResponseFormat {
             Object.keys(this.data).map( (key) => {
                 // Fetch the data authentication method
         
-                var obj = this.data[key as keyof typeof this.data]
-                var value = obj['value'] as string
+                var obj = this.data[key]
+                var value = obj['value']
         
                 switch (obj['auth']){
                     case "username":
@@ -76,7 +68,7 @@ class FormAuth extends ResponseFormat {
                         break
         
                     case "email":
-                        var result: boolean = false
+                        var result = true
                         // check that it doesn't start with a number
                         // check that there are letters before the @ sign
                         // check that there is letter after the @ sign and a dot after those letters

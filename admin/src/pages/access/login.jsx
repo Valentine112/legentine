@@ -1,52 +1,7 @@
-import { FormEvent, useState } from "react";
 import "../css/access/login.css";
 import FormAuth from "../../services/FormAuth";
 
 function Login() {
-    let [formData, setFormData] = useState({})
-
-    function getForm(ev: {target: any}) {
-        var element = ev.target
-        var elemName = element.name
-        var elemAuth = element.dataset.auth
-
-        // Delete any key whose value is empty
-        if(element.value.length < 1){
-            setFormData(prev => {
-                const newData = { ...prev }
-                delete newData[elemName as keyof typeof newData]
-
-                return newData
-            })
-        }
-        else{
-            setFormData(prev => {
-                return(
-                    {
-                        ...prev,
-                        [elemName]: {
-                            value: element.value,
-                            auth: elemAuth
-                        }
-                    }
-                )
-            })
-        }
-
-    }
-
-    function submitForm(e: FormEvent<HTMLFormElement>) {
-        e.preventDefault()
-        // Call the formAuth to crosscheck the form
-
-        // The required should be in descending on who is been attended to first
-        var formAuth = new FormAuth(formData, ["password", "username"])
-        var result = formAuth.process()
-
-        result.then(token => {
-            console.log(token)
-        })
-    }
 
   return (
     <div>
@@ -56,7 +11,7 @@ function Login() {
         </header>
         <main>
             <form action="post" onSubmit={(e) => (
-                    submitForm(e)
+                    e.preventDefault()
                 )
             }>
                 <div className="col-11 col-md-8 col-lg-5 mx-auto mt-5">
@@ -67,7 +22,6 @@ function Login() {
                         name="username"
                         data-auth="username"
                         placeholder="Username"
-                        onChange={getForm}
                     />
                     </div>
                     <div className="mt-3">
@@ -77,7 +31,6 @@ function Login() {
                         name="password"
                         data-auth="password"
                         placeholder="Password"
-                        onChange={getForm}
                     />
                     </div>
 
