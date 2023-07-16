@@ -54,7 +54,7 @@
                      <label for="save-details-id" class="label-check">
                             <input type="checkbox" name="save-details" id="save-details-id">
                             <div class="switch">
-                                   <div class="slider"></div>
+                                <div class="slider"></div>
                             </div>
                             <span class="save-notice">Save details</span>
                      </label>

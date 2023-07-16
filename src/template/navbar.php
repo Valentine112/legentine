@@ -1,3 +1,11 @@
+<?php
+    use Config\Authenticate;
+    define("USER", Authenticate::check_user());
+    $loggingStatus = false;
+
+    USER['type'] === 2 ? $loggingStatus = true : $loggingStatus = false;
+
+?>
 <head>
     <style>
         .navbar{
@@ -417,43 +425,60 @@
     </div>
 
     <nav class="navbar config">
-
         <div class="small small-navbar">
-            <div>
-                <a href="home" class="nav-links home">
-                    <img src="../src/icon/header/plain-icon/home.svg" alt="home" class="config-icon-1 ori-icon">
+            <!-- Filter link due to user login status -->
+            <?php if($loggingStatus): ?>
+                <div>
+                    <a href="home" class="nav-links home">
+                        <img src="../src/icon/header/plain-icon/home.svg" alt="home" class="config-icon-1 ori-icon">
 
-                    <img src="../src/icon/header/color-icon/home.svg" alt="home" class="config-icon-1 alt-icon">
-                </a>
-            </div>
+                        <img src="../src/icon/header/color-icon/home.svg" alt="home" class="config-icon-1 alt-icon">
+                    </a>
+                </div>
 
-            <div>
-                <a href="session" class="nav-links session">
-                    <img src="../src/icon/header/plain-icon/note.svg" alt="session" class="config-icon-1 ori-icon">
-                </a>
-            </div>
-                
-            <div class="tops">
-                <div class="notify-tops"></div>
-                <a href="rank" class="nav-links rank">
-                    <img src="../src/icon/header/plain-icon/star.svg" alt="tops" class="config-icon-1 ori-icon">
+                <div>
+                    <a href="session" class="nav-links session">
+                        <img src="../src/icon/header/plain-icon/note.svg" alt="session" class="config-icon-1 ori-icon">
+                    </a>
+                </div>
+                    
+                <div class="tops">
+                    <div class="notify-tops"></div>
+                    <a href="rank" class="nav-links rank">
+                        <img src="../src/icon/header/plain-icon/star.svg" alt="tops" class="config-icon-1 ori-icon">
 
-                    <img src="../src/icon/header/color-icon/star.svg" alt="tops" class="config-icon-1 alt-icon">
-                </a>
-            </div>
-                
-            <div class="search-toggle">
-                <img src="../src/icon/header/plain-icon/search.svg" alt="search" class="config-icon-1 ori-icon" onclick="toggleSearch(this, 'ori-icon')">
+                        <img src="../src/icon/header/color-icon/star.svg" alt="tops" class="config-icon-1 alt-icon">
+                    </a>
+                </div>
+                    
+                <div class="search-toggle">
+                    <img src="../src/icon/header/plain-icon/search.svg" alt="search" class="config-icon-1 ori-icon" onclick="toggleSearch(this, 'ori-icon')">
 
-                <img src="../src/icon/header/color-icon/search.svg" alt="search" class="config-icon-1 alt-icon" id="hide-search" onclick="toggleSearch(this, 'alt-icon')">
-            </div>
+                    <img src="../src/icon/header/color-icon/search.svg" alt="search" class="config-icon-1 alt-icon" id="hide-search" onclick="toggleSearch(this, 'alt-icon')">
+                </div>
 
-            <div>
-                <img src="../src/icon/header/plain-icon/list.svg" alt="menu" class="config-icon-1 ori-icon" data-action="show_sidebar">
-            </div>
+                <div>
+                    <img src="../src/icon/header/plain-icon/list.svg" alt="menu" class="config-icon-1 ori-icon" data-action="show_sidebar">
+                </div>
+
+            <?php else: ?>
+                <div>
+                    <a href="#" class="nav-links home" style="color: var(--theme-color); font-family: 'SourceSansPro', sans-serif">
+                        <span style="font-size: 22px;">Exploring</span>
+                    </a>
+                </div>
+
+                <div>
+                    <a href="../login?action=logout" style="color: #000; font-family: 'SourceSansPro', sans-serif">
+                        <span style="font-size: 22px;">Login</span>
+                    </a>
+                </div>
+            <?php endif; ?>
         </div>
 
         <div class="large large-navbar">
+            <!-- Filter link due to user login status -->
+            <?php if($loggingStatus): ?>
             <div class="section-1">
                 <div>
                     <a href="home" class="nav-links home">
@@ -614,6 +639,22 @@
                     </a>
                 </div>
             </div>
+
+            <?php else: ?>
+                <div class="" style="width: 40%; margin: auto;">
+                    <div>
+                        <a href="#" class="nav-links home">
+                            <span style="font-size: 20px; background-color: #444;">Exploring</span>
+                        </a>
+                    </div>
+
+                    <div>
+                        <a href="../login?action=logout">
+                            <span style="font-size: 20px;">Login</span>
+                        </a>
+                    </div>
+                </div>
+            <?php endif; ?>
 
         </div>
 

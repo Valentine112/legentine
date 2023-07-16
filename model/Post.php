@@ -432,6 +432,12 @@
                 $query = "";
                 $queryParam = "";
 
+                // Configure the blocked query if the user is not logged in
+                if($session['type'] === 0):
+                    $blocked_query = "AND ".'1'." = ? ";
+                    $blocked_result = "1";
+                endif;
+
                 // If isset 'new', this means that the data is been sent from moreData
                 // If so, we modify the data
 

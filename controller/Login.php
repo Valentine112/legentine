@@ -53,6 +53,10 @@
                     $result = $login->addNewDevice($data['val']['user']);
                     break;
 
+                case 'explore':
+                    $result = $login->explore();
+                    break;
+                    
                 default:
                     $this->type = "Controller/Signup/main";
                     $this->status = 0;

@@ -11,6 +11,9 @@ window.addEventListener("load", function () {
     // Submitting the form, after all has been filled
     signup_btn.addEventListener("click", function () {
 
+        // Configure button to prevent multiple request
+        new Func().buttonConfig(this, "before")
+
         // Initialise the error message to empty
         error_message.forEach(elem => {
             elem.querySelector("span").innerText = ""
@@ -61,9 +64,6 @@ window.addEventListener("load", function () {
                  * Default signifies true
                  */
 
-                // Configure button to prevent multiple request
-                new Func().buttonConfig(this, "before")
-
                 var data = {
                     part: 'signup',
                     action: "verify",
@@ -79,8 +79,6 @@ window.addEventListener("load", function () {
 
                 new Func().request('request.php', data, 'json')
                 .then(val => {       
-                    // Configure button to prevent multiple request
-                    new Func().buttonConfig(this, "after")
 
                     var response = val
                     if(response.status === 1) {
@@ -96,6 +94,9 @@ window.addEventListener("load", function () {
 
                 break;
         }
+
+        // Configure button to prevent multiple request
+        new Func().buttonConfig(this, "after")
 
     }, true)
 })

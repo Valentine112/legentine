@@ -242,9 +242,6 @@
             return $this->deliver();
         }
 
-        public function explore() {     
-        }
-
         public function save_cookie(string $token) {
 
             // Check if user choose to save the login details
@@ -340,6 +337,26 @@
                     $this->content = "token not found in file";
 
                 endif;
+            endif;
+
+            return $this->deliver();
+        }
+
+        public function explore() : array {
+
+            $exp = time() - time();
+            if(setcookie("token", "", $exp, "/", "", FALSE, TRUE)):
+                
+                $this->type = "success";
+                $this->status = 1;
+                $this->message = "void";
+                $this->content = "Success";
+
+            else:
+                $this->type = "error";
+                $this->status = 0;
+                $this->message = "fill";
+                $this->content = "Something went wrong. . .";
             endif;
 
             return $this->deliver();

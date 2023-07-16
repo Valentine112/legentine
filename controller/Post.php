@@ -25,6 +25,8 @@
             switch ($data['action']):
                 case 'fetch_post':
                     $result = $modelPost->fetch_post(USER);
+
+                    return $result;
                     break;
                     
                 default:

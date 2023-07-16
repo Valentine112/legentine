@@ -54,3 +54,25 @@ window.addEventListener("load", () => {
         }
     })
 })
+
+function explore(self) {
+    new Func().buttonConfig(self, "before")
+
+    data = {
+        part: 'login',
+        action: "explore",
+        val: {}
+    }
+
+    new Func().request("request.php", JSON.stringify(data), "json")
+    .then(val => {
+        new Func().buttonConfig(self, "after")
+        if(val.status === 1) {
+            window.location = "user/home"
+        }
+
+        console.log(val)
+
+        new Func().processResponse(val, "error", "error")
+    })
+}

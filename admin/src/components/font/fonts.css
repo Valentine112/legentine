@@ -1,0 +1,134 @@
+@font-face {
+  font-family: 'Montserrat';
+  src: url('fonts/Montserrat/Montserrat-Bold.eot');
+  src: url('fonts/Montserrat/Montserrat-Bold.eot?#iefix') format('embedded-opentype'),
+      url('fonts/Montserrat/Montserrat-Bold.woff2') format('woff2'),
+      url('fonts/Montserrat/Montserrat-Bold.woff') format('woff'),
+      url('fonts/Montserrat/Montserrat-Bold.ttf') format('truetype'),
+      url('fonts/Montserrat/Montserrat-Bold.svg#Montserrat-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NotoSansJP';
+  src: url('fonts/NotoSansJP/NotoSansJP-Light-Alphabetic.eot');
+  src: url('fonts/NotoSansJP/NotoSansJP-Light-Alphabetic.eot?#iefix') format('embedded-opentype'),
+      url('fonts/NotoSansJP/NotoSansJP-Light-Alphabetic.woff2') format('woff2'),
+      url('fonts/NotoSansJP/NotoSansJP-Light-Alphabetic.woff') format('woff'),
+      url('fonts/NotoSansJP/NotoSansJP-Light-Alphabetic.ttf') format('truetype'),
+      url('fonts/NotoSansJP/NotoSansJP-Light-Alphabetic.svg#NotoSansJP-Light-Alphabetic') format('svg');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('fonts/Open Sans/OpenSans-Light.eot');
+  src: url('fonts/Open Sans/OpenSans-Light.eot?#iefix') format('embedded-opentype'),
+      url('fonts/Open Sans/OpenSans-Light.woff2') format('woff2'),
+      url('fonts/Open Sans/OpenSans-Light.woff') format('woff'),
+      url('fonts/Open Sans/OpenSans-Light.ttf') format('truetype'),
+      url('fonts/Open Sans/OpenSans-Light.svg#OpenSans-Light') format('svg');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('fonts/Poppins/Poppins-Regular.eot');
+  src: url('fonts/Poppins/Poppins-Regular.eot?#iefix') format('embedded-opentype'),
+      url('fonts/Poppins/Poppins-Regular.woff2') format('woff2'),
+      url('fonts/Poppins/Poppins-Regular.woff') format('woff'),
+      url('fonts/Poppins/Poppins-Regular.ttf') format('truetype'),
+      url('fonts/Poppins/Poppins-Regular.svg#Poppins-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fredericka';
+  src: url('fonts/FederickatheGreat/FrederickatheGreat-Regular.eot');
+  src: url('fonts/FederickatheGreat/FrederickatheGreat-Regular.eot?#iefix') format('embedded-opentype'),
+      url('fonts/FederickatheGreat/FrederickatheGreat-Regular.woff2') format('woff2'),
+      url('fonts/FederickatheGreat/FrederickatheGreat-Regular.woff') format('woff'),
+      url('fonts/FederickatheGreat/FrederickatheGreat-Regular.ttf') format('truetype'),
+      url('fonts/FederickatheGreat/FrederickatheGreat-Regular.svg#FrederickatheGreat-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Niconne';
+  src: url('fonts/Niconne/Niconne-Regular.eot');
+  src: url('fonts/Niconne/Niconne-Regular.eot?#iefix') format('embedded-opentype'),
+      url('fonts/Niconne/Niconne-Regular.woff2') format('woff2'),
+      url('fonts/Niconne/Niconne-Regular.woff') format('woff'),
+      url('fonts/Niconne/Niconne-Regular.ttf') format('truetype'),
+      url('fonts/Niconne/Niconne-Regular.svg#Niconne-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sacramento';
+  src: url('fonts/Sacramento/Sacramento-Regular.eot');
+  src: url('fonts/Sacramento/Sacramento-Regular.eot?#iefix') format('embedded-opentype'),
+      url('fonts/Sacramento/Sacramento-Regular.woff2') format('woff2'),
+      url('fonts/Sacramento/Sacramento-Regular.woff') format('woff'),
+      url('fonts/Sacramento/Sacramento-Regular.ttf') format('truetype'),
+      url('fonts/Sacramento/Sacramento-Regular.svg#Sacramento-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('fonts/Roboto/Roboto-Regular.eot');
+  src: url('fonts/Roboto/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
+      url('fonts/Roboto/Roboto-Regular.woff2') format('woff2'),
+      url('fonts/Roboto/Roboto-Regular.woff') format('woff'),
+      url('fonts/Roboto/Roboto-Regular.ttf') format('truetype'),
+      url('fonts/Roboto/Roboto-Regular.svg#Roboto-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SourceSansPro';
+  src: url('Fonts/SourceSansPro/SourceSansPro-Regular.eot');
+  src: url('fonts/SourceSansPro/SourceSansPro-Regular.eot?#iefix') format('embedded-opentype'),
+      url('Fonts/SourceSansPro/SourceSansPro-Regular.woff2') format('woff2'),
+      url('Fonts/SourceSansPro/SourceSansPro-Regular.woff') format('woff'),
+      url('Fonts/SourceSansPro/SourceSansPro-Regular.ttf') format('truetype'),
+      url('fonts/SourceSansPro/SourceSansPro-Regular.svg#SourceSansPro-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('fonts/Manrope/Manrope-Regular.woff2') format('woff2'),
+      url('fonts/Manrope/Manrope-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Arial';
+  src: url('fonts/ArialMT.woff2') format('woff2'),
+      url('fonts/ArialMT.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

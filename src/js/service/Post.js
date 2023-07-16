@@ -288,7 +288,7 @@ class Post {
         var box = elem.closest(".reaction-box")
         var type = elem.getAttribute("data-type")
 
-        if(type === "unstar") {
+        /*if(type === "unstar") {
             box.querySelector(".unstar").classList.remove("active")
             box.querySelector(".star").classList.add("active")
 
@@ -296,7 +296,7 @@ class Post {
             box.querySelector(".star").classList.remove("active")
             box.querySelector(".unstar").classList.add("active")
 
-        }
+        }*/
         
         var post_body = elem.closest(".post-body"),
         token = new Func().removeInitials(post_body.getAttribute("data-token"))
@@ -333,6 +333,8 @@ class Post {
                 // Show the total number of likes here
                 post_body.querySelector(".reaction-count span").innerText = count
             }
+
+            this.func.notice_box(val)
         })
     }
 
