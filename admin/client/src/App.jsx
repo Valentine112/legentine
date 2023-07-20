@@ -3,15 +3,14 @@ import Login from './pages/access/login'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import './components/font/fonts.css'
-import Notify from './services/Notify'
+import useAuth, { AuthProvider } from './hooks/useAuth'
 
 function App() {
   return (
     <div className='App'>
-      <Routes>
-        <Route path="/" element={<Login />} />
-      </Routes>
-      <Notify />
+      <AuthProvider>
+        <Login />
+      </AuthProvider>
     </div>
   )
 }

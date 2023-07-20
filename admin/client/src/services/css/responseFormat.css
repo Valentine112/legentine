@@ -1,0 +1,11 @@
+.rMessage{
+    position: fixed;
+    bottom: 3%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: rgb(241, 245, 248);
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+}
