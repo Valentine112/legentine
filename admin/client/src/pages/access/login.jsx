@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import "../css/access/login.css";
 import useAuth from "../../hooks/useAuth";
 import ResponseFormat from "../../services/ResponseFormat";
 
 function Login() {
-  const Auth = useAuth()
+  const auth = useAuth()
 
   // Hiding the error box after 3secs
   useEffect(() => {
-    setTimeout(() => {Auth.clientError && Auth.setClientError(false)}, 3000)
-  }, [Auth.clientError])
+    setTimeout(() => {auth.clientError && auth.setClientError(false)}, 3000)
+  }, [auth.clientError])
   
 
   return (
@@ -22,7 +22,7 @@ function Login() {
         <main>
             <form action="post" onSubmit={(e) => (
                 e.preventDefault(),
-                Auth.login()
+                auth.login()
               )
             }>
 
@@ -34,17 +34,19 @@ function Login() {
                         name="username"
                         data-auth="username"
                         placeholder="Username"
-                        onChange={e => Auth.setUsername(e.target.value)}
+                        value="Kakarotgoku"
+                        ref={auth.username}
                     />
                     </div>
                     <div className="mt-3">
                     <input
-                        type="text"
+                        type="password"
                         className="form-control"
                         name="password"
                         data-auth="password"
                         placeholder="Password"
-                        onChange={e => Auth.setPassword(e.target.value)}
+                        value="justapassword1!"
+                        ref={auth.password}
                     />
                     </div>
 
@@ -57,7 +59,7 @@ function Login() {
       </div>
 
       {
-        Auth.clientError ? <ResponseFormat data={Auth.message} /> : ""
+        auth.clientError ? <ResponseFormat data={auth.message} /> : ""
       }
 
     </div>

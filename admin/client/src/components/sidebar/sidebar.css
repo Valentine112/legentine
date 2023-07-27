@@ -1,0 +1,46 @@
+.sidebar-container{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    margin-left: 0%; /* For taking sidebar inside */
+}
+.sidebar{
+    background: linear-gradient(145deg, #17023b 60%, dodgerblue);
+    width: 100%;
+}
+.sidebar .active{
+    border-bottom: 1px solid #fff;
+}
+.sidebar .linkPosition{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: fit-content;
+    margin: auto;
+}
+.sidebar > ul{
+    margin: 2em 0;
+}
+ul li::before{
+    content: "\2022";
+    color: #fff;
+    display: inline-block;
+    width: 1em;
+}
+ul li{
+    margin: 2em 0;
+    list-style: none;
+}
+.sidebar a{
+    color: #fff;
+    text-decoration: none;
+    font-family: 'SourceSansPro', sans-serif;
+    font-size: 20px;
+}
+
+@media screen and (max-width: 767px) {
+    /* Hide the sidebar initially on phones */
+    .sidebar-container{
+        margin-left: -60%;
+    }
+}

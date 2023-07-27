@@ -7,9 +7,9 @@ const ResponseFormat = (data) => {
     <div className='rMessage mx-auto'>
         <div>
             <header>
-                <h4 className='h6'>{data.type === 1 ? "Error" : "Success"}</h4>
+                <h4 className='h6'>{data.type.toUpperCase()}</h4>
             </header>
-            <div style={{color: data.type === 1 ? "red" : "lemongreen",
+            <div style={{color: data.type == "success" ? "lemongreen" : "red",
                         fontSize: '13px'
                         }}>
                 {data.content}

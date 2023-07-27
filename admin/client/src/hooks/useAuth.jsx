@@ -1,28 +1,52 @@
-import { createContext, useContext, useState } from "react";
-import { ResponseMessage as response} from "../services/ResponseMessage";
+import { createContext, useContext, useState, useRef } from "react";
+import axios from 'axios'
+import { _VARIABLES } from "../services/global";
+import { useNavigate } from "react-router-dom";
+
 
 const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
-    const res = new response
-
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
-    const [message, setMessage] = useState(res.deliver())
+    const navigate = useNavigate()
+    
+    const username = useRef()
+    const password = useRef()
+    const [message, setMessage] = useState({})
     const [clientError, setClientError] = useState(false)
 
-    const login = () => {
+    let res = {}
+
+    const login = async () => {
+        let usernameValue = username.current.value
+        let passwordValue = password.current.value
         // check if form is not empty
-        if(username.length < 1 || password.length < 1){
+        if(usernameValue.length < 1 || passwordValue.length < 1){
             res.status = 1
             res.type = 1
             res.message = "fill"
             res.content = "Invalid username or password"
 
-            setMessage(res.deliver())
+            setMessage(res)
 
         }else{
+            // Send the data to the backend
+            const url = _VARIABLES.serverUrl
+            const payload = {
+                part: "login",
+                action: "login",
+                val: {
+                    username: usernameValue,
+                    password: passwordValue
+                }
+            }
 
+            let response  = (await axios.post(url, payload)).data
+            if(response.status === 1 && response.content === "login") {
+                // Redirect user
+                navigate("/dashboard?path=home", {replace: false})
+            }
+            res = response
+            setMessage(res)
         }
 
         // Config wether the error box should be displayed
@@ -38,8 +62,6 @@ export const AuthProvider = ({ children }) => {
                 clientError,
 
                 // Setters
-                setUsername,
-                setPassword,
                 setClientError,
 
                 //Error
