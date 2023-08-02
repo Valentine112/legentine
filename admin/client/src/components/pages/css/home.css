@@ -1,0 +1,14 @@
+.boxes{
+    padding: 1.5%;
+    background-color: #444;
+    border: 3px solid #343232;
+    border-radius: 5px;
+}
+.boxes LineChart{
+    width: 100%;
+    height: 500px;
+}
+.boxes .recharts-responsive-container{
+    width: 100%;
+    height: 200px!important;
+}

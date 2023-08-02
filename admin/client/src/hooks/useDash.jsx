@@ -1,18 +1,35 @@
-import { createContext, useContext, useRef } from "react";
+import axios from "axios";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { _VARIABLES } from "../services/global";
 
 const DashContext = createContext({})
 
 export const DashProvider = ({ children }) => {
     const path = useRef()
-    const [url] = useSearchParams()
+    const [searchParam, setSearchParam] = useSearchParams()
+    const [entities, setEntities] = useState()
+    // Get the initial path
+    useEffect(() => {
+        setSearchParam({
+            path: "home"
+        })
+
+        axios.get(_VARIABLES.serverUrl + "dashboard?part=user&action=fetchHome").then(res => {
+            setEntities(res)
+        })
+
+    }, [])
 
     const fetchPage = (e) => {
         e.preventDefault()
-        const pathElem = path.current
-        console.log(url.get("home"))
-
-        console.log(pathElem)
+        // Check if the pah exist first
+        if(searchParam.get("path") != null) {
+            // Proceed to reconifgure it
+            setSearchParam({
+                path: e.target.dataset.path.toLowerCase()
+            })
+        }
     }
 
     return (
@@ -20,6 +37,8 @@ export const DashProvider = ({ children }) => {
             value={{
                 // Getters
                 path,
+                searchParam,
+                entities,
 
                 // Actions
                 fetchPage

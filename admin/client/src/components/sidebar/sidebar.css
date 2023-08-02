@@ -5,7 +5,7 @@
     margin-left: 0%; /* For taking sidebar inside */
 }
 .sidebar{
-    background: linear-gradient(145deg, #17023b 60%, dodgerblue);
+    background: linear-gradient(145deg, #121212 60%, #2f2e2e);
     width: 100%;
 }
 .sidebar .active{
@@ -31,11 +31,12 @@ ul li{
     margin: 2em 0;
     list-style: none;
 }
-.sidebar a{
+.sidebar span{
     color: #fff;
     text-decoration: none;
     font-family: 'SourceSansPro', sans-serif;
-    font-size: 20px;
+    font-size: 17px;
+    font-weight: 400;
 }
 
 @media screen and (max-width: 767px) {

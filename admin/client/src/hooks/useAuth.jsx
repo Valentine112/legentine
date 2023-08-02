@@ -30,7 +30,6 @@ export const AuthProvider = ({ children }) => {
 
         }else{
             // Send the data to the backend
-            const url = _VARIABLES.serverUrl
             const payload = {
                 part: "login",
                 action: "login",
@@ -40,7 +39,7 @@ export const AuthProvider = ({ children }) => {
                 }
             }
 
-            let response  = (await axios.post(url, payload)).data
+            let response  = (await axios.post(_VARIABLES.serverUrl, payload)).data
             if(response.status === 1 && response.content === "login") {
                 // Redirect user
                 navigate("/dashboard?path=home", {replace: false})

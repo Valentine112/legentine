@@ -6,6 +6,8 @@ class Update extends Response {
     more1 = ""
 
     constructor(DB, more) {
+        super()
+        
         this.db = DB
         this.more = more
     }
@@ -24,13 +26,37 @@ class Update extends Response {
             })
         }
         else{
-            new Promise.resolve()
+            Promise.resolve("")
         }
     }
 
-    async action() {
+    async action(table) {
         await this.process()
 
+        const sql = `UPDATE ${table} ${this.more1}`
 
+        return new Promise(resolve => {
+            this.db.query(sql, this.value, (err, res) => {
+                if(err) {
+                    // Check if there is an error and resolve it
+                    this.status = 0
+                    this.type = "error"
+                    this.message = "void"
+                    this.content = `Error while udating the result, Error: ${err}`
+
+                    resolve(this.deliver())
+                }
+
+                this.status = 1
+                this.type = "success"
+                this.message = "void"
+                this.content = res
+
+                resolve(this.deliver())
+            })
+
+        })
     }
 }
+
+module.exports = Update

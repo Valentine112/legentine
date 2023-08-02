@@ -1,0 +1,14 @@
+*{
+    font-family: 'SourceSansPro', sans-serif;
+    color: #fff;
+}
+.dashboard-main{
+    float: right;
+}
+main nav{
+    padding: 10px 5px;
+}
+main LineChart{
+    width: 100%;
+    height: 500px!important;
+}

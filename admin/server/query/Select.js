@@ -27,15 +27,16 @@ class Select extends Response {
             })
         }
         else{
-            return new Promise(res => res(this.value))
+            return Promise.resolve(this.value)
         }
     }
 
-    action({items, where} = {}) {
+    // Named arguments since i always forget their position
+    action({items, table} = {}) {
         //let moreSplit = this.more.split("#")
         let more_ = this.more1
 
-        let sql = `SELECT ${items} FROM ${where} ${more_}`;
+        let sql = `SELECT ${items} FROM ${table} ${more_}`;
         
         return new Promise(resolve => {
             this.db.query(sql, this.value, (err, res) => {

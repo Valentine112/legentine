@@ -56,7 +56,7 @@ class Func extends Response{
                 
                 await selecting.process(sql)
                 // Named argunments used here
-                let res = await selecting.action( {items: values[2], where: values[3]} )
+                let res = await selecting.action( {items: values[2], table: values[3]} )
 
                 // Reset values
                 selecting.close()
