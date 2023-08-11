@@ -20,7 +20,6 @@ class User extends Response{
             selecting.close()
             if(users.status === 0) res(users)
     
-            await selecting.process("")
             let post = await selecting.action({items: "*", table: "post"})
             selecting.close()
             if(post.status === 0) res(post)
@@ -31,7 +30,8 @@ class User extends Response{
             this.message = "fill"
             this.content = {users: users, post: post}
 
-            console.log(this.deliver())
+            console.log(users.date)
+
             res(this.deliver())
         })
     }

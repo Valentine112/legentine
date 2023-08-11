@@ -1,9 +1,10 @@
-*{
-    font-family: 'SourceSansPro', sans-serif;
+.dashboard{
     color: #fff;
+    font-family: 'SourceSansPro', sans-serif;
 }
 .dashboard-main{
     float: right;
+    margin-bottom: 5%;
 }
 main nav{
     padding: 10px 5px;

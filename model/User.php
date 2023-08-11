@@ -1081,6 +1081,23 @@
             return $this->deliver();
         }
 
+        public function lastActive() : array {
+            // Declaring the success message first
+            $this->type = "success";
+            $this->status = 1;
+            $this->message = "fill";
+            $this->more = "lastActive";
+
+            $activeDate = Func::dateFormat();
+
+            $updating = new Update(self::$db, "SET lastActive = ? WHERE id = ?# $activeDate# $this->user");
+            $action = $updating->mutate('si', 'user');
+
+            if(!$action) return $action['more'] = "lastActive";
+
+            return $this->deliver();
+        }
+
 
     }
 ?>

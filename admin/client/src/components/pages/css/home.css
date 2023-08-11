@@ -12,3 +12,7 @@
     width: 100%;
     height: 200px!important;
 }
+.boxes .chart-details .category{
+    color: #aba2a2!important;
+    font-size: 15px;
+}

@@ -9,7 +9,7 @@
         public $content;
         public $more;
 
-        public function deliver() : array {
+        protected function deliver() : array {
 
             return [
                 "type" => $this->type,

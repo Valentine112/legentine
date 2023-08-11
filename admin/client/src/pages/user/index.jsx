@@ -10,7 +10,7 @@ const Dashboard = () => {
   const path = dash.searchParam.get("path")
 
   return (
-    <div className='user'>
+    <div className='dashboard'>
       <Sidebar></Sidebar>
       <main className='col-12 col-md-8 col-lg-9 container dashboard-main'>
         <nav className='mb-3'>

@@ -16,6 +16,7 @@ export const DashProvider = ({ children }) => {
         })
 
         axios.get(_VARIABLES.serverUrl + "dashboard?part=user&action=fetchHome").then(res => {
+            console.log(res)
             setEntities(res)
         })
 

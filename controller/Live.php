@@ -12,6 +12,7 @@
     };
     use Config\Authenticate;
     use Model\Notification as ModelNotification;
+    use Model\User;
 
     class Live extends Response {
 
@@ -27,6 +28,7 @@
             (array) $result = [];
 
             $modelNotification = new ModelNotification(self::$db, $data, USER['content']);
+            $modelUser = new User(self::$db, $data, USER['content']);
 
             // Logged in activities
             // Check if user is logged in
@@ -71,7 +73,10 @@
 
                     case "liveTops":
                         $result = $modelNotification->tops();
-                        
+                        break;
+
+                    case "lastActive":
+                        $result = $modelUser->lastActive();
                         break;
 
                     default:

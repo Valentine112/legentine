@@ -45,6 +45,7 @@
                 $this->status = 0;
                 $this->message = "void";
                 $this->content = "Failed to update data";
+                $this->more = "lastActive";
 
                 return $this->deliver();
             }

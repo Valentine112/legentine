@@ -509,7 +509,7 @@
                                     <header>General</header>
                                     <hr>
                                     <ul>
-                                        <li><a href="#">Chat...</a></li>
+                                        <!--<li><a href="#">Chat...</a></li>-->
                                         <li><a href="privateAccess">Private</a></li>
                                     </ul>
                                 </div>

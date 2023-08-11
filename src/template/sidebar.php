@@ -138,13 +138,13 @@
                                 <header>General</header>
                                 <ul class="first-list">
 
-                                    <li>
+                                    <!--<li>
                                         <a href="#">
                                             <img src="../src/icon/sidebar-icon/chat.svg" alt="">
                                             &emsp;
                                             <span>Chat...</span>
                                         </a>
-                                    </li>
+                                    </li>-->
 
                                     <li>
                                         <a href="privateAccess">

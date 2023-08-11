@@ -8,6 +8,19 @@ window.addEventListener("load", () => {
     var path = pathObj['main_path']
     var param = pathObj['parameter']['token'] != null ? pathObj['parameter']['token'] : ""
 
+    // ------------------UPDATE LAST ACTIVE DATE----------------//
+
+    // Proceed to get the live notifications
+    var lastActive = new EventSource("../eventSourceRequest.php?part=live&action=lastActive", {
+        withCredentials: true
+    })
+
+    lastActive.addEventListener('LT-lastActive', (ev) => {
+        console.log(ev.data)
+    })
+
+    // ------------------END--------------------//
+
     // ------------------LOAD SEARCH PREVIEW----------------------- //
 
     // Load the search preview
@@ -319,10 +332,10 @@ window.addEventListener("load", () => {
 
         // Disable the window scroll if reply box is visible
         var replyBody = document.querySelector(".reply")
-        console.log(getComputedStyle(replyBody).getPropertyValue("display"))
-
-        if(getComputedStyle(replyBody).getPropertyValue("display") == "block") {
-            e.preventDefault()
+        if(replyBody !== null) {
+            if(getComputedStyle(replyBody).getPropertyValue("display") == "block") {
+                e.preventDefault()
+            }
         }
     })
 
@@ -345,12 +358,14 @@ window.addEventListener("load", () => {
             action: 'userIdentification',
             val: {}
         }
-
-        await new Func().request("../request.php", JSON.stringify(data), 'json')
-        .then(val => {
-            userIdentification = val.content
+        let promise = new Promise(async res => {
+            await new Func().request("../request.php", JSON.stringify(data), 'json')
+            .then(val => {
+                res(userIdentification = val.content)
+            })
         })
 
+        await promise
         // -------------- LIVE NOTIFICATIONS --------------- //
 
         // Proceed to get the live notifications
