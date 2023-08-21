@@ -109,6 +109,30 @@ class Func extends Response{
         return new Promise(res => res(crypto.randomUUID()))
     }
 
+    deleteRows(val, table) {
+        return new Promise((res, rej) => {
+            // Loop throught the user tokens
+            val.content.forEach(async elem => {
+                // Convert the token to Id to verify it
+                let data = {
+                    "token": elem,
+                    "1": "1",
+                    "needle": "id",
+                    "table": table
+                }
+
+                let res1 = await this.searchDb(this.db, data, "AND")
+                // check if the return is an integer, that's how we verify
+                this.content = "User is invalid"
+                if(typeof Number(res1) !== "number") return this.deliver()
+                const deleting = new Delete(this.db, `WHERE id = ?# ${res1}`)
+                let result = await deleting.action("users")
+
+                result.status === 0 ? rej(result) : res(result)
+            })
+        })
+    }
+
 
 
 }

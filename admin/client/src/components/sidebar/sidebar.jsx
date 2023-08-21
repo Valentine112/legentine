@@ -1,5 +1,4 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import '../sidebar/sidebar.css'
 import useDash from '../../hooks/useDash'
 

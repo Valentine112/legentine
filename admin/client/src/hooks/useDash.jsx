@@ -11,21 +11,25 @@ export const DashProvider = ({ children }) => {
     const [entities, setEntities] = useState()
     // Get the initial path
     useEffect(() => {
-        setSearchParam({
-            path: "home"
-        })
+        const pathActions = {
+            "home": "part=user&action=fetchHome",
+            "user": ""
+        }
 
-        axios.get(_VARIABLES.serverUrl + "dashboard?part=user&action=fetchHome").then(res => {
-            console.log(res)
+        const params = pathActions[searchParam.get("path")]
+
+        axios.get(_VARIABLES.serverUrl + `dashboard?${params}`)
+        .then(res => {
             setEntities(res)
         })
+        .catch(err => console.log(err))
 
     }, [])
 
     const fetchPage = (e) => {
         e.preventDefault()
-        // Check if the pah exist first
-        if(searchParam.get("path") != null) {
+        // Check if the url path exist first
+        if(searchParam.get("path") !== null) {
             // Proceed to reconifgure it
             setSearchParam({
                 path: e.target.dataset.path.toLowerCase()

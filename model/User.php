@@ -18,6 +18,9 @@
     class User extends Response {
 
         private static $db;
+        private $user;
+        private $data;
+        private $selecting;
 
         public function __construct(mysqli $db, array $data, int|string $user) {
             self::$db = $db;

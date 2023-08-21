@@ -1,5 +1,7 @@
 const Select = require("../query/Select");
 const Response = require("../service/Response");
+const Func = require("../service/Func");
+const Delete = require("../query/Delete");
 
 class User extends Response{
 
@@ -8,6 +10,7 @@ class User extends Response{
 
         this.db = Db
         this.payload = data
+        this.data = data.body
     }
 
     async fetchHome() {
@@ -34,6 +37,11 @@ class User extends Response{
 
             res(this.deliver())
         })
+    }
+
+    async deleteUser() {
+        const val = this.data.val
+        return await Func.deleteRows(val, "users")
     }
 }
 

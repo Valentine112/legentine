@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import './css/home.css'
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import useDash from '../../hooks/useDash';
 
 const Home = () => {
   const dash = useDash()
+  const states = {
+    category: {},
+    userData: [],
+    postData: [],
+    users: {},
+    posts: {}
+  }
+
   const [category, setCategory] = useState({})
   const [userData, setUserData] = useState([])
   const [postData, setPostData] = useState([])
@@ -12,7 +20,7 @@ const Home = () => {
   const [posts, setPosts] = useState({})
 
   useEffect(() => {
-    if(dash.entities != undefined) {
+    if(dash.entities !== undefined) {
       let payload = dash.entities
       // Checi if the status is 1
       if(payload.data.status === 1) {
@@ -34,11 +42,11 @@ const Home = () => {
 
               if(type === "post") {
                 let categ = v.category
-                postCategory[categ] = postCategory[categ] == null ? 0 + 1 : postCategory[categ] + 1
+                postCategory[categ] = postCategory[categ] == null ? 1 : postCategory[categ] + 1
               }
 
               // Check if the loop has end to resolve it
-              if(i === data.length - 1) res()
+              if(i === data.length - 1) res("")
             })
           })
 
@@ -50,16 +58,19 @@ const Home = () => {
           let dateSort = new Set(dates)
           dateSort = Array.from(dateSort).sort()
 
+          console.log({dateSort})
+
           // Fetch all the category for posts and get their total
-          
           // count and process the dates
           let count = {}
 
-          dateSort.forEach(async elem => {
+          dateSort.forEach(async (elem, ind) => {
+            console.log(ind)
             // Initialize the data, so it doesn't keep adding data on re-render
             setUserData([])
             setPostData([])
-            
+
+            // Counting each seperate elements
             let n = 1
             const promise = new Promise(res => {
               dates.forEach(e => {
@@ -70,24 +81,21 @@ const Home = () => {
             await promise
             // Set the postData
             if(type === "post") {
-              setPostData(prev => {
-                return([
-                  ...prev,
-                  {name: elem, uv: count[elem], pv: 2400, amt: 2400}
-                ])
-              })
+              setPostData(prev => ([
+                ...prev,
+                { name: elem, uv: count[elem], pv: 2400, amt: 2400 }
+              ]))
             }
             // Set the userData
             if(type === "user") {
-              setUserData(prev => {
-                return([
-                  ...prev,
-                  {name: elem, uv: count[elem], pv: 2400, amt: 2400}
-                ])
-              })
+              setUserData(prev => ([
+                ...prev,
+                {name: elem, uv: count[elem], pv: 2400, amt: 2400}
+              ]))
             }
 
           })
+
         }
 
         const user = payload.data.content.users.content
@@ -101,14 +109,15 @@ const Home = () => {
         if(post.length > 0) {
           configData(post, "post")
         }
+        
       }
     }
 
-  }, [dash.entities])
+  }, [dash.entities, dash.path])
 
   useEffect(() => {
-    console.log(category)
-  }, [category])
+    //console.log({userData})
+  }, [userData])
 
   return (
     <div className='home container'>
@@ -158,10 +167,10 @@ const Home = () => {
               <p>Total post - {posts.length}</p>
             </div>
             {
-                Object.keys(category).map((elem, ind) => ( 
+              Object.keys(category).map((elem, ind) => ( 
                 <div 
-                className='col-12 col-md-3 col-lg-2 category'
-                key={"category" + ind}
+                  className='col-12 col-md-3 col-lg-2 category'
+                  key={"category" + ind}
                 >
                   <p>{elem} - {category[elem]}</p>
                 </div>
@@ -170,7 +179,15 @@ const Home = () => {
           </div>
         </div>
 
-        { /* Active users, Feedbacks,  */}
+        <div>
+
+        </div>
+
+        <div className=''>
+
+        </div>
+
+        {/* Active users, Feedbacks,  */}
       </div>
     </div>
   )

@@ -14,8 +14,8 @@ class User extends Response {
         // Navigate through the action to see admin the user really wants
         switch (this.payload.body.action) {
             case "fetchHome":
-
                 return await new UserModel({ Db: this.db, data: this.payload }).fetchHome()
+
         
             default:
                 break;

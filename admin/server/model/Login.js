@@ -23,9 +23,11 @@ class Login extends Response {
 
         const val = this.data.val
 
+        console.log(val)
+
         // Confirm if username exists
         let payload = {
-            'username': 'Kakarotgoku',
+            'username': val.username,
             '1': '1',
             'needle': '*',
             'table': 'admin'

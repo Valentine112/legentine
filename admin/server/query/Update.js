@@ -42,7 +42,7 @@ class Update extends Response {
                     this.status = 0
                     this.type = "error"
                     this.message = "void"
-                    this.content = `Error while udating the result, Error: ${err}`
+                    this.content = `Error while updating the result, Error: ${err}`
 
                     resolve(this.deliver())
                 }

@@ -12,22 +12,24 @@ class Select extends Response {
     }
 
     process(more) {
-        if(more != "" && more.length > 0) {
-            let moreSplit = more.split("#")
-            this.more1 = moreSplit[0]
-            let moreLen = moreSplit.length
+        if(typeof more === "string") {
+            if(more != "" && more.length > 0) {
+                let moreSplit = more.split("#")
+                this.more1 = moreSplit[0]
+                let moreLen = moreSplit.length
 
-            return new Promise(res => {
-                for (let i = 0; i < moreLen; i++) {
-                    if(i > 0) {
-                        this.value.push(moreSplit[i].trim())
+                return new Promise(res => {
+                    for (let i = 0; i < moreLen; i++) {
+                        if(i > 0) {
+                            this.value.push(moreSplit[i].trim())
+                        }
                     }
-                }
-                res(this.value)
-            })
-        }
-        else{
-            return Promise.resolve(this.value)
+                    res(this.value)
+                })
+            }
+            else{
+                return Promise.resolve(this.value)
+            }
         }
     }
 
