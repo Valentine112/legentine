@@ -58,14 +58,11 @@ const Home = () => {
           let dateSort = new Set(dates)
           dateSort = Array.from(dateSort).sort()
 
-          console.log({dateSort})
-
           // Fetch all the category for posts and get their total
           // count and process the dates
           let count = {}
 
           dateSort.forEach(async (elem, ind) => {
-            console.log(ind)
             // Initialize the data, so it doesn't keep adding data on re-render
             setUserData([])
             setPostData([])
