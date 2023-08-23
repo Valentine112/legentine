@@ -12,125 +12,10 @@ import useDash from "../../hooks/useDash";
 
 const Home = () => {
 	const dash = useDash();
-	const states = {
-		category: {},
-		userData: [],
-		postData: [],
-		users: {},
-		posts: {},
-	};
 
 	const [category, setCategory] = useState({});
 	const [userData, setUserData] = useState([]);
 	const [postData, setPostData] = useState([]);
-	const [users, setUsers] = useState({});
-	const [posts, setPosts] = useState({});
-
-	/* 	useEffect(() => {
-		if (dash.entities !== undefined) {
-			let payload = dash.entities;
-			// Checi if the status is 1
-			if (payload.data.status === 1) {
-				// Check if user data is not empty
-
-				async function configData(data, type) {
-					// Fetch the initial year
-					//const data = payload.data.content.post.content
-					// Set the users to be used later on this page
-					type === "post"
-						? setPosts(data)
-						: type === "user"
-						? setUsers(data)
-						: null;
-
-					const dates = [];
-					const postCategory = {};
-
-					let promise = new Promise((res) => {
-						data.map((v, i) => {
-							dates.push(new Date(v.date.trim()).getFullYear());
-
-							if (type === "post") {
-								let categ = v.category;
-								postCategory[categ] =
-									postCategory[categ] == null
-										? 1
-										: postCategory[categ] + 1;
-							}
-
-							// Check if the loop has end to resolve it
-							if (i === data.length - 1) res("");
-						});
-					});
-
-					await promise;
-					setCategory(postCategory);
-
-					// First created only unique values
-					// This returns an object which is converted to an array and sorted out
-					let dateSort = new Set(dates);
-					dateSort = Array.from(dateSort).sort();
-
-					// Fetch all the category for posts and get their total
-					// count and process the dates
-					let count = {};
-
-					dateSort.forEach(async (elem, ind) => {
-						// Initialize the data, so it doesn't keep adding data on re-render
-						setUserData([]);
-						setPostData([]);
-
-						// Counting each seperate elements
-						let n = 1;
-						const promise = new Promise((res) => {
-							dates.forEach((e) => {
-								if (e === elem) res((count[elem] = n++));
-							});
-						});
-
-						await promise;
-						// Set the postData
-						if (type === "post") {
-							setPostData((prev) => [
-								...prev,
-								{
-									name: elem,
-									uv: count[elem],
-									pv: 2400,
-									amt: 2400,
-								},
-							]);
-						}
-						// Set the userData
-						if (type === "user") {
-							setUserData((prev) => [
-								...prev,
-								{
-									name: elem,
-									uv: count[elem],
-									pv: 2400,
-									amt: 2400,
-								},
-							]);
-						}
-					});
-				}
-
-				const user = payload.data.content.users.content;
-				const post = payload.data.content.post.content;
-				// Check if user data is not empty
-				if (user.length > 0) {
-					configData(user, "user");
-				}
-
-				// Check if post data is not empty
-				if (post.length > 0) {
-					configData(post, "post");
-				}
-			}
-		}
-	}, [dash.entities, dash.path]);
- */
 
 	// User chart logic
 	useEffect(() => {
@@ -156,13 +41,6 @@ const Home = () => {
 				};
 			})
 		);
-
-		/* users.forEach((user) => {
-			let date = new Date(user.date.trim()).getFullYear();
-
-			console.log(date);
-		}); */
-		// configData(users, "user");
 	}, []);
 
 	// Post chart logic
