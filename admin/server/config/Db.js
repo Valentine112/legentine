@@ -7,7 +7,6 @@ const DB = mysql.createConnection({
     database: "legentine",
 })
 
-
 DB.connect(err => {
     if(err) throw err;
 
