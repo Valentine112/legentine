@@ -11,11 +11,9 @@ import {
 import useDash from "../../hooks/useDash";
 
 const Home = () => {
-	const {users, posts} = useDash();
-	const [category, setCategory] = useState({})
+	const { users, posts } = useDash();
 
-	
-	console.log(typeof posts.category)
+	const categoryKeys = Object.keys(posts.category ?? {});
 
 	return (
 		<div className="home container">
@@ -79,23 +77,23 @@ const Home = () => {
 						<div className="col-12">
 							<p>Total post - {posts.total}</p>
 						</div>
-							<div
-								className="col-12 col-md-3 col-lg-2 category"
-								key={"category"}
-							>
-								<p>
-									{category.forEach((elem, ind) => (
-										<div
+						<div
+							className="col-12 col-md-3 col-lg-2 category"
+							key={"category"}
+						>
+							<p>
+								{categoryKeys?.map((key, index) => (
+									<div
 										className="col-12 col-md-3 col-lg-2 category"
-										key={"category" + ind}
-										>
-											<p>
-												{elem} - {category[elem]}
-											</p>
-										</div>
-									))}
-								</p>
-							</div>
+										key={"category" + index}
+									>
+										<p>
+											{key} - {posts.category[key]}
+										</p>
+									</div>
+								))}
+							</p>
+						</div>
 					</div>
 				</div>
 

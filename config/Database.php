@@ -1,36 +1,34 @@
 <?php
-    namespace Config;
 
-    use mysqli;
+namespace Config;
 
-    class Database extends mysqli {
+use mysqli;
 
-        public function __construct() {
+class Database extends mysqli
+{
 
-            try {
+    public function __construct()
+    {
 
-                mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+        try {
 
-                //define("host", "localhost");
-                //define("username", "root");
-                //define("password", "");
+            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-                parent::__construct(
-                    "localhost",
-                    "root",
-                    "",
-                    "legentine"
-                );
+            //define("host", "localhost");
+            //define("username", "root");
+            //define("password", "");
 
-                parent::set_charset("utf8mb4");
+            parent::__construct(
+                hostname: "localhost",
+                username: "binemmanuel",
+                password: "",
+                database: "legentine",
+            );
 
-            } catch (\mysqli_sql_exception $e) {
+            parent::set_charset("utf8mb4");
+        } catch (\mysqli_sql_exception $e) {
 
-                throw new \mysqli_sql_exception($e->getMessage(), $e->getCode());
-
-            }
-
+            throw new \mysqli_sql_exception($e->getMessage(), $e->getCode());
         }
     }
-
-?>
+}

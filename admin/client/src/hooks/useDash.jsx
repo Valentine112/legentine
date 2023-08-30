@@ -20,12 +20,13 @@ export const DashProvider = ({ children }) => {
 
 		const params = pathActions[searchParam.get("path")];
 
-		axios.get(_VARIABLES.serverUrl + `dashboard?${params}`)
-		.then(res => {
-			setUsers(res.data.content.users);
-			setPosts(res.data.content.posts);
-		})
-		.catch(err => console.log(err))
+		axios
+			.get(_VARIABLES.serverUrl + `dashboard?${params}`)
+			.then((res) => {
+				setUsers(res.data.content.users);
+				setPosts(res.data.content.posts);
+			})
+			.catch((err) => console.log(err));
 	}, []);
 
 	const fetchPage = (e) => {
