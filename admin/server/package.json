@@ -1,26 +1,27 @@
 {
-  "name": "server",
-  "version": "0.0.0",
-  "private": true,
+  "name": "legentine",
+  "version": "1.0.0",
+  "description": "Admin server built with node Js",
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/Valentine112/legentine/admin/server"
+  },
+  "author": "Valentine",
+  "license": "ISC",
   "dependencies": {
-    "argon2": "^0.30.3",
-    "bcrypt": "^5.1.0",
-    "cookie-parser": "~1.4.4",
+    "argon2": "^0.31.0",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
+    "express": "^4.18.2",
     "express-session": "^1.17.3",
     "express-validator": "^7.0.1",
-    "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
-    "morgan": "~1.9.1",
-    "mysql": "^2.18.1"
-  },
-  "devDependencies": {
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
     "nodemon": "^3.0.1"
   }
 }

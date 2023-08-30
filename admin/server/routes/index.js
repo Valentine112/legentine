@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const DB = require('./../config/Db');
-const Func = require('../service/Func');
 const Login = require('../controller/Login');
 const Response = require('../service/Response');
 const DefaultLogin = require('../service/Default');
@@ -11,10 +10,9 @@ const Update = require('../query/Update');
 
 
 /* GET home page. */
-router.get('/', async function(req, res, next) {
+router.get('/', async function(req, res) {
   // Create a new admin credentials if there is none
   await DefaultLogin(DB)
-  console.log(req.session)
 
   res.send(req.session)
 

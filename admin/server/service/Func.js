@@ -132,8 +132,7 @@ class Func extends Response{
             })
         })
     }
-
-
+    
 
 }
 
