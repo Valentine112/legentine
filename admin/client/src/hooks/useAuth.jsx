@@ -40,6 +40,7 @@ export const AuthProvider = ({ children }) => {
             }
 
             let response  = (await axios.post(_VARIABLES.serverUrl, payload)).data
+            console.log(response)
             if(response.status === 1 && response.content === "login") {
                 // Redirect user
                 navigate("/dashboard?path=home", {replace: false})

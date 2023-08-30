@@ -30,7 +30,7 @@ function Login() {
                     <div className="mt-3">
                     <input
                         type="text"
-                        className="form-control"
+                        className="form-control form-input"
                         name="username"
                         data-auth="username"
                         placeholder="Username"
@@ -41,7 +41,7 @@ function Login() {
                     <div className="mt-3">
                     <input
                         type="password"
-                        className="form-control"
+                        className="form-control form-input"
                         name="password"
                         data-auth="password"
                         placeholder="Password"
@@ -51,7 +51,7 @@ function Login() {
                     </div>
 
                     <div className="mt-5 text-center">
-                        <button type="submit" className="btn btn-primary form-control">Check?</button>
+                        <button type="submit" className="btn form-control">Check?</button>
                     </div>
                 </div>
             </form>

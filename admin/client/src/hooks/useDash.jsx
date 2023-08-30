@@ -8,7 +8,6 @@ const DashContext = createContext({});
 export const DashProvider = ({ children }) => {
 	const path = useRef();
 	const [searchParam, setSearchParam] = useSearchParams();
-	// const [entities, setEntities] = useState();
 	const [users, setUsers] = useState([]);
 	const [posts, setPosts] = useState([]);
 
@@ -21,14 +20,12 @@ export const DashProvider = ({ children }) => {
 
 		const params = pathActions[searchParam.get("path")];
 
-		axios
-			.get(_VARIABLES.serverUrl + `dashboard?${params}`)
-			.then((res) => {
-				// setEntities(res);
-				setUsers(res.data.content.users.content);
-				setPosts(res.data.content.post.content);
-			})
-			.catch((err) => console.log(err));
+		axios.get(_VARIABLES.serverUrl + `dashboard?${params}`)
+		.then(res => {
+			setUsers(res.data.content.users);
+			setPosts(res.data.content.posts);
+		})
+		.catch(err => console.log(err))
 	}, []);
 
 	const fetchPage = (e) => {
