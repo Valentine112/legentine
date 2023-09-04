@@ -16,10 +16,10 @@ const Home = () => {
 	const categoryKeys = Object.keys(posts.category ?? {});
 
 	return (
-		<div className="home container">
-			<div className="box-holder row justify-content-around">
+		<div className="home">
+			<div className="box-holder">
 				{/* User chart */}
-				<div className="boxes col-11 col-md-8 col-lg-10">
+				<div className="boxes">
 					<section className="section-header">
 						<p>Users</p>
 					</section>
@@ -49,7 +49,7 @@ const Home = () => {
 				</div>
 
 				{/* Post chart */}
-				<div className="boxes col-11 col-md-8 col-lg-10 mt-3">
+				<div className="boxes">
 					<section className="section-header">
 						<p>Posts</p>
 					</section>
@@ -73,33 +73,31 @@ const Home = () => {
 							</ResponsiveContainer>
 						</div>
 					</section>
-					<div className="row justify-content-left chart-details">
+					<div className="chart-details">
 						<div className="col-12">
 							<p>Total post - {posts.total}</p>
 						</div>
 						<div
-							className="col-12 col-md-3 col-lg-2 category"
+							className="category"
 							key={"category"}
 						>
-							<p>
-								{categoryKeys?.map((key, index) => (
-									<div
-										className="col-12 col-md-3 col-lg-2 category"
-										key={"category" + index}
-									>
-										<p>
-											{key} - {posts.category[key]}
-										</p>
-									</div>
-								))}
-							</p>
+							{categoryKeys.map((key, index) => (
+								<div
+									className="category"
+									key={"category" + index}
+								>
+									<p>
+										{key} - {posts.category[key]}
+									</p>
+								</div>
+							))}
 						</div>
 					</div>
 				</div>
 
-				<div></div>
-
-				<div className=""></div>
+				<div className="">
+					<div className=""></div>
+				</div>
 
 				{/* Active users, Feedbacks,  */}
 			</div>

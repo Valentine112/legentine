@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react'
-import 'bootstrap/dist/css/bootstrap.css'
 import Sidebar from '../../components/sidebar/sidebar'
 import useDash from '../../hooks/useDash'
-import './index.css'
 import Home from '../../components/pages/home'
 
 const Dashboard = () => {
@@ -12,7 +10,7 @@ const Dashboard = () => {
   return (
     <div className='dashboard'>
       <Sidebar></Sidebar>
-      <main className='col-12 col-md-8 col-lg-9 container dashboard-main'>
+      <main className='container dashboard-main'>
         <nav className='mb-3'>
           <div className='row justify-content-between align-items-center'>
             <div className='col-3'>

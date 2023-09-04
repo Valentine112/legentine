@@ -983,7 +983,7 @@
                                 $this->status = 1;
                                 $this->message = "fill";
                                 $this->content = "Password changed";
-.
+
                             else:
                                 return $action;
                             endif;

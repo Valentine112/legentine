@@ -7,7 +7,7 @@ const Sidebar = () => {
     const dash = useDash()
 
   return (
-    <div className='sidebar-container row col-7 col-md-4 col-lg-3'>
+    <div className='sidebar-container w-45 shadow bg-blue'>
         <div className='sidebar'>
             <div className='linkPosition'>
                 <ul>

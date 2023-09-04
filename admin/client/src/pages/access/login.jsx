@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import "../css/access/login.css";
+import "../../output.css"
 import useAuth from "../../hooks/useAuth";
 import ResponseFormat from "../../services/ResponseFormat";
 
@@ -14,9 +15,9 @@ function Login() {
 
   return (
     <div>
-      <div className="container">
-        <header className="mx-auto col-12 text-center mt-5">
-          <h1 className="text-center">Manager</h1>
+      <div className="w-fit bg-white fixed bottom-0 top-0 right-0 left-0 border-4  border-dotted border-red mx-auto">
+        <header className="w-full bg-red">
+          <h1 className="text-3xl font-serif">Manager</h1>
         </header>
 
         <main>
@@ -26,11 +27,11 @@ function Login() {
               )
             }>
 
-                <div className="col-11 col-md-8 col-lg-5 mx-auto mt-5">
+                <div className="">
                     <div className="mt-3">
                     <input
                         type="text"
-                        className="form-control form-input"
+                        className="form-input"
                         name="username"
                         data-auth="username"
                         placeholder="Username"
@@ -41,7 +42,7 @@ function Login() {
                     <div className="mt-3">
                     <input
                         type="password"
-                        className="form-control form-input"
+                        className="form-input"
                         name="password"
                         data-auth="password"
                         placeholder="Password"
@@ -50,8 +51,8 @@ function Login() {
                     />
                     </div>
 
-                    <div className="mt-5 text-center">
-                        <button type="submit" className="btn form-control">Check?</button>
+                    <div className="">
+                        <button type="submit" className="btn">Check?</button>
                     </div>
                 </div>
             </form>
