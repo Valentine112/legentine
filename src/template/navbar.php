@@ -716,7 +716,7 @@
             document.querySelector(".top-randoms").style.display = "block"
 
 
-            // Showing which search is active when the OpenSaerch is ready
+            // Showing which search is active when the OpenSearch is ready
             // This is so that if the page hasn't loaded,
             // The toggling search button wouldn't give off the impression that something is working
             if(document.querySelector(".search") != null) {

@@ -20,7 +20,7 @@ class Database extends mysqli
 
             parent::__construct(
                 hostname: "localhost",
-                username: "binemmanuel",
+                username: "root",
                 password: "",
                 database: "legentine",
             );

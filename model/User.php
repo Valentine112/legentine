@@ -18,9 +18,9 @@
     class User extends Response {
 
         private static $db;
-        private $user;
+        public $user;
         private $data;
-        private $selecting;
+        public $selecting;
 
         public function __construct(mysqli $db, array $data, int|string $user) {
             self::$db = $db;
@@ -1100,7 +1100,6 @@
 
             return $this->deliver();
         }
-
 
     }
 ?>

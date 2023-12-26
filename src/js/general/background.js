@@ -15,9 +15,6 @@ window.addEventListener("load", () => {
         withCredentials: true
     })
 
-    lastActive.addEventListener('LT-lastActive', (ev) => {
-        console.log(ev.data)
-    })
 
     // ------------------END--------------------//
 

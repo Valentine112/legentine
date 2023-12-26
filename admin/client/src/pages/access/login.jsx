@@ -15,12 +15,12 @@ function Login() {
 
   return (
     <div>
-      <div className="w-fit bg-white fixed bottom-0 top-0 right-0 left-0 border-4  border-dotted border-red mx-auto">
-        <header className="w-full bg-red">
-          <h1 className="text-3xl font-serif">Manager</h1>
+      <div className="w-6/12 text-center h-fit fixed bottom-0 top-0 right-0 left-0 m-auto">
+        <header className="w-full">
+          <h1 className="text-slate-50 text-5xl font-serif">Manager</h1>
         </header>
 
-        <main>
+        <main className='py-10'>
             <form action="post" onSubmit={(e) => (
                 e.preventDefault(),
                 auth.login()
@@ -31,7 +31,7 @@ function Login() {
                     <div className="mt-3">
                     <input
                         type="text"
-                        className="form-input"
+                        className="w-6/12 p-2 border border-dashed border-slate-50 bg-transparent text-slate-50"
                         name="username"
                         data-auth="username"
                         placeholder="Username"
@@ -68,3 +68,4 @@ function Login() {
 }
 
 export default Login;
+

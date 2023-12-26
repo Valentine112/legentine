@@ -3,7 +3,7 @@
 <head>
     <?php 
         use Src\Config\Head; 
-        Head::tags(); 
+        Head::tags();
     ?>
     <link rel="stylesheet" href="src/page/css/landing.css">
     <title>Legentine</title>

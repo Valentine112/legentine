@@ -11,6 +11,7 @@
         public $more1;
         public $prepared = [];
         public $result;
+        public $connect;
 
         public function __construct(object $conn) {
             $this->connect = $conn;

@@ -85,7 +85,7 @@ class Router
         );
     }
 
-    public function redirect(String $route, String $newRoute,) {
+    public function redirect(String $route, String $newRoute) {
         
         return $this;
     }
@@ -122,7 +122,7 @@ class Router
         }
 
         // Display 404 page
-        header("location: 404.php");
+        header("location: ../404.php");
 
         return;
         

@@ -218,7 +218,8 @@
                             placeholder="Find post and people"
                             aria-placeholder="Search for post and people"
                             onkeyup="Search(this)"
-                            onclick="focusSearch(this)"
+                            onclick="clickSearch(this)"
+                            onfocus="focusSearc(this)"
                             id="searchInput"
                         >
                     </form>
@@ -292,7 +293,9 @@
         return result_box
     }
 
-    function focusSearch(self) {
+
+
+    function clickSearch(self) {
         // Hide the recents and tips
         // But show only the recents when the search focuses and is empty
 
@@ -366,6 +369,20 @@
             })
         }
     }
+
+    // When the inbuilt clear on search box is clicked
+    function focusSearch(self) {
+        // Check if the searchbox is empty
+        // Fetched the input box again to get the recent value
+        if(new Func().stripSpace(document.getElementById("searchInput").value).length < 1){
+            document.getElementById("search-result").innerHTML = ""
+            
+            var recentSearch = document.querySelectorAll(".recent-toggle")
+            recentSearch.forEach(elem => {
+                elem.style.display = "block"
+            })
+        }
+    } 
 
     function fullSearch(ev) {
         ev.preventDefault()
