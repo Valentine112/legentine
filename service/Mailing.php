@@ -7,6 +7,10 @@
     use Service\Func;
 
     class Mailing extends PHPMailer{
+          protected string $email;
+          protected ?string $fullname;
+          private ?int $code;
+          private array $config;
 
         public function __construct(string $email, ?string $fullname, ?int $code, array $config) {
             //Instantiation and passing 'true' enables exceptions

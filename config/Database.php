@@ -22,7 +22,7 @@ class Database extends mysqli
                 hostname: "localhost",
                 username: "root",
                 password: "",
-                database: "legentine",
+                database: "sollynote",
             );
 
             parent::set_charset("utf8mb4");

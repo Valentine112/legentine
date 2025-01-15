@@ -27,7 +27,12 @@
      */
 
     class Login extends Response {
+
         private static $db;
+        private string $device;
+        private string $ip;
+        private array $data;
+        public object $selecting;
 
         public function __construct(mysqli $db, array $data) {
 

@@ -21,6 +21,9 @@
     class MoreData extends Response {
 
         private static $db;
+        private ?array $data;
+        private object $selecting;
+        private int|string $user;
 
         public function __construct(mysqli $db, ?array $data, int|string $user) {
             self::$db = $db;

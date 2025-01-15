@@ -32,7 +32,10 @@
                     <div class="second-box-li">
                         <ul>
                             <li>
-                                A Song Writer? A Comedian? A Rapper? A Poet? But you have them just in scripts.
+                                A Song Writer? A Comedian? A Rapper? A Poet? Or you love writing your thoughts
+                            </li>
+                            <li>
+                              But you have them just in scripts.
                             </li>
                             <li>
                                 Well, we are here to help push your work to the whole world.

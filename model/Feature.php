@@ -19,6 +19,11 @@
     class Feature extends Response {
 
         private static $db;
+        private ?array $data;
+        private object $selecting;
+        private int|string $user;
+        private int $pending = 0;
+        private int $accepted = 1;
 
         public function __construct(mysqli $db, ?array $data, int|string $user) {
             self::$db = $db;

@@ -3,6 +3,10 @@
 
     class Upload extends Response {
 
+      protected string $folder;
+      protected string $path;
+      protected array $files;
+
         public function __construct(string $folder, string $path, array $files)
         {
             // This is the path where the file goes

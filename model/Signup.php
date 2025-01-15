@@ -16,6 +16,9 @@
 
     class Signup extends Response {
         private static $db;
+        private $file;
+        private array $data;
+        public object $selecting;
 
         public function __construct(mysqli $db, array $data, $path) {
 

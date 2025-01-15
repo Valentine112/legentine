@@ -11,7 +11,14 @@
 
     class EmailValidation extends Response {
 
+      protected string $path;
+      protected string $email;
+      protected ?string $name;
+      public $more;
+
+
         public function __construct(string $path, string $email, ?string $name, array $more) {
+
             $this->path = $path;
 
             $this->email = Func::cleanData($email, 'string');
@@ -26,6 +33,7 @@
 
             $code = (int) random_int(10000, 99999);
             // Comparison here to check if we're updating user validation or creating new user validation
+
             $token = ($action) ?? Func::tokenGenerator();
             $config = Func::email_config();
 

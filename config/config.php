@@ -15,7 +15,7 @@
     // Trimming the development url tp function with the router
     $path = $_SERVER['REQUEST_URI'];
     $server_len = strlen($path);
-    $_SERVER['REQUEST_URI'] = str_split($path, 24)[1];
+    $_SERVER['REQUEST_URI'] = substr($path, 14, $server_len);
 
     // Deployment, the above *Testing would be commented out
 

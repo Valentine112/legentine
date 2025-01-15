@@ -3,7 +3,8 @@
 
     class FileHandling {
 
-        private string $file; 
+        private string $file;
+        private string $path;
 
         public function __construct(string $path) {
             $this->path = $path;
