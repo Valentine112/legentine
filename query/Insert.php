@@ -12,6 +12,7 @@
             public $ques = [];
             static $insert_item = "";
             public $more;
+            public int $subject_len;
 
 
             public function __construct(object $conn, string $where, array $subject, string $more) {
