@@ -43,21 +43,21 @@
     <div class="active action" data-action="category" value="all">
         <span>All</span>
     </div>
-    <div class="action" data-action="category" value="rap">
-        <span>Rap</span>
+    <div class="action" data-action="category" value="thoughts">
+        <span>Thoughts</span>
     </div>
-    <div class="action" data-action="category" value="song">
-        <span>Song</span>
+    <div class="action" data-action="category" value="music">
+        <span>Music</span>
     </div>
     <div class="action" data-action="category" value="poem">
         <span>Poem</span>
     </div>
-    <div class="action" data-action="category" value="comedy">
+    <!-- <div class="action" data-action="category" value="comedy">
         <span>Comedy</span>
     </div>
     <div class="action" data-action="category" value="story">
         <span>Story</span>
-    </div>
+    </div> -->
     <!--<div class="action" data-action="category" value="art">
         <span>Art</span>
     </div>-->

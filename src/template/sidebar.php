@@ -26,12 +26,16 @@
             bottom: 0;
             width: 75%;
             z-index: 3;
-            height: 100vh;
+            height: 95vh;
+            margin-top: auto;
+            margin-bottom: auto;
             margin-left: auto;
             padding-left: 10px;
             background-color: #fff;
             overflow-y: auto;
             transition: right 0.3s ease-in-out;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
         }
         .sidebar-list-1{
             margin-bottom: 10%;

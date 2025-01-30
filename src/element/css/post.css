@@ -167,25 +167,25 @@
 
 /* Other category */
 .post-sub .content-segment .category-segment > div{
-    background-color: #ff465b;
+    color: #444;
 }
 /* ther category ends */
 
-.post-sub .content-segment .category-segment .song{
-    background-color: rgb(114, 66, 114);
+.post-sub .content-segment .category-segment .music{
+    color: rgba(8, 26, 85, 0.678);
 }
-.post-sub .content-segment .category-segment .rap{
-    background-color: rgb(59, 58, 58);
-}
-.post-sub .content-segment .category-segment .comedy{
-    background-color: orange;
+.post-sub .content-segment .category-segment .thoughts{
+    color: rgb(114, 66, 114);
 }
 .post-sub .content-segment .category-segment .poem{
+    color: rgb(12, 124, 115);
+}
+/* .post-sub .content-segment .category-segment .poem{
     background-color: rgb(149, 209, 157);;
 }
 .post-sub .content-segment .category-segment .story{
     background-color: rgb(9, 115, 221);
-}
+} */
 
 
 /* Category color ends */

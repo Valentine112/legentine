@@ -54,11 +54,11 @@
 
                         <div class="session-category">
                             <select name="category" id="category" onchange="other_category(this)">
-                                <option value="Rap">Rap</option>
-                                <option value="Song">Song</option>
+                                <option value="Thoughts">Thoughts</option>
+                                <option value="Music">Music</option>
                                 <option value="Poem">Poem</option>
-                                <option value="Comedy">Comedy</option>
-                                <option value="Story">Story</option>
+                                <!-- <option value="Comedy">Comedy</option>
+                                <option value="Story">Story</option> -->
                                 <!--<option value="Other" id="other">Other</option>-->
                             </select>
                         </div>

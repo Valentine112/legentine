@@ -90,7 +90,7 @@ body{
     margin: auto;
 }
 .second-box-li ul li{
-    padding: 30px;
+    padding: 20px 30px;
     color: #fff;
     font-family: 'SourceSansPro', sans-serif;
 }

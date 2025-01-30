@@ -1,6 +1,6 @@
 -- MariaDB dump 10.19  Distrib 10.4.21-MariaDB, for osx10.10 (x86_64)
 --
--- Host: localhost    Database: legentine
+-- Host: localhost    Database: antaonar
 -- ------------------------------------------------------
 -- Server version	10.4.21-MariaDB
 
