@@ -1,4 +1,4 @@
-# Legentine
+# antaonar
 A reflection social media website
 
 Built using Object-Oriented PHP as the backend

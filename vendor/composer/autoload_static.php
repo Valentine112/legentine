@@ -22,7 +22,7 @@ class ComposerStaticInitfbc4e67205463d762c09221515897ddd
         ),
         'P' => 
         array (
-            'Project\\Legentine\\' => 18,
+            'Project\\antaonar\\' => 18,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
         'M' => 
@@ -53,7 +53,7 @@ class ComposerStaticInitfbc4e67205463d762c09221515897ddd
         array (
             0 => __DIR__ . '/../..' . '/query',
         ),
-        'Project\\Legentine\\' => 
+        'Project\\antaonar\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

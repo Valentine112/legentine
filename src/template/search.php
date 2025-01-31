@@ -215,8 +215,8 @@
                     <form method="get" onsubmit="fullSearch(event)">
                         <input 
                             type="text"
-                            placeholder="Find post and people"
-                            aria-placeholder="Search for post and people"
+                            placeholder="What do you seek?"
+                            aria-placeholder="What do you seek?"
                             onkeyup="Search(this)"
                             onclick="clickSearch(this)"
                             onfocus="focusSearc(this)"

@@ -58,7 +58,7 @@
         require "src/page/user/rank.php";
     })
 
-    ->get('/user/session', function() {
+    ->get('/user/space', function() {
         require "src/page/user/session.php";
     })
 

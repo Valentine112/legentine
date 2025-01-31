@@ -1,12 +1,12 @@
 {
-    "name": "project/legentine",
+    "name": "project/antaonar",
     "description": "A reflection platform",
     "require": {
         "phpmailer/phpmailer": "^6.6"
     },
     "autoload": {
         "psr-4": {
-            "Project\\Legentine\\": "src/",
+            "Project\\antaonar\\": "src/",
             "Router\\": "router/",
             "Config\\": "config/",
             "Service\\": "service/",

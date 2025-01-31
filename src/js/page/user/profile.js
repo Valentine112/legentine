@@ -33,7 +33,6 @@ window.addEventListener("load", async function () {
             person = content[0]['person']['id']
             user = content[0]['self']['user']
 
-
             // Display the delete button from viewing photo
             // Depending on whose profile this is
 
@@ -276,7 +275,7 @@ document.body.addEventListener("click", async function(e) {
                 res(
                     // Call the delete timer here
                     delete_notice.setAttribute("data-delete-token", elemToken),
-                    call_animation(parent, data)
+                    call_animation(parent.closest(".photoBoxCover"), data)
                 )
             })
             await promise
@@ -338,7 +337,7 @@ function photoBox(data) {
     }
 
     return `
-        <div class="photoBoxCover">
+        <div class="photoBoxCover" data-token="LT-${result['token']}">
             <div class="multiple">${count}</div>
             <img
                 src=" "
@@ -365,7 +364,7 @@ function viewImage(self) {
         `
     }
 
-    var scrollImageInd = document.querySelector(".scrollImagePage")
+    //var scrollImageInd = document.querySelector(".scrollImagePage")
     var currentImageInd = document.getElementById("currentImage")
     var totalImageInd = document.getElementById("totalImage")
     var viewImagesBox = document.querySelector(".viewImages")
@@ -379,18 +378,20 @@ function viewImage(self) {
     token = new Func().removeInitials(token)
 
     // Show the imageIndex if the total image is greater than 1 and vice versa
-    if(imageLen < 2) {
-        scrollImageInd.style.display = "none"
-    }else{
-        scrollImageInd.style.display = "block"
-    }
+    // Not adding it again, not relevant
+    // if(imageLen < 2) {
+    //     scrollImageInd.style.display = "none"
+    // }else{
+    //     scrollImageInd.style.display = "block"
+    // }
 
     var viewImageBox = document.getElementById("viewImageBox")
     // Display the box
     viewImageBox.style.display = "block"
 
     // Set the total
-    totalImageInd.innerText = imageLen
+    // Not relevant, not adding it as well
+    // totalImageInd.innerText = imageLen
 
     // Add the pictures
     imageSect.forEach((elem, ind) => {

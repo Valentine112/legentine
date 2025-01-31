@@ -17,7 +17,7 @@
             </div>
             <div>
                 <div class="header">
-                    <h1>Session</h1>
+                    <h1>Space</h1>
                 </div>
 
                 <div class="form-box">

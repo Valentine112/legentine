@@ -6,7 +6,7 @@
         Head::tags();
     ?>
     <link rel="stylesheet" href="src/page/css/landing.css">
-    <title>Legentine</title>
+    <title>antaonar</title>
 </head>
 <body>
     <div class="container">

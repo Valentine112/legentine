@@ -91,21 +91,23 @@
 
         <div class="viewImageBox" id="viewImageBox">
             <div class="imageControl">
-                <div class="closeImage">
+
+                <div class="imageOptions deleteImage">
+                    <button data-action="deleteImage" id="deleteImage">Delete</button>
+                </div>
+
+                <div class="closeImage imageOptions">
                     <span onclick="closePicture()">Close</span>
                 </div>
 
-                <div class="scrollImagePage">
+                <!-- <div class="scrollImagePage">
                     <span id="currentImage">1</span>
                     /
                     <span id="totalImage"></span>
-                </div>
+                </div> -->
 
                 <div class="viewImages">
                     <!-- PHOTOS GOES HERE -->
-                </div>
-                <div class="imageOptions">
-                    <button data-action="deleteImage" id="deleteImage">Delete</button>
                 </div>
             </div>
         </div>

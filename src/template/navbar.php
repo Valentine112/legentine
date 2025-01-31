@@ -1,9 +1,9 @@
 <?php
     use Config\Authenticate;
     define("USER", Authenticate::check_user());
-    $loggingStatus = false;
+    (bool) $loggingStatus = false;
 
-    USER['type'] === 2 ? $loggingStatus = true : $loggingStatus = false;
+    USER['type'] === 2 ? $loggingStatus = true : !$loggingStatus;
 
 ?>
 <head>
@@ -41,6 +41,7 @@
             color: #1e1f22;
             font-family: var(--theme-font);
             transition: font-size 0.3s linear;
+            cursor: pointer;
         }
         .navbar .large-navbar  div div a span:hover, .navbar .large-navbar  div div > span:hover{
             font-size: 19px;
@@ -487,8 +488,8 @@
                 </div>
 
                 <div>
-                    <a href="session" class="nav-links session">
-                        <span>Session</span>
+                    <a href="space" class="nav-links session">
+                        <span>Space</span>
                     </a>
                 </div>
 
@@ -589,8 +590,8 @@
                         type="search"  
                         id="search" 
                         autocomplete="off" 
-                        placeholder="Find post and people. . ."
-                        aria-placeholder="Search for post and people"
+                        placeholder="What do you seek?"
+                        aria-placeholder="What do you seek?"
                         onkeyup="Search(this)"
                         onclick="focusSearch(this)"
                     />
