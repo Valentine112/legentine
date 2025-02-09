@@ -12,7 +12,7 @@
         <div class="login-1">
             <div class="login-2">
                 <div>
-                    <h2>antaonar</h2>
+                    <h2>egophren</h2>
                 </div>
 
                 <div class="form-holder">

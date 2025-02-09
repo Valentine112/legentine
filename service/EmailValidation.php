@@ -6,7 +6,7 @@
         Mailing,
         Func,
         Response,
-        FileHandling
+        FileHandling,
     };
 
     class EmailValidation extends Response {
@@ -28,10 +28,9 @@
 
         }
 
-        public function main(?string $action, string $email_body) : array {
+        public function main(?string $action, string $email_body, int $code) : array {
             $this->type = "EmailValidation/main";
 
-            $code = (int) random_int(10000, 99999);
             // Comparison here to check if we're updating user validation or creating new user validation
 
             $token = ($action) ?? Func::tokenGenerator();
@@ -51,11 +50,12 @@
 
                 // Sent an email address with the security code along
                 $mailing = new Mailing($this->email, $this->name, $code, $config);
-                $mailing->set_params($email_body, "Confirm email Address");
+                $mailing->set_params($email_body, "Authentication");
 
                 // Changed the condition to force so i could test for other parts
                 // Would need to turn the condition to true for the correct working
-                if(!$mailing->send_mail()):
+                // Correctec
+                if($mailing->send_mail()):
                     $this->status = 1;
                     $this->message = "void";
                     $this->content = [

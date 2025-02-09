@@ -65,14 +65,21 @@
     .recents .recent-searches{
         margin-top: 3%;
     }
+    .recent-searches .clear-recent{
+        cursor: pointer;
+    }
     .recent-searches a{
         text-decoration: none;
         color: #000;
         display: block;
         width: 100%;
         padding: 7px;
+        transition: none;
     }
 
+    .recent-searches span:hover{
+        font-size: 15px!important;
+    }
 
     /* END */
 
@@ -231,21 +238,21 @@
             </div>
 
             <div class="result-section">
-                <div class="recents search-previews recent-toggle">
+                <!-- <div class="recents search-previews recent-toggle">
                     <header>
                         <div>
                             Recents
                         </div>
 
                         <div>
-                            <div>Clear</div>
+                            <div class="clear-recent">Clear</div>
                         </div>
                     </header>
 
                     <div class="recent-searches">
-                        <!-- The recent goes here -->
-                    </div>
-                </div>
+                         The recent goes here -->
+                    <!--</div>
+                </div> -->
 
                 <div class="top-randoms search-previews">
                     <div class="top-rated-people">

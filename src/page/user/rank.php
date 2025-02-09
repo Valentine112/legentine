@@ -27,6 +27,9 @@
                     // Include the category section here
                     include "src/template/category.php"; 
 
+                    // Include search here
+                    include "src/template/search.php";
+
                     // Include the notice box here
                     include "src/template/quick-notice.php";
 

@@ -1,12 +1,12 @@
 {
-    "name": "project/antaonar",
+    "name": "project/egophren",
     "description": "A reflection platform",
     "require": {
         "phpmailer/phpmailer": "^6.6"
     },
     "autoload": {
         "psr-4": {
-            "Project\\antaonar\\": "src/",
+            "Project\\egophren\\": "src/",
             "Router\\": "router/",
             "Config\\": "config/",
             "Service\\": "service/",

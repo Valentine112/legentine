@@ -63,8 +63,8 @@
         </section>
         <section class="details">
             <p>
-                Hi there, we are antaonar and we came to existence because of you. You are a star, and you definitely deserve to shine. But sometimes its not that easy, we all need a medium at some point, and that's where we come in.<br><br>
-                We let the world know what you are capable of by sharing all your works with the world. There are no limitations to who can see your works. A person from another universe could see your work as long as he/she is on antaonar. That's to show you just how far and fast your light could shine<br><br> <h1></h1><b>SO WELCOME</b></h1>            </p>
+                Hi there, we are egophren and we came to existence because of you. You are a star, and you definitely deserve to shine. But sometimes its not that easy, we all need a medium at some point, and that's where we come in.<br><br>
+                We let the world know what you are capable of by sharing all your works with the world. There are no limitations to who can see your works. A person from another universe could see your work as long as he/she is on egophren. That's to show you just how far and fast your light could shine<br><br> <h1></h1><b>SO WELCOME</b></h1>            </p>
         </section>
     </div>
 </body>

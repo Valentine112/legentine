@@ -438,7 +438,7 @@
                 </div>
 
                 <div>
-                    <a href="session" class="nav-links session">
+                    <a href="space" class="nav-links session">
                         <img src="../src/icon/header/plain-icon/note.svg" alt="session" class="config-icon-1 ori-icon">
                     </a>
                 </div>
@@ -603,13 +603,13 @@
                                     Cancel
                                 </div>
 
-                                <header>
+                                <!-- <header>
                                     <div>
                                         Recents
                                     </div>
 
                                     <div>
-                                        <div>Clear</div>
+                                        <div class="clear-recent">Clear</div>
                                     </div>
                                 </header>
 
@@ -624,7 +624,7 @@
                                             <span>Santino</span>
                                         </a>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
 

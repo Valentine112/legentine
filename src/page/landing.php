@@ -6,7 +6,7 @@
         Head::tags();
     ?>
     <link rel="stylesheet" href="src/page/css/landing.css">
-    <title>antaonar</title>
+    <title>egophren</title>
 </head>
 <body>
     <div class="container">
@@ -17,7 +17,7 @@
         <div class="box-divs">
             <div>
                 <div class="first-div-text">
-                    <h1>ANTAONAR</h1>
+                    <h1>Egophren</h1>
                     <div>
                         <a href="signup">Signup</a>
                         &ensp;&ensp;

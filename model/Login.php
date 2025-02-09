@@ -6,7 +6,8 @@
         Response,
         Func,
         EmailValidation,
-        FileHandling
+        FileHandling,
+        EmailBody
     };
 
     use Query\{
@@ -156,10 +157,11 @@
                         "remember" => $this->data['remember']
                     ];
 
-                    $email_body = "<h1> Hello there </h1>";
+                    $code = (int) random_int(10000, 99999);
+                    $email_body = EmailBody::AuthEmail($code, "Your device seems to have changed. Use this code on our platform to verify that it is really you trying to login right now");
 
                     $auth = new EmailValidation(LOGINFILE, $email, null, $val);
-                    $auth = $auth->main(null, $email_body);
+                    $auth = $auth->main(null, $email_body, $code);
 
                     if($auth['status'] === 1):
                         // Create a double message type, where there can be status as 1 from 2 different results
@@ -285,10 +287,11 @@
                     "email" => $email
                 ];
 
-                $email_body = "<h1> Hello there </h1>";
+                $code = (int) random_int(10000, 99999);
+                $email_body = EmailBody::AuthEmail($code, "This email has activated a reset password and we need to confirm that it is you. Use the code on our platform to verify that you are the one.");
 
                 $auth = new EmailValidation(LOGINFILE, $email, null, $data);
-                $auth = $auth->main(null, $email_body);
+                $auth = $auth->main(null, $email_body, $code);
 
                 return $auth;
             else:

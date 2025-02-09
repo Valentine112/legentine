@@ -10,7 +10,7 @@ return array(
     'Service\\' => array($baseDir . '/service'),
     'Router\\' => array($baseDir . '/router'),
     'Query\\' => array($baseDir . '/query'),
-    'Project\\antaonar\\' => array($baseDir . '/src'),
+    'Project\\egophren\\' => array($baseDir . '/src'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'Model\\' => array($baseDir . '/model'),
     'Controller\\' => array($baseDir . '/controller'),

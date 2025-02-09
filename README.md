@@ -1,4 +1,4 @@
-# antaonar
+# egophren
 A reflection social media website
 
 Built using Object-Oriented PHP as the backend

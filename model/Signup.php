@@ -11,7 +11,8 @@
         EmailValidation,
         Response,
         FileHandling,
-        Func
+        Func,
+        EmailBody
     };
 
     class Signup extends Response {
@@ -34,10 +35,12 @@
         public function verify() : array|bool {
             $process = $this->process();
             if($process['status'] === 1):
-                $validate = new EmailValidation(REGFILE, $this->data['email'], null, $this->data);
 
-                $email_body = "<h1> Hello there </h1>";
-                return $validate->main(null, $email_body);
+                $code = (int) random_int(10000, 99999);
+                $email_body = EmailBody::AuthEmail($code, "You are receiving this notification because this email was used to sign up on our platform and you are required to verify that you own it. Use this code on our platform to verify that you are the owner");
+
+                $validate = new EmailValidation(REGFILE, $this->data['email'], null, $this->data);
+                return $validate->main(null, $email_body, $code);
             else:
                 return $process;
 
@@ -175,10 +178,12 @@
 
                 $email = $info['content']['email'];
                 if(!empty($email)):
-                    $validate = new EmailValidation($path, $email, null, $this->data);
 
-                    $email_body = "<h1> Hello there </h1>";
-                    return $validate->main($this->data['token'], $email_body);
+                    $code = (int) random_int(10000, 99999);
+                    $email_body = EmailBody::AuthEmail($code, "You are receiving this notification because this email was used to sign up on our platform and you are required to verify that you own it. Use this code on our platform to verify that you are the owner");
+
+                    $validate = new EmailValidation($path, $email, null, $this->data);
+                    return $validate->main($this->data['token'], $email_body, $code);
 
                 else:
                     $this->status = 0;

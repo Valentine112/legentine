@@ -6,7 +6,7 @@
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'reference' => '44d2da91e6b148a6bdfcac121e4273edce709fca',
-        'name' => 'project/antaonar',
+        'name' => 'project/egophren',
         'dev' => true,
     ),
     'versions' => array(
@@ -19,7 +19,7 @@
             'reference' => '9400f305a898f194caff5521f64e5dfa926626f3',
             'dev_requirement' => false,
         ),
-        'project/antaonar' => array(
+        'project/egophren' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
             'type' => 'library',
