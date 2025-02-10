@@ -127,17 +127,17 @@ async function post_action(type, post_privacy, token) {
     // This first condition was made to assign specific errors
     if(title_len < 1){
         title.focus()
-        element_err = "title"
+        element_err = "Your title is missing"
 
-    }else if(content_len < 1){
-        element_err = "content"
+    }else if(content_len < 200){
+        element_err = "content should be at least 200 characters"
         content.focus()
 
     }
 
     // This second condition was made to assign general error
     if(title_len < 1 || content_len < 1){
-        var error_message = `Your ${element_err} is missing`
+        var error_message = element_err
 
         notice_modal.style.display = "block"
         var notice_message = notice_modal.querySelector(".notice-message span")
