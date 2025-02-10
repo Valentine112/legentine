@@ -31,11 +31,11 @@
                     }
                 </style>
                 <main>
-                    <h1>egoPhren</h1>
+                    <h1 style='color: #ff465b;'>egoPhren</h1>
             
                     <p>$info <b>$code</b>.</p>
             
-                    <a href='egophren.com'>Go now</a>
+                    <a href='egophren.com' style='background-color: #ff465b; color: #fff; padding: 5px 15px; text-decoration: none;'>Go now</a>
                     <h5>The above code expires in 5 minutes.</h5>
                     <br>
                     <small>Remember to comletely express yourself!</small>
