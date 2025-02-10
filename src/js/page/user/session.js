@@ -136,7 +136,7 @@ async function post_action(type, post_privacy, token) {
     }
 
     // This second condition was made to assign general error
-    if(title_len < 1 || content_len < 1){
+    if(title_len < 1 || content_len < 200){
         var error_message = element_err
 
         notice_modal.style.display = "block"
