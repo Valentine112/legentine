@@ -57,6 +57,7 @@
                                 <option value="Thoughts">Thoughts</option>
                                 <option value="Music">Music</option>
                                 <option value="Poem">Poem</option>
+                                <option value="Story">Story</option>
                                 <!-- <option value="Comedy">Comedy</option>
                                 <option value="Story">Story</option> -->
                                 <!--<option value="Other" id="other">Other</option>-->

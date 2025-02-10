@@ -52,6 +52,9 @@
     <div class="action" data-action="category" value="poem">
         <span>Poem</span>
     </div>
+    <div class="action" data-action="category" value="story">
+        <span>Story</span>
+    </div>
     <!-- <div class="action" data-action="category" value="comedy">
         <span>Comedy</span>
     </div>

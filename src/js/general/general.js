@@ -90,6 +90,12 @@ document.body.addEventListener("click", async function(e) {
             break;
 
         case "category":
+            var contents_loader = document.querySelector(".content-loader")
+            if(contents_loader != null) {
+                // display the loader first
+                contents_loader.style.display = "block"
+            }
+
             var path = func.getPath()['main_path']
 
             // Creating this due to the other segregation in rank page

@@ -23,21 +23,24 @@ class Post {
                     more: more
                 }
             }
+            var postCover = document.getElementById("postCover")
+            // Remove all the previous content if there is a filter
+            if(filter != ""){
+                postCover.innerHTML = ""
+            }
 
             this.func.request("../request.php", JSON.stringify(data), 'json')
             .then(val => {
+                // Check if the loader is visible
+                var contents_loader = document.querySelector(".content-loader")
+                if(contents_loader != null) {
+                    // Set the loader to hidden
+                    contents_loader.style.display = "none"
+                }
                 result  = val
-                
                 if(val.status === 1){
-                    var content = val.content
-                    var postCover = document.getElementById("postCover")
-
-                    // Remove all the previous content if there is a filter
-                    if(filter != ""){
-                        postCover.innerHTML = ""
-                    }
                     
-                    content.forEach(elem => {
+                    val.content.forEach(elem => {
                         var post = new PostHTML(elem, from, "../")
                         postCover.insertAdjacentHTML("beforeend", post.main())
                     })

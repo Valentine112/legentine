@@ -172,13 +172,16 @@
 /* ther category ends */
 
 .post-sub .content-segment .category-segment .music{
-    color: rgba(8, 26, 85, 0.678);
+    color: blue;
 }
 .post-sub .content-segment .category-segment .thoughts{
-    color: rgb(114, 66, 114);
+    color: green;
 }
 .post-sub .content-segment .category-segment .poem{
-    color: rgb(12, 124, 115);
+    color: red;
+}
+.post-sub .content-segment .category-segment .story{
+    color: rgba(255, 255, 0, 0.774);
 }
 /* .post-sub .content-segment .category-segment .poem{
     background-color: rgb(149, 209, 157);;
