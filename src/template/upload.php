@@ -98,6 +98,7 @@
         color: #fff;
         font-family: var(--theme-font);
         padding: 10px 0;
+        cursor: pointer;
     }
     .upload .uploadOptions > div:first-child{
         border-right: 1px solid #5e5e5e;
@@ -327,6 +328,8 @@
 
                     new Func().request("../request.php", formdata, 'file')
                     .then(val => {
+
+                        console.log(val)
 
                         // Reset the cropper and the file
                         cropper.destroy()

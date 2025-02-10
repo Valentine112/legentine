@@ -145,7 +145,7 @@
                 $items = [
                     Func::tokenGenerator(),
                     ...array_values($this->content),
-                    'src/photo/image.jpg',
+                    'src/photo/default/user1.jpg',
                     Func::dateFormat(),
                     time()
                 ];

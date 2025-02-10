@@ -26,23 +26,20 @@
              * Else work with the already created one
              */
 
-            if(!is_dir($this->folder)){
+            if(!is_dir($this->folder)):
                 if(mkdir($this->folder, 0777)):
                     $this->status = 1;
                     $this->message = "void";
                     $this->content = "Successful";
-
                 else:
-                    $this->status = 0;
                     $this->message = "void";
                     $this->content = "Failed to create folder";
-
                 endif;
-            }else{
+            else:
                 $this->status = 1;
                 $this->message = "void";
                 $this->content = "Successful";
-            }
+            endif;
 
             return $this->deliver();
         }
