@@ -36,7 +36,7 @@
             $this->Username   = $id;                     // SMTP username
             $this->Password   = $pass;                               // SMTP password
             $this->SMTPSecure = 'TLS';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
-            $this->Port       =  587;                                    // TCP port to connect to
+            $this->Port       =  465;                                    // TCP port to connect to
             $this->SMTPOptions = array(
                 'ssl' => array(
                     'verify_peer' => false,

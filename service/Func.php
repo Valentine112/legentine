@@ -68,10 +68,10 @@
 
         public static function email_config() : array {
             return [
-                'id' => 'legendstime1@gmail.com',
+                'id' => 'i@egophren.com',
                 'pass' => 'Anthonyval',
-                'name' => 'egophren',
-                'host' => 'smtp.gmail.com'
+                'name' => 'egoPhren',
+                'host' => 'mail.egophren.com'
             ];
 
         }
