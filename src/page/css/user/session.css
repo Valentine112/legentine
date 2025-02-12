@@ -13,7 +13,7 @@ body{
 }
 .session .header{
     color: var(--theme-color);
-    font-family: '';
+    font-family: var(--theme-font);
     text-align: center;
 }
 .session .form-box > div{
@@ -33,7 +33,7 @@ body{
     background-color: transparent;
     font-size: 20px;
     text-align: center;
-    font-family: var(--theme-font);
+    font-family: var(--theme-font-2);
     color: #000;
     font-weight: 400!important;
     padding: 10px;
@@ -44,7 +44,7 @@ body{
     height: 80vh;
     padding: 15px;
     font-size: 18px;
-    font-family: var(--theme-font);
+    font-family: var(--theme-font-4);
     text-align: center;
     font-weight: 400;
     color: rgb(102, 95, 95);

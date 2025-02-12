@@ -6,8 +6,8 @@
         Head::tags(); 
     ?>
     <link rel="stylesheet" href="../src/page/css/user/read.css">
-    <script src="../src/js/view/Comment.js"></script>
-    <script src="../src/js/view/Reply.js"></script>
+    <script async src="../src/js/view/Comment.js"></script>
+    <script async src="../src/js/view/Reply.js"></script>
     <title>Read</title>
 </head>
 <body id="readBody">
@@ -18,7 +18,7 @@
         <div class="main-content">
             <div class="main">
                 <div class="photo">
-                    <a href="">
+                    <a href="" id="profileLink">
                         <img src=" " alt="">
                     </a>
                 </div>

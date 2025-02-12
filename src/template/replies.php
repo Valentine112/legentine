@@ -16,7 +16,7 @@
         left: 0;
         right: 0;
         height: 90vh;
-        background: linear-gradient(145deg, #444, #000);
+        background: #fff;
         height: inherit;
         padding: 15px;
         overflow-y: auto;
@@ -49,7 +49,7 @@
     }
 
     .reply .reply-comment{
-        border-bottom: 2px solid #222;
+        border-bottom: 1px solid silver;
         padding-bottom: 10px;
     }
     .main-reply .box > div:first-child > div{
@@ -66,7 +66,7 @@
     }
 
     .box .reply-username span{
-        color: silver!important;
+        color: #444!important;
         font-size: 14px;
     }
     .box .date{
@@ -81,7 +81,7 @@
     }
     .replies{
         margin: 10px 0 10px 0;
-        border-bottom: 1px solid #444;
+        border-bottom: 1px solid #f1f1f1;
         padding: 3px 0;
     }
     .reply .reply-options > div{
@@ -91,7 +91,7 @@
     }
     .reply .reply-options span{
         font-size: 13px;
-        color: silver;
+        color: grey;
         cursor: pointer;
     }
 
@@ -108,9 +108,8 @@
     .reply .reply-holder{
         width: 90%;
         margin: auto;
-        background-color: inherit;
-        background-color: #444;
-        border-bottom: 2px solid #f1f1f1;
+        background-color: transparent;
+        border-bottom: 1px solid #444;
     }
     .reply .reply-holder > div{
         display: inline-block;
@@ -138,7 +137,7 @@
     /* Add the placeholder for the div */
     [contentEditable=true]:empty:before{
         content: attr(data-placeholder);
-        color: grey;
+        color: #000;
     }
     .reply .reply-holder button{
         background-color: transparent;

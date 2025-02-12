@@ -1,19 +1,16 @@
 *{
     box-sizing: content-box;
     font-family: var(--theme-font);
-    color: #fff;
+    color: #000;
 }
 hr{
     width: 75%;
     height: 1px;
     border: 0;
-    background-color: #f1f1f1;
+    background-color: #444;
 }
 body{
-    background: linear-gradient(145deg, #000, #444);
-}
-.config .content-loader{
-    background-color: rgba(0, 0, 0, 0.4);
+    background: #fff;
 }
 .delete-notice{
     bottom: 10%!important;
@@ -48,7 +45,8 @@ body{
     margin-top: 10px;
 }
 .read .post-header span{
-    color: #ff465b!important;
+    color: #000!important;
+    font-family: var(--theme-font-2)
 }
 .read .post-content{
     text-align: center;
@@ -56,9 +54,11 @@ body{
     width: 90%;
     margin: auto;
     margin-top: 20px;
+    font-family: var(--theme-font-4)
 }
 .read .post-content span{
     line-height: 40px;
+    font-family: var(--theme-font-4);
 }
 
 .read .feature-content{
@@ -83,6 +83,7 @@ body{
 .feature-content .composed-feature span{
     font-size: 17px;
     line-height: 40px;
+    font-family: var(--theme-font-4);
 }
 
 .read .reaction-box .reaction{
@@ -138,7 +139,7 @@ body{
 }
 .comment-details > div:last-child .username{
     font-family: 600;
-    color: silver;
+    color: #444;
     font-size: 13px;
 }
 .comment-details > div:last-child .user-comment{
@@ -167,7 +168,7 @@ body{
     margin: 0 15px 0 15px;
 }
 .comment-options > div span{
-    color: silver!important;
+    color: #444!important;
     cursor: pointer;
 }
 
@@ -199,8 +200,8 @@ body{
 .read .comment-holder{
     width: 90%;
     margin: auto;
-    background: linear-gradient(145deg, #444, #000);
-    border-bottom: 2px solid #f1f1f1;
+    background: transparent;
+    border-bottom: 2px solid #444;
 }
 .read .comment-holder > div{
     display: inline-block;
@@ -245,7 +246,7 @@ body{
         margin: auto;
         width: 80%;
         overflow-y: auto;
-        box-shadow: 4px 4px 10px 4px lightgrey;
+        box-shadow: 4px 4px 10px 4px #f5f5f5;
         padding: 10px;
         margin-bottom: 20px;
     }

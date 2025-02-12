@@ -130,7 +130,7 @@ async function post_action(type, post_privacy, token) {
         element_err = "Your title is missing"
 
     }else if(content_len < 200){
-        element_err = "content should be at least 200 characters"
+        element_err = "Content should be at least 200 characters"
         content.focus()
 
     }
@@ -147,7 +147,7 @@ async function post_action(type, post_privacy, token) {
         // But to be safe, make sure the element has no previous class
         var promise = new Promise(res => {
             res(
-                remove_class(notice_message),
+                //remove_class(notice_message),
 
                 notice_modal.querySelector(".warning").style.display = "block",
                 notice_message.classList.add("warning"),

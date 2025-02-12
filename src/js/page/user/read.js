@@ -45,6 +45,7 @@ window.addEventListener("load", async function() {
                     // The post token
                     post_body.setAttribute("data-token", "LT-" + post['token'])
 
+                    document.getElementById("profileLink").setAttribute("href", more['profile'])
                     post_photo.setAttribute("src", '../src/' + other['photo'])
                     username.innerText = other['username']
                     title.innerText = post['title']

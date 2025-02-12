@@ -27,7 +27,7 @@
     width: 100%;
     background-color: #f9f9f9;
     margin: auto;
-    font-family: var(--theme-font);
+    font-family: var(--theme-font-4);
 }
 .post-sub .dropdown-segment{
     width: 100%;
@@ -125,9 +125,9 @@
     text-decoration: none;
     color: #000;
 }
-.post-sub .content-segment .article-link:hover{
+/* .post-sub .content-segment .article-link:hover{
     text-shadow: 2px 3px 4px #e5e5e5;
-}
+} */
 .post-sub .content-segment .title-segment{
     font-family: var(--theme-font-2);
     color: #000;

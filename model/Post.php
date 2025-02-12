@@ -95,7 +95,6 @@
 
                 // END //
 
-
                 // Check if user has saved post
                 $this->selecting->more_details("WHERE post = ? AND user = ?# $post# $user");
                 $action = $this->selecting->action("id", "saved");
@@ -148,7 +147,14 @@
 
 
                 // Check if its the same person
-                $box['more']['owner'] = $user === $other ? true : false;
+                //$box['more']['owner'] = $user === $other ? true : false;
+                if($user === $other):
+                    $box['more']['owner'] = true;
+                    $box['more']['profile'] = "profile";
+                else:
+                    $box['more']['owner'] = true;
+                    $box['more']['profile'] = "profile?token=$other";
+                endif;
 
                 // Save the post owner also
                 $box["other"] = $other_user;
@@ -210,7 +216,8 @@
                 time()
             ];
 
-            if(!empty($this->data['val']['title']) && !empty($this->data['val']['content'])):
+            // Check that the values are well
+            if(!empty($this->data['val']['title']) && strlen(trim($this->data['val']['content'])) > 199):
                 $inserting = new Insert(self::$db, "post", $subject, "");
                 $action = $inserting->push($items, 'sisssisi');
                 if(is_bool($action) && $action):
@@ -223,7 +230,10 @@
 
                 endif;
             else:
-
+                $this->type = "error";
+                $this->status = 0;
+                $this->message = "fill";
+                $this->content = "Title is empty or content is less that 200 characters";
             endif;
 
             return $this->deliver();
