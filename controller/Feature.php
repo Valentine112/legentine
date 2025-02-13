@@ -38,6 +38,16 @@
 
                         break;
 
+                    case "fetchFeature":
+                        $result = $modelFeature->fetchFeature();
+
+                        break;
+
+                    case "compose":
+                        $result = $modelFeature->compose();
+
+                        break;
+
                     case "request":
                         $result = $modelFeature->request();
 

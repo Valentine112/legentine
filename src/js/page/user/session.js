@@ -113,7 +113,7 @@ async function post_action(type, post_privacy, token) {
     if(post_privacy === 1){
         privacy = 1
     }else{
-        privacy = document.getElementById("check").checked
+        if(type == "create_post") privacy = document.getElementById("check").checked
     }
 
     var func = new Func
@@ -147,7 +147,7 @@ async function post_action(type, post_privacy, token) {
         // But to be safe, make sure the element has no previous class
         var promise = new Promise(res => {
             res(
-                //remove_class(notice_message),
+                remove_previous(notice_message),
 
                 notice_modal.querySelector(".warning").style.display = "block",
                 notice_message.classList.add("warning"),

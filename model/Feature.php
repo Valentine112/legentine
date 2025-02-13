@@ -39,7 +39,6 @@
         }
 
         public function fetchRequest(?int $post) : array {
-            // Photo does not belong to user
             $this->type = "success";
             $this->status = 1;
             $this->message = "void";
@@ -138,8 +137,45 @@
             return $this->deliver();
         }
 
+        public function fetchFeature() : array {
+            $this->type = "error";
+            $this->status = 0;
+            $this->message = "void";
+
+            $token = $this->data['val']['token'];
+            // Fetch feature
+            $data = [
+                "token" => $token,
+                "1" => "1",
+                "needle" => "*",
+                "table" => "feature"
+            ];
+
+            $search = Func::searchDb(self::$db, $data, "AND");
+            if($search != null):
+                // Verify it's the user and he's been granted access
+                if($search['user'] === $this->user && $search['response'] === 1):
+                    $data = [
+                        "id" => $search['post'],
+                        "1" => "1",
+                        "needle" => "title",
+                        "table" => "post"
+                    ];
+        
+                    $title = Func::searchDb(self::$db, $data, "AND");
+                    $this->status = 1;
+                    $this->type = "success";
+                    $this->content = [
+                        "feature" => $search,
+                        "post" => $title
+                    ];
+                endif;
+            endif;
+
+            return $this->deliver();
+        }
+
         public function fetchHistory() : array {
-            // Photo does not belong to user
             $this->type = "success";
             $this->status = 1;
             $this->message = "void";
@@ -208,6 +244,55 @@
             endforeach;
 
             $this->content = $result;
+
+            return $this->deliver();
+        }
+
+        public function compose() : array {
+            $this->type = "error";
+            $this->status = 0;
+            $this->message = "void";
+
+            $val = $this->data['val'];
+            (string) $token = $val['feature'];
+            (string) $content = $val['content'];
+
+            // Fetch feature
+            $data = [
+                "token" => $token,
+                "1" => "1",
+                "needle" => "*",
+                "table" => "feature"
+            ];
+
+            $search = Func::searchDb(self::$db, $data, "AND");
+            if($search != null):
+                // Verify it's the user and he's been granted access
+                if($search['user'] === $this->user && $search['response'] === 1):
+                    // Update the content for the compose
+                    $updating = new Update(self::$db, "SET content = ? WHERE token = ?# $content# $token");
+                    $action = $updating->mutate('ss', 'feature');
+                    if($action):
+                        $this->type = "success";
+                        $this->status = 1;
+                        $this->message = "void";
+
+                        $data = [
+                            "id" => $search['post'],
+                            "1" => "1",
+                            "needle" => "token",
+                            "table" => "post"
+                        ];
+            
+                        $token = Func::searchDb(self::$db, $data, "AND");
+                        $this->content = [
+                            "post" => $token
+                        ];
+                    else:
+                        return $action;
+                    endif;
+                endif;
+            endif;
 
             return $this->deliver();
         }

@@ -152,7 +152,7 @@
                     $box['more']['owner'] = true;
                     $box['more']['profile'] = "profile";
                 else:
-                    $box['more']['owner'] = true;
+                    $box['more']['owner'] = false;
                     $box['more']['profile'] = "profile?token=$other";
                 endif;
 

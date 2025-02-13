@@ -234,7 +234,7 @@ class PostHTML {
 
         var personnal = `<div class="author personnal-options">
             <div class="edit-options action">
-                <a href="session?token=${this.post['token']}">
+                <a href="space?token=${this.post['token']}">
                     <div>
                         <img src="${this.path}src/icon/option-icon/edit.svg" alt="">
                     </div>
@@ -283,7 +283,7 @@ class PostHTML {
 
         var privatePost = `<div class="author personnal-options">
             <div class="edit-options action">
-                <a href="session?token=${this.post['token']}">
+                <a href="space?token=${this.post['token']}">
                     <div>
                         <img src="${this.path}src/icon/option-icon/edit.svg" alt="">
                     </div>

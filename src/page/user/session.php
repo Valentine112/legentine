@@ -85,8 +85,8 @@
         // Include the notice box here
         include "src/template/quick-notice.php";
 
-        // Other category pop up
-        include "src/template/other-category.php";
+        // // Other category pop up
+        // include "src/template/other-category.php";
     ?>
 </body>
 <script src="../src/js/page/user/session.js"></script>

@@ -62,6 +62,10 @@
         require "src/page/user/session.php";
     })
 
+    ->get('/user/compose', function() {
+        require "src/page/user/compose.php";
+    })
+
     ->get('/user/read', function() {
         require "src/page/user/read.php";
     })
