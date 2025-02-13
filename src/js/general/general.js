@@ -90,57 +90,61 @@ document.body.addEventListener("click", async function(e) {
             break;
 
         case "category":
-            var contents_loader = document.querySelector(".content-loader")
-            if(contents_loader != null) {
-                // display the loader first
-                contents_loader.style.display = "block"
-            }
-
-            var path = func.getPath()['main_path']
-
-            // Creating this due to the other segregation in rank page
-            // As there would also be all time and weekly
-            var more = ""
-            if(path == "rank"){
-                var ranking_time = document.querySelector(".ranking-time").querySelector(".active")
-                more = ranking_time.getAttribute("value")
-            }
-
             var category_cover = elem.closest(".category")
+            // Check that we are not on the same page
+            if(category_cover.querySelector(".active span").innerText != elem.querySelector("span").innerText){
+                var contents_loader = document.querySelector(".content-loader")
+                if(contents_loader != null) {
+                    // display the loader first
+                    contents_loader.style.display = "block"
+                }
 
-            // Remove the current active element
-            category_cover.querySelector(".active").classList.remove("active")
+                var path = func.getPath()['main_path']
 
-            // Set a new active element next
-            elem.classList.add("active")
+                // Creating this due to the other segregation in rank page
+                // As there would also be all time and weekly
+                var more = ""
+                if(path == "rank"){
+                    var ranking_time = document.querySelector(".ranking-time").querySelector(".active")
+                    more = ranking_time.getAttribute("value")
+                }
 
-            // Fetch the post
-            var filter = elem.getAttribute("value")
-            post.fetch_post(path, filter, more)
+                // Remove the current active element
+                category_cover.querySelector(".active").classList.remove("active")
 
+                // Set a new active element next
+                elem.classList.add("active")
+
+                // Fetch the post
+                var filter = elem.getAttribute("value")
+                post.fetch_post(path, filter, more)
+            }
             break;
 
         case "time-section":
             var path = func.getPath()['main_path']
 
             var parent = elem.closest(".ranking-time")
-            parent.querySelector(".active").classList.remove("active")
-            elem.classList.add("active")
+            //Check that we are not on the same page
+            if(parent.querySelector(".active span").innerText != elem.querySelector("span").innerText) {
+                parent.querySelector(".active").classList.remove("active")
+                elem.classList.add("active")
 
-            // Get the time section
-            var more = ""
-            if(path == "rank") {
-                var ranking_time = parent.querySelector(".active")
-                more = ranking_time.getAttribute("value")
+                // Get the time section
+                var more = ""
+                if(path == "rank") {
+                    var ranking_time = parent.querySelector(".active")
+                    more = ranking_time.getAttribute("value")
+                }
+
+                // Get the category section
+                var category_cover = document.querySelector(".category")
+
+                // Remove the current active element
+                var filter = category_cover.querySelector(".active").getAttribute("value")
+
+                post.fetch_post(path, filter, more)
             }
-
-            // Get the category section
-            var category_cover = document.querySelector(".category")
-
-            // Remove the current active element
-            var filter = category_cover.querySelector(".active").getAttribute("value")
-
-            post.fetch_post(path, filter, more)
             break;
 
         case "sub-dropdown":

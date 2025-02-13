@@ -72,6 +72,8 @@
                         $this->message = "void";
                         $this->content = "Successfully created pin";
 
+                        $_SESSION['private'] = 1;
+
                     else:
                         return $action;
                     endif;
@@ -101,7 +103,9 @@
                 $this->type = "success";
                 $this->status = 1;
                 $this->message = "void";
-                $this->content = "Successfully created pin";
+                $this->content = "Successful";
+
+                $_SESSION['private'] = 1;
 
             else:
                 $this->message = "fill";

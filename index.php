@@ -85,6 +85,10 @@
     ->get('/user/privateAccess', function() {
         require "src/page/user/privateAccess.php";
     })
+    
+    ->get('/user/privatePost', function() {
+        require "src/page/user/privatePost.php";
+    })
 
     ->get('/user/saved', function() {
         require "src/page/user/saved.php";
@@ -104,10 +108,6 @@
 
     ->get('/user/featureHistory', function() {
         require "src/page/user/featureHistory.php";
-    })
-
-    ->get('/user/privatePost', function() {
-        require "src/page/user/privatePost.php";
     })
 
     ->get('/user/unlisted', function() {

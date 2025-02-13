@@ -319,13 +319,13 @@
                 endif;
                 /**
                  * Fetching post from pages that requires the user to be logged in
-                 * Pages ---- Session
+                 * Pages ---- Space
                  *  Pages ---- Profile
                  * Pages ---- Saved
                  * Pages ---- Private
                  */
 
-                if($from == "session"):
+                if($from == "space"):
                     $token = $filter['token'];
 
                     $this->selecting->more_details("WHERE token = ?# $token");

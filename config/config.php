@@ -1,4 +1,5 @@
 <?php
+    session_start();    
     require 'vendor/autoload.php';
 
     use Service\FileHandling;
@@ -16,6 +17,11 @@
     $path = $_SERVER['REQUEST_URI'];
     $server_len = strlen($path);
     $_SERVER['REQUEST_URI'] = substr($path, 14, $server_len);
+
+    // Config the authentication for the private post
+    if($_SERVER['REQUEST_URI'] != "/user/privatePost"):
+        (bool) $_SESSION['private'] = 0;
+    endif;
 
     // Deployment, the above *Testing would be commented out
 

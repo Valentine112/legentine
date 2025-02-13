@@ -217,37 +217,41 @@ document.body.addEventListener("click", async function(e) {
             var parent = elem.closest(".headerSectionSub")
             var type = elem.getAttribute("data-type")
 
-            // Toggle the active link
-            parent.querySelector(".active").classList.remove("active")
-            elem.classList.add("active")
+            //Check that we are not on the same page
+            if(parent.querySelector(".active span").innerText != elem.querySelector("span").innerText) {
 
-            var postCover = document.getElementById("postCover")
-            var photoSub = document.getElementById("photoSub")
+                // Toggle the active link
+                parent.querySelector(".active").classList.remove("active")
+                elem.classList.add("active")
 
-            postCover.innerHTML = ""
-            photoSub.innerHTML = ""
+                var postCover = document.getElementById("postCover")
+                var photoSub = document.getElementById("photoSub")
 
-            // Display the photo box
-            if(person === user) {
-                if(type === "photos") {
-                    uploadPhotoBox.style.display = "block"
+                postCover.innerHTML = ""
+                photoSub.innerHTML = ""
+
+                // Display the photo box
+                if(person === user) {
+                    if(type === "photos") {
+                        uploadPhotoBox.style.display = "block"
+                    }
                 }
-            }
 
-            if(type === "notes") {
-                photoSub.style.display = "none"
-                postCover.style.display = "flex"
+                if(type === "notes") {
+                    photoSub.style.display = "none"
+                    postCover.style.display = "flex"
 
-                new Post().fetch_post(pathObj['main_path'], "notes", param)
+                    new Post().fetch_post(pathObj['main_path'], "notes", param)
 
-                uploadPhotoBox.style.display = "none"
-            }
+                    uploadPhotoBox.style.display = "none"
+                }
 
-            if(type === "photos") {
-                postCover.style.display = "none"
-                photoSub.style.display = "flex"
-                
-                new User().fetchPhotos(param)
+                if(type === "photos") {
+                    postCover.style.display = "none"
+                    photoSub.style.display = "flex"
+                    
+                    new User().fetchPhotos(param)
+                }
             }
 
             break;

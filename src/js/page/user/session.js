@@ -113,7 +113,7 @@ async function post_action(type, post_privacy, token) {
     if(post_privacy === 1){
         privacy = 1
     }else{
-        if(type == "create_post") privacy = document.getElementById("check").checked
+        privacy = type == "create_post" ? document.getElementById("check").checked : 0
     }
 
     var func = new Func

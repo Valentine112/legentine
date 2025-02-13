@@ -17,6 +17,7 @@
     font-size: 25px;
     font-weight: 600;
     color: grey;
+    cursor: pointer;
 }
 
 .ranking .ranking-time > .active{

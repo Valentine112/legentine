@@ -1,3 +1,10 @@
+<?php
+    // Check if the person is not properly logged into the private section
+    // echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+    // print_r($_SESSION['private']);
+    // //if($_SESSION['private'] === 0) echo "<script>window.location = 'privateAccess'; </script>";
+    // print_r($_SESSION);
+?>
 <html lang="en">
 <head> 
     <script src="../src/js/view/PostHTML.js"></script>
