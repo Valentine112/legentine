@@ -121,8 +121,9 @@ window.addEventListener("load", async function() {
                                 featureElem.innerText = "Compose"
                                 featureElem.style.cssText = "background-color: dodgerblue; color: #fff";
                                 featureElem.removeAttribute("data-action")
-
-                                document.getElementById("composeLink").appendChild(featureElem)
+                                let composeLink = document.getElementById("composeLink")
+                                composeLink.appendChild(featureElem)
+                                composeLink.setAttribute("href", `compose?token=${feature['token']}`)
                             }
     
                         }

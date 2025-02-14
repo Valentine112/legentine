@@ -548,7 +548,6 @@
 
             $post = $this->selecting->pull();
 
-
             $result = $this->config_data([], $post[0], "user", $user);
 
             if($from === "read"):

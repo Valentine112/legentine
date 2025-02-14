@@ -217,6 +217,9 @@ document.body.addEventListener("click", async function(e) {
             var parent = elem.closest(".headerSectionSub")
             var type = elem.getAttribute("data-type")
 
+            // Show loader
+            document.querySelector(".article-content .content-loader").style.display = "block"
+
             //Check that we are not on the same page
             if(parent.querySelector(".active span").innerText != elem.querySelector("span").innerText) {
 
@@ -370,14 +373,14 @@ function viewImage(self) {
 
     //var scrollImageInd = document.querySelector(".scrollImagePage")
     var currentImageInd = document.getElementById("currentImage")
-    var totalImageInd = document.getElementById("totalImage")
+    //var totalImageInd = document.getElementById("totalImage")
     var viewImagesBox = document.querySelector(".viewImages")
     var deleteImage = document.getElementById("deleteImage")
 
     var token = self.getAttribute("data-token")
     var images = self.getAttribute("data-src")
     var imageSect = images.split("%%")
-    var imageLen = imageSect.length
+    //var imageLen = imageSect.length
 
     token = new Func().removeInitials(token)
 

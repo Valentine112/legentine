@@ -32,7 +32,7 @@ class Post {
             this.func.request("../request.php", JSON.stringify(data), 'json')
             .then(val => {
                 // Check if the loader is visible
-                var contents_loader = document.querySelector(".content-loader")
+                var contents_loader = document.querySelector(".article-content .content-loader")
                 if(contents_loader != null) {
                     // Set the loader to hidden
                     contents_loader.style.display = "none"
@@ -291,18 +291,24 @@ class Post {
         var box = elem.closest(".reaction-box")
         var type = elem.getAttribute("data-type")
 
-        /*if(type === "unstar") {
+        var post_body = elem.closest(".post-body"),
+        token = new Func().removeInitials(post_body.getAttribute("data-token")),
+        countSpan = post_body.querySelector(".reaction-count span"),
+        countNum = Number(countSpan.innerText)
+
+        // Creating the illusion of speed
+        if(type === "unstar") {
             box.querySelector(".unstar").classList.remove("active")
             box.querySelector(".star").classList.add("active")
+
+            countSpan.innerText = countNum + 1
 
         }else if(type === "star") {
             box.querySelector(".star").classList.remove("active")
             box.querySelector(".unstar").classList.add("active")
 
-        }*/
-        
-        var post_body = elem.closest(".post-body"),
-        token = new Func().removeInitials(post_body.getAttribute("data-token"))
+            countSpan.innerText = countSpan.innerText == 1 ? "" : countNum - 1
+        }    
 
         var data = {
             part: "post",
@@ -317,7 +323,7 @@ class Post {
 
             if(val.status === 1){
 
-                var type = val.content['type']
+                /*var type = val.content['type']
                 var count = val.content['count']
 
                 if(type === "star") {
@@ -331,10 +337,10 @@ class Post {
                     }
                 }
 
-                if(count === 0) count = ""
+                if(count === 0) count = "" */
 
                 // Show the total number of likes here
-                post_body.querySelector(".reaction-count span").innerText = count
+                //post_body.querySelector(".reaction-count span").innerText = count
             }
 
             this.func.notice_box(val)

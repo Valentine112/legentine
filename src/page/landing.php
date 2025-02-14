@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="src/page/logo/logo4.png" alt="">
+            <img src="src/logo/ego1.png" alt="">
         </div>
 
         <div class="box-divs">

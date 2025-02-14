@@ -74,6 +74,7 @@ class User {
 
         this.func.request("../request.php", JSON.stringify(data), 'json')
         .then(val => {
+            document.querySelector(".article-content .content-loader").style.display = "none"
             if(val.status === 1) {
                 var photoSub = document.getElementById("photoSub")
 

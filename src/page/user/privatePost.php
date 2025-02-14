@@ -1,5 +1,5 @@
 <?php
-    // Check if the person is not properly logged into the private section
+    // Check if the person is not properly logged into the private sect on
     // echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
     // print_r($_SESSION['private']);
     // //if($_SESSION['private'] === 0) echo "<script>window.location = 'privateAccess'; </script>";
@@ -12,7 +12,7 @@
     <script src="../src/js/view/Profile.js"></script>
     <?php 
         use Src\Config\Head; 
-        Head::tags(); 
+        Head::tags();
     ?>
     <link rel="stylesheet" href="../src/page/css/user/profile.css">
     <link rel="stylesheet" href="../src/element/css/post.css">

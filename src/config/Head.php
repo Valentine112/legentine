@@ -24,6 +24,8 @@
                 <script async src="'.$struct.'src/js/service/CommentActions.js"></script>
                 <script async src="'.$struct.'src/js/service/Notification.js"></script>
                 <script async src="'.$struct.'src/js/view/Search.js"></script>
+                <link rel="shortcut icon" href="'.$struct.'src/logo/favicon.ico" type="image/x-icon">
+                <link rel="icon" href="'.$struct.'src/logo/favicon.ico" type="image/x-icon">
             </head>';
         }
     }

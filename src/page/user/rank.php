@@ -14,7 +14,7 @@
     <title>Rank</title>
 </head>
 <body>
-    <div class="content">
+    <div class="content config">
         <div class="ranking">
             <div class="ranking-section category-section">
                 <?php
