@@ -13,18 +13,28 @@
     define("FORGOTFILE", "log/forgot.json");
     define("RANDOMS", "log/randoms.json");
 
+    //echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
     // Trimming the development url tp function with the router
     $path = $_SERVER['REQUEST_URI'];
     $server_len = strlen($path);
     $_SERVER['REQUEST_URI'] = substr($path, 14, $server_len);
 
-    // Config the authentication for the private post
-    if($_SERVER['REQUEST_URI'] != "/user/privatePost"):
-        (bool) $_SESSION['private'] = 0;
-    endif;
+    $referer = "";
+    if(isset($_SERVER['HTTP_REFERER'])) $referer = $_SERVER['HTTP_REFERER'];
+    $referer = empty($referer) ?: (substr($referer, 30, strlen($referer)));
 
+    //print_r($referer);
     // Deployment, the above *Testing would be commented out
 
+    // Config the authentication for the private post
+    if($_SERVER['REQUEST_URI'] != "/user/privatePost"):
+        if($_SERVER['REQUEST_URI'] != "/user/privateAccess" || ($_SESSION['private'] != 1 && $_SERVER['REQUEST_URI'] != "/user/privateAccess")):
+            $_SESSION['private'] = 0;
+        endif;
+    endif;
+
+    //print_r($_SERVER);
+    
     // Clean the log/json files if a data has lasted for more than 12 hours
     function cleanFile($path, int $duration) {
         $files = json_decode(file_get_contents($path), true);

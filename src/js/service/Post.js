@@ -24,10 +24,6 @@ class Post {
                 }
             }
             var postCover = document.getElementById("postCover")
-            // Remove all the previous content if there is a filter
-            if(filter != ""){
-                postCover.innerHTML = ""
-            }
 
             this.func.request("../request.php", JSON.stringify(data), 'json')
             .then(val => {
@@ -38,12 +34,20 @@ class Post {
                     contents_loader.style.display = "none"
                 }
                 result  = val
-                if(val.status === 1){
-                    
-                    val.content.forEach(elem => {
-                        var post = new PostHTML(elem, from, "../")
-                        postCover.insertAdjacentHTML("beforeend", post.main())
-                    })
+                if(val.status === 1) {
+                    // Remove all the previous content if there is a filter
+                    if(filter != ""){
+                        postCover.innerHTML = ""
+                    }
+                    // Check if the data is empty and render an empty writeup
+                    if(!this.func.isEmpty(val.content)) {
+                        val.content.forEach(elem => {
+                            var post = new PostHTML(elem, from, "../")
+                            postCover.insertAdjacentHTML("beforeend", post.main())
+                        })
+                    }else{
+                        postCover.innerHTML = emptyContent()
+                    }
                 }
 
                 this.func.notice_box(val)
@@ -347,4 +351,12 @@ class Post {
         })
     }
 
+}
+
+function emptyContent() {
+    return `
+        <div class='empty'>
+            <p>Empty. . .</p>
+        </div>
+    `
 }

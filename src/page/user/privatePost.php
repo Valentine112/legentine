@@ -1,9 +1,9 @@
 <?php
     // Check if the person is not properly logged into the private sect on
-    // echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+    echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
     // print_r($_SESSION['private']);
-    // //if($_SESSION['private'] === 0) echo "<script>window.location = 'privateAccess'; </script>";
-    // print_r($_SESSION);
+    //if($_SESSION['private'] !== 1) echo "<script>window.location = 'privateAccess'; </script>";
+    print_r($_SESSION);
 ?>
 <html lang="en">
 <head> 

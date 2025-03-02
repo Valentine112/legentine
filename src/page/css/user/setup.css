@@ -25,9 +25,8 @@
     resize: none;
     font-family: 'SourceSansPro', sans-serif;
     font-size: 16px;
-    color: #5e5e5e;
+    color: #000;
     outline: none;
-    font-weight: 600;
     transition: border 0.2s ease-out;
 }
 .main textarea:focus{
@@ -72,6 +71,8 @@
     outline: none;
     font-family: 'SourceSansPro', sans-serif;
     font-size: 16px;
+    margin: 1% 0;
+    border-radius: 0;
 }
 .main .username-info{
     font-size: 14px;
@@ -92,5 +93,6 @@
     .main input{
         width: 20%;
         padding: 1%;
+        margin: 0;
     }
 }

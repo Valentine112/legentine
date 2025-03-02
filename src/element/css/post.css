@@ -380,3 +380,14 @@
         margin: 1.6%;
     }
 }
+
+/* Empty message if there are no post */
+.empty{
+    width: 100%;
+    text-align: center;
+    margin-top: 10%;
+}
+.empty p{
+    font-family: var(--theme-font);
+    font-size: 18px;
+}

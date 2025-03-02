@@ -163,10 +163,11 @@ function submitPrivate(self) {
             data.val['password'] = parent.querySelector("#password").value
         }
 
+        new Func().buttonConfig(self, "before")
             
         new Func().request("../request.php", JSON.stringify(data), 'json')
         .then(val => {
-
+            new Func().buttonConfig(self, "after")
             if(val.status === 1) {
                 window.location = "privatePost"
             }

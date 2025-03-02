@@ -106,7 +106,6 @@
                 $this->content = "Successful";
 
                 $_SESSION['private'] = 1;
-
             else:
                 $this->message = "fill";
                 $this->content = "Pin is incorrect";

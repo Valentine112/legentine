@@ -121,6 +121,4 @@
     ->listen();
 
     // Routing ends
-
-
 ?>
