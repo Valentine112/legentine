@@ -315,7 +315,8 @@
                      * This would only work here
                      */
 
-                    $blocked_query = Func::blockedUsers(self::$db, $user)[0];$blocked_result = Func::blockedUsers(self::$db, $user)[1];
+                    $blocked_query = Func::blockedUsers(self::$db, $user)[0];
+                    $blocked_result = Func::blockedUsers(self::$db, $user)[1];
                 endif;
                 /**
                  * Fetching post from pages that requires the user to be logged in
@@ -439,11 +440,13 @@
              * Pages ---- "read"
              */
             
+     
             if($from == "home"):
                 // Configuring the data to be able to fetch depending on the pages its been pulled from
 
                 $query = "";
                 $queryParam = "";
+                $readers = "";
 
                 // Configure the blocked query if the user is not logged in
                 if($session['type'] === 0):
@@ -458,11 +461,25 @@
                     $query = $this->data['val']['query'];
                     $queryParam = "# ".$this->data['val']['value'];
                     $filter = $this->data['val']['filter'];
-
                 endif;
 
+                // Check viewed post
+                $this->selecting->more_details("WHERE user = ?# $this->user");
+                $action = $this->selecting->action("post", "readers");
+                $this->selecting->reset();
+                if($action != null) return $action;
+                $readers = $this->selecting->pull();
+                $arr = [];
+                foreach($readers[0] as $reader):
+                    array_push($arr, $reader['post']);
+                endforeach;
+                // Preparing the query for the viewed post
+                $param = array_fill(1, $readers[1], "?");
+                $param = implode(",", $param);
+                $readers = implode("#", $arr);
+
                 if($filter === ""):
-                    $this->selecting->more_details("WHERE privacy = ? $blocked_query  $query $order# $zero# $blocked_result"."$queryParam");
+                    $this->selecting->more_details("WHERE privacy = ? AND id NOT IN ($param) $blocked_query  $query $order# $zero# $readers# $blocked_result"."$queryParam");
 
                 else:
                     $this->selecting->more_details("WHERE privacy = ? AND category = ? $blocked_query $query $order# $zero# $filter# $blocked_result"."$queryParam");
