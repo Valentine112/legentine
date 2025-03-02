@@ -482,7 +482,7 @@
                     $this->selecting->more_details("WHERE privacy = ? AND id NOT IN ($param) $blocked_query  $query $order# $zero# $readers# $blocked_result"."$queryParam");
 
                 else:
-                    $this->selecting->more_details("WHERE privacy = ? AND category = ? $blocked_query $query $order# $zero# $filter# $blocked_result"."$queryParam");
+                    $this->selecting->more_details("WHERE privacy = ?  AND id NOT IN ($param) AND category = ? $blocked_query $query $order# $zero# $readers# $filter# $blocked_result"."$queryParam");
 
                 endif;
 

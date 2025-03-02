@@ -27,7 +27,6 @@ class Post {
 
             this.func.request("../request.php", JSON.stringify(data), 'json')
             .then(val => {
-                console.log(val)
                 // Check if the loader is visible
                 var contents_loader = document.querySelector(".article-content .content-loader")
                 if(contents_loader != null) {
