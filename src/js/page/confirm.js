@@ -156,10 +156,19 @@ window.addEventListener("load", function() {
 
         new Func().request("request.php", JSON.stringify(data), 'json')
         .then(val => {
+            console.log(val)
             // Configure button to prevent multiple request
             new Func().buttonConfig(this, "after")
 
-            new Func().processResponse(val, "error", "error")
+            if(val.status === 2) {
+                // Run the 1 minute timer countdown
+                // Check if the content is array
+                if(val.content['type'] === "countdown") {
+                    countdown(Number(val.content['val']['resentTime']))
+                }
+            }else{
+                new Func().processResponse(val, "error", "error")
+            }
 
         })
     })
@@ -199,3 +208,15 @@ window.addEventListener("load", function() {
         })
     }
 })
+
+function countdown(lTime) {
+    setTimeout(() => {
+        let cTime = Math.round(new Date().getTime()/1000)
+        if(cTime - lTime < 61) {
+            document.querySelector(".countdown span").innerText = `Waiting - 00:${60 - (cTime - lTime)}`
+            countdown(lTime)
+        }else{
+            document.querySelector(".countdown span").innerText = ""
+        }
+    })
+}

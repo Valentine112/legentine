@@ -169,6 +169,7 @@
         }
 
         public function resend(string $path) : array {
+            
             // Fetch the data from the session.json file
             $fetch = json_decode($this->file->fetchFile(), true);
 
@@ -176,22 +177,37 @@
             if(isset($fetch[$this->data['token']])):
                 $info = $fetch[$this->data['token']];
 
-                $email = $info['content']['email'];
-                if(!empty($email)):
+                // Creating a cool down for resending
+                // Cool down is 1 minute
+                // First I get the time for the last email sent which is found is the json data
+                if(time() - $info['time'] > 60):
+                    $email = $info['content']['email'];
+                    if(!empty($email)):
 
-                    $code = (int) random_int(10000, 99999);
-                    $email_body = EmailBody::AuthEmail($code, "You are receiving this notification because this email was used to sign up on our platform and you are required to verify that you own it. Use this code on our platform to verify that you are the owner");
+                        $code = (int) random_int(10000, 99999);
+                        $email_body = EmailBody::AuthEmail($code, "You are receiving this notification because this email was used to sign up on our platform and you are required to verify that you own it. Use this code on our platform to verify that you are the owner");
 
-                    $validate = new EmailValidation($path, $email, null, $this->data);
-                    return $validate->main($this->data['token'], $email_body, $code);
+                        $validate = new EmailValidation($path, $email, null, $this->data);
+                        return $validate->main($this->data['token'], $email_body, $code);
 
+                    else:
+                        $this->status = 0;
+                        $this->message = "void";
+                        $this->content = "Email address was not found";
+
+                    endif;
                 else:
-                    $this->status = 0;
+                    // Using 2 as the status to create a seperate handling for it on the client side
+                    $this->status = 2;
                     $this->message = "void";
-                    $this->content = "Email address was not found";
-
+                    $this->content = [
+                        "val" => [
+                            "resentTime" => $info['time'],
+                            "currentTime" => time()
+                        ],
+                        "type" => "countdown"
+                    ];
                 endif;
-
             else:
                 $this->status = 0;
                 $this->message = "void";

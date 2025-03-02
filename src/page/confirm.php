@@ -106,6 +106,9 @@
                                     <span>Resend</span>
                                 </button>
                             </div>
+                            <div class="countdown">
+                                <span></span>
+                            </div>
                         </form>
                     </div>
                 </div>

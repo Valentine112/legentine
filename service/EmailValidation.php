@@ -55,7 +55,7 @@
                 // Changed the condition to force so i could test for other parts
                 // Would need to turn the condition to true for the correct working
                 // Correctec
-                if($mailing->send_mail()):
+                if(!$mailing->send_mail()):
                     $this->status = 1;
                     $this->message = "void";
                     $this->content = [
