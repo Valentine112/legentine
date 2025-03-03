@@ -53,7 +53,7 @@
 
             // Check if the user exist
             $this->selecting->more_details("WHERE email = ? OR username = ?# $user# $user");
-            $action = $this->selecting->action("email, id, password", "user");
+            $action = $this->selecting->action("email, id, password, cooldown, cooldowntime", "user");
             $this->selecting->reset();
 
             if($action != null) {
@@ -66,12 +66,29 @@
                 $this->status = 0;
                 $this->message = "fill";
                 $this->content = "Invalid username or password";
-
             else:
                 $user_email = $value[0][0]['email'];
                 $user_id = $value[0][0]['id'];
                 $user_password = $value[0][0]['password'];
+                $coolDown = $value[0][0]['cooldown'];
+                $coolDownTime = $value[0][0]['cooldowntime'];
+
+                // Check the total cooldownLogin if its up to 7 and tell the person to try later
+                // This would slow down or prevent brute force attack
+                // The time before a user can try again after been timed out is 30mins
+                if($coolDown === 7 && time() - $coolDownTime < (60 * 30)):
+                    $this->status = 0;
+                    $this->message = "fill";
+                    $this->content = "This account has tried to be accessed way too many times, please reset your password";
+
+                    return $this->deliver();
+                endif;
+
                 if(password_verify($password, $user_password)):
+                    // Reset the countdown
+                    (int) $zero = 0;
+                    $updating = new Update(self::$db, "SET cooldown = ?, cooldowntime = ? WHERE id = ?# $zero# $zero# $user_id");
+                    $updating->mutate('iii', 'user');
                     // Now check for device change
                     $data = [
                         "id" => $user_id,
@@ -86,6 +103,23 @@
                     $this->message = "fill";
                     $this->content = "Invalid username or password";
 
+                    // Update the coolDownLogin and coolDownLoginTimer
+                    if($coolDown < 7):
+                        // Only set the cooldown time if its the first time
+                        $timeQuery = "";
+                        $timeValue = "";
+                        $timeType = "";
+                        if($coolDown === 0):
+                            $timer = time();
+                            $timeQuery = ", cooldowntime = ? ";
+                            $timeValue = "$timer#";
+                            $timeType = "i";
+                        endif;
+                        // update the count
+                        $coolDownPlus = $coolDown + 1;
+                        $updating = new Update(self::$db, "SET cooldown = ? $timeQuery WHERE id = ?# $coolDownPlus# $timeValue $user_id");
+                        $updating->mutate("ii$timeType", "user");
+                    endif;
                 endif;
 
             endif;
@@ -332,6 +366,11 @@
                         $this->status = 1;
                         $this->message = "double/success";
                         $this->content = "Success";
+
+                        // Reset the countdown
+                        (int) $zero = 0;
+                        $updating = new Update(self::$db, "SET cooldown = ?, cooldowntime = ? WHERE id = ?# $zero# $zero# $user");
+                        $updating->mutate('iii', 'user');
 
                         // Delete the key from the file
                         $file->deleteKey($this->data['token']);
