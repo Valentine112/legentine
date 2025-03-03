@@ -79,7 +79,7 @@
                 if($coolDown === 7 && time() - $coolDownTime < (60 * 30)):
                     $this->status = 0;
                     $this->message = "fill";
-                    $this->content = "This account has tried to be accessed way too many times, please reset your password";
+                    $this->content = "This account has tried to be accessed way too many times, reset password or try again later";
 
                     return $this->deliver();
                 endif;
