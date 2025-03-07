@@ -48,6 +48,7 @@ window.addEventListener("load", async function () {
 document.body.addEventListener("click", async function(e) {
     var elem = e.target
     var action = ""
+    let type = ""
     // Check if the targetted element has the data-action attribute
     if(elem.getAttribute("data-action") != null) {
         action = elem.getAttribute("data-action")
@@ -75,12 +76,29 @@ document.body.addEventListener("click", async function(e) {
                     user: param,
                 }
             }
+
+            // Creating the effect from the client side to display speed
+            // Instead of waiting while the request is been processed
+            type = elem.getAttribute("data-type")
+            if(type === "List") {
+                elem.setAttribute("data-type", "Unlist")
+                elem.classList.remove("List")
+                elem.classList.add("Unlist")
+                elem.innerText = "Unlist"
+            }
+
+            if(type === "Unlist") {
+                elem.setAttribute("data-type", "List")
+                elem.classList.remove("Unlist")
+                elem.classList.add("List")
+                elem.innerText = "List"
+            }
     
             new Func().request("../request.php", JSON.stringify(data), 'json')
             .then(val => {
 
                 if(val.status === 1) {
-                    if(val.content === "Unlisted") {
+                    /*if(val.content === "Unlisted") {
                         elem.classList.remove("Unlist")
                         elem.classList.add("List")
 
@@ -92,7 +110,7 @@ document.body.addEventListener("click", async function(e) {
                         elem.classList.add("Unlist")
 
                         elem.innerText = "Unlist"
-                    }
+                    }*/
                 }
 
                 new Func().notice_box(val)
@@ -169,7 +187,7 @@ document.body.addEventListener("click", async function(e) {
 
         case "pin":
             var parent = elem.parentNode
-            var type = elem.getAttribute("data-type")
+            type = elem.getAttribute("data-type")
 
             // First display the effect from the client side
             elem.classList.remove("active")
@@ -193,20 +211,7 @@ document.body.addEventListener("click", async function(e) {
             new Func().request("../request.php", JSON.stringify(data), 'json')
             .then(val => {
                 if(val.status === 1){
-                    var unpin = parent.querySelector(".unpin")
-                    var pin = parent.querySelector(".pinned")
-
-                    if(val.content === "pin") {
-                        unpin.classList.remove("active")
-
-                        pin.classList.add("active")
-                    }
-
-                    if(val.content === "unpin") {
-                        pin.classList.remove("active")
-                        
-                        unpin.classList.add("active")
-                    }
+                    // No need for this, the effect has already been done from the client side
                 }
             })
 
@@ -215,7 +220,7 @@ document.body.addEventListener("click", async function(e) {
         case "profileSection":
             var uploadPhotoBox = document.querySelector(".uploadPhotoBox")
             var parent = elem.closest(".headerSectionSub")
-            var type = elem.getAttribute("data-type")
+            type = elem.getAttribute("data-type")
 
             // Show loader
             document.querySelector(".article-content .content-loader").style.display = "block"

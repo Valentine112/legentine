@@ -96,7 +96,6 @@ window.addEventListener("load", () => {
         if(validPaths.includes(path)){
             // Check if user has reachd the bottom of the page
             if(window.scrollY + window.innerHeight >= document.body.scrollHeight) {
-                console.log(document.querySelectorAll(".entity-body"))
                 // Fetch all the elements on the page
                 if(document.querySelectorAll(".entity-body").length > 10) {
                     var elements = document.querySelectorAll(".entity-body"),

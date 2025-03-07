@@ -125,7 +125,7 @@ class Profile {
         }
 
         return `
-            <div class="${list} action" data-action="profileList">
+            <div class="${list} action" data-type="${list}" data-action="profileList">
                 <span>${list}</span>
             </div>
         `
