@@ -295,6 +295,8 @@
             (string) $order = "";
             (int) $user = 0;
             (int) $zero = 0;
+            (int) $blockee = 0;
+            (string) $categoryValue = "";
 
             // Determine the order based on the page the request was sent from
             if($from === "rank"):
@@ -308,20 +310,10 @@
                 $user = $session['content'];
 
                 // Check where the request is coming from and process
-                if($from === "home" || $from == "rank"):
-                    /**
-                     * For homepage
-                     * Every blocked user wouldn't be displayed
-                     * This would only work here
-                     */
-
-                    $blocked_query = Func::blockedUsers(self::$db, $user)[0];
-                    $blocked_result = Func::blockedUsers(self::$db, $user)[1];
-                endif;
                 /**
                  * Fetching post from pages that requires the user to be logged in
                  * Pages ---- Space
-                 *  Pages ---- Profile
+                 * Pages ---- Profile
                  * Pages ---- Saved
                  * Pages ---- Private
                  */
@@ -426,7 +418,6 @@
             else:
                 // If user is not logged in
                 $this->selecting->more_details("WHERE privacy = ? $order# $zero");
-
             endif;
 
             // FETCHING POST BASED ON THE TYPE OF PAGE THE USER IS IN
@@ -440,7 +431,6 @@
              * Pages ---- "read"
              */
             
-     
             if($from == "home"):
                 // Configuring the data to be able to fetch depending on the pages its been pulled from
 
@@ -448,43 +438,58 @@
                 $queryParam = "";
                 $readers = "";
 
+                // This queryValue holds all the value that would be passed in the query
+                // Creating it specially is to accomodate the filter
+                $queryValue = [];
+
                 // Configure the blocked query if the user is not logged in
                 if($session['type'] === 0):
-                    $blocked_query = "AND ".'1'." = ? ";
-                    $blocked_result = "1";
+                    $blockee = 0;
+                endif;
+
+                // Check if filter is applied then configure it in a query text to add to the query that would be sent
+                $queryType = "";
+                $queryValue = [$zero, $this->user, $blockee];
+                if($filter === ""):
+                    $category = "";
+                    $ctype = "";
+                else:
+                    $category = "AND category = ?";
+                    $ctype = "s";
+                    $queryValue = [$zero, $filter, $this->user, $blockee];
                 endif;
 
                 // If isset 'new', this means that the data is been sent from moreData
                 // If so, we modify the data
-
                 if(isset($this->data['val']['new'])):
                     $query = $this->data['val']['query'];
-                    $queryParam = "# ".$this->data['val']['value'];
-                    $filter = $this->data['val']['filter'];
+                    array_push($queryValue, $this->data['val']['value']);
+                    $queryType = "s";
                 endif;
 
-                // Check viewed post
-                $this->selecting->more_details("WHERE user = ?# $this->user");
-                $action = $this->selecting->action("post", "readers");
-                $this->selecting->reset();
-                if($action != null) return $action;
-                $readers = $this->selecting->pull();
-                $arr = [];
-                foreach($readers[0] as $reader):
-                    array_push($arr, $reader['post']);
-                endforeach;
-                // Preparing the query for the viewed post
-                $param = array_fill(1, $readers[1], "?");
-                $param = implode(",", $param);
-                $readers = implode("#", $arr);
+                // Returning directly if the user is fetching from home page
+                // This is because we would be comparing more than 1 table and the shorthand query normally used wouldn't accomodate that
+                $selecting = self::$db->prepare("SELECT p.* FROM post p WHERE privacy = ? $category AND
+                NOT EXISTS(SELECT NULL FROM readers r WHERE r.user = ? and r.post = p.id)
+                AND NOT EXISTS(SELECT NULL FROM blocked_users b WHERE b.user = ? AND b.other = p.user) $query $order
+                ");
 
-                if($filter === ""):
-                    $this->selecting->more_details("WHERE privacy = ? AND id NOT IN ($param) $blocked_query  $query $order# $zero# $readers# $blocked_result"."$queryParam");
+                $selecting->bind_param("i$ctype"."ii$queryType", ...$queryValue);
+                $response = $selecting->execute();
 
-                else:
-                    $this->selecting->more_details("WHERE privacy = ?  AND id NOT IN ($param) AND category = ? $blocked_query $query $order# $zero# $readers# $filter# $blocked_result"."$queryParam");
+                $a = $selecting->get_result();
+                $value = $a->fetch_all(MYSQLI_ASSOC);
 
-                endif;
+                $r = [$value, count($value)];
+
+                $result = $this->config_data([], $r[0], "user", $user);
+                
+                $this->type = "success";
+                $this->status = 1;
+                $this->message = "void";
+                $this->content = $result;
+
+                return $this->deliver();
 
             elseif($from == "rank"):
                 // In this section the time range would also be put into account
@@ -508,10 +513,10 @@
                 $range = time() - $time_range;
 
                 if($filter === ""):
-                    $this->selecting->more_details("WHERE privacy = ? AND time >= ? AND stars > ? $blocked_query $order# $zero# $range# $zero# $blocked_result");
+                    $this->selecting->more_details("WHERE privacy = ? AND time >= ? AND stars > ? $order# $zero# $range# $zero");
 
                 else:
-                    $this->selecting->more_details("WHERE privacy = ? AND category = ? AND time >= ? AND stars > ? $blocked_query $order# $zero# $filter# $range# $zero# $blocked_result");
+                    $this->selecting->more_details("WHERE privacy = ? AND category = ? AND time >= ? AND stars > ? $order# $zero# $filter# $range# $zero");
 
                 endif;
 
@@ -535,7 +540,6 @@
 
                 if($fetch_comments['status'] === 1):
                     $comments = $fetch_comments['content'];
- 
                 else:
                     return $fetch_comments;
                 endif;
@@ -571,8 +575,6 @@
                 $result[0]['comments'] = $comments;
                 $result[0]['feature'] = $feature;
             endif;
-
-
             $this->type = "success";
             $this->status = 1;
             $this->message = "void";

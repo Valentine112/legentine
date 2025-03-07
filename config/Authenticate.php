@@ -5,6 +5,9 @@
     use Query\Select;
     use Service\Func;
     // Check if user is logged in
+    // 2 - Logged in
+    // 1 - Exploring
+    // 0 - Not logged
 
     class Authenticate{
 
